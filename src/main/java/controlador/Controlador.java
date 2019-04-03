@@ -1,24 +1,19 @@
 package controlador;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import vista.VentanaPpal;
 
-public class Controlador implements ActionListener{
+public class Controlador {
 	
 	private VentanaPpal vista;
-	
+	private ControladorPanelBuscar cBotones;
 	
 	public Controlador(VentanaPpal vista) {
 		this.vista = vista;
+		addControladores();
 	}
 
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	private void addControladores() {
+		cBotones = new ControladorPanelBuscar(vista.pCenter.pBuscar);
+	}
 		
-	}
-	
-	
 }

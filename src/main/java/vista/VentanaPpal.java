@@ -1,12 +1,10 @@
 package vista;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
-import vista.panelCenter.PanelBuscar;
-
-import java.awt.CardLayout;
+import vista.panelBorder.PanelCenter;
+import vista.panelBorder.PanelNorth;
+import vista.panelBorder.PanelSouth;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 
@@ -17,7 +15,7 @@ public class VentanaPpal extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public BorderLayout layout;
+	public BorderLayout border;
 	public PanelNorth pNorth;
 	public PanelCenter pCenter;
 	public PanelSouth pSouth;
@@ -25,28 +23,31 @@ public class VentanaPpal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaPpal() {
+	public VentanaPpal() {	
 		setParametros();
 		instanciarObjetos();
+		pack();
 	}
 
 	private void setParametros() {
-		layout = new BorderLayout(0,0);
-		setLayout(layout);
+		border = new BorderLayout(0,0);
+		setLayout(border);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(800,600));
 		setLocationRelativeTo(null);
+		setResizable(false);
+		setTitle("BIDAI-ON (developed by JYJApps)");
 		setVisible(true);
 	}
 	
 	private void instanciarObjetos() {
 		pNorth = new PanelNorth();
-		add(pNorth, BorderLayout.NORTH);
+		getContentPane().add(pNorth, BorderLayout.NORTH);
 		
 		pCenter = new PanelCenter();
-		add(pCenter, BorderLayout.CENTER);
+		getContentPane().add(pCenter, BorderLayout.CENTER);
 		
 		pSouth = new PanelSouth();
-		add(pSouth, BorderLayout.SOUTH);
+		getContentPane().add(pSouth, BorderLayout.SOUTH);
 	}
 }
