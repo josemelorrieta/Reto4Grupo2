@@ -1,15 +1,21 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.CardLayout;
 
 public class VentanaPpal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
+	public PanelBuscar buscar = new PanelBuscar(); 
 
 	/**
 	 * Launch the application.
@@ -35,8 +41,11 @@ public class VentanaPpal extends JFrame {
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(new CardLayout(0, 0));
+		setLocationRelativeTo(null);
+		
+		contentPane.add(buscar);
 	}
 
 }
