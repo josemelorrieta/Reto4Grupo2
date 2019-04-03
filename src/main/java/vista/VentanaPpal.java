@@ -1,42 +1,52 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import vista.panelCenter.PanelBuscar;
+
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.BorderLayout;
+
 public class VentanaPpal extends JFrame {
 
-	private JPanel contentPane;
-
 	/**
-	 * Launch the application.
+	 * 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaPpal frame = new VentanaPpal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static final long serialVersionUID = 1L;
+	
+	public BorderLayout layout;
+	public PanelNorth pNorth;
+	public PanelCenter pCenter;
+	public PanelSouth pSouth;
 
 	/**
 	 * Create the frame.
 	 */
 	public VentanaPpal() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setParametros();
+		instanciarObjetos();
 	}
 
+	private void setParametros() {
+		layout = new BorderLayout(0,0);
+		setLayout(layout);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setPreferredSize(new Dimension(800,600));
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	
+	private void instanciarObjetos() {
+		pNorth = new PanelNorth();
+		add(pNorth, BorderLayout.NORTH);
+		
+		pCenter = new PanelCenter();
+		add(pCenter, BorderLayout.CENTER);
+		
+		pSouth = new PanelSouth();
+		add(pSouth, BorderLayout.SOUTH);
+	}
 }
