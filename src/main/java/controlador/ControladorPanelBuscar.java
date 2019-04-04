@@ -10,8 +10,13 @@ public class ControladorPanelBuscar {
 
 	private PanelBuscar pBuscar;
 	
-	public ControladorPanelBuscar(PanelBuscar panel) {
-		panel.conectaControlador(new ListenerBotones());
+	public ControladorPanelBuscar(PanelBuscar panel){
+		this.pBuscar=panel;
+		initListeners();
+	}
+	
+	private void initListeners() {
+		this.pBuscar.btnBuscar.addActionListener(new ListenerBotones());
 	}
 
 	private class ListenerBotones implements ActionListener{

@@ -64,12 +64,7 @@ public class PanelBuscar extends JPanel {
 		
 		btnBuscar = new JButton("BUSCAR");
 		btnBuscar.setPreferredSize(new Dimension(300, 50));
-		add(btnBuscar);
-	}
-	
-	public void conectaControlador(ActionListener l) {
-		btnBuscar.addActionListener(l);
 		btnBuscar.setActionCommand("BUSCAR");
-	}
-	
+		add(btnBuscar);
+	}	
 }
