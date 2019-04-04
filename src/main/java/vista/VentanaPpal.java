@@ -31,7 +31,7 @@ public class VentanaPpal extends JFrame {
 
 	private void setParametros() {
 		border = new BorderLayout(0,0);
-		setLayout(border);
+		getContentPane().setLayout(border);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(800,600));
 		setLocationRelativeTo(null);

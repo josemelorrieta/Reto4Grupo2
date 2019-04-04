@@ -3,7 +3,6 @@ package vista.panelCard;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import java.awt.FlowLayout;
 import java.awt.Dimension;

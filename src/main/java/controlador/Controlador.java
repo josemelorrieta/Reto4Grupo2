@@ -1,19 +1,22 @@
 package controlador;
 
+import modelo.Modelo;
 import vista.VentanaPpal;
 
 public class Controlador {
 	
-	private VentanaPpal vista;
+	private VentanaPpal vis;
+	private Modelo mod;
 	private ControladorPanelBuscar cBotones;
 	
-	public Controlador(VentanaPpal vista) {
-		this.vista = vista;
+	public Controlador(VentanaPpal vista, Modelo modelo) {
+		this.vis = vista;
+		this.mod = modelo;
 		addControladores();
 	}
 
 	private void addControladores() {
-		cBotones = new ControladorPanelBuscar(vista.pCenter.pBuscar);
+		cBotones = new ControladorPanelBuscar(vis.pCenter.pBuscar);
 	}
 		
 }
