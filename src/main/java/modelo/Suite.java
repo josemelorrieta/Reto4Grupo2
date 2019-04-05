@@ -1,7 +1,7 @@
 package modelo;
 
 public class Suite extends Habitacion {
-	protected int idSuite;
+	private int idSuite;
 
 	public Suite(int m2, Mobiliario[] arrayMobiliario, int idSuite) {
 		super(m2, arrayMobiliario, TipoHabitacion.SUITE);

@@ -1,7 +1,7 @@
 package modelo;
 
 public class Hotel extends Alojamiento {
-	protected int estrellas;
+	private int estrellas;
 
 	public Hotel(String nombre, Direccion ubicacion, Suite[] arrayHabitaciones, Double precioA, Double precioB, Double precioF) {
 		super(nombre, ubicacion, arrayHabitaciones, precioA, precioB, precioF);

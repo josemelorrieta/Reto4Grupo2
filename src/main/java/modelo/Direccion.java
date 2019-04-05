@@ -1,9 +1,9 @@
 package modelo;
 
 public class Direccion {
-	protected String calle;
-	protected int codPostal;
-	protected String localidad;
+	private String calle;
+	private int codPostal;
+	private String localidad;
 	
 	public Direccion(String calle, int codPostal, String localidad) {
 		this.calle = calle;
