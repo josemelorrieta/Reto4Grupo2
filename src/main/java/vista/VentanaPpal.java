@@ -7,6 +7,7 @@ import vista.panelBorder.PanelNorth;
 import vista.panelBorder.PanelSouth;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 public class VentanaPpal extends JFrame {
 
@@ -45,6 +46,7 @@ public class VentanaPpal extends JFrame {
 		getContentPane().add(pNorth, BorderLayout.NORTH);
 		
 		pCenter = new PanelCenter();
+		pCenter.pBuscar.cbxBuscar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		getContentPane().add(pCenter, BorderLayout.CENTER);
 		
 		pSouth = new PanelSouth();
