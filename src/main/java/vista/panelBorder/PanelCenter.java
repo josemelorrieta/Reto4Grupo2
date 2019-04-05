@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 import vista.panelCard.PanelBuscar;
+import vista.panelCard.PanelPago;
 
 public class PanelCenter extends JPanel {
 
@@ -17,6 +18,7 @@ public class PanelCenter extends JPanel {
 	public CardLayout card;
 	public int currentIndex;
 	public PanelBuscar pBuscar;
+	public PanelPago pPago;
 	
 	public PanelCenter() {
 		setParametros();
@@ -33,6 +35,8 @@ public class PanelCenter extends JPanel {
 	private void instanciarObjetos() {
 		pBuscar = new PanelBuscar();
 		add(pBuscar, "1");	
+		pPago = new PanelPago();
+		add(pPago,"2");
 	}
 	
 	public void prevPanel() {
