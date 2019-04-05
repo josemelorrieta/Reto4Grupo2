@@ -12,15 +12,16 @@ public class Reserva {
 	
 	
 	
-	public Reserva() {
-	}
-
-	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida) {
+	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado) {
 		this.cliente = cliente;
 		this.precio = precio;
 		this.fechaReserva = fechaReserva;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
+		this.alojReservado = alojReservado;
+	}
+
+	public Reserva() {
 	}
 
 	public Cliente getCliente() {
@@ -61,6 +62,14 @@ public class Reserva {
 
 	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
+	}
+
+	public Alojamiento getAlojReservado() {
+		return alojReservado;
+	}
+
+	public void setAlojReservado(Alojamiento alojReservado) {
+		this.alojReservado = alojReservado;
 	}
 	
 	

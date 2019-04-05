@@ -51,10 +51,21 @@ public class MetodosPanelPago {
 		return bd.doubleValue();
 	}
 
+	
+	/**
+	 * Pasa de string a float
+	 * @param texto texto que parse
+	 * @return float 
+	 */
 	public float stringAFloat(String texto) {
 		return Float.parseFloat(texto);
 	}
 
+	/**
+	 * Pasa de float a string con 2 decimales
+	 * @param numf numero que parsea y formatea
+	 * @return string de un numero con 2 decimales
+	 */
 	public String floatAString2Dec(Float numf) {
 		return String.valueOf(dosDec.format(numf));
 	}
