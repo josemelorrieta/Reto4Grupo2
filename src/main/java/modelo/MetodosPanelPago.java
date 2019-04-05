@@ -19,6 +19,11 @@ public class MetodosPanelPago {
 	 * 
 	 * @param dosDec DecimalFormat para modificar su pattern
 	 */
+	
+	public MetodosPanelPago(){
+		dosDecFormato();
+	}
+	
 	private void dosDecFormato() {
 		this.simbolos.setDecimalSeparator('.');
 		this.simbolos.setGroupingSeparator(',');
@@ -48,9 +53,6 @@ public class MetodosPanelPago {
 		int euros = (int) (stringAFloat(cantTexto));
 		int decimales = Math.round((stringAFloat(cantTexto) - euros) * 100);
 		final int[] billetesMonedas = { 500, 200, 100, 50, 20, 10, 5, 2, 1 };
-		// Ejecutra dosDecFormato para inicializar el decimal format con los ajustes
-		// necesarios
-		dosDecFormato();
 
 		for (int i = 0; i < billetesMonedas.length; i++) {
 			if (euros >= billetesMonedas[i]) {

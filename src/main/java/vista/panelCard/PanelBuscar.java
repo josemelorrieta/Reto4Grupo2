@@ -1,28 +1,28 @@
 package vista.panelCard;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JComboBox;
-import java.awt.FlowLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class PanelBuscar extends JPanel {
 
 	/**
-	 * 
+	 * Declaracion de atributos
 	 */
 	private static final long serialVersionUID = 1L;
-
 	public JLabel lblTitulo, lblSubtitulo;
 	public JComboBox<String> cbxBuscar;
 	public JLabel separador0, separador1;
 	public JButton btnBuscar;
 	
 	/**
-	 * Create the panel.
+	 * Constructor del panel
 	 */
 	public PanelBuscar() {
 		setParametros();

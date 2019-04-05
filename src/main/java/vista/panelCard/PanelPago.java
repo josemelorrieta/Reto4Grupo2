@@ -17,27 +17,29 @@ import javax.swing.SwingConstants;
 public class PanelPago extends JPanel {
 
 	/**
-	 * 
+	 * Declaracion de atributos
 	 */
 	private static final long serialVersionUID = 1L;
 	public JButton btn500, btn200, btn100, btn50, btn20, btn10, btn5, btn2, btn1, btn050, btn020, btn010, btn005, btn002, btn001;
-	public JButton[] arrayBtn = {btn500, btn200, btn100, btn50, btn20, btn10, btn5, btn2, btn1, btn050, btn020, btn010, btn005, btn002, btn001};
+	public JButton[] arrayBtn = new JButton[15];
 	public JLabel lblEuro1, lblEuro2, lblEuro3, lblAPagar, lblPagado, lblDineroMetido;
 	public JTextField textAPagar, textPagado, textVueltas;
 	public JList<String> listaCambio;
 	public DefaultListModel<String> modeloCambio;
 
-	
+	/**
+	 * Constructor del panel
+	 */
 	public PanelPago() {
 		setParametros();
 		instanciarObjetos();
 	}
-	
+
 	public void setParametros() {
 		setLayout(null);
 		setPreferredSize(new Dimension(590, 390));
 	}
-	
+
 	public void instanciarObjetos() {
 		lblDineroMetido = new JLabel("Dinero metido:");
 		lblDineroMetido.setFont(new Font("Yu Gothic Medium", Font.BOLD, 16));
@@ -178,7 +180,24 @@ public class PanelPago extends JPanel {
 		btn001.setFont(btn001.getFont().deriveFont(0f));
 		btn001.setBounds(374, 439, 59, 54);
 		add(btn001);
-
+		
+		arrayBtn[0]=btn500;
+		arrayBtn[1]=btn200;
+		arrayBtn[2]=btn100;
+		arrayBtn[3]=btn50;
+		arrayBtn[4]=btn20;
+		arrayBtn[5]=btn10;
+		arrayBtn[6]=btn5;
+		arrayBtn[7]=btn2;
+		arrayBtn[8]=btn1;
+		arrayBtn[9]=btn050;
+		arrayBtn[10]=btn020;
+		arrayBtn[11]=btn010;
+		arrayBtn[12]=btn005;
+		arrayBtn[13]=btn002;
+		arrayBtn[14]=btn001;
+		
+		
 		lblEuro1 = new JLabel("\u20AC");
 		lblEuro1.setFont(new Font("Yu Gothic Medium", Font.BOLD, 20));
 		lblEuro1.setBounds(695, 121, 43, 35);
@@ -218,12 +237,13 @@ public class PanelPago extends JPanel {
 		add(listaCambio);
 
 		textPagado.setText("0.00");
-		textAPagar.setText("0.00");
+		textAPagar.setText("7.00");
 		textVueltas.setText("--------");
 	}
 
 	/**
-	 * Limpia el panel reseteando todos los elementos a valores por defecto seleccionados por el programador
+	 * Limpia el panel reseteando todos los elementos a valores por defecto
+	 * seleccionados por el programador
 	 */
 	public void limpiar() {
 		textPagado.setText("0.00");
@@ -237,8 +257,7 @@ public class PanelPago extends JPanel {
 	 * Activa o desactiva su array de botones al estado que se le pasa por
 	 * parametros
 	 * 
-	 * @param estado El estado que se quiere tener para el array de botones (true =
-	 *               activado y false = desactivado)
+	 * @param estado El estado "enables" que se quiere tener para los botones
 	 */
 	public void ActDesBotones(boolean estado) {
 		for (int i = 0; i < this.arrayBtn.length; i++) {
