@@ -25,7 +25,7 @@ public class ControladorPanelBuscar{
 	private class ListenerBotones implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			((PanelCenter) pBuscar.getParent()).nextPanel();
+			((PanelCenter) pBuscar.getParent()).changePanel("3");
 		}
 		
 	}

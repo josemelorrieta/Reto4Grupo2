@@ -239,6 +239,11 @@ public class PanelPago extends JPanel {
 		textPagado.setText("0.00");
 		textAPagar.setText("7.00");
 		textVueltas.setText("--------");
+		
+		textPagado.setEditable(false);
+		textAPagar.setEditable(false);
+		textVueltas.setEditable(false);
+
 	}
 
 	/**

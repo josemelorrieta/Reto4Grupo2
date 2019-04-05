@@ -14,12 +14,13 @@ public class TestHotel {
 	private Hotel hotelTest;
 	private Direccion direccionTest = new Direccion();
 	private String stringTest1="Test1";
+	private Double doubleTest= 20.0;
 	private Habitacion[] arrayHabitacionTest = {new Habitacion(),new Habitacion(),new Habitacion()};
 	private int intTest=20;
 
 	@Test
 	public void testConstructor() {
-		hotelTest=new Hotel(stringTest1, direccionTest, arrayHabitacionTest,intTest);
+		hotelTest=new Hotel(stringTest1, direccionTest, arrayHabitacionTest,doubleTest,doubleTest,doubleTest,intTest);
 		assertEquals(hotelTest.getNombre(), stringTest1);
 		assertEquals(hotelTest.getUbicacion(), direccionTest);
 		assertArrayEquals(hotelTest.getArrayHabitaciones(), arrayHabitacionTest);
@@ -28,7 +29,7 @@ public class TestHotel {
 	
 	@Test
 	public void testConstructorSuper() {
-		hotelTest=new Hotel(stringTest1, direccionTest, arrayHabitacionTest);
+		hotelTest=new Hotel(stringTest1, direccionTest, arrayHabitacionTest,doubleTest,doubleTest,doubleTest);
 		assertEquals(hotelTest.getNombre(), stringTest1);
 		assertEquals(hotelTest.getUbicacion(), direccionTest);
 		assertArrayEquals(hotelTest.getArrayHabitaciones(), arrayHabitacionTest);
