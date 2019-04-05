@@ -1,7 +1,7 @@
 package modelo;
 
 public class Mobiliario {
-	private String nombre;
+	protected String nombre;
 
 	public Mobiliario(String nombre) {
 		this.nombre = nombre;

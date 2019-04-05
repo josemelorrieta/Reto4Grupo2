@@ -6,8 +6,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import modelo.Direccion;
-import modelo.Habitacion;
 import modelo.Hotel;
+import modelo.Suite;
 
 public class TestHotel {
 
@@ -15,7 +15,7 @@ public class TestHotel {
 	private Direccion direccionTest = new Direccion();
 	private String stringTest1="Test1";
 	private Double doubleTest= 20.0;
-	private Habitacion[] arrayHabitacionTest = {new Habitacion(),new Habitacion(),new Habitacion()};
+	private Suite[] arrayHabitacionTest = {new Suite(),new Suite(),new Suite()};
 	private int intTest=20;
 
 	@Test

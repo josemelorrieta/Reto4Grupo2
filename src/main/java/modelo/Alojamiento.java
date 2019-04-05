@@ -1,12 +1,12 @@
 package modelo;
 
 public class Alojamiento {
-	private String nombre;
-	private Direccion ubicacion;
-	private Habitacion[] arrayHabitaciones;
-	private Double precioTAlta;
-	private Double precioTBaja;
-	private Double precioTFest;
+	protected String nombre;
+	protected Direccion ubicacion;
+	protected Habitacion[] arrayHabitaciones;
+	protected Double precioTAlta;
+	protected Double precioTBaja;
+	protected Double precioTFest;
 	
 	public Alojamiento(String nombre, Direccion ubicacion, Habitacion[] arrayHabitaciones,Double precioA,Double precioB,Double precioF) {
 		this.nombre = nombre;

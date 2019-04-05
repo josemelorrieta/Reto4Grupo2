@@ -3,11 +3,12 @@ package modelo;
 import java.util.Date;
 
 public class Reserva {
-	private Cliente cliente;
-	private double precio;
-	private Date fechaReserva;
-	private Date fechaEntrada;
-	private Date fechaSalida;
+	protected Cliente cliente;
+	protected double precio;
+	protected Date fechaReserva;
+	protected Date fechaEntrada;
+	protected Date fechaSalida;
+	protected Alojamiento alojReservado;
 	
 	
 	

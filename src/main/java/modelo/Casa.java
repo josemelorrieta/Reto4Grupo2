@@ -1,6 +1,6 @@
 package modelo;
 
 public class Casa extends Alojamiento{
-	int banios;
-	int m2;
+	protected int banios;
+	protected int m2;
 }

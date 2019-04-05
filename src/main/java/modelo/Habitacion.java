@@ -1,9 +1,9 @@
 package modelo;
 
 public class Habitacion {
-	private int m2;
-	private Mobiliario[] arrayMobiliario;
-	private TipoHabitacion tipoHabitacion;
+	protected int m2;
+	protected Mobiliario[] arrayMobiliario;
+	protected TipoHabitacion tipoHabitacion;
 	
 	public Habitacion(int m2, Mobiliario[] arrayMobiliario,TipoHabitacion tipoHabitacion) {
 		this.m2 = m2;

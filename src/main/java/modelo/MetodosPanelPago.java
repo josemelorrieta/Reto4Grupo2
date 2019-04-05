@@ -1,12 +1,16 @@
 package modelo;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-
 import javax.swing.JButton;
-
 import vista.panelCard.PanelPago;
 
 public class MetodosPanelPago {
@@ -14,16 +18,15 @@ public class MetodosPanelPago {
 	private DecimalFormatSymbols simbolos = new DecimalFormatSymbols(Locale.getDefault());
 	private DecimalFormat dosDec;
 
+	public MetodosPanelPago() {
+		dosDecFormato();
+	}
+
 	/**
 	 * Indica al decimal format como se quiere formatear los numeros
 	 * 
 	 * @param dosDec DecimalFormat para modificar su pattern
 	 */
-	
-	public MetodosPanelPago(){
-		dosDecFormato();
-	}
-	
 	private void dosDecFormato() {
 		this.simbolos.setDecimalSeparator('.');
 		this.simbolos.setGroupingSeparator(',');
@@ -31,6 +34,21 @@ public class MetodosPanelPago {
 		this.dosDec.setMinimumFractionDigits(2);
 		this.dosDec.setGroupingSize(300);
 		this.dosDec.setMaximumFractionDigits(2);
+	}
+
+	/**
+	 * Redondea un double a n numero de decimales
+	 * 
+	 * @param value  numero que se desea redondear
+	 * @param numDec numero de decimales
+	 * @return el numero redondeado
+	 */
+	public double redondear(double value, int numDec) {
+		if (numDec < 0)
+			throw new IllegalArgumentException();
+		BigDecimal bd = new BigDecimal(value);
+		bd = bd.setScale(numDec, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
 
 	public float stringAFloat(String texto) {
@@ -83,16 +101,15 @@ public class MetodosPanelPago {
 			panel.ActDesBotones(false);
 			panel.textAPagar.setText("0.00");
 			panel.textPagado.setText(arrDinero[1]);
-			String cambios=floatAString2Dec(Math.abs(stringAFloat(arrDinero[0])));
+			String cambios = floatAString2Dec(Math.abs(stringAFloat(arrDinero[0])));
 			panel.textVueltas.setText(cambios);
-			ArrayList<String> arrayCambios=Cambios(cambios);
-			for(String val : arrayCambios)
-		         panel.modeloCambio.addElement(val);
-		}else {
+			ArrayList<String> arrayCambios = Cambios(cambios);
+			for (String val : arrayCambios)
+				panel.modeloCambio.addElement(val);
+		} else {
 			panel.textAPagar.setText(arrDinero[0]);
 			panel.textPagado.setText(arrDinero[1]);
 		}
-
 	}
 
 	/**
@@ -136,6 +153,31 @@ public class MetodosPanelPago {
 			throw new IllegalArgumentException("Simbolo de operacion invalido, solo se admite + y -");
 		}
 		return new String[] { floatAString2Dec(dineroAPagar), floatAString2Dec(dineroPagado) };
+	}
+
+
+	/**
+	 * Imprime el ticket de la reserva con los datos requeridos
+	 * @param res La reserva
+	 * @param cli El cliente
+	 */
+	public void imprimirBillete(Reserva res,Cliente cli) {
+		PrintWriter writer;
+		SimpleDateFormat formFecha = new SimpleDateFormat("dd-MM-yyyy");
+		try {
+			writer = new PrintWriter("Reserva de "+ cli.getNombre() + ".txt", "UTF-8");
+			writer.println("INFORMACIÓN DE LA RESERVA");
+			writer.println("Datos del cliente: \n");
+			writer.println("Nombre: "+cli.getNombre());
+			writer.println("Datos de la reserva: \n");
+			writer.println("Fecha de la reserva: "+formFecha.format(res.getFechaReserva()));
+			writer.println("Fecha de entrada   : "+formFecha.format(res.getFechaEntrada()));
+			writer.println("Fecha de salida    : "+formFecha.format(res.getFechaSalida()));
+			writer.println("\nPrecio total: "+redondear(res.getPrecio(), 2));
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
