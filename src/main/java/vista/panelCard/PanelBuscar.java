@@ -10,16 +10,16 @@ import javax.swing.JButton;
 public class PanelBuscar extends JPanel {
 
 	/**
-	 * 
+	 * Declaracion de atributos
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public JLabel lblElejirLoc;
+	public JLabel lblTitulo, lblSubtitulo,lblElejirLoc;
 	public JComboBox<String> cbxBuscar;
 	public JButton btnBuscar;
 	
 	/**
-	 * Create the panel.
+	 * Constructor del panel
 	 */
 	public PanelBuscar() {
 		setParametros();

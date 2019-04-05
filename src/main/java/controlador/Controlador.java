@@ -7,7 +7,8 @@ public class Controlador {
 	
 	private VentanaPpal vis;
 	private Modelo mod;
-	private ControladorPanelBuscar cBotones;
+	private ControladorPanelBuscar cBuscar;
+	private ControladorPanelPago cPago;
 	
 	public Controlador(VentanaPpal vista, Modelo modelo) {
 		this.vis = vista;
@@ -16,7 +17,8 @@ public class Controlador {
 	}
 
 	private void addControladores() {
-		cBotones = new ControladorPanelBuscar(vis.pCenter.pBuscar);
+		cBuscar = new ControladorPanelBuscar(vis.pCenter.pBuscar,this);
+		cPago = new ControladorPanelPago(vis.pCenter.pPago, this);
 	}
 		
 }
