@@ -1,10 +1,10 @@
 package modelo;
 
-import BaseDatos.ConsultaBBD;
+import BaseDatos.ConsultaBD;
 
 public class Modelo {
 	
-	private ConsultaBBD bd;
+	private ConsultaBD bd;
 	
 	private Hotel hotel;
 	private Reserva reserva;
@@ -19,7 +19,7 @@ public class Modelo {
 		Hotel[] aux = (Hotel[])bd.consultarToArray("SELECT `nombre`,`numEstrellas`,`pvpTAlta`,`pvpTBaja`,`pvpRecFestivo` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='"+localidad+"')");
 		hotelesBusqueda = new Hotel[aux.length];
 		for(int i=0;i<aux.length;i++) {
-			hotelesBusqueda[i] = new Hotel(aux[i].nombre,null,null,aux[i].precioTAlta,aux[i].precioTBaja,aux[i].precioTFest,aux[i].estrellas);
+			hotelesBusqueda[i] = new Hotel(aux[i].nombre,null,null,aux[i].precioTAlta,aux[i].precioTBaja,aux[i].precioTFest,aux[i].getEstrellas());
 		}
 	}
 	
