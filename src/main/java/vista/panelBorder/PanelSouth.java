@@ -5,11 +5,12 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
+import vista.panelCard.PanelInfBotones;
+
 public class PanelSouth extends JPanel {
 
-	/**
-	 * 
-	 */
+	public PanelInfBotones pBotones = new PanelInfBotones();
+	
 	private static final long serialVersionUID = 1L;
 	
 	public PanelSouth() {
@@ -23,6 +24,6 @@ public class PanelSouth extends JPanel {
 	}
 	
 	private void instanciarObjetos() {
-		
+		add(pBotones);
 	}
 }

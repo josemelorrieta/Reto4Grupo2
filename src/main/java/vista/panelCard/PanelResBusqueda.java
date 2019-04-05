@@ -40,6 +40,7 @@ public class PanelResBusqueda extends JPanel {
 		
 		resultBusq = new JList<Hotel>(modelResBusq);
 		resultBusq.setBounds(100, 60, 600, 320);
+		resultBusq.setCellRenderer(new ItemResBusqueda());
 		add(new JScrollPane(resultBusq));
 	}
 	
