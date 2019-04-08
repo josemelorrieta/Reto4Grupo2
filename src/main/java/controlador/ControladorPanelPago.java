@@ -5,36 +5,34 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import modelo.MetodosPanelPago;
 import modelo.Modelo;
+import vista.VentanaPpal;
 import vista.panelCard.PanelPago;
 
 public class ControladorPanelPago {
 
-	private PanelPago pPago;
+	private VentanaPpal vis;
 	private Modelo mod;
 	private Controlador controlador;
 	
-	public ControladorPanelPago(PanelPago panel,Controlador cont,Modelo mod) {
-		this.pPago=panel;
+	public ControladorPanelPago(VentanaPpal vis,Controlador cont,Modelo mod) {
+		this.vis=vis;
 		this.controlador=cont;
 		this.mod=mod;
 		initListeners();
 	}
 
 	private void initListeners() {
-		for(JButton btn : this.pPago.arrayBtn) {
-			btn.addActionListener(new ListenerBotones());
+		for(JButton btn : vis.pCenter.pPago.arrayBtn) {
+			btn.addActionListener(new ListenerBotonesDinero());
 		}
 		
 	}
 	
-	private class ListenerBotones implements ActionListener{
+	private class ListenerBotonesDinero implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mod.mPago.sumarDinero(pPago, (JButton) e.getSource());
+			mod.mPago.sumarDinero(vis.pCenter.pPago, (JButton) e.getSource());
 		}
-		
 	}
-	
 }
