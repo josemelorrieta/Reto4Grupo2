@@ -7,7 +7,6 @@ import javax.swing.JButton;
 
 import modelo.Modelo;
 import vista.VentanaPpal;
-import vista.panelCard.PanelPago;
 
 public class ControladorPanelPago {
 
