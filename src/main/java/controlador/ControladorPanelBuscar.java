@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import modelo.Modelo;
 import vista.VentanaPpal;
@@ -28,12 +29,11 @@ public class ControladorPanelBuscar{
 	}
 
 	public void cargarLocalidades() {
-		vis.pCenter.pBuscar.cbxBuscar.addItem("Bilbao");
-//		Localidad[] localidades = mod.mBuscar.buscarLocalidades();
-//		if(localidades!=null) {
-//			for(Localidad localidad : localidades)
-//				pBuscar.cbxBuscar.addItem(localidad.getLocalidad());
-//		}
+		Localidad[] localidades = mod.mBuscar.buscarLocalidades();
+		if(localidades!=null) {
+			for(Localidad localidad : localidades)
+				vis.pCenter.pBuscar.cbxBuscar.addItem(localidad.getLocalidad());
+		}
 	}
 
 
