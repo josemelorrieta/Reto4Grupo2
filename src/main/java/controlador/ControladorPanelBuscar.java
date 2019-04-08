@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import modelo.Localidad;
 import modelo.Modelo;
 import vista.VentanaPpal;
 

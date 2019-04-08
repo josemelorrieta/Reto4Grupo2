@@ -41,12 +41,14 @@ public class PanelResBusqueda extends JPanel {
 		lblLocBusq.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblLocBusq.setBounds(230, 30, 360, 26);
 		add(lblLocBusq);
+		add(new JScrollPane());
 		
 		resultBusq = new JList<Hotel>(modelResBusq);
+		add(resultBusq);
 		resultBusq.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		resultBusq.setBounds(100, 60, 600, 320);
+		resultBusq.setBounds(100, 67, 600, 320);
+		resultBusq.setPreferredSize(new Dimension(600,320));
 		resultBusq.setCellRenderer(new ItemResBusqueda());
-		add(new JScrollPane(resultBusq));
 	}	
 	
 	public void setResultBusqueda(Hotel[] hoteles) {
