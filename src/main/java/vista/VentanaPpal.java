@@ -27,14 +27,15 @@ public class VentanaPpal extends JFrame {
 	public VentanaPpal() {	
 		setParametros();
 		instanciarObjetos();
-		pack();
+		//pack();
 	}
 
 	private void setParametros() {
 		border = new BorderLayout(0,0);
 		getContentPane().setLayout(border);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(800,600));
+		setSize(800,600);
+		//setPreferredSize(new Dimension(800,600));
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("BIDAI-ON (developed by JYJApps)");

@@ -28,11 +28,9 @@ public class Modelo {
 	}
 	
 	public void cargarHoteles(String localidad) {
-		String aux = bd.consultarToGson("SELECT `nombre`,`numEstrellas`,`pvpTAlta`,`pvpTBaja`,`pvpRecFestivo` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='"+localidad+"')");
+		String aux = bd.consultarToGson("SELECT `nombre`,`numEstrellas` 'estrellas',`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest' FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='"+localidad+"')");
 		final Gson gson = new Gson();
-		//Type tipoListaHoteles = new TypeToken<List<Hotel>>(){}.getType();
 		hotelesBusqueda = gson.fromJson(aux, Hotel[].class);
-		//Hotel[] hotelesBusqueda = (Hotel[]) hoteles.toArray();
 		for(Hotel hotel:hotelesBusqueda) {
 			hotel.setUbicacion(new Direccion("", 34533, localidad));
 		}

@@ -12,15 +12,17 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.BevelBorder;
 
 import modelo.Hotel;
+import javax.swing.SwingConstants;
 
 public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> {
 
 	private static final long serialVersionUID = 1L;
 	
-	private JLabel lblFoto, lblNombre, lblLocalidad;
+	private JLabel lblFoto, lblNombre, lblLocalidad, lblPrecio;
 	
 	public ItemResBusqueda() {
 		setPreferredSize(new Dimension(500,111));
+		setSize(500,111);
 		setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		setLayout(null);
 
@@ -39,6 +41,17 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 		lblLocalidad.setFont(new Font("Tahoma", Font.ITALIC, 14));
 		lblLocalidad.setBounds(122, 48, 366, 20);
 		add(lblLocalidad);
+		
+		lblPrecio = new JLabel("0");
+		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPrecio.setBounds(353, 64, 106, 36);
+		add(lblPrecio);
+		
+		JLabel lblEuro = new JLabel("\u20AC");
+		lblEuro.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblEuro.setBounds(469, 64, 21, 36);
+		add(lblEuro);
 	}
 
 	@Override
@@ -50,6 +63,7 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 		lblFoto.setIcon(imagen);
 		lblNombre.setText(hotel.getNombre());
 		lblLocalidad.setText(hotel.getUbicacion().getLocalidad());
+		lblPrecio.setText(Double.toString(hotel.getPrecioTAlta()));
 		
 		if (isSelected) {
 		    setBackground(lista.getSelectionBackground());

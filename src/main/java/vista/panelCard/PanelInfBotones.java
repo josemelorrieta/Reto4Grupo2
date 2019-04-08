@@ -19,6 +19,7 @@ public class PanelInfBotones extends JPanel {
 			
 	private void setParametros() {
 		setPreferredSize(new Dimension(800, 110));
+		setVisible(false);
 	}
 	
 	private void instanciarObjetos() {

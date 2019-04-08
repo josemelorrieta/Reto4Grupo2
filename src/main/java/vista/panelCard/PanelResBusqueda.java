@@ -49,7 +49,7 @@ public class PanelResBusqueda extends JPanel {
 		resultBusq.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scroll = new JScrollPane(resultBusq);
 		scroll.setLocation(100, 60);
-		scroll.setPreferredSize(new Dimension(620, 320));
+		scroll.setSize(520, 320);
 		add(scroll);
 		resultBusq.setCellRenderer(new ItemResBusqueda());
 	}	
