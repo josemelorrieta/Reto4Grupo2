@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import modelo.MetodosPanelPago;
 import modelo.Modelo;
 import vista.panelCard.PanelPago;
 
@@ -24,17 +23,15 @@ public class ControladorPanelPago {
 
 	private void initListeners() {
 		for(JButton btn : this.pPago.arrayBtn) {
-			btn.addActionListener(new ListenerBotones());
+			btn.addActionListener(new ListenerBotonesDinero());
 		}
 		
 	}
 	
-	private class ListenerBotones implements ActionListener{
+	private class ListenerBotonesDinero implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mod.mPago.sumarDinero(pPago, (JButton) e.getSource());
 		}
-		
 	}
-	
 }
