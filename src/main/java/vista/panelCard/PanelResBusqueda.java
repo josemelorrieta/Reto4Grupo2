@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import modelo.Hotel;
+import javax.swing.ListSelectionModel;
 
 public class PanelResBusqueda extends JPanel {
 
@@ -27,7 +28,10 @@ public class PanelResBusqueda extends JPanel {
 	private void setParametros() {
 		setPreferredSize(new Dimension(800, 400));
 		setLayout(null);
-		
+
+	}
+	
+	private void instanciarObjetos() {
 		lblResBusq = new JLabel("Resultados para ");
 		lblResBusq.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblResBusq.setBounds(100, 30, 135, 26);
@@ -39,13 +43,15 @@ public class PanelResBusqueda extends JPanel {
 		add(lblLocBusq);
 		
 		resultBusq = new JList<Hotel>(modelResBusq);
+		resultBusq.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultBusq.setBounds(100, 60, 600, 320);
 		resultBusq.setCellRenderer(new ItemResBusqueda());
 		add(new JScrollPane(resultBusq));
-	}
-	
-	private void instanciarObjetos() {
-		
-		
 	}	
+	
+	public void setResultBusqueda(Hotel[] hoteles) {
+		for(Hotel hotel:hoteles) {
+			modelResBusq.addElement(hotel);
+		}
+	}
 }

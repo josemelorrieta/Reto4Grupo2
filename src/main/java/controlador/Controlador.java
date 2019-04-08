@@ -18,7 +18,7 @@ public class Controlador {
 	}
 
 	private void addControladores() {
-		cBuscar = new ControladorPanelBuscar(vis.pCenter.pBuscar,this,mod);
+		cBuscar = new ControladorPanelBuscar(vis,this,mod);
 		cPago = new ControladorPanelPago(vis.pCenter.pPago, this,mod);
 		cResBusqueda = new ControladorPanelResBusqueda(vis.pCenter.pResBusq, vis.pSouth.pBotones, this);
 	}
