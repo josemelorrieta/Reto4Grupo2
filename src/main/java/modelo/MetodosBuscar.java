@@ -18,9 +18,9 @@ public class MetodosBuscar {
 	public Localidad[] buscarLocalidades() {
 		String aux = bd.consultarToGson("SELECT DISTINCT `localidad` FROM `direccion`");
 		final Gson gson = new Gson();
-		Type tipoListaLocalidades = new TypeToken<List<Localidad>>(){}.getType();
-		final List<Localidad> localidades = gson.fromJson(aux, tipoListaLocalidades);
-		Localidad[] localidadesBusqueda = (Localidad[]) localidades.toArray();
-		return localidadesBusqueda;
+		Localidad[] localidades = gson.fromJson(aux, Localidad[].class);
+//		Localidad[] localidades = gson.fromJson(aux, tipoListaLocalidades);
+		//Localidad[] localidadesBusqueda = (Localidad[]) localidades.toArray();
+		return localidades;
 	}
 }
