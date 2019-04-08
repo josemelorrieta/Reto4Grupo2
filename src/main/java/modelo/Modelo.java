@@ -10,20 +10,24 @@ import BaseDatos.ConsultaBD;
 
 public class Modelo {
 	
-	private ConsultaBD bd;
+	public ConsultaBD bd;
 	
 	public Hotel hotel;
 	public Reserva reserva;
 	public Hotel[] hotelesBusqueda;
+	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
+	
 	
 	public Modelo() {
 		hotel = new Hotel();
 		reserva = new Reserva();
+		bd = new ConsultaBD();
 		addMetodos();
 	}
 	
 	public void addMetodos() {
+		mBuscar=new MetodosBuscar(bd);
 		mPago=new MetodosPanelPago();
 	}
 	
@@ -32,8 +36,10 @@ public class Modelo {
 		final Gson gson = new Gson();
 		Type tipoListaHoteles = new TypeToken<List<Hotel>>(){}.getType();
 		final List<Hotel> hoteles = gson.fromJson(aux, tipoListaHoteles);
-		Hotel[] hotelesBusqueda = (Hotel[]) hoteles.toArray();
-
+		Hotel[] hotelesBusqueda = ((Hotel[])hoteles.toArray());
+		for(Hotel hotel:hotelesBusqueda) {
+			hotel.getUbicacion().setLocalidad(localidad);
+		}
 	}
 
 	public Hotel[] getHotelesBusqueda() {
