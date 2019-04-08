@@ -18,14 +18,9 @@ public class Controlador {
 	}
 
 	private void addControladores() {
-		cBuscar = new ControladorPanelBuscar(vis.pCenter.pBuscar,this,mod);
-		cPago = new ControladorPanelPago(vis.pCenter.pPago, this,mod);
-		cResBusqueda = new ControladorPanelResBusqueda(vis.pCenter.pResBusq, vis.pSouth.pBotones, this);
+		cBuscar = new ControladorPanelBuscar(vis,this,mod);
+		cPago = new ControladorPanelPago(vis.pCenter.pPago, this, mod);
+		cResBusqueda = new ControladorPanelResBusqueda(vis, this);
 	}
 	
-	public void trigger(int i) {
-		if(i==1) {
-			
-		}
-	}
 }

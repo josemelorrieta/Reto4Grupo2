@@ -3,25 +3,22 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import vista.VentanaPpal;
 import vista.panelBorder.PanelCenter;
-import vista.panelCard.PanelInfBotones;
-import vista.panelCard.PanelResBusqueda;
 
 public class ControladorPanelResBusqueda {
-	private PanelResBusqueda pResBusqueda;
-	private PanelInfBotones pInfBotones;
+	private VentanaPpal vis;
 	private Controlador controlador;
 	
-	public ControladorPanelResBusqueda(PanelResBusqueda panel, PanelInfBotones panelInf,Controlador cont) {
-		this.pResBusqueda=panel;
-		this.pInfBotones=panelInf;
+	public ControladorPanelResBusqueda(VentanaPpal vis,Controlador cont) {
+		this.vis=vis;
 		this.controlador=cont;
 		initListeners();
 	}
 
 	private void initListeners() {
-		this.pInfBotones.btnSiguiente.addActionListener(new ListenerBotones());
-		this.pInfBotones.btnVolver.addActionListener(new ListenerBotones());
+		vis.pSouth.pBotones.btnSiguiente.addActionListener(new ListenerBotones());
+		vis.pSouth.pBotones.btnVolver.addActionListener(new ListenerBotones());
 		
 	}
 	
@@ -30,8 +27,10 @@ public class ControladorPanelResBusqueda {
 		public void actionPerformed(ActionEvent e) {
 			String accion = e.getActionCommand();
 			switch (accion) {
-				case "SIGUIENTE": ((PanelCenter) pResBusqueda.getParent()).changePanel("3");break;
-				case "VOLVER": ((PanelCenter) pResBusqueda.getParent()).changePanel("1");break;
+				case "SIGUIENTE": ((PanelCenter) vis.pCenter).changePanel("3");break;
+				case "VOLVER": ((PanelCenter) vis.pCenter).changePanel("1");
+								vis.pSouth.pBotones.setVisible(false);
+								break;
 			}
 		}
 		
