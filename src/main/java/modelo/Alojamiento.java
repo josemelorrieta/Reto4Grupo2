@@ -1,6 +1,7 @@
 package modelo;
 
 public class Alojamiento {
+	protected int id;
 	protected String nombre;
 	protected Direccion ubicacion;
 	protected Habitacion[] arrayHabitaciones;
@@ -8,6 +9,10 @@ public class Alojamiento {
 	protected Double precioTBaja;
 	protected Double precioTFest;
 
+	public Alojamiento() {
+		//Constructor por defecto
+	}
+	
 	public Alojamiento(String nombre, Direccion ubicacion, Habitacion[] arrayHabitaciones, Double precioA, Double precioB, Double precioF) {
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
@@ -16,22 +21,24 @@ public class Alojamiento {
 		this.precioTBaja = precioB;
 		this.precioTFest = precioF;
 	}
-	
-	
+		
 	//const temporal
-	public Alojamiento(String nombre, Double precioTAlta, Double precioTBaja, Double precioTFest) {
-		super();
+	public Alojamiento(int id, String nombre, Double precioTAlta, Double precioTBaja, Double precioTFest) {
+		this.id = id;
 		this.nombre = nombre;
 		this.precioTAlta = precioTAlta;
 		this.precioTBaja = precioTBaja;
 		this.precioTFest = precioTFest;
 	}
 
-
-
-	public Alojamiento() {
+	public int getId() {
+		return id;
 	}
-
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

@@ -14,8 +14,8 @@ public class Hotel extends Alojamiento {
 
 	
 	//const temporal
-	public Hotel(String nombre, Double precioTAlta, Double precioTBaja, Double precioTFest, int estrellas) {
-		super(nombre, precioTAlta, precioTBaja, precioTFest);
+	public Hotel(int id, String nombre, Double precioTAlta, Double precioTBaja, Double precioTFest, int estrellas) {
+		super(id, nombre, precioTAlta, precioTBaja, precioTFest);
 		this.estrellas = estrellas;
 	}
 

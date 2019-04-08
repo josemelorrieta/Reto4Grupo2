@@ -30,7 +30,6 @@ public class PanelResBusqueda extends JPanel {
 	private void setParametros() {
 		setPreferredSize(new Dimension(800, 400));
 		setLayout(null);
-
 	}
 	
 	private void instanciarObjetos() {
@@ -47,15 +46,17 @@ public class PanelResBusqueda extends JPanel {
 		resultBusq = new JList<Hotel>(modelResBusq);
 		resultBusq.setBackground(SystemColor.control);
 		resultBusq.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		resultBusq.setCellRenderer(new ItemResBusqueda());
+		
 		scroll = new JScrollPane(resultBusq);
+		//scroll.setBounds(100, 60, 520, 320);
 		scroll.setLocation(100, 60);
 		scroll.setSize(520, 320);
 		add(scroll);
-		resultBusq.setCellRenderer(new ItemResBusqueda());
 	}	
 	
 	public void setResultBusqueda(Hotel[] hoteles) {
-		modelResBusq.removeAllElements();
+		modelResBusq.clear();
 		for(Hotel hotel:hoteles) {
 			modelResBusq.addElement(hotel);
 		}
