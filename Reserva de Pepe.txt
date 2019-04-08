@@ -1,0 +1,12 @@
+INFORMACIÓN DE LA RESERVA
+
+Datos del cliente:
+Nombre: Pepe
+
+Datos de la reserva:
+Nombre Alojamiento: JunjoHoteles
+Fecha de la reserva: 08-04-2019
+Fecha de entrada   : 08-04-2019
+Fecha de salida    : 08-04-2019
+
+Precio total: 40.0
