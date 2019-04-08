@@ -172,15 +172,16 @@ public class MetodosPanelPago {
 	 * @param res La reserva
 	 * @param cli El cliente
 	 */
-	public void imprimirBillete(Reserva res,Cliente cli) {
+	public void imprimirBillete(Reserva res) {
 		PrintWriter writer;
 		SimpleDateFormat formFecha = new SimpleDateFormat("dd-MM-yyyy");
 		try {
-			writer = new PrintWriter("Reserva de "+ cli.getNombre() + ".txt", "UTF-8");
+			writer = new PrintWriter("Reserva de "+ res.getCliente().getNombre() + ".txt", "UTF-8");
 			writer.println("INFORMACIÓN DE LA RESERVA");
 			writer.println("Datos del cliente: \n");
-			writer.println("Nombre: "+cli.getNombre());
+			writer.println("Nombre: "+res.getCliente().getNombre());
 			writer.println("Datos de la reserva: \n");
+			writer.println("Nombre Alojamiento: "+res.getAlojReservado().getNombre());
 			writer.println("Fecha de la reserva: "+formFecha.format(res.getFechaReserva()));
 			writer.println("Fecha de entrada   : "+formFecha.format(res.getFechaEntrada()));
 			writer.println("Fecha de salida    : "+formFecha.format(res.getFechaSalida()));

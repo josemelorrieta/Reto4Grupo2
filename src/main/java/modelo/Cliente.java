@@ -1,7 +1,7 @@
 package modelo;
 
 public class Cliente {
-	protected String nombre;
+	private String nombre;
 
 	public Cliente(String nombre) {
 		this.nombre = nombre;
