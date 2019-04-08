@@ -12,13 +12,19 @@ public class Modelo {
 	
 	private ConsultaBD bd;
 	
-	private Hotel hotel;
-	private Reserva reserva;
-	private Hotel[] hotelesBusqueda;
+	public Hotel hotel;
+	public Reserva reserva;
+	public Hotel[] hotelesBusqueda;
+	public MetodosPanelPago mPago;
 	
 	public Modelo() {
 		hotel = new Hotel();
 		reserva = new Reserva();
+		addMetodos();
+	}
+	
+	public void addMetodos() {
+		mPago=new MetodosPanelPago();
 	}
 	
 	public void cargarHoteles(String localidad) {

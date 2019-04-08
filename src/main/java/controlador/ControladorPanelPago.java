@@ -6,18 +6,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import modelo.MetodosPanelPago;
+import modelo.Modelo;
 import vista.panelCard.PanelPago;
 
 public class ControladorPanelPago {
 
 	private PanelPago pPago;
-	private MetodosPanelPago mPago;
+	private Modelo mod;
 	private Controlador controlador;
 	
-	public ControladorPanelPago(PanelPago panel,Controlador cont) {
+	public ControladorPanelPago(PanelPago panel,Controlador cont,Modelo mod) {
 		this.pPago=panel;
 		this.controlador=cont;
-		this.mPago=new MetodosPanelPago();
+		this.mod=mod;
 		initListeners();
 	}
 
@@ -31,7 +32,7 @@ public class ControladorPanelPago {
 	private class ListenerBotones implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mPago.sumarDinero(pPago, (JButton) e.getSource());
+			mod.mPago.sumarDinero(pPago, (JButton) e.getSource());
 		}
 		
 	}
