@@ -9,8 +9,11 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 import javax.swing.JButton;
+
+import vista.VentanaPpal;
 import vista.panelCard.PanelPago;
 
 public class MetodosPanelPago {
@@ -47,6 +50,32 @@ public class MetodosPanelPago {
 		BigDecimal bd = new BigDecimal(value);
 		bd = bd.setScale(numDec, RoundingMode.HALF_UP);
 		return bd.doubleValue();
+	}
+	
+	/**
+	 * Parsea un double a un string del numero con 2 decimales
+	 * @param num el numero
+	 * @return string con formato
+	 */
+	public String doubleAString(double num) {
+		return String.valueOf(dosDec.format(num));
+	}
+	
+	/**
+	 * Convierte un string en double si es posible
+	 * @param strg string
+	 * @return numero de tipo double
+	 */
+	public double stringADouble(String strg) {
+		return Double.parseDouble(strg);
+	}
+	
+	/**
+	 * Metodo que se invoca cuando el usuario decide pasar de panel y proceder al pago, le pasa el precio al panel de pago
+	 * @param vis
+	 */
+	public void pasarPrecioAPanelPago(VentanaPpal vis) {
+		vis.pCenter.pPago.textAPagar.setText(doubleAString(vis.pCenter.pResBusq.resultBusq.getSelectedValue().getPrecioTAlta()));
 	}
 
 	/**
@@ -96,6 +125,10 @@ public class MetodosPanelPago {
 		}
 		return arrayReturn;
 	}
+	
+	public void crearReserva(Modelo mod) {
+		mod.reserva=new Reserva(new Cliente("Pepe"), mod.hotel.precioTAlta, new Date(), new Date(), new Date(), mod.hotel);
+	}
 
 	/**
 	 * Metodo para sumar dinero con un boton
@@ -105,7 +138,7 @@ public class MetodosPanelPago {
 	 *              cantidad
 	 */
 
-	public void sumarDinero(PanelPago panel, JButton btn) {
+	public void sumarDinero(PanelPago panel, JButton btn,Modelo mod) {
 		String[] arrDinero = operarDinero(panel.textAPagar.getText(), panel.textPagado.getText(), btn.getText());
 		if (comprobarPago(arrDinero[0])) {
 			panel.ActDesBotones(false);
@@ -114,6 +147,7 @@ public class MetodosPanelPago {
 			String cambios = floatAString2Dec(Math.abs(stringAFloat(arrDinero[0])));
 			panel.textVueltas.setText(cambios);
 			ArrayList<String> arrayCambios = Cambios(cambios);
+			mod.setPagoExitoso(true);
 			for (String val : arrayCambios)
 				panel.modeloCambio.addElement(val);
 		} else {
@@ -174,7 +208,7 @@ public class MetodosPanelPago {
 			writer.println("Fecha de la reserva: " + formFecha.format(res.getFechaReserva()));
 			writer.println("Fecha de entrada   : " + formFecha.format(res.getFechaEntrada()));
 			writer.println("Fecha de salida    : " + formFecha.format(res.getFechaSalida()));
-			writer.println("\nPrecio total: " + redondear(res.getPrecio(), 2));
+			writer.println("\nPrecio total: " + doubleAString(res.getPrecio()));
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();

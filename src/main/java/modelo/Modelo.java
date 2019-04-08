@@ -14,6 +14,8 @@ public class Modelo {
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
 	
+	private boolean pagoExitoso=false;
+	
 	
 	public Modelo() {
 		hotel = new Hotel();
@@ -42,6 +44,14 @@ public class Modelo {
 
 	public void setHotelesBusqueda(Hotel[] hotelesBusqueda) {
 		this.hotelesBusqueda = hotelesBusqueda;
+	}
+
+	public boolean isPagoExitoso() {
+		return pagoExitoso;
+	}
+
+	public void setPagoExitoso(boolean pagoExitoso) {
+		this.pagoExitoso = pagoExitoso;
 	}
 	
 }

@@ -37,11 +37,26 @@ public class Controlador {
 			String accion = e.getActionCommand();
 			switch (accion) {
 			case "SIGUIENTE":
-				vis.pCenter.nextPanel();
-				break;
+				switch (vis.pCenter.currentIndex) {
+				case 2:
+					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty()) {
+						vis.pCenter.changePanel("3");
+						mod.hotel=vis.pCenter.pResBusq.resultBusq.getSelectedValue();
+						mod.mPago.pasarPrecioAPanelPago(vis);
+					}
+					break;
+				case 3:
+					if(mod.isPagoExitoso()) {
+						vis.pCenter.changePanel("1");
+						vis.pCenter.pPago.limpiar();
+						mod.setPagoExitoso(false);
+						mod.mPago.crearReserva(mod);
+						mod.mPago.imprimirBillete(mod.reserva);
+					}break;
+				}break;
 			case "VOLVER":
 				vis.pCenter.prevPanel();
-				if(vis.pCenter.currentIndex==1) {
+				if (vis.pCenter.currentIndex == 1) {
 					vis.pSouth.pBotones.setVisible(false);
 				}
 				break;
