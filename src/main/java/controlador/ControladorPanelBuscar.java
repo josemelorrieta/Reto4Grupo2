@@ -25,7 +25,6 @@ public class ControladorPanelBuscar{
 	
 	private void initListeners() {
 		vis.pCenter.pBuscar.btnBuscar.addActionListener(new ListenerBotones());
-		
 	}
 
 	public void cargarLocalidades() {
@@ -42,7 +41,6 @@ public class ControladorPanelBuscar{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mod.cargarHoteles(vis.pCenter.pBuscar.cbxBuscar.getSelectedItem().toString());
-			//mod.cargarHoteles("Bilbao");
 			vis.pCenter.pResBusq.setResultBusqueda(mod.hotelesBusqueda);
 			//System.out.println(mod.getHotelesBusqueda()[0].getNombre());
 			vis.pCenter.nextPanel();
