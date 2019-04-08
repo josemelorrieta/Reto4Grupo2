@@ -37,7 +37,9 @@ public class Modelo {
 		Type tipoListaHoteles = new TypeToken<List<Hotel>>(){}.getType();
 		final List<Hotel> hoteles = gson.fromJson(aux, tipoListaHoteles);
 		Hotel[] hotelesBusqueda = (Hotel[]) hoteles.toArray();
-
+		for(Hotel hotel:hotelesBusqueda) {
+			hotel.getUbicacion().setLocalidad(localidad);
+		}
 	}
 
 	public Hotel[] getHotelesBusqueda() {

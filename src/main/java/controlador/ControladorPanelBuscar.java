@@ -20,24 +20,8 @@ public class ControladorPanelBuscar{
 		this.vis=vis;
 		this.controlador=cont;
 		this.mod = mod;
-		initListeners();
 		cargarLocalidades();
 		vis.pSouth.pBotones.setVisible(false);
-	}
-	
-	private void initListeners() {
-		vis.pCenter.pBuscar.btnBuscar.addActionListener(new ListenerBotones());
-	}
-
-	private class ListenerBotones implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			//mod.cargarHoteles(pBuscar.cbxBuscar.getSelectedItem().toString());
-			//mod.cargarHoteles("Bilbao");
-			((PanelCenter) vis.pCenter).changePanel("2");
-			vis.pSouth.pBotones.setVisible(true);
-		}
-		
 	}
 	
 	public void cargarLocalidades() {
