@@ -41,6 +41,9 @@ public class Controlador {
 				break;
 			case "VOLVER":
 				vis.pCenter.prevPanel();
+				if(vis.pCenter.currentIndex==1) {
+					vis.pSouth.pBotones.setVisible(false);
+				}
 				break;
 			}
 		}

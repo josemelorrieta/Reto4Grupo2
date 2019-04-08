@@ -2,7 +2,6 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import modelo.Localidad;
 import modelo.Modelo;
@@ -43,7 +42,7 @@ public class ControladorPanelBuscar{
 		public void actionPerformed(ActionEvent e) {
 			mod.cargarHoteles(vis.pCenter.pBuscar.cbxBuscar.getSelectedItem().toString());
 			vis.pCenter.pResBusq.setResultBusqueda(mod.hotelesBusqueda);
-			//System.out.println(mod.getHotelesBusqueda()[0].getNombre());
+			vis.pSouth.pBotones.setVisible(true);
 			vis.pCenter.nextPanel();
 		}
 	}

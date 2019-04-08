@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 
 import modelo.Hotel;
 import javax.swing.ListSelectionModel;
+import java.awt.SystemColor;
 
 public class PanelResBusqueda extends JPanel {
 
@@ -19,6 +20,7 @@ public class PanelResBusqueda extends JPanel {
 	public JLabel lblResBusq, lblLocBusq;
 	public DefaultListModel<Hotel> modelResBusq = new DefaultListModel<Hotel>();
 	public JList<Hotel> resultBusq;
+	public JScrollPane scroll;
 	
 	public PanelResBusqueda() {
 		setParametros();
@@ -41,17 +43,19 @@ public class PanelResBusqueda extends JPanel {
 		lblLocBusq.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblLocBusq.setBounds(230, 30, 360, 26);
 		add(lblLocBusq);
-		add(new JScrollPane());
 		
 		resultBusq = new JList<Hotel>(modelResBusq);
-		add(resultBusq);
+		resultBusq.setBackground(SystemColor.control);
 		resultBusq.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		resultBusq.setBounds(100, 67, 600, 320);
-		resultBusq.setPreferredSize(new Dimension(600,320));
+		scroll = new JScrollPane(resultBusq);
+		scroll.setLocation(100, 60);
+		scroll.setPreferredSize(new Dimension(620, 320));
+		add(scroll);
 		resultBusq.setCellRenderer(new ItemResBusqueda());
 	}	
 	
 	public void setResultBusqueda(Hotel[] hoteles) {
+		//modelResBusq.removeAllElements();
 		for(Hotel hotel:hoteles) {
 			modelResBusq.addElement(hotel);
 		}
