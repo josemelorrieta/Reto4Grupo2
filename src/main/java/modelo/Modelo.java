@@ -22,12 +22,21 @@ public class Modelo {
 	}
 	
 	public void cargarHoteles(String localidad) {
-		//Hotel[] aux = (Hotel[])bd.consultarToArray("SELECT `nombre`,`numEstrellas`,`pvpTAlta`,`pvpTBaja`,`pvpRecFestivo` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='"+localidad+"')");
 		String aux = bd.consultarToGson("SELECT `nombre`,`numEstrellas`,`pvpTAlta`,`pvpTBaja`,`pvpRecFestivo` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='"+localidad+"')");
 		final Gson gson = new Gson();
 		Type tipoListaHoteles = new TypeToken<List<Hotel>>(){}.getType();
 		final List<Hotel> hoteles = gson.fromJson(aux, tipoListaHoteles);
 		Hotel[] hotelesBusqueda = (Hotel[]) hoteles.toArray();
+
+	}
+
+	public Hotel[] getHotelesBusqueda() {
+		return hotelesBusqueda;
+	}
+
+	public void setHotelesBusqueda(Hotel[] hotelesBusqueda) {
+		this.hotelesBusqueda = hotelesBusqueda;
 	}
 	
 }
+

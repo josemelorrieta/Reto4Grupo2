@@ -44,18 +44,16 @@ public class MetodosPanelPago {
 	 * @return el numero redondeado
 	 */
 	public double redondear(double value, int numDec) {
-		if (numDec < 0)
-			throw new IllegalArgumentException();
 		BigDecimal bd = new BigDecimal(value);
 		bd = bd.setScale(numDec, RoundingMode.HALF_UP);
 		return bd.doubleValue();
 	}
 
-	
 	/**
 	 * Pasa de string a float
+	 * 
 	 * @param texto texto que parse
-	 * @return float 
+	 * @return float
 	 */
 	public float stringAFloat(String texto) {
 		return Float.parseFloat(texto);
@@ -63,6 +61,7 @@ public class MetodosPanelPago {
 
 	/**
 	 * Pasa de float a string con 2 decimales
+	 * 
 	 * @param numf numero que parsea y formatea
 	 * @return string de un numero con 2 decimales
 	 */
@@ -77,7 +76,7 @@ public class MetodosPanelPago {
 	 *                  para trabajar con ello
 	 * @return ArrayList de String con el cambio
 	 */
-	private ArrayList<String> Cambios(String cantTexto) {
+	public ArrayList<String> Cambios(String cantTexto) {
 		ArrayList<String> arrayReturn = new ArrayList<String>();
 		int euros = (int) (stringAFloat(cantTexto));
 		int decimales = Math.round((stringAFloat(cantTexto) - euros) * 100);
@@ -107,7 +106,7 @@ public class MetodosPanelPago {
 	 */
 
 	public void sumarDinero(PanelPago panel, JButton btn) {
-		String[] arrDinero = operarDinero(panel.textAPagar.getText(), panel.textPagado.getText(), btn.getText(), "+");
+		String[] arrDinero = operarDinero(panel.textAPagar.getText(), panel.textPagado.getText(), btn.getText());
 		if (comprobarPago(arrDinero[0])) {
 			panel.ActDesBotones(false);
 			panel.textAPagar.setText("0.00");
@@ -130,7 +129,7 @@ public class MetodosPanelPago {
 	 * @return true si el cliente ya no debe pagar mas, false si aun tiene que
 	 *         seguir pagando
 	 */
-	private boolean comprobarPago(String aPagar) {
+	public boolean comprobarPago(String aPagar) {
 		if (stringAFloat(aPagar) <= 0) {
 			return true;
 		} else
@@ -147,45 +146,35 @@ public class MetodosPanelPago {
 	 * @return array biposicional de strings con el dinero a pagar (pos 0) y el
 	 *         dinero pagado (pos 1) formateado como numero con 2 decimales
 	 */
-	private String[] operarDinero(String aPagar, String pagado, String valorBtn, String operacion) {
-		float dineroPagado = stringAFloat(pagado);
+	public String[] operarDinero(String aPagar, String pagado, String valorBtn) {
 		float dineroAPagar = stringAFloat(aPagar);
+		float dineroPagado = stringAFloat(pagado);
 		float valorBoton = stringAFloat(valorBtn);
-		switch (operacion) {
-		case "+":
-			dineroPagado = dineroPagado + valorBoton;
-			dineroAPagar = dineroAPagar - valorBoton;
-			break;
-		case "-":
-			dineroPagado = dineroPagado - valorBoton;
-			dineroAPagar = dineroAPagar + valorBoton;
-			break;
-		default:
-			throw new IllegalArgumentException("Simbolo de operacion invalido, solo se admite + y -");
-		}
+		dineroAPagar = dineroAPagar - valorBoton;
+		dineroPagado = dineroPagado + valorBoton;
 		return new String[] { floatAString2Dec(dineroAPagar), floatAString2Dec(dineroPagado) };
 	}
 
-
 	/**
 	 * Imprime el ticket de la reserva con los datos requeridos
+	 * 
 	 * @param res La reserva
-	 * @param cli El cliente
+
 	 */
 	public void imprimirBillete(Reserva res) {
 		PrintWriter writer;
 		SimpleDateFormat formFecha = new SimpleDateFormat("dd-MM-yyyy");
 		try {
-			writer = new PrintWriter("Reserva de "+ res.getCliente().getNombre() + ".txt", "UTF-8");
+			writer = new PrintWriter("Reserva de " + res.getCliente().getNombre() + ".txt", "UTF-8");
 			writer.println("INFORMACIÓN DE LA RESERVA");
-			writer.println("Datos del cliente: \n");
-			writer.println("Nombre: "+res.getCliente().getNombre());
-			writer.println("Datos de la reserva: \n");
-			writer.println("Nombre Alojamiento: "+res.getAlojReservado().getNombre());
-			writer.println("Fecha de la reserva: "+formFecha.format(res.getFechaReserva()));
-			writer.println("Fecha de entrada   : "+formFecha.format(res.getFechaEntrada()));
-			writer.println("Fecha de salida    : "+formFecha.format(res.getFechaSalida()));
-			writer.println("\nPrecio total: "+redondear(res.getPrecio(), 2));
+			writer.println("\nDatos del cliente:");
+			writer.println("Nombre: " + res.getCliente().getNombre());
+			writer.println("\nDatos de la reserva:");
+			writer.println("Nombre Alojamiento: " + res.getAlojReservado().getNombre());
+			writer.println("Fecha de la reserva: " + formFecha.format(res.getFechaReserva()));
+			writer.println("Fecha de entrada   : " + formFecha.format(res.getFechaEntrada()));
+			writer.println("Fecha de salida    : " + formFecha.format(res.getFechaSalida()));
+			writer.println("\nPrecio total: " + redondear(res.getPrecio(), 2));
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
