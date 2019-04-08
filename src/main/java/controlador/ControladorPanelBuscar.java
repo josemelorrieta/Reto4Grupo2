@@ -3,6 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import modelo.Localidad;
 import modelo.Modelo;
 import vista.VentanaPpal;
@@ -33,6 +35,9 @@ public class ControladorPanelBuscar{
 		if(localidades!=null) {
 			for(Localidad localidad : localidades)
 				vis.pCenter.pBuscar.cbxBuscar.addItem(localidad.getLocalidad());
+		} else {
+			JOptionPane.showMessageDialog(vis, "Error en la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
+			vis.dispose();
 		}
 	}
 
