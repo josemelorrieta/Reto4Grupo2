@@ -55,7 +55,7 @@ public class PanelResBusqueda extends JPanel {
 	}	
 	
 	public void setResultBusqueda(Hotel[] hoteles) {
-		//modelResBusq.removeAllElements();
+		modelResBusq.removeAllElements();
 		for(Hotel hotel:hoteles) {
 			modelResBusq.addElement(hotel);
 		}

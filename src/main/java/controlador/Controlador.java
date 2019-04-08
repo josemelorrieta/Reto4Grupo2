@@ -52,6 +52,7 @@ public class Controlador {
 						mod.setPagoExitoso(false);
 						mod.mPago.crearReserva(mod);
 						mod.mPago.imprimirBillete(mod.reserva);
+						vis.pSouth.pBotones.setVisible(false);
 					}break;
 				}break;
 			case "VOLVER":

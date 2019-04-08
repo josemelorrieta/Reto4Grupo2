@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: Pepe
 
 Datos de la reserva:
-Nombre Alojamiento: Hotel Carlton
+Nombre Alojamiento: Hotel Meliá
 Fecha de la reserva: 08-04-2019
 Fecha de entrada   : 08-04-2019
 Fecha de salida    : 08-04-2019
 
-Precio total: 64.90
+Precio total: 49.90
