@@ -35,12 +35,12 @@ public class PanelPago extends JPanel {
 		instanciarObjetos();
 	}
 
-	public void setParametros() {
+	private void setParametros() {
 		setLayout(null);
 		setPreferredSize(new Dimension(853, 647));
 	}
 
-	public void instanciarObjetos() {
+	private void instanciarObjetos() {
 		lblDineroMetido = new JLabel("Dinero metido:");
 		lblDineroMetido.setFont(new Font("Yu Gothic Medium", Font.BOLD, 16));
 		lblDineroMetido.setBounds(312, 39, 169, 35);
