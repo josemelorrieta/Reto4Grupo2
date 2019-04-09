@@ -127,7 +127,7 @@ public class MetodosPanelPago {
 	}
 	
 	public void crearReserva(Modelo mod) {
-		mod.reserva=new Reserva(new Cliente("Pepe"), mod.hotel.precioTAlta, new Date(), new Date(), new Date(), mod.hotel);
+		mod.reserva=new Reserva(new Cliente("Pepe"), mod.hotel1.precioTAlta, new Date(), new Date(), new Date(), mod.hotel1);
 	}
 
 	/**

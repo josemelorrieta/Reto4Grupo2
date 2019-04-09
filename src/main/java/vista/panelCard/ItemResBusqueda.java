@@ -64,7 +64,8 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 		
 		lblFoto.setIcon(imagen);
 		lblNombre.setText(hotel.getNombre());
-		lblLocalidad.setText(hotel.getUbicacion().getLocalidad());
+		lblLocalidad.setText(hotel.getUbicacion().getCalle());
+		//lblLocalidad.setText(hotel.getUbicacion().getLocalidad());
 		lblPrecio.setText(df.format(hotel.getPrecioTAlta()));
 		
 		if (isSelected) {

@@ -41,7 +41,7 @@ public class Controlador {
 				case 2:
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty()) {
 						vis.pCenter.changePanel("3");
-						mod.hotel=vis.pCenter.pResBusq.resultBusq.getSelectedValue();
+						mod.hotel1=vis.pCenter.pResBusq.resultBusq.getSelectedValue();
 						mod.mPago.pasarPrecioAPanelPago(vis);
 					}
 					break;
