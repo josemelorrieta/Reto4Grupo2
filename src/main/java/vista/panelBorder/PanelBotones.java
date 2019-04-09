@@ -6,14 +6,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class PanelSouth extends JPanel {
+public class PanelBotones extends JPanel {
 
 	
 	private static final long serialVersionUID = 1L;
 	
 	public JButton btnSiguiente, btnVolver;
 	
-	public PanelSouth() {
+	public PanelBotones() {
 		setParametros();
 		instanciarObjetos();
 	}

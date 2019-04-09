@@ -27,8 +27,8 @@ public class Controlador {
 	}
 
 	private void initListeners() {
-		vis.pSouth.btnSiguiente.addActionListener(new ListenerBotonesInferiores());
-		vis.pSouth.btnVolver.addActionListener(new ListenerBotonesInferiores());
+		vis.pBotones.btnSiguiente.addActionListener(new ListenerBotonesInferiores());
+		vis.pBotones.btnVolver.addActionListener(new ListenerBotonesInferiores());
 	}
 
 	private class ListenerBotonesInferiores implements ActionListener {
@@ -52,13 +52,13 @@ public class Controlador {
 						mod.setPagoExitoso(false);
 						mod.mPago.crearReserva(mod);
 						mod.mPago.imprimirBillete(mod.reserva);
-						vis.pSouth.setBotonesVisible(false);
+						vis.pBotones.setBotonesVisible(false);
 					}break;
 				}break;
 			case "VOLVER":
 				vis.pCenter.prevPanel();
 				if (vis.pCenter.currentIndex == 1) {
-					vis.pSouth.setBotonesVisible(false);
+					vis.pBotones.setBotonesVisible(false);
 				}
 				break;
 			}

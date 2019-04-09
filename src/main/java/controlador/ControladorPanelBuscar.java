@@ -22,7 +22,7 @@ public class ControladorPanelBuscar{
 		this.controlador=cont;
 		this.mod = mod;
 		cargarLocalidades();
-		vis.pSouth.setBotonesVisible(false);
+		vis.pBotones.setBotonesVisible(false);
 		initListeners();
 	}
 	
@@ -47,7 +47,7 @@ public class ControladorPanelBuscar{
 		public void actionPerformed(ActionEvent e) {
 			mod.mBuscar.cargarHoteles(vis.pCenter.pBuscar.cbxBuscar.getSelectedItem().toString());
 			vis.pCenter.pResBusq.setResultBusqueda(mod.hotelesBusqueda);
-			vis.pSouth.setBotonesVisible(true);
+			vis.pBotones.setBotonesVisible(true);
 			vis.pCenter.nextPanel();
 		}
 	}

@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class PanelNorth extends JPanel {
+public class PanelTitulo extends JPanel {
 
 	/**
 	 * 
@@ -16,7 +16,7 @@ public class PanelNorth extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JLabel lblTitulo, lblSubtitulo;
 	
-	public PanelNorth() {
+	public PanelTitulo() {
 		setParametros();
 		instanciarObjetos();
 	}
