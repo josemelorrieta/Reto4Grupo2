@@ -58,9 +58,12 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Hotel> lista, Hotel hotel, int index, boolean isSelected,
 			boolean cellHasFocus) {
-		int foto = hotel.getId();
-		//System.out.println(hotel.getId());
-		ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/hotel/"+ foto +".jpg"));
+		String foto = hotel.getImagen();
+		ImageIcon imagen;
+		if (foto != null)
+			imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/hotel/"+ foto +".jpg"));
+		else
+			imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/noimage.png"));
 		
 		lblFoto.setIcon(imagen);
 		lblNombre.setText(hotel.getNombre());

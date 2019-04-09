@@ -13,7 +13,6 @@ public class Modelo {
 	public Hotel[] hotelesBusqueda;
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
-	private Gson gson = new Gson();
 	private boolean pagoExitoso=false;
 	
 	public Modelo() {
@@ -24,25 +23,8 @@ public class Modelo {
 	}
 	
 	public void addMetodos() {
-		mBuscar=new MetodosBuscar(bd);
+		mBuscar=new MetodosBuscar(this, bd);
 		mPago=new MetodosPanelPago();
-	}
-	
-	public void cargarHoteles(String localidad) {
-		String json = bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas` 'estrellas',`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest' FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='"+localidad+"')");
-		gson = new Gson();
-		hotelesBusqueda = gson.fromJson(json, Hotel[].class);
-		for(Hotel hotel:hotelesBusqueda) {
-			hotel.setUbicacion(new Direccion("", 34533, localidad));
-			cargarHotelDireccion(hotel);
-		}
-	}
-
-	private void cargarHotelDireccion(Hotel hotel) {
-		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `hotel` WHERE `idHot` = " + hotel.getId() + ")");
-		gson = new Gson();
-		Direccion[] dir = gson.fromJson(json, Direccion[].class);
-		hotel.setUbicacion(dir[0]);
 	}
 
 	public Hotel[] getHotelesBusqueda() {

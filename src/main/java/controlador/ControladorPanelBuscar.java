@@ -45,7 +45,7 @@ public class ControladorPanelBuscar{
 	private class ListenerBotones implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mod.cargarHoteles(vis.pCenter.pBuscar.cbxBuscar.getSelectedItem().toString());
+			mod.mBuscar.cargarHoteles(vis.pCenter.pBuscar.cbxBuscar.getSelectedItem().toString());
 			vis.pCenter.pResBusq.setResultBusqueda(mod.hotelesBusqueda);
 			vis.pSouth.pBotones.setVisible(true);
 			vis.pCenter.nextPanel();

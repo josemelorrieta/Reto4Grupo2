@@ -8,6 +8,7 @@ public class Alojamiento {
 	protected Double precioTAlta;
 	protected Double precioTBaja;
 	protected Double precioTFest;
+	protected String imagen;
 
 	public Alojamiento() {
 		//Constructor por defecto
@@ -20,15 +21,6 @@ public class Alojamiento {
 		this.precioTAlta = precioA;
 		this.precioTBaja = precioB;
 		this.precioTFest = precioF;
-	}
-		
-	//const temporal
-	public Alojamiento(int id, String nombre, Double precioTAlta, Double precioTBaja, Double precioTFest) {
-		this.id = id;
-		this.nombre = nombre;
-		this.precioTAlta = precioTAlta;
-		this.precioTBaja = precioTBaja;
-		this.precioTFest = precioTFest;
 	}
 
 	public int getId() {
@@ -87,4 +79,13 @@ public class Alojamiento {
 		this.precioTFest = precioTFest;
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	
 }
