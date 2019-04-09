@@ -2,10 +2,11 @@ package vista.panelBorder;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import vista.panelCard.PanelTitulo;
+import javax.swing.SwingConstants;
 
 public class PanelNorth extends JPanel {
 
@@ -13,7 +14,8 @@ public class PanelNorth extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	public JLabel lblTitulo, lblSubtitulo;
+	
 	public PanelNorth() {
 		setParametros();
 		instanciarObjetos();
@@ -25,7 +27,24 @@ public class PanelNorth extends JPanel {
 	}
 	
 	private void instanciarObjetos() {
-		PanelTitulo pTitulo = new PanelTitulo();
-		add(pTitulo);
+		lblTitulo = new JLabel("Bidai-On");
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setPreferredSize(new Dimension(800, 40));
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		add(lblTitulo);
+		
+		lblSubtitulo = new JLabel("Buscador de alojamientos");
+		lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSubtitulo.setPreferredSize(new Dimension(800, 30));
+		lblSubtitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		add(lblSubtitulo);
+	}
+	
+	public void cambiarTitulo (String titulo) {
+		lblTitulo.setText(titulo);
+	}
+	
+	public void cambiarSubtitulo (String subtitulo) {
+		lblSubtitulo.setText(subtitulo);
 	}
 }
