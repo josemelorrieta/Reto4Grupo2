@@ -126,6 +126,10 @@ public class MetodosPanelPago {
 		return arrayReturn;
 	}
 	
+	/**
+	 * Crea la reserva en el modelo 
+	 * @param mod modelo del programa
+	 */
 	public void crearReserva(Modelo mod) {
 		mod.reserva=new Reserva(new Cliente("Pepe"), mod.hotel1.precioTAlta, new Date(), new Date(), new Date(), mod.hotel1);
 	}
