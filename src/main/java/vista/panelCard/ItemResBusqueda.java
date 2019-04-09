@@ -60,7 +60,7 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 			boolean cellHasFocus) {
 		String foto = hotel.getImagen();
 		ImageIcon imagen;
-		if (foto != null)
+		if (!foto.equals(""))
 			imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/hotel/"+ foto +".jpg"));
 		else
 			imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/noimage.png"));
