@@ -18,8 +18,9 @@ import vista.panelCard.PanelRegistro;
 
 public class MetodosPanelRegistroYLogin {
 
-	public void registrarUsuario(Cliente cli, PanelRegistro panel) {
-
+	public boolean comprobarDatos(PanelRegistro panel) {
+		
+		return false;
 	}
 
 	/**
