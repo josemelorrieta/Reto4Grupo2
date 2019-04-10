@@ -1,6 +1,6 @@
 package modelo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Cliente {
 	private String dni;
@@ -8,7 +8,7 @@ public class Cliente {
 	private String apellidos;
 	private Date fechaNac;
 	private Sexo sexo;
-
+	private String password;
 	
 	public Cliente() {
 	}
@@ -17,12 +17,13 @@ public class Cliente {
 		this.nombre = nombre;
 	}
 
-	public Cliente(String dni, String nombre, String apellidos, Date fechaNac, Sexo sexo) {
+	public Cliente(String dni, String nombre, String apellidos, Date fechaNac, Sexo sexo,String password) {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.fechaNac = fechaNac;
 		this.sexo = sexo;
+		this.password=password;
 	}
 
 	public String getNombre() {
@@ -66,7 +67,7 @@ public class Cliente {
 	}
 	
 	public Object[] toArray() {
-		Object[] objetos= {dni,nombre,apellidos,fechaNac,sexo.toString()};
+		Object[] objetos= {dni,nombre,apellidos,fechaNac,sexo.toString(),password};
 		return objetos;
 	}
 }

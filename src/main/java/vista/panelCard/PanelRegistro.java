@@ -22,19 +22,23 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.DefaultComboBoxModel;
 
 public class PanelRegistro extends JPanel {
-	JLabel lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni;
-	JTextField txtNombre, txtApellido, txtDni;
-	JDateChooser calenNacimiento;
-	JComboBox<Sexo> comboBoxSexo;
-	JSpinnerDateEditor spnDateEditorNacimiento;
-	JPasswordField pwdContra, pwdRepContra;
-	JButton contraOn0, contraOn1;
-	JButton[] arrayContra = { contraOn0, contraOn1 };
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public JLabel lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni;
+	public JTextField txtNombre, txtApellido, txtDni;
+	public JDateChooser calenNacimiento;
+	public JComboBox<Sexo> comboBoxSexo;
+	public DefaultComboBoxModel<Sexo> modeloSexo;
+	public JSpinnerDateEditor spnDateEditorNacimiento;
+	public JPasswordField pwdContra, pwdRepContra;
+	public JButton contraOn0, contraOn1, btnConfirmar;
 	private Font tahomaFuente;
 	private ImageIcon iconoOn, iconoOff;
-	private JButton btnConfirmar;
 
 	/**
 	 * Create the panel.
@@ -99,7 +103,10 @@ public class PanelRegistro extends JPanel {
 		calenNacimiento.setDateFormatString("dd-MM-yyyy");
 		add(calenNacimiento);
 
+		modeloSexo = new DefaultComboBoxModel<>(Sexo.values());
+
 		comboBoxSexo = new JComboBox<Sexo>();
+		comboBoxSexo.setModel(modeloSexo);
 		comboBoxSexo.setBounds(274, 227, 207, 27);
 		add(comboBoxSexo);
 
@@ -163,8 +170,8 @@ public class PanelRegistro extends JPanel {
 			contraOn0.setIcon(iconoOn);
 			contraOn1.setIcon(iconoOn);
 		} else {
-			contraOn0.setIcon(iconoOn);
-			contraOn1.setIcon(iconoOn);
+			contraOn0.setIcon(iconoOff);
+			contraOn1.setIcon(iconoOff);
 		}
 	}
 }
