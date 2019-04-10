@@ -58,4 +58,9 @@ public class Cliente {
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
+	
+	public Object[] toArray() {
+		Object[] objetos= {dni,nombre,apellidos,fechaNac,sexo.toString()};
+		return objetos;
+	}
 }
