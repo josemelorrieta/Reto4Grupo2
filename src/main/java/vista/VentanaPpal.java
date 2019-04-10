@@ -27,7 +27,7 @@ public class VentanaPpal extends JFrame {
 	public VentanaPpal() {	
 		setParametros();
 		instanciarObjetos();
-		pack();
+		//pack();
 	}
 
 	private void setParametros() {
