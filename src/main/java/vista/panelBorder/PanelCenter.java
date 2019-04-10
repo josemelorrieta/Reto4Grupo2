@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import vista.panelCard.PanelBuscar;
 import vista.panelCard.PanelResBusqueda;
 import vista.panelCard.PanelPago;
+import vista.panelCard.PanelRegistro;
 
 public class PanelCenter extends JPanel {
 
@@ -21,6 +22,7 @@ public class PanelCenter extends JPanel {
 	public PanelBuscar pBuscar;
 	public PanelResBusqueda pResBusq;
 	public PanelPago pPago;
+	public PanelRegistro pRegistro;
 	
 	public PanelCenter() {
 		setParametros();
@@ -43,6 +45,9 @@ public class PanelCenter extends JPanel {
 		
 		pPago = new PanelPago();
 		add(pPago,"3");
+		
+		pRegistro=new PanelRegistro();
+		add(pRegistro,"4");
 	}
 	
 	public void prevPanel() {

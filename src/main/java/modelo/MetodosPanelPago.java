@@ -142,8 +142,8 @@ public class MetodosPanelPago {
 	 *              cantidad
 	 */
 
-	public void sumarDinero(PanelPago panel, JButton btn,Modelo mod) {
-		String[] arrDinero = operarDinero(panel.textAPagar.getText(), panel.textPagado.getText(), btn.getText());
+	public void sumarDinero(PanelPago panel, String valor,Modelo mod) {
+		String[] arrDinero = operarDinero(panel.textAPagar.getText(), panel.textPagado.getText(), valor);
 		if (comprobarPago(arrDinero[0])) {
 			panel.ActDesBotones(false);
 			panel.textAPagar.setText("0.00");

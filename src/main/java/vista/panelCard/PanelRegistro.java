@@ -2,6 +2,10 @@ package vista.panelCard;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -15,15 +19,23 @@ import com.toedter.calendar.JSpinnerDateEditor;
 import modelo.Sexo;
 
 import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class PanelRegistro extends JPanel {
-	JLabel lblApellido,lblFechaNacimiento,lblSexo,lblContrasenia,lblRepetirContrasenia;
-	JTextField txtNombre,txtApellido;
+	JLabel lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni;
+	JTextField txtNombre, txtApellido, txtDni;
 	JDateChooser calenNacimiento;
 	JComboBox<Sexo> comboBoxSexo;
 	JSpinnerDateEditor spnDateEditorNacimiento;
+	JPasswordField pwdContra, pwdRepContra;
+	JButton contraOn0, contraOn1;
+	JButton[] arrayContra = { contraOn0, contraOn1 };
+	private Font tahomaFuente;
+	private ImageIcon iconoOn, iconoOff;
+	private JButton btnConfirmar;
 
-	JPasswordField pwdContra,pwdRepContra;
 	/**
 	 * Create the panel.
 	 */
@@ -32,75 +44,127 @@ public class PanelRegistro extends JPanel {
 		instanciarObjetos();
 	}
 
-	public void setParametros() {
-		setLayout(null);
+	private void setParametros() {
 		setPreferredSize(new Dimension(853, 647));
-		
-		pwdContra = new JPasswordField();
-		pwdContra.setBounds(249, 424, 233, 58);
-		add(pwdContra);
-		
-		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(67, 79, 123, 20);
-		add(lblNombre);
-		
-		pwdRepContra = new JPasswordField();
-		pwdRepContra.setBounds(249, 493, 221, 64);
-		add(pwdRepContra);
-		
-		txtNombre = new JTextField();
-		txtNombre.setText("Nombr");
-		txtNombre.setBounds(291, 105, 86, 20);
-		add(txtNombre);
-		txtNombre.setColumns(10);
-		
-		txtApellido = new JTextField();
-		txtApellido.setText("Apellido");
-		txtApellido.setBounds(291, 168, 86, 20);
-		add(txtApellido);
-		txtApellido.setColumns(10);
-		
-		
-		spnDateEditorNacimiento = new JSpinnerDateEditor();
-		((JSpinner.DefaultEditor) spnDateEditorNacimiento.getEditor()).getTextField().setEditable(false);
-		
-		calenNacimiento = new JDateChooser(null, null, null, spnDateEditorNacimiento);
-		calenNacimiento.setDateFormatString("dd-MM-yyyy");
-		calenNacimiento.setBounds(275, 251, 137, 27);
-		add(calenNacimiento);
-		
-		comboBoxSexo = new JComboBox<Sexo>();
-		comboBoxSexo.setBounds(249, 312, 199, 74);
-		add(comboBoxSexo);
-		
-		lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(71, 171, 119, 35);
-		add(lblApellido);
-		
-		lblFechaNacimiento = new JLabel("Fecha nacimiento:");
-		lblFechaNacimiento.setBounds(71, 254, 119, 35);
-		add(lblFechaNacimiento);
-		
-		lblSexo = new JLabel("Sexo:");
-		lblSexo.setBounds(67, 327, 119, 35);
-		add(lblSexo);
-		
-		lblContrasenia = new JLabel("Contraseña:");
-		lblContrasenia.setBounds(53, 446, 119, 35);
-		add(lblContrasenia);
-		
-		lblRepetirContrasenia = new JLabel("Repetir contraseña:");
-		lblRepetirContrasenia.setBounds(53, 491, 119, 35);
-		add(lblRepetirContrasenia);
-		
-		
-		JLabel[] arrayLabel= {lblApellido,lblFechaNacimiento,lblSexo,lblContrasenia,lblRepetirContrasenia};
-		for(JLabel label:arrayLabel) {
-			
-		}
+		setLayout(null);
 	}
 
 	private void instanciarObjetos() {
+		tahomaFuente = new Font("Tahoma", Font.PLAIN, 18);
 
+		contraOn0 = new JButton("");
+		contraOn0.setBounds(449, 265, 32, 27);
+		contraOn0.setVisible(true);
+		setLayout(null);
+		add(contraOn0);
+
+		contraOn1 = new JButton("");
+		contraOn1.setBounds(449, 319, 32, 27);
+		contraOn1.setVisible(true);
+		add(contraOn1);
+
+		iconoOn = resizeIcono(contraOn0, new File(PanelPago.class.getResource("/imagenes/registro/contraOn.png").getPath()));
+		iconoOff = resizeIcono(contraOn0, new File(PanelPago.class.getResource("/imagenes/registro/contraOff.png").getPath()));
+
+		contraOn0.setIcon(iconoOn);
+		contraOn1.setIcon(iconoOn);
+
+		pwdContra = new JPasswordField();
+		pwdContra.setBounds(274, 265, 176, 27);
+		add(pwdContra);
+
+		lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(54, 42, 123, 20);
+		add(lblNombre);
+
+		pwdRepContra = new JPasswordField();
+		pwdRepContra.setBounds(274, 319, 176, 27);
+		add(pwdRepContra);
+
+		txtNombre = new JTextField();
+		txtNombre.setBounds(274, 39, 207, 27);
+		add(txtNombre);
+		txtNombre.setColumns(10);
+
+		txtApellido = new JTextField();
+		txtApellido.setBounds(274, 77, 207, 27);
+		add(txtApellido);
+		txtApellido.setColumns(10);
+
+		spnDateEditorNacimiento = new JSpinnerDateEditor();
+		((JSpinner.DefaultEditor) spnDateEditorNacimiento.getEditor()).getTextField().setEditable(false);
+
+		calenNacimiento = new JDateChooser(null, null, null, spnDateEditorNacimiento);
+		calenNacimiento.setBounds(274, 175, 207, 27);
+		calenNacimiento.setDateFormatString("dd-MM-yyyy");
+		add(calenNacimiento);
+
+		comboBoxSexo = new JComboBox<Sexo>();
+		comboBoxSexo.setBounds(274, 227, 207, 27);
+		add(comboBoxSexo);
+
+		lblApellido = new JLabel("Apellido:");
+		lblApellido.setBounds(54, 85, 123, 20);
+		add(lblApellido);
+
+		lblFechaNacimiento = new JLabel("Fecha nacimiento:");
+		lblFechaNacimiento.setBounds(54, 175, 210, 20);
+		add(lblFechaNacimiento);
+
+		lblSexo = new JLabel("Sexo:");
+		lblSexo.setBounds(54, 220, 123, 20);
+		add(lblSexo);
+
+		lblContrasenia = new JLabel("Contraseña:");
+		lblContrasenia.setBounds(54, 264, 123, 20);
+		add(lblContrasenia);
+
+		lblRepetirContrasenia = new JLabel("Repetir contraseña:");
+		lblRepetirContrasenia.setBounds(54, 322, 210, 20);
+		add(lblRepetirContrasenia);
+
+		lblDni = new JLabel("Dni:");
+		lblDni.setBounds(54, 129, 123, 20);
+		add(lblDni);
+
+		txtDni = new JTextField();
+		txtDni.setBounds(274, 126, 207, 27);
+		txtDni.setColumns(10);
+		add(txtDni);
+
+		btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setBounds(294, 400, 117, 44);
+		add(btnConfirmar);
+
+		JLabel[] arrayLabel = { lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni };
+
+		for (JLabel label : arrayLabel) {
+			label.setFont(tahomaFuente);
+		}
+
+	}
+
+	private ImageIcon resizeIcono(JButton boton, File imagen) {
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(imagen);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Image imgTamAjus = img.getScaledInstance(boton.getWidth(), boton.getHeight(), Image.SCALE_SMOOTH);
+
+		ImageIcon iconoFinal = new ImageIcon(imgTamAjus);
+		return iconoFinal;
+	}
+
+	public void mostrarContraIcono(boolean bool) {
+		if (bool) {
+			contraOn0.setIcon(iconoOn);
+			contraOn1.setIcon(iconoOn);
+		} else {
+			contraOn0.setIcon(iconoOn);
+			contraOn1.setIcon(iconoOn);
+		}
 	}
 }
