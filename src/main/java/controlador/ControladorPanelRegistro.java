@@ -1,5 +1,7 @@
 package controlador;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -16,6 +18,7 @@ public class ControladorPanelRegistro {
 	private Modelo mod;
 	private Controlador controlador;
 
+	
 	public ControladorPanelRegistro(VentanaPpal vis, Controlador cont, Modelo mod) {
 		this.vis = vis;
 		this.controlador = cont;
@@ -52,5 +55,14 @@ public class ControladorPanelRegistro {
 			}
 		}
 
+	}
+	
+	private class ListenerBotones implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+		
 	}
 }
