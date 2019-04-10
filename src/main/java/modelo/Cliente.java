@@ -17,6 +17,7 @@ public class Cliente {
 		this.nombre = nombre;
 	}
 
+
 	public Cliente(String dni, String nombre, String apellidos, Date fechaNac, Sexo sexo, String password) {
 		this.dni = dni;
 		this.nombre = nombre;
@@ -64,6 +65,11 @@ public class Cliente {
 
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
+	}
+	
+	public Object[] toArray() {
+		Object[] objetos= {dni,nombre,apellidos,fechaNac,sexo.toString(),password};
+		return objetos;
 	}
 
 	public String getPassword() {

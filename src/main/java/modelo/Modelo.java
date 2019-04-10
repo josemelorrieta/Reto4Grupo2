@@ -1,7 +1,5 @@
 package modelo;
 
-import com.google.gson.Gson;
-
 import BaseDatos.ConsultaBD;
 
 public class Modelo {
@@ -13,6 +11,7 @@ public class Modelo {
 	public Hotel[] hotelesBusqueda;
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
+	public MetodosPanelRegistroYLogin mRegiLog;
 	private boolean pagoExitoso=false;
 	
 	public Modelo() {
@@ -25,6 +24,7 @@ public class Modelo {
 	public void addMetodos() {
 		mBuscar=new MetodosBuscar(this, bd);
 		mPago=new MetodosPanelPago();
+		mRegiLog=new MetodosPanelRegistroYLogin();
 	}
 
 	public Hotel[] getHotelesBusqueda() {
