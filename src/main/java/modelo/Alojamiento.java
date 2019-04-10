@@ -14,13 +14,15 @@ public class Alojamiento {
 		//Constructor por defecto
 	}
 	
-	public Alojamiento(String nombre, Direccion ubicacion, Habitacion[] arrayHabitaciones, Double precioA, Double precioB, Double precioF) {
+	public Alojamiento(int id, String nombre, Direccion ubicacion, Habitacion[] arrayHabitaciones, Double precioA, Double precioB, Double precioF, String imagen) {
+		this.id = id;
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
 		this.arrayHabitaciones = arrayHabitaciones;
 		this.precioTAlta = precioA;
 		this.precioTBaja = precioB;
 		this.precioTFest = precioF;
+		this.imagen = imagen;
 	}
 
 	public int getId() {

@@ -28,7 +28,7 @@ public class VentanaPpal extends JFrame {
 		setParametros();
 		instanciarObjetos();
 	}
-
+	
 	private void setParametros() {
 		border = new BorderLayout(0,0);
 		getContentPane().setLayout(border);

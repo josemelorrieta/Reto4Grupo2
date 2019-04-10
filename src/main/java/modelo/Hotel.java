@@ -3,12 +3,12 @@ package modelo;
 public class Hotel extends Alojamiento {
 	private int estrellas;
 
-	public Hotel(String nombre, Direccion ubicacion, Suite[] arrayHabitaciones, Double precioA, Double precioB, Double precioF) {
-		super(nombre, ubicacion, arrayHabitaciones, precioA, precioB, precioF);
+	public Hotel(int id, String nombre, Direccion ubicacion, Suite[] arrayHabitaciones, Double precioA, Double precioB, Double precioF, String imagen) {
+		super(id, nombre, ubicacion, arrayHabitaciones, precioA, precioB, precioF, imagen);
 	}
 
-	public Hotel(String nombre, Direccion ubicacion, Suite[] arrayHabitaciones, Double precioA, Double precioB, Double precioF, int estrellas) {
-		super(nombre, ubicacion, arrayHabitaciones, precioA, precioB, precioF);
+	public Hotel(int id, String nombre, Direccion ubicacion, Suite[] arrayHabitaciones, Double precioA, Double precioB, Double precioF, String imagen, int estrellas) {
+		super(id, nombre, ubicacion, arrayHabitaciones, precioA, precioB, precioF, imagen);
 		this.estrellas = estrellas;
 	}
 

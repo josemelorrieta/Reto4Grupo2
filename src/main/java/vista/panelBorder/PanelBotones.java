@@ -31,7 +31,7 @@ public class PanelBotones extends JPanel {
 		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnVolver.setBounds(40, 15, 140, 40);
 		add(btnVolver);
-		
+	
 		btnSiguiente = new JButton("SIGUIENTE");
 		btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSiguiente.setActionCommand("SIGUIENTE");
