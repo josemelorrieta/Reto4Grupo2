@@ -16,8 +16,14 @@ public class Cliente {
 	public Cliente(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
+
+	public Cliente(String dni, String nombre, String apellidos, Date fechaNac, Sexo sexo) {
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.fechaNac = fechaNac;
+		this.sexo = sexo;
+	}
 
 	public String getNombre() {
 		return nombre;
