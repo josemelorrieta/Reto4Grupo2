@@ -17,6 +17,7 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JSpinnerDateEditor;
 
 import modelo.Sexo;
+import util.FuncionesGenerales;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
 
 public class PanelRegistro extends JPanel {
+
 	/**
 	 * 
 	 */
@@ -37,6 +39,7 @@ public class PanelRegistro extends JPanel {
 	public JSpinnerDateEditor spnDateEditorNacimiento;
 	public JPasswordField pwdContra, pwdRepContra;
 	public JButton contraOn0, contraOn1, btnConfirmar;
+
 	private Font tahomaFuente;
 	private ImageIcon iconoOn, iconoOff;
 
@@ -67,8 +70,8 @@ public class PanelRegistro extends JPanel {
 		contraOn1.setVisible(true);
 		add(contraOn1);
 
-		iconoOn = resizeIcono(contraOn0, new File(PanelPago.class.getResource("/imagenes/registro/contraOn.png").getPath()));
-		iconoOff = resizeIcono(contraOn0, new File(PanelPago.class.getResource("/imagenes/registro/contraOff.png").getPath()));
+		iconoOn = FuncionesGenerales.resizeIcono(contraOn0.getWidth(), contraOn0.getHeight(), new File(PanelPago.class.getResource("/imagenes/registro/contraOn.png").getPath()));
+		iconoOff = FuncionesGenerales.resizeIcono(contraOn0.getWidth(), contraOn0.getHeight(), new File(PanelPago.class.getResource("/imagenes/registro/contraOff.png").getPath()));
 
 		contraOn0.setIcon(iconoOn);
 		contraOn1.setIcon(iconoOn);
@@ -149,20 +152,6 @@ public class PanelRegistro extends JPanel {
 			label.setFont(tahomaFuente);
 		}
 
-	}
-
-	private ImageIcon resizeIcono(JButton boton, File imagen) {
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(imagen);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		Image imgTamAjus = img.getScaledInstance(boton.getWidth(), boton.getHeight(), Image.SCALE_SMOOTH);
-
-		ImageIcon iconoFinal = new ImageIcon(imgTamAjus);
-		return iconoFinal;
 	}
 
 	public void mostrarContraIcono(boolean bool) {

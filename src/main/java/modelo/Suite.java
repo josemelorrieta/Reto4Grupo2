@@ -3,8 +3,8 @@ package modelo;
 public class Suite extends Habitacion {
 	private int idSuite;
 
-	public Suite(int m2, Mobiliario[] arrayMobiliario, int idSuite) {
-		super(m2, arrayMobiliario, TipoHabitacion.SUITE);
+	public Suite(int idHab, int m2, Mobiliario[] arrayMobiliario, Cama[] arrayCamas, int idSuite) {
+		super(idHab, m2, arrayMobiliario, arrayCamas, TipoHabitacion.SUITE);
 		this.idSuite = idSuite;
 	}
 

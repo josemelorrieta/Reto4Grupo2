@@ -17,7 +17,7 @@ public class PanelResBusqueda extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	public JLabel lblResBusq, lblLocBusq;
+	public JLabel lblLocBusq;
 	public DefaultListModel<Hotel> modelResBusq = new DefaultListModel<Hotel>();
 	public JList<Hotel> resultBusq;
 	public JScrollPane scroll;
@@ -33,14 +33,10 @@ public class PanelResBusqueda extends JPanel {
 	}
 	
 	private void instanciarObjetos() {
-		lblResBusq = new JLabel("Resultados para ");
-		lblResBusq.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblResBusq.setBounds(100, 30, 135, 26);
-		add(lblResBusq);
 		
-		lblLocBusq = new JLabel("Bilbao");
+		lblLocBusq = new JLabel("Resultados para Bilbao");
 		lblLocBusq.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblLocBusq.setBounds(230, 30, 360, 26);
+		lblLocBusq.setBounds(100, 30, 360, 26);
 		add(lblLocBusq);
 		
 		resultBusq = new JList<Hotel>(modelResBusq);
@@ -49,7 +45,6 @@ public class PanelResBusqueda extends JPanel {
 		resultBusq.setCellRenderer(new ItemResBusqueda());
 		
 		scroll = new JScrollPane(resultBusq);
-		//scroll.setBounds(100, 60, 520, 320);
 		scroll.setLocation(100, 60);
 		scroll.setSize(520, 320);
 		add(scroll);
@@ -60,5 +55,6 @@ public class PanelResBusqueda extends JPanel {
 		for(Hotel hotel:hoteles) {
 			modelResBusq.addElement(hotel);
 		}
+		lblLocBusq.setText("Resultados para " + hoteles[0].getUbicacion().getLocalidad());
 	}
 }

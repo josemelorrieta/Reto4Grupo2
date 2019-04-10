@@ -17,13 +17,14 @@ public class Cliente {
 		this.nombre = nombre;
 	}
 
-	public Cliente(String dni, String nombre, String apellidos, Date fechaNac, Sexo sexo,String password) {
+
+	public Cliente(String dni, String nombre, String apellidos, Date fechaNac, Sexo sexo, String password) {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.fechaNac = fechaNac;
 		this.sexo = sexo;
-		this.password=password;
+		this.password = password;
 	}
 
 	public String getNombre() {
@@ -69,5 +70,13 @@ public class Cliente {
 	public Object[] toArray() {
 		Object[] objetos= {dni,nombre,apellidos,fechaNac,sexo.toString(),password};
 		return objetos;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
