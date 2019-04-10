@@ -36,8 +36,8 @@ public class PanelPago extends JPanel {
 	}
 
 	private void setParametros() {
-		setLayout(null);
 		setPreferredSize(new Dimension(853, 647));
+		setLayout(null);
 	}
 
 	private void instanciarObjetos() {
@@ -177,10 +177,6 @@ public class PanelPago extends JPanel {
 		btn001.setFont(btn001.getFont().deriveFont(0f));
 		btn001.setBounds(390, 345, 45, 45);
 		add(btn001);
-		
-		btn2.setOpaque(false);
-		btn2.setContentAreaFilled(false);
-		btn2.setBorderPainted(false);
 		
 		arrayBtn[0]=btn500;
 		arrayBtn[1]=btn200;

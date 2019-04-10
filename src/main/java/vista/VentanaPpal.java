@@ -1,13 +1,13 @@
 package vista;
 
-import javax.swing.JFrame;
-
-import vista.panelBorder.PanelCenter;
-import vista.panelBorder.PanelTitulo;
-import vista.panelBorder.PanelBotones;
-import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Font;
+
+import javax.swing.JFrame;
+
+import vista.panelBorder.PanelBotones;
+import vista.panelBorder.PanelCenter;
+import vista.panelBorder.PanelTitulo;
 
 public class VentanaPpal extends JFrame {
 
@@ -27,7 +27,6 @@ public class VentanaPpal extends JFrame {
 	public VentanaPpal() {	
 		setParametros();
 		instanciarObjetos();
-		pack();
 	}
 
 	private void setParametros() {

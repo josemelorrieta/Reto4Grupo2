@@ -16,6 +16,7 @@ public class PanelBotones extends JPanel {
 	public PanelBotones() {
 		setParametros();
 		instanciarObjetos();
+		setBotonesVisible(false);
 	}
 	
 	private void setParametros() {
