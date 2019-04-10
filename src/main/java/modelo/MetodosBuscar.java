@@ -33,6 +33,7 @@ public class MetodosBuscar {
 		for(Hotel hotel:mod.hotelesBusqueda) {
 			hotel.setUbicacion(new Direccion("", 34533, localidad));
 			cargarHotelDireccion(hotel);
+			//cargarHotelHabitaciones(hotel);
 		}
 	}
 
