@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -18,9 +17,37 @@ import vista.panelCard.PanelRegistro;
 
 public class MetodosPanelRegistroYLogin {
 
-	public boolean comprobarDatos(PanelRegistro panel) {
-		
-		return false;
+	/**
+	 * Array de booleanos que se utiliza para validar la informacion introducida por
+	 * el cliente, se usa para no volver a comprobar los datos mediante sus metodos
+	 * designados
+	 */
+	public boolean[] comprobacion = { false, false, false, false, false, false };
+
+	/**
+	 * Comprueba que todos los datos introducidos sean correctos
+	 * 
+	 * @return true si esta todo bien
+	 */
+	public boolean comprobarDatos() {
+		for (boolean estado : comprobacion) {
+			if (!estado)
+				return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Devuelve el array de booleanos a su estado original
+	 */
+	public void resetComprobacion() {
+		for (boolean estado : comprobacion) {
+			estado = false;
+		}
+	}
+
+	public Cliente crearCliente(PanelRegistro panel) {
+		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), panel.pwdContra.getPassword().toString());
 	}
 
 	/**
@@ -58,15 +85,23 @@ public class MetodosPanelRegistroYLogin {
 			return true;
 	}
 
+	/**
+	 * 
+	 * @param pass1
+	 * @param pass2
+	 * @return
+	 */
 	public boolean constraseniaCoincide(JPasswordField pass1, JPasswordField pass2) {
 		char[] contra1 = pass1.getPassword();
 		char[] contra2 = pass2.getPassword();
-		for (int i = 0; i < contra1.length; i++) {
-			if (!(contra1[i] == contra2[i])) {
-				JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Campo contraseña", JOptionPane.ERROR_MESSAGE);
-				pass1.setBackground(new Color(240, 128, 128));
-				pass2.setBackground(new Color(240, 128, 128));
-				return false;
+		if (contra1.length == contra2.length) {
+			for (int i = 0; i < contra1.length; i++) {
+				if (!(contra1[i] == contra2[i])) {
+					JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Campo contraseña", JOptionPane.ERROR_MESSAGE);
+					pass1.setBackground(new Color(240, 128, 128));
+					pass2.setBackground(new Color(240, 128, 128));
+					return false;
+				}
 			}
 		}
 		pass1.setBackground(new JPasswordField().getBackground());

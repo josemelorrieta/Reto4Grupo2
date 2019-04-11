@@ -38,7 +38,7 @@ public class PanelRegistro extends JPanel {
 	public DefaultComboBoxModel<Sexo> modeloSexo;
 	public JSpinnerDateEditor spnDateEditorNacimiento;
 	public JPasswordField pwdContra, pwdRepContra;
-	public JButton contraOn0, contraOn1, btnConfirmar;
+	public JButton contraOn0, contraOn1;
 
 	private Font tahomaFuente;
 	private ImageIcon iconoOn, iconoOff;
@@ -141,10 +141,6 @@ public class PanelRegistro extends JPanel {
 		txtDni.setBounds(274, 126, 207, 27);
 		txtDni.setColumns(10);
 		add(txtDni);
-
-		btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(294, 400, 117, 44);
-		add(btnConfirmar);
 
 		JLabel[] arrayLabel = { lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni };
 
