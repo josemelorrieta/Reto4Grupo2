@@ -8,6 +8,7 @@ public class Modelo {
 	
 	public Hotel hotel1;
 	public Reserva reserva;
+	public Cliente clienteRegis;
 	public Hotel[] hotelesBusqueda;
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
