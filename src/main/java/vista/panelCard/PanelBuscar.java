@@ -19,13 +19,12 @@ public class PanelBuscar extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public JLabel lblTitulo, lblSubtitulo,lblElejirLoc, lblSelFecha;
+	public JLabel lblTitulo, lblSubtitulo,lblElejirLoc, lblFechaEnt, lblFechaSal;
 	public JComboBox<String> cbxBuscar;
 	public JButton btnBuscar;
 	
-	JDateChooser calenBusqueda;
-	JSpinnerDateEditor spnDateEditorFechaBus;
-	private JLabel lblSeleccionarUnaFecha;
+	public JDateChooser calenEntrada, calenSalida;
+	JSpinnerDateEditor spnDateEditorFechaEnt, spnDateEditorFechaSal;
 	
 	/**
 	 * Constructor del panel
@@ -49,7 +48,7 @@ public class PanelBuscar extends JPanel {
 		
 		btnBuscar = new JButton("BUSCAR");
 		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnBuscar.setBounds(300, 345, 200, 50);
+		btnBuscar.setBounds(300, 340, 200, 50);
 		btnBuscar.setPreferredSize(new Dimension(200, 50));
 		btnBuscar.setActionCommand("BUSCAR");
 		add(btnBuscar);
@@ -57,21 +56,35 @@ public class PanelBuscar extends JPanel {
 		lblElejirLoc = new JLabel("Seleccionar localidad:");
 		lblElejirLoc.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblElejirLoc.setBounds(180, 97, 234, 39);
-		add(lblElejirLoc);
+		add(lblElejirLoc);	
 		
-		lblSelFecha = new JLabel("Seleccionar una fecha");
-		lblSelFecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblSelFecha.setBounds(180, 216, 244, 39);
-		add(lblSelFecha);
+		lblFechaEnt = new JLabel("Fecha de entrada:");
+		lblFechaEnt.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblFechaEnt.setBounds(180, 216, 244, 39);
+		add(lblFechaEnt);
 		
-		spnDateEditorFechaBus = new JSpinnerDateEditor();
-		((JSpinner.DefaultEditor) spnDateEditorFechaBus.getEditor()).getTextField().setEditable(false);
+		spnDateEditorFechaEnt = new JSpinnerDateEditor();
+		((JSpinner.DefaultEditor) spnDateEditorFechaEnt.getEditor()).getTextField().setEditable(false);
 		
-		calenBusqueda = new JDateChooser(null, null, null, spnDateEditorFechaBus);
-		calenBusqueda.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		calenBusqueda.setBounds(180, 250, 207, 27);
-		calenBusqueda.setDateFormatString("dd-MM-yyyy");
-		add(calenBusqueda);
+		calenEntrada = new JDateChooser(null, null, null, spnDateEditorFechaEnt);
+		calenEntrada.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		calenEntrada.setBounds(180, 250, 185, 27);
+		calenEntrada.setDateFormatString("dd-MM-yyyy");
+		add(calenEntrada);
+		
+		lblFechaSal = new JLabel("Fecha de salida:");
+		lblFechaSal.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblFechaSal.setBounds(435, 216, 244, 39);
+		add(lblFechaSal);
+		
+		spnDateEditorFechaSal = new JSpinnerDateEditor();
+		((JSpinner.DefaultEditor) spnDateEditorFechaSal.getEditor()).getTextField().setEditable(false);
+		
+		calenSalida = new JDateChooser(null, null, null, spnDateEditorFechaSal);
+		calenSalida.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		calenSalida.setBounds(435, 250, 185, 27);
+		calenSalida.setDateFormatString("dd-MM-yyyy");
+		add(calenSalida);
 		
 	}	
 }
