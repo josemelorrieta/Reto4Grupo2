@@ -38,9 +38,9 @@ public class TestAlojamiento {
 		assertEquals(alojamientoTest.getNombre(), null);
 		assertEquals(alojamientoTest.getUbicacion(), null);
 		assertArrayEquals(alojamientoTest.getArrayHabitaciones(), null);
-		assertEquals(alojamientoTest.getPrecioTAlta(), 0, 0.0001);
-		assertEquals(alojamientoTest.getPrecioTBaja(), 0, 0.0001);
-		assertEquals(alojamientoTest.getPrecioTFest(), 0, 0);
+		assertEquals(alojamientoTest.getPrecioTAlta(), null);
+		assertEquals(alojamientoTest.getPrecioTBaja(), null);
+		assertEquals(alojamientoTest.getPrecioTFest(), null);
 		assertEquals(alojamientoTest.getImagen(), null);
 	}
 	

@@ -5,8 +5,8 @@ Nombre: Pepe
 
 Datos de la reserva:
 Nombre Alojamiento: JunjoHoteles
-Fecha de la reserva: 10-04-2019
-Fecha de entrada   : 10-04-2019
-Fecha de salida    : 10-04-2019
+Fecha de la reserva: 11-04-2019
+Fecha de entrada   : 11-04-2019
+Fecha de salida    : 11-04-2019
 
 Precio total: 40.00
