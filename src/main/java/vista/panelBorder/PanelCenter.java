@@ -21,8 +21,9 @@ public class PanelCenter extends JPanel {
 	public int currentIndex;
 	public PanelBuscar pBuscar;
 	public PanelResBusqueda pResBusq;
-	public PanelPago pPago;
 	public PanelRegistro pRegistro;
+	public PanelPago pPago;
+	
 	
 	public PanelCenter() {
 		setParametros();
@@ -43,11 +44,11 @@ public class PanelCenter extends JPanel {
 		pResBusq = new PanelResBusqueda();
 		add(pResBusq, "2");
 		
-		pPago = new PanelPago();
-		add(pPago,"3");
-		
 		pRegistro=new PanelRegistro();
-		add(pRegistro,"4");
+		add(pRegistro,"3");
+		
+		pPago = new PanelPago();
+		add(pPago,"4");
 	}
 	
 	public void prevPanel() {
