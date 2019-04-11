@@ -23,9 +23,9 @@ public class TestHotel {
 		assertEquals(hotelTest.getNombre(), null);
 		assertEquals(hotelTest.getUbicacion(), null);
 		assertArrayEquals(hotelTest.getArrayHabitaciones(), null);
-		assertEquals(hotelTest.getPrecioTAlta(), 0, 0.00001);
-		assertEquals(hotelTest.getPrecioTBaja(), 0, 0.00001);
-		assertEquals(hotelTest.getPrecioTFest(), 0, 0.00001);
+		assertEquals(hotelTest.getPrecioTAlta(), null);
+		assertEquals(hotelTest.getPrecioTBaja(), null);
+		assertEquals(hotelTest.getPrecioTFest(), null);
 		assertEquals(hotelTest.getImagen(), null);
 		assertEquals(hotelTest.getEstrellas(), 0);
 	}

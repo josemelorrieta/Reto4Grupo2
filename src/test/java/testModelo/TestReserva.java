@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import modelo.Alojamiento;
 import modelo.Cliente;
+import modelo.Habitacion;
 import modelo.Reserva;
 
 public class TestReserva {
@@ -18,18 +19,7 @@ public class TestReserva {
 	private Date fechaTest=null;
 	private double doubleTest=20;
 	private Alojamiento alojTest=new Alojamiento();
-
-	@Test
-	public void testConstructor() {
-		reservaTest=new Reserva(clienteTest, doubleTest, fechaTest, fechaTest, fechaTest,alojTest);
-		assertEquals(reservaTest.getCliente(), clienteTest);
-		assertEquals(reservaTest.getPrecio(), doubleTest,0);
-		assertEquals(reservaTest.getFechaReserva(), fechaTest);
-		assertEquals(reservaTest.getFechaEntrada(), fechaTest);
-		assertEquals(reservaTest.getFechaSalida(), fechaTest);
-		assertEquals(reservaTest.getAlojReservado(), alojTest);
-
-	}
+	private Habitacion habTest = new Habitacion();
 	
 	@Test
 	public void testConstructorVacio() {
@@ -40,6 +30,29 @@ public class TestReserva {
 		assertEquals(reservaTest.getFechaEntrada(), null);
 		assertEquals(reservaTest.getFechaSalida(), null);
 		assertEquals(reservaTest.getAlojReservado(), null);
+		assertEquals(reservaTest.getHabitacionReservada(), null);
+	}
+	
+	@Test
+	public void testConstructorAlojamiento() {
+		reservaTest=new Reserva(clienteTest, doubleTest, fechaTest, fechaTest, fechaTest,alojTest);
+		assertEquals(reservaTest.getCliente(), clienteTest);
+		assertEquals(reservaTest.getPrecio(), doubleTest,0);
+		assertEquals(reservaTest.getFechaReserva(), fechaTest);
+		assertEquals(reservaTest.getFechaEntrada(), fechaTest);
+		assertEquals(reservaTest.getFechaSalida(), fechaTest);
+		assertEquals(reservaTest.getAlojReservado(), alojTest);
+	}
+	
+	@Test
+	public void testConstructorHabitacion() {
+		reservaTest=new Reserva(clienteTest, doubleTest, fechaTest, fechaTest, fechaTest,habTest);
+		assertEquals(reservaTest.getCliente(), clienteTest);
+		assertEquals(reservaTest.getPrecio(), doubleTest,0);
+		assertEquals(reservaTest.getFechaReserva(), fechaTest);
+		assertEquals(reservaTest.getFechaEntrada(), fechaTest);
+		assertEquals(reservaTest.getFechaSalida(), fechaTest);
+		assertEquals(reservaTest.getHabitacionReservada(), habTest);
 	}
 	
 	@Test
@@ -79,6 +92,12 @@ public class TestReserva {
 		reservaTest=new Reserva();
 		reservaTest.setAlojReservado(alojTest);
 		assertEquals(reservaTest.getAlojReservado(), alojTest);
+	}	
+	@Test
+	public void testHabitacionReservada() {
+		reservaTest = new Reserva();
+		reservaTest.setHabitacionReservada(habTest);
+		assertEquals(reservaTest.getHabitacionReservada(), habTest);
 	}
 
 }
