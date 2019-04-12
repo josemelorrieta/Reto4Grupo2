@@ -11,21 +11,10 @@ public class TestAlojamiento {
 	
 	private Alojamiento alojamientoTest;
 	private int intTest = 1;
-	private Direccion direccionTest = new Direccion();
 	private String stringTest = "Test1";
+	private Direccion direccionTest = new Direccion();
 	private double doubleTest = 20.0;
-
-	@Test
-	public void testConstructor() {
-		alojamientoTest=new Alojamiento(intTest, stringTest, direccionTest, doubleTest, doubleTest, doubleTest, stringTest);
-		assertEquals(alojamientoTest.getId(), intTest);
-		assertEquals(alojamientoTest.getNombre(), stringTest);
-		assertEquals(alojamientoTest.getDireccion(), direccionTest);
-		assertEquals(alojamientoTest.getPrecioTAlta(), doubleTest, 0.0001);
-		assertEquals(alojamientoTest.getPrecioTBaja(), doubleTest, 0.0001);
-		assertEquals(alojamientoTest.getPrecioTFest(), doubleTest, 0.0001);
-		assertEquals(alojamientoTest.getImagen(), stringTest);
-	}
+	private boolean boolTest = true;
 	
 	@Test
 	public void testConstructorVacio() {
@@ -37,6 +26,19 @@ public class TestAlojamiento {
 		assertEquals(alojamientoTest.getPrecioTBaja(), 0, 0.0001);
 		assertEquals(alojamientoTest.getPrecioTFest(), 0, 0.0001);
 		assertEquals(alojamientoTest.getImagen(), null);
+		assertEquals(alojamientoTest.isDisponible(), true);
+	}
+	@Test
+	public void testConstructorParametros() {
+		alojamientoTest=new Alojamiento(intTest, stringTest, direccionTest, doubleTest, doubleTest, doubleTest, stringTest, boolTest);
+		assertEquals(alojamientoTest.getId(), intTest);
+		assertEquals(alojamientoTest.getNombre(), stringTest);
+		assertEquals(alojamientoTest.getDireccion(), direccionTest);
+		assertEquals(alojamientoTest.getPrecioTAlta(), doubleTest, 0.0001);
+		assertEquals(alojamientoTest.getPrecioTBaja(), doubleTest, 0.0001);
+		assertEquals(alojamientoTest.getPrecioTFest(), doubleTest, 0.0001);
+		assertEquals(alojamientoTest.getImagen(), stringTest);
+		assertEquals(alojamientoTest.isDisponible(), boolTest);
 	}
 	
 	@Test
@@ -53,7 +55,7 @@ public class TestAlojamiento {
 	}
 	
 	@Test
-	public void testUbicacion() {
+	public void testDireccion() {
 		alojamientoTest=new Alojamiento();
 		alojamientoTest.setDireccion(direccionTest);
 		assertEquals(alojamientoTest.getDireccion(), direccionTest);	
@@ -84,5 +86,11 @@ public class TestAlojamiento {
 		alojamientoTest = new Alojamiento();
 		alojamientoTest.setImagen(stringTest);
 		assertEquals(alojamientoTest.getImagen(), stringTest);
+	}
+	@Test
+	public void testDisponible() {
+		alojamientoTest = new Alojamiento();
+		alojamientoTest.setDisponible(true);
+		assertEquals(alojamientoTest.isDisponible(), boolTest);
 	}
 }

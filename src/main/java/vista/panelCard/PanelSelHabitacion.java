@@ -50,7 +50,4 @@ public class PanelSelHabitacion extends JPanel {
 		add(scroll);
 	}
 	
-	public void setResultBusqueda(Habitacion[] habitaciones) {
-		
-	}
 }

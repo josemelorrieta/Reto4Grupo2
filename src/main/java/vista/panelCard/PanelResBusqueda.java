@@ -48,7 +48,7 @@ public class PanelResBusqueda extends JPanel {
 		scroll.setSize(520, 320);
 		add(scroll);
 	}	
-	
+
 	public void setResultBusqueda(Hotel[] hoteles) {
 		modelResBusq.clear();
 		for(Hotel hotel:hoteles) {

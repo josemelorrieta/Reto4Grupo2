@@ -9,15 +9,15 @@ public class Casa extends Alojamiento{
 		
 	}
 	
-	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen);
+	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
+		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 	}
 	
-	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, Habitacion[] habitaciones, int numBanios, int m2) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen);
+	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Habitacion[] habitaciones, int numBanios, int m2) {
+		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 		this.habitaciones = habitaciones;
-		this.numBanios = numBanios;
-		this.m2 = m2;
+		setNumBanios();
+		setM2();
 	}
 
 	public Habitacion[] getHabitaciones() {
@@ -32,16 +32,20 @@ public class Casa extends Alojamiento{
 		return numBanios;
 	}
 
-	public void setNumBanios(int numBanios) {
-		this.numBanios = numBanios;
+	public void setNumBanios() {
+		for(Habitacion habitacion:habitaciones) {
+			if(habitacion.tipoHabitacion==TipoHabitacion.BANIO)
+				numBanios++;
+		}
 	}
 
 	public int getM2() {
 		return m2;
 	}
 
-	public void setM2(int m2) {
-		this.m2 = m2;
+	public void setM2() {
+		for(Habitacion habitacion:habitaciones) 
+			m2 += habitacion.getM2();
 	}
 	
 }

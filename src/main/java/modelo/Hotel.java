@@ -4,12 +4,9 @@ public class Hotel extends Alojamiento {
 	private Dormitorio[] dormitorios;
 	private int numEstrellas;
 	private boolean[] dormDisponibles;
+	
 	public Hotel() {
 		
-	}
-	
-	public Hotel(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 	}
 
 	public Hotel(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Dormitorio[] dormitorios, int numEstrellas, boolean[] dormDisponibles) {
