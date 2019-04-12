@@ -1,13 +1,15 @@
 package modelo;
 
 public class Mobiliario {
+	
 	protected String nombre;
 
+	public Mobiliario() {
+	
+	}
+	
 	public Mobiliario(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public Mobiliario() {
 	}
 
 	public String getNombre() {

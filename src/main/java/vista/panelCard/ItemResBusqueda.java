@@ -72,8 +72,7 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends Hotel> lista, Hotel hotel, int index, boolean isSelected,
-			boolean cellHasFocus) {
+	public Component getListCellRendererComponent(JList<? extends Hotel> lista, Hotel hotel, int index, boolean isSelected,	boolean cellHasFocus) {
 		String foto = hotel.getImagen();
 		ImageIcon imagen, estrellas;
 		if (!foto.equals(""))
@@ -83,10 +82,10 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 		
 		lblFoto.setIcon(imagen);
 		lblNombre.setText(hotel.getNombre());
-		lblLocalidad.setText(hotel.getUbicacion().getCalle() + " (" + hotel.getUbicacion().getLocalidad() + ")");
+		lblLocalidad.setText(hotel.getDireccion().getCalle() + " (" + hotel.getDireccion().getLocalidad() + ")");
 		lblPrecio.setText(df.format(hotel.getPrecioTAlta()));
 		
-		estrellas = FuncionesGenerales.resizeIcono(lblEstrellas.getWidth(), lblEstrellas.getHeight(), new File(getClass().getResource("/imagenes/alojamiento/hotel/estrellas" + hotel.getEstrellas() + ".png").getPath()));
+		estrellas = FuncionesGenerales.resizeIcono(lblEstrellas.getWidth(), lblEstrellas.getHeight(), new File(getClass().getResource("/imagenes/alojamiento/hotel/estrellas" + hotel.getNumEstrellas() + ".png").getPath()));
 		lblEstrellas.setIcon(estrellas);
 		
 		if (isSelected) {

@@ -32,8 +32,7 @@ public class PanelResBusqueda extends JPanel {
 		setLayout(null);
 	}
 	
-	private void instanciarObjetos() {
-		
+	private void instanciarObjetos() {	
 		lblLocBusq = new JLabel("Resultados para Bilbao");
 		lblLocBusq.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblLocBusq.setBounds(100, 30, 360, 26);
@@ -49,12 +48,12 @@ public class PanelResBusqueda extends JPanel {
 		scroll.setSize(520, 320);
 		add(scroll);
 	}	
-	
+
 	public void setResultBusqueda(Hotel[] hoteles) {
 		modelResBusq.clear();
 		for(Hotel hotel:hoteles) {
 			modelResBusq.addElement(hotel);
 		}
-		lblLocBusq.setText("Resultados para " + hoteles[0].getUbicacion().getLocalidad());
+		lblLocBusq.setText("Resultados para " + hoteles[0].getDireccion().getLocalidad());
 	}
 }

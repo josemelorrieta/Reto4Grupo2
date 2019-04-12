@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,19 +23,23 @@ public class ControladorPanelBuscar{
 	private Controlador controlador;
 	private Modelo mod;
 	DateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+	Calendar calendar = Calendar.getInstance();
+	Date hoy = calendar.getTime();
 
 	public ControladorPanelBuscar(VentanaPpal vis,Controlador cont,Modelo mod){
 		this.vis=vis;
 		this.controlador=cont;
 		this.mod = mod;
 		cargarLocalidades();
-		establecerFechas();
+		fechaHoy();
+		cambioFechaEnt(hoy);
 		vis.pBotones.setBotonesVisible(false);
 		initListeners();
 	}
 	
 	private void initListeners() {
 		vis.pCenter.pBuscar.btnBuscar.addActionListener(new ListenerBotones());
+		vis.pCenter.pBuscar.calenEntrada.addPropertyChangeListener(new ListenerFechaEnt());
 	}
 
 	public void cargarLocalidades() {
@@ -47,21 +53,33 @@ public class ControladorPanelBuscar{
 		}
 	}
 	
-	public void establecerFechas() {
-		Calendar calendar = Calendar.getInstance();
-		Date hoy = calendar.getTime();
-		calendar.add(calendar.DAY_OF_MONTH, 1);
+	public void fechaHoy() {
+		calendar.add(Calendar.DAY_OF_MONTH, 1);
 		Date manana = calendar.getTime();
 		try {
 			vis.pCenter.pBuscar.calenEntrada.setSelectableDateRange(hoy, formato.parse("01-01-2100"));
-			vis.pCenter.pBuscar.calenEntrada.setDate(hoy);
 			vis.pCenter.pBuscar.calenSalida.setSelectableDateRange(manana, formato.parse("01-01-2100"));
-			vis.pCenter.pBuscar.calenSalida.setDate(manana);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		vis.pCenter.pBuscar.calenEntrada.setDate(hoy);
+		vis.pCenter.pBuscar.calenSalida.setDate(manana);
+	}
+	
+	public void cambioFechaEnt(Date fechaEntrada) {
+		calendar.setTime(fechaEntrada);
+		calendar.add(Calendar.DAY_OF_MONTH, 1);
+		Date manana = calendar.getTime();
+		
+		if (fechaEntrada.compareTo(vis.pCenter.pBuscar.calenSalida.getDate()) >= 0) {
+			vis.pCenter.pBuscar.calenSalida.setDate(manana);		
+		}
+		try {
+			vis.pCenter.pBuscar.calenSalida.setSelectableDateRange(manana, formato.parse("01-01-2100"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	private class ListenerBotones implements ActionListener{
 		@Override
@@ -71,6 +89,16 @@ public class ControladorPanelBuscar{
 			vis.pBotones.setBotonesVisible(true);
 			vis.pCenter.nextPanel();
 		}
+	}
+	
+	private class ListenerFechaEnt implements PropertyChangeListener {
+		@Override
+		public void propertyChange(PropertyChangeEvent e) {
+			System.out.println("Entrada");
+			Date fechaEntrada = vis.pCenter.pBuscar.calenEntrada.getDate();
+			cambioFechaEnt(fechaEntrada);
+		}
+
 	}
 
 }

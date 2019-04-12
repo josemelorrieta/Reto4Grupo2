@@ -1,54 +1,51 @@
 package testModelo;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import modelo.Alojamiento;
 import modelo.Direccion;
-import modelo.Habitacion;
 
 public class TestAlojamiento {
 	
 	private Alojamiento alojamientoTest;
-	private int idTest = 1;
-	private Direccion direccionTest = new Direccion();
+	private int intTest = 1;
 	private String stringTest = "Test1";
-	private Double doubleTest = 20.0;
-	private Habitacion[] arrayHabitacionTest = {new Habitacion(),new Habitacion(),new Habitacion()};
-
-	@Test
-	public void testConstructor() {
-		alojamientoTest=new Alojamiento(idTest, stringTest, direccionTest, arrayHabitacionTest, doubleTest, doubleTest, doubleTest, stringTest);
-		assertEquals(alojamientoTest.getId(), idTest);
-		assertEquals(alojamientoTest.getNombre(), stringTest);
-		assertEquals(alojamientoTest.getUbicacion(), direccionTest);
-		assertArrayEquals(alojamientoTest.getArrayHabitaciones(), arrayHabitacionTest);
-		assertEquals(alojamientoTest.getPrecioTAlta(), doubleTest);
-		assertEquals(alojamientoTest.getPrecioTBaja(), doubleTest);
-		assertEquals(alojamientoTest.getPrecioTFest(), doubleTest);
-		assertEquals(alojamientoTest.getImagen(), stringTest);
-}
+	private Direccion direccionTest = new Direccion();
+	private double doubleTest = 20.0;
+	private boolean boolTest = true;
 	
 	@Test
 	public void testConstructorVacio() {
 		alojamientoTest=new Alojamiento();
 		assertEquals(alojamientoTest.getId(), 0);
 		assertEquals(alojamientoTest.getNombre(), null);
-		assertEquals(alojamientoTest.getUbicacion(), null);
-		assertArrayEquals(alojamientoTest.getArrayHabitaciones(), null);
-		assertEquals(alojamientoTest.getPrecioTAlta(), null);
-		assertEquals(alojamientoTest.getPrecioTBaja(), null);
-		assertEquals(alojamientoTest.getPrecioTFest(), null);
+		assertEquals(alojamientoTest.getDireccion(), null);
+		assertEquals(alojamientoTest.getPrecioTAlta(), 0, 0.0001);
+		assertEquals(alojamientoTest.getPrecioTBaja(), 0, 0.0001);
+		assertEquals(alojamientoTest.getPrecioTFest(), 0, 0.0001);
 		assertEquals(alojamientoTest.getImagen(), null);
+		assertEquals(alojamientoTest.isDisponible(), true);
+	}
+	@Test
+	public void testConstructorParametros() {
+		alojamientoTest=new Alojamiento(intTest, stringTest, direccionTest, doubleTest, doubleTest, doubleTest, stringTest, boolTest);
+		assertEquals(alojamientoTest.getId(), intTest);
+		assertEquals(alojamientoTest.getNombre(), stringTest);
+		assertEquals(alojamientoTest.getDireccion(), direccionTest);
+		assertEquals(alojamientoTest.getPrecioTAlta(), doubleTest, 0.0001);
+		assertEquals(alojamientoTest.getPrecioTBaja(), doubleTest, 0.0001);
+		assertEquals(alojamientoTest.getPrecioTFest(), doubleTest, 0.0001);
+		assertEquals(alojamientoTest.getImagen(), stringTest);
+		assertEquals(alojamientoTest.isDisponible(), boolTest);
 	}
 	
 	@Test
 	public void testId() {
 		alojamientoTest = new Alojamiento();
-		alojamientoTest.setId(idTest);
-		assertEquals(alojamientoTest.getId(), idTest);
+		alojamientoTest.setId(intTest);
+		assertEquals(alojamientoTest.getId(), intTest);
 	}
 	@Test
 	public void testNombre() {
@@ -58,38 +55,30 @@ public class TestAlojamiento {
 	}
 	
 	@Test
-	public void testUbicacion() {
+	public void testDireccion() {
 		alojamientoTest=new Alojamiento();
-		alojamientoTest.setUbicacion(direccionTest);
-		assertEquals(alojamientoTest.getUbicacion(), direccionTest);	
-	}
-	
-	@Test
-	public void testArrayHabitaciones() {
-		alojamientoTest=new Alojamiento();
-		alojamientoTest.setArrayHabitaciones(arrayHabitacionTest);
-		assertArrayEquals(alojamientoTest.getArrayHabitaciones(), arrayHabitacionTest);	
-	}
-	
+		alojamientoTest.setDireccion(direccionTest);
+		assertEquals(alojamientoTest.getDireccion(), direccionTest);	
+	}	
 	@Test
 	public void testPrecioTAlta() {
 		alojamientoTest=new Alojamiento();
 		alojamientoTest.setPrecioTAlta(doubleTest);
-		assertEquals(alojamientoTest.getPrecioTAlta(), doubleTest);	
+		assertEquals(alojamientoTest.getPrecioTAlta(), doubleTest, 0.0001);	
 	}
 	
 	@Test
 	public void testPrecioTBaja() {
 		alojamientoTest=new Alojamiento();
 		alojamientoTest.setPrecioTBaja(doubleTest);
-		assertEquals(alojamientoTest.getPrecioTBaja(), doubleTest);	
+		assertEquals(alojamientoTest.getPrecioTBaja(), doubleTest, 0.0001);	
 	}
 	
 	@Test
 	public void testPrecioTFest() {
 		alojamientoTest=new Alojamiento();
 		alojamientoTest.setPrecioTFest(doubleTest);
-		assertEquals(alojamientoTest.getPrecioTFest(), doubleTest);	
+		assertEquals(alojamientoTest.getPrecioTFest(), doubleTest, 0.0001);	
 	}
 
 	@Test
@@ -97,5 +86,11 @@ public class TestAlojamiento {
 		alojamientoTest = new Alojamiento();
 		alojamientoTest.setImagen(stringTest);
 		assertEquals(alojamientoTest.getImagen(), stringTest);
+	}
+	@Test
+	public void testDisponible() {
+		alojamientoTest = new Alojamiento();
+		alojamientoTest.setDisponible(true);
+		assertEquals(alojamientoTest.isDisponible(), boolTest);
 	}
 }

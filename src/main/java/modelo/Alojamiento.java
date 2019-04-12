@@ -3,26 +3,26 @@ package modelo;
 public class Alojamiento {
 	protected int id;
 	protected String nombre;
-	protected Direccion ubicacion;
-	protected Habitacion[] arrayHabitaciones;
-	protected Double precioTAlta;
-	protected Double precioTBaja;
-	protected Double precioTFest;
+	protected Direccion direccion;
+	protected double precioTAlta;
+	protected double precioTBaja;
+	protected double precioTFest;
 	protected String imagen;
+	protected boolean disponible;
 
 	public Alojamiento() {
-		//Constructor por defecto
+		this.disponible = true;
 	}
 	
-	public Alojamiento(int id, String nombre, Direccion ubicacion, Habitacion[] arrayHabitaciones, Double precioA, Double precioB, Double precioF, String imagen) {
+	public Alojamiento(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
 		this.id = id;
 		this.nombre = nombre;
-		this.ubicacion = ubicacion;
-		this.arrayHabitaciones = arrayHabitaciones;
+		this.direccion = direccion;
 		this.precioTAlta = precioA;
 		this.precioTBaja = precioB;
 		this.precioTFest = precioF;
 		this.imagen = imagen;
+		this.disponible = disponible;
 	}
 
 	public int getId() {
@@ -41,20 +41,12 @@ public class Alojamiento {
 		this.nombre = nombre;
 	}
 
-	public Direccion getUbicacion() {
-		return ubicacion;
+	public Direccion getDireccion() {
+		return direccion;
 	}
 
-	public void setUbicacion(Direccion ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-
-	public Habitacion[] getArrayHabitaciones() {
-		return arrayHabitaciones;
-	}
-
-	public void setArrayHabitaciones(Habitacion[] arrayHabitaciones) {
-		this.arrayHabitaciones = arrayHabitaciones;
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
 	}
 
 	public Double getPrecioTAlta() {
@@ -89,5 +81,12 @@ public class Alojamiento {
 		this.imagen = imagen;
 	}
 
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
 	
 }
