@@ -72,8 +72,7 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends Hotel> lista, Hotel hotel, int index, boolean isSelected,
-			boolean cellHasFocus) {
+	public Component getListCellRendererComponent(JList<? extends Hotel> lista, Hotel hotel, int index, boolean isSelected,	boolean cellHasFocus) {
 		String foto = hotel.getImagen();
 		ImageIcon imagen, estrellas;
 		if (!foto.equals(""))
