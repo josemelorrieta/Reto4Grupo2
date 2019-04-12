@@ -3,7 +3,6 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import modelo.Cliente;
 import modelo.Modelo;
 import vista.VentanaPpal;
 
@@ -15,6 +14,7 @@ public class Controlador {
 	private ControladorPanelPago cPago;
 	private ControladorPanelResBusqueda cResBusqueda;
 	private ControladorPanelRegistro cRegistro;
+	private ControladorPanelLogin cLogin;
 
 	public Controlador(VentanaPpal vista, Modelo modelo) {
 		this.vis = vista;
@@ -28,6 +28,7 @@ public class Controlador {
 		cPago = new ControladorPanelPago(vis, this, mod);
 		cResBusqueda = new ControladorPanelResBusqueda(vis, this);
 		cRegistro = new ControladorPanelRegistro(vis, this, mod);
+		cLogin = new ControladorPanelLogin(vis, this, mod);
 	}
 
 	private void initListeners() {
@@ -50,13 +51,20 @@ public class Controlador {
 					}
 					break;
 				case 3:
-					if (mod.mRegiLog.comprobarDatos()) {
-						mod.clienteRegis = new Cliente();
-						mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente");
-						vis.pCenter.changePanel("4");
+					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
+					if (mod.clienteRegis != null) {
+						vis.pCenter.changePanel("5");
 					}
 					break;
 				case 4:
+					if (mod.mRegiLog.comprobarDatos()) {
+						mod.clienteRegis = mod.mRegiLog.crearCliente(vis.pCenter.pRegistro);
+						mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente");
+						vis.pCenter.changePanel("5");
+						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+					}
+					break;
+				case 5:
 					if (mod.isPagoExitoso()) {
 						vis.pCenter.changePanel("1");
 						vis.pCenter.pPago.limpiar();
@@ -69,9 +77,19 @@ public class Controlador {
 				}
 				break;
 			case "VOLVER":
-				vis.pCenter.prevPanel();
-				if (vis.pCenter.currentIndex == 1) {
+				switch (vis.pCenter.currentIndex) {
+				case 1:
+					vis.pCenter.prevPanel();
 					vis.pBotones.setBotonesVisible(false);
+					break;
+				case 3:
+					vis.pCenter.prevPanel();
+					mod.mRegiLog.limpiar(vis.pCenter.pLogin);
+					break;
+				case 4:
+					vis.pCenter.prevPanel();
+					mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+					break;
 				}
 				break;
 			}

@@ -25,7 +25,7 @@ public class Modelo {
 	public void addMetodos() {
 		mBuscar=new MetodosBuscar(this, bd);
 		mPago=new MetodosPanelPago();
-		mRegiLog=new MetodosPanelRegistroYLogin();
+		mRegiLog=new MetodosPanelRegistroYLogin(this, bd);
 	}
 
 	public Hotel[] getHotelesBusqueda() {

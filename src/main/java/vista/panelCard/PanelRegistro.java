@@ -1,16 +1,18 @@
 package vista.panelCard;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
@@ -19,19 +21,13 @@ import com.toedter.calendar.JSpinnerDateEditor;
 import modelo.Sexo;
 import util.FuncionesGenerales;
 
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.DefaultComboBoxModel;
-
 public class PanelRegistro extends JPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JLabel lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni;
+	public JLabel lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni,lblValiNombre,lblValiApellido,lblValiDni,lblValiContra,lblValiContraCoinciden;
 	public JTextField txtNombre, txtApellido, txtDni;
 	public JDateChooser calenNacimiento;
 	public JComboBox<Sexo> comboBoxSexo;
@@ -41,7 +37,8 @@ public class PanelRegistro extends JPanel {
 	public JButton contraOn0, contraOn1;
 
 	private Font tahomaFuente;
-	private ImageIcon iconoOn, iconoOff;
+	public ImageIcon iconoOn, iconoOff;
+	private Color colorRojo=new Color(240, 128, 128);
 
 	/**
 	 * Create the panel.
@@ -141,22 +138,37 @@ public class PanelRegistro extends JPanel {
 		txtDni.setBounds(274, 126, 207, 27);
 		txtDni.setColumns(10);
 		add(txtDni);
+		
+		lblValiNombre = new JLabel("* Este campo solo admite letras");
+		lblValiNombre.setBounds(502, 42, 215, 14);
+		add(lblValiNombre);
+		
+		lblValiApellido = new JLabel("* Este campo solo admite letras");
+		lblValiApellido.setBounds(502, 80, 215, 14);
+		add(lblValiApellido);
+		
+		lblValiDni = new JLabel("* El DNI esta compuesto por 8 numeros y una letra");
+		lblValiDni.setBounds(502, 129, 270, 14);
+		add(lblValiDni);
+		
+		lblValiContra = new JLabel("<html>* La contraseña debe tener 8 caracteres de longuitud</br> con minimo una letra mayuscula, minuscula y un numero</html>");
+		lblValiContra.setBounds(502, 253, 310, 59);
+		add(lblValiContra);
+		
+		lblValiContraCoinciden = new JLabel("* Las contraseñas no coinciden");
+		lblValiContraCoinciden.setBounds(502, 323, 249, 20);
+		add(lblValiContraCoinciden);
 
 		JLabel[] arrayLabel = { lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni };
+		JLabel[] arrayLabelVali= {lblValiNombre,lblValiApellido,lblValiDni,lblValiContra,lblValiContraCoinciden};
 
 		for (JLabel label : arrayLabel) {
 			label.setFont(tahomaFuente);
 		}
-
-	}
-
-	public void mostrarContraIcono(boolean bool) {
-		if (bool) {
-			contraOn0.setIcon(iconoOn);
-			contraOn1.setIcon(iconoOn);
-		} else {
-			contraOn0.setIcon(iconoOff);
-			contraOn1.setIcon(iconoOff);
+		
+		for(JLabel label: arrayLabelVali) {
+			label.setVisible(false);
+			label.setForeground(colorRojo);
 		}
 	}
 }
