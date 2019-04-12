@@ -1,5 +1,7 @@
 package modelo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.google.gson.Gson;
@@ -10,6 +12,8 @@ public class MetodosBuscar {
 	private ConsultaBD bd;
 	private Gson gson = new Gson();
 	private Modelo mod;
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public MetodosBuscar(Modelo mod, ConsultaBD bd) {
 		this.bd=bd;
@@ -55,6 +59,8 @@ public class MetodosBuscar {
 			cargarCamasHabit(dormitorio);
 		//hotel.setArrayHabitaciones(habit);
 		hotel.setDormitorios(dormitorios);
+		boolean[] dormitoriosDisp = new boolean[dormitorios.length];
+		hotel.setDormDisponibles(dormitoriosDisp);
 	}
 	
 	private void cargarCamasHabit(Dormitorio dormitorio) {
@@ -68,23 +74,33 @@ public class MetodosBuscar {
 	private void setDisponibilidad(Hotel hotel) {
 		Date fechaEntrada = mod.reserva.getFechaEntrada();
 		Date fechaSalida = mod.reserva.getFechaSalida();
-
+		Date fechaIn = new Date();
+		Date fechaOut = new Date();
+		int idHab = 0;
+		
 		FechasReserva[] fechasReserva = buscarFechasReservas();
 		
-		System.out.println("");
-//		for (Dormitorio dormitorio : hotel.getDormitorios()) {
-//			FechasReserva[] fechasReserva = buscarFechasReservas();
-//			for (int i=0;i<fechasReserva.length;i++) {
-//				if (fechasReserva[i].getFechaIn().compareTo(fechaSalida) <= 0 && fechasReserva[i].getFechaOut().compareTo(fechaEntrada)>=0) {
-//					
-//				}
-//			}
-//		}
+		for (int i=0;i<hotel.getDormitorios().length;i++) {
+			for (int j=0;j<fechasReserva.length;j++) {
+				try {
+					fechaIn = sdf.parse(fechasReserva[j].getFechaIn());
+					fechaOut = sdf.parse(fechasReserva[j].getFechaOut());
+					idHab = fechasReserva[j].getIdHab();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				if (fechaIn.compareTo(fechaSalida) <= 0 && fechaOut.compareTo(fechaEntrada)>=0 && idHab == hotel.getDormitorios()[i].getIdHab()) {
+					hotel.getDormDisponibles()[i] = false;
+				} else {
+					hotel.getDormDisponibles()[i] = true;
+				}
+			}
+		}
 		
 	}
 	
 	private FechasReserva[] buscarFechasReservas() {
-		String json = bd.consultarToGson("SELECT `idRsv`, `fechaIn`, `fechaOut` FROM `reserva`");
+		String json = bd.consultarToGson("SELECT r.`idRsv`, `idHab`, `fechaIn`, `fechaOut` FROM `reserva` r, `rsvhab` h WHERE r.`idRsv`=h.`idRsv`");
 		gson = new Gson();
 		FechasReserva[] fechasReserva = gson.fromJson(json, FechasReserva[].class);
 		

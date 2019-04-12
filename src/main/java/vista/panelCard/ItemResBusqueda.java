@@ -75,6 +75,9 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 	public Component getListCellRendererComponent(JList<? extends Hotel> lista, Hotel hotel, int index, boolean isSelected,	boolean cellHasFocus) {
 		String foto = hotel.getImagen();
 		ImageIcon imagen, estrellas;
+		int count = 0;
+		boolean[] dormitoriosDisp = hotel.getDormDisponibles();
+		
 		if (!foto.equals(""))
 			imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/hotel/"+ foto +".jpg"));
 		else
@@ -87,6 +90,16 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 		
 		estrellas = FuncionesGenerales.resizeIcono(lblEstrellas.getWidth(), lblEstrellas.getHeight(), new File(getClass().getResource("/imagenes/alojamiento/hotel/estrellas" + hotel.getNumEstrellas() + ".png").getPath()));
 		lblEstrellas.setIcon(estrellas);
+		
+		for (int i=0;i<dormitoriosDisp.length;i++) {
+			if (dormitoriosDisp[i] == false)
+				count++;
+		}
+		
+		if (count > 0) {
+			lblDisponible.setText("No disponible");
+			lblDisponible.setForeground(new Color(255,0,0));
+		}
 		
 		if (isSelected) {
 		    setBackground(lista.getSelectionBackground());

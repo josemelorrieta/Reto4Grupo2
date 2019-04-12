@@ -2,11 +2,13 @@ package modelo;
 
 public class FechasReserva {
 	private int idRsv;
+	private int idHab;
 	private String fechaIn;
 	private String fechaOut;
 	
-	public FechasReserva(int idRsv, String fechaIn, String fechaOut) {
+	public FechasReserva(int idRsv, int idHab, String fechaIn, String fechaOut) {
 		this.idRsv = idRsv;
+		this.setIdHab(idHab);
 		this.fechaIn = fechaIn;
 		this.fechaOut = fechaOut;
 	}
@@ -17,6 +19,14 @@ public class FechasReserva {
 
 	public void setIdRsv(int idRsv) {
 		this.idRsv = idRsv;
+	}
+
+	public int getIdHab() {
+		return idHab;
+	}
+
+	public void setIdHab(int idHab) {
+		this.idHab = idHab;
 	}
 
 	public String getFechaIn() {
