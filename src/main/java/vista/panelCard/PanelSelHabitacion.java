@@ -1,17 +1,15 @@
 package vista.panelCard;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.SystemColor;
-
 import javax.swing.JPanel;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-
 import modelo.Habitacion;
-import modelo.Hotel;
 
 public class PanelSelHabitacion extends JPanel {
 
@@ -37,6 +35,7 @@ public class PanelSelHabitacion extends JPanel {
 
 	private void instanciarObjetos() {
 		lblTitulo = new JLabel("Datos del alojamiento");
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTitulo.setBounds(43, 32, 116, 14);
 		add(lblTitulo);
 		
@@ -49,5 +48,9 @@ public class PanelSelHabitacion extends JPanel {
 		scroll.setLocation(100, 60);
 		scroll.setSize(520, 320);
 		add(scroll);
+	}
+	
+	public void setResultBusqueda(Habitacion[] habitaciones) {
+		
 	}
 }

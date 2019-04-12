@@ -14,13 +14,24 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Habit
 	 * Create the panel.
 	 */
 	public RendererHabitacion() {
+		setParametros();
+		instanciarObjetos();
+	}
 
+	private void setParametros() {
+		
+		
+	}
+
+	private void instanciarObjetos() {
+		
+		
 	}
 
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Habitacion> arg0, Habitacion arg1, int arg2,
 			boolean arg3, boolean arg4) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
