@@ -9,6 +9,14 @@ public class Cama extends Mobiliario {
 	
 	public Cama(String nombre, TipoCama tipoCama) {
 		super(nombre);
+		this.setTipoCama(tipoCama);
+	}
+
+	public TipoCama getTipoCama() {
+		return tipoCama;
+	}
+
+	public void setTipoCama(TipoCama tipoCama) {
 		this.tipoCama = tipoCama;
 	}
 }

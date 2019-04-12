@@ -7,12 +7,12 @@ public class Apartamento extends Casa{
 		
 	}
 	
-	public Apartamento(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen);
+	public Apartamento(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen,boolean disponible) {
+		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 	}
 	
-	public Apartamento(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, int piso) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen);
+	public Apartamento(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible,int piso) {
+		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 		this.piso = piso;
 	}
 	

@@ -8,12 +8,12 @@ public class Dormitorio extends Habitacion{
 		
 	}
 	
-	public Dormitorio(int idHab, int m2, TipoHabitacion tipoHabitacion) {
-		super(idHab, m2, tipoHabitacion);
+	public Dormitorio(int idHab, int m2) {
+		super(idHab, m2, TipoHabitacion.DORMITORIO);
 	}
 	
-	public Dormitorio(int idHab, int m2, TipoHabitacion tipoHabitacion, Mobiliario[] mobiliario) {
-		super(idHab, m2, tipoHabitacion);
+	public Dormitorio(int idHab, int m2, Mobiliario[] mobiliario) {
+		super(idHab, m2, TipoHabitacion.DORMITORIO);
 		this.mobiliario = mobiliario;
 	}
 	

@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: Pepe
 
 Datos de la reserva:
-Nombre Alojamiento: Hotel Carlton
-Fecha de la reserva: 11-04-2019
-Fecha de entrada   : 11-04-2019
-Fecha de salida    : 11-04-2019
+Nombre Alojamiento: JunjoHoteles
+Fecha de la reserva: 12-04-2019
+Fecha de entrada   : 12-04-2019
+Fecha de salida    : 12-04-2019
 
-Precio total: 64.90
+Precio total: 40.00

@@ -11,7 +11,7 @@ public class Alojamiento {
 	protected boolean disponible;
 
 	public Alojamiento() {
-		//Constructor por defecto
+		this.disponible = true;
 	}
 	
 	public Alojamiento(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
@@ -81,5 +81,12 @@ public class Alojamiento {
 		this.imagen = imagen;
 	}
 
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
 	
 }

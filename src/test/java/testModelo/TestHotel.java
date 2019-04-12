@@ -3,6 +3,7 @@ package testModelo;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
 import modelo.Direccion;
 import modelo.Dormitorio;
 import modelo.Hotel;
@@ -11,10 +12,12 @@ public class TestHotel {
 
 	private Hotel hotelTest;
 	private int intTest = 20;
-	private Direccion direccionTest = new Direccion();
 	private String stringTest = "Test1";
+	private Direccion direccionTest = new Direccion();
 	private double doubleTest = 20.0;
+	private boolean boolTest = true;
 	private Dormitorio[] dormitoriosTest = {new Dormitorio(),new Dormitorio(),new Dormitorio()};
+	private boolean[] boolArrayTest = {false,true,false};
 		
 	@Test
 	public void testConstructorVacio() {
@@ -26,22 +29,12 @@ public class TestHotel {
 		assertEquals(hotelTest.getPrecioTBaja(), 0, 0.0001);
 		assertEquals(hotelTest.getPrecioTFest(), 0, 0.0001);
 		assertEquals(hotelTest.getImagen(), null);
-		assertEquals(hotelTest.getNumEstrellas(), 0);
+		assertEquals(hotelTest.isDisponible(), true);
 	}
-	@Test
-	public void testConstructorSuper() {
-		hotelTest=new Hotel(intTest, stringTest, direccionTest,doubleTest,doubleTest,doubleTest,stringTest);
-		assertEquals(hotelTest.getId(), intTest);
-		assertEquals(hotelTest.getNombre(), stringTest);
-		assertEquals(hotelTest.getDireccion(), direccionTest);
-		assertEquals(hotelTest.getPrecioTAlta(), doubleTest, 0.00001);
-		assertEquals(hotelTest.getPrecioTBaja(), doubleTest, 0.00001);
-		assertEquals(hotelTest.getPrecioTFest(), doubleTest, 0.00001);
-		assertEquals(hotelTest.getImagen(), stringTest);
-	}
+
 	@Test
 	public void testConstructor() {
-		hotelTest=new Hotel(intTest, stringTest, direccionTest,doubleTest,doubleTest,doubleTest,stringTest,dormitoriosTest,intTest);
+		hotelTest=new Hotel(intTest, stringTest, direccionTest,doubleTest,doubleTest,doubleTest,stringTest,boolTest,dormitoriosTest,intTest,boolArrayTest);
 		assertEquals(hotelTest.getId(), intTest);
 		assertEquals(hotelTest.getNombre(), stringTest);
 		assertEquals(hotelTest.getDireccion(), direccionTest);
@@ -49,8 +42,10 @@ public class TestHotel {
 		assertEquals(hotelTest.getPrecioTBaja(), doubleTest, 0.00001);
 		assertEquals(hotelTest.getPrecioTFest(), doubleTest, 0.00001);
 		assertEquals(hotelTest.getImagen(), stringTest);
+		assertEquals(hotelTest.isDisponible(), boolTest);
 		assertArrayEquals(hotelTest.getDormitorios(), dormitoriosTest);
 		assertEquals(hotelTest.getNumEstrellas(), intTest);
+		assertArrayEquals(hotelTest.getDormDisponibles(), boolArrayTest);
 	}
 	
 	@Test
@@ -68,7 +63,7 @@ public class TestHotel {
 	}
 	
 	@Test
-	public void testUbicacion() {
+	public void testDireccion() {
 		hotelTest=new Hotel();
 		hotelTest.setDireccion(direccionTest);
 		assertEquals(hotelTest.getDireccion(), direccionTest);	
@@ -103,9 +98,16 @@ public class TestHotel {
 	}
 
 	@Test
+	public void testDisponible() {
+		hotelTest = new Hotel();
+		hotelTest.setDisponible(true);
+		assertEquals(hotelTest.isDisponible(), boolTest);
+	}
+	
+	@Test
 	public void testDormitorios() {
 		hotelTest = new Hotel();
 		hotelTest.setDormitorios(dormitoriosTest);
-		assertEquals
+		assertArrayEquals(hotelTest.getDormitorios(),dormitoriosTest);
 	}
 }
