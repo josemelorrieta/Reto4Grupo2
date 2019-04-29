@@ -236,7 +236,6 @@ public class MetodosPanelPago {
 	public boolean guardarReserva(Reserva reserva) {
 		Object[] objetos = new Object[1];
 		objetos[0] = reserva;
-		
 		return bd.insertGenerico(objetos, "reserva");
 
 	}

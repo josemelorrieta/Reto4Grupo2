@@ -164,7 +164,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @return objeto cliente
 	 */
 	public Cliente crearCliente(PanelRegistro panel) {
-		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), panel.pwdContra.getPassword().toString());
+		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(),encriptarContra(panel.pwdContra.getPassword()));
 	}
 
 	/**
@@ -176,7 +176,7 @@ public class MetodosPanelRegistroYLogin {
 	 */
 	public Cliente login(PanelLogin panel) {
 		String dni = panel.txtDni.getText();
-		char[] contraIntroducida = panel.pwdContra.getPassword();
+		String contraIntroducida = encriptarContra(panel.pwdContra.getPassword());
 
 		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
 		gson = new GsonBuilder();
@@ -184,7 +184,7 @@ public class MetodosPanelRegistroYLogin {
 		gson1 = gson.create();
 		if (!json.equals("")) {
 			Cliente[] cliente = gson1.fromJson(json, Cliente[].class);
-			if (cliente[0].getPassword().equals(encriptarContra(contraIntroducida))) {
+			if (cliente[0].getPassword().equals(contraIntroducida)) {
 				return cliente[0];
 			} else {
 				JOptionPane.showMessageDialog(null, "Contraseña incorrecta, vuelva a intertarlo", null, JOptionPane.ERROR_MESSAGE);
@@ -217,10 +217,12 @@ public class MetodosPanelRegistroYLogin {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			String contraEnc = new String(contrasenia);
 			byte[] hashInBytes = md.digest(contraEnc.getBytes(StandardCharsets.UTF_8));
+			
 			StringBuilder sb = new StringBuilder();
 			for (byte b : hashInBytes) {
-				sb.append(String.format("%02x", b));
+				sb.append(String.format("%02x", b));	
 			}
+				
 			return sb.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
