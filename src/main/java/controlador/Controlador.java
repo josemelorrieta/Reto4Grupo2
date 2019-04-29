@@ -82,6 +82,10 @@ public class Controlador {
 					vis.pCenter.prevPanel();
 					vis.pBotones.setBotonesVisible(false);
 					break;
+				case 2:
+					vis.pCenter.prevPanel();
+					vis.pBotones.setBotonesVisible(true);
+					break;
 				case 3:
 					vis.pCenter.prevPanel();
 					mod.mRegiLog.limpiar(vis.pCenter.pLogin);

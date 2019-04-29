@@ -98,6 +98,10 @@ public class MetodosPanelRegistroYLogin {
 		panel.lblValiContraCoinciden.setVisible(false);
 	}
 
+	/**
+	 * Limpia el panel de login
+	 * @param panel Panel login
+	 */
 	public void limpiar(PanelLogin panel) {
 		Color colorPass = new JPasswordField().getBackground();
 		Color colorTxt = new JTextField().getBackground();
