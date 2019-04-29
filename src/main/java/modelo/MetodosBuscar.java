@@ -81,19 +81,23 @@ public class MetodosBuscar {
 		FechasReserva[] fechasReserva = buscarFechasReservas();
 		
 		for (int i=0;i<hotel.getDormitorios().length;i++) {
-			for (int j=0;j<fechasReserva.length;j++) {
-				try {
-					fechaIn = sdf.parse(fechasReserva[j].getFechaIn());
-					fechaOut = sdf.parse(fechasReserva[j].getFechaOut());
-					idHab = fechasReserva[j].getIdHab();
-				} catch (ParseException e) {
-					e.printStackTrace();
+			if (fechasReserva != null) {
+				for (int j=0;j<fechasReserva.length;j++) {
+					try {
+						fechaIn = sdf.parse(fechasReserva[j].getFechaIn());
+						fechaOut = sdf.parse(fechasReserva[j].getFechaOut());
+						idHab = fechasReserva[j].getIdHab();
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					if (fechaIn.compareTo(fechaSalida) <= 0 && fechaOut.compareTo(fechaEntrada)>=0 && idHab == hotel.getDormitorios()[i].getIdHab()) {
+						hotel.getDormDisponibles()[i] = false;
+					} else {
+						hotel.getDormDisponibles()[i] = true;
+					}
 				}
-				if (fechaIn.compareTo(fechaSalida) <= 0 && fechaOut.compareTo(fechaEntrada)>=0 && idHab == hotel.getDormitorios()[i].getIdHab()) {
-					hotel.getDormDisponibles()[i] = false;
-				} else {
-					hotel.getDormDisponibles()[i] = true;
-				}
+			} else {
+				hotel.getDormDisponibles()[i] = true;
 			}
 		}
 		
