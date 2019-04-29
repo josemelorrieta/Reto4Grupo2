@@ -11,8 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import javax.swing.JButton;
 
+import javax.swing.JOptionPane;
+
+import BaseDatos.ConsultaBD;
 import vista.VentanaPpal;
 import vista.panelCard.PanelPago;
 
@@ -20,9 +22,11 @@ public class MetodosPanelPago {
 
 	private DecimalFormatSymbols simbolos = new DecimalFormatSymbols(Locale.getDefault());
 	private DecimalFormat dosDec;
+	private ConsultaBD bd;
 
-	public MetodosPanelPago() {
+	public MetodosPanelPago(ConsultaBD bd) {
 		dosDecFormato();
+		this.bd = bd;
 	}
 
 	/**
@@ -154,6 +158,8 @@ public class MetodosPanelPago {
 			mod.setPagoExitoso(true);
 			for (String val : arrayCambios)
 				panel.modeloCambio.addElement(val);
+			if(!guardarReserva(mod.reserva))
+				JOptionPane.showMessageDialog(panel, "Error al guardar la reserva en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			panel.textAPagar.setText(arrDinero[0]);
 			panel.textPagado.setText(arrDinero[1]);
@@ -217,6 +223,22 @@ public class MetodosPanelPago {
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Guarda los datos de la reserva en la base de datos
+	 * 
+	 * @param reserva La reserva
+	 * 
+	 * @return booleano que indica si el guardado ha sido correcto o no
+	 * 
+	 */
+	public boolean guardarReserva(Reserva reserva) {
+		Object[] objetos = new Object[1];
+		objetos[0] = reserva;
+		
+		return bd.insertGenerico(objetos, "reserva");
+
 	}
 	
 	/**
