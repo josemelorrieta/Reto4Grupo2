@@ -24,7 +24,7 @@ public class Modelo {
 	
 	public void addMetodos() {
 		mBuscar=new MetodosBuscar(this, bd);
-		mPago=new MetodosPanelPago();
+		mPago=new MetodosPanelPago(bd);
 		mRegiLog=new MetodosPanelRegistroYLogin(this, bd);
 	}
 
