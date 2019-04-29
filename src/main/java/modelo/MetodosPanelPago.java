@@ -162,6 +162,10 @@ public class MetodosPanelPago {
 				panel.modeloCambio.addElement(val);
 			if(!guardarReserva(mod.reserva))
 				JOptionPane.showMessageDialog(panel, "Error al guardar la reserva en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+			if (mod.reserva.getAlojReservado().getClass() == Hotel.class) {
+				if(!guardarHabReserva(mod.reserva))
+					JOptionPane.showMessageDialog(panel, "Error al guardar la reserva en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		} else {
 			panel.textAPagar.setText(arrDinero[0]);
 			panel.textPagado.setText(arrDinero[1]);
@@ -238,7 +242,7 @@ public class MetodosPanelPago {
 	public boolean guardarReserva(Reserva reserva) {
 		Object[] objetos = reserva.toObjectArray();
 		
-		int indiceReserva = siguienteNumReserva();
+		int indiceReserva = ultimoNumReserva() + 1;
 		objetos[0] = indiceReserva;
 		
 		return bd.insertGenerico(objetos, "reserva");
@@ -250,7 +254,7 @@ public class MetodosPanelPago {
 	 * 
 	 * @return 
 	 */
-	public int siguienteNumReserva() {
+	public int ultimoNumReserva() {
 		int numReserva = 0;
 		
 		String aux = bd.consultarToGson("SELECT COUNT(`idRsv`) 'auxiliar' FROM reserva");
@@ -258,12 +262,34 @@ public class MetodosPanelPago {
 		if (aux != null) {
 			final Gson gson = new Gson();
 			Object[] numReservas = gson.fromJson(aux, Global[].class);
-			numReserva = ((Double) ((Global)numReservas[0]).getAuxiliar()).intValue() + 1;
-		} else {
-			numReserva = 1;
+			numReserva = ((Double) ((Global)numReservas[0]).getAuxiliar()).intValue();
 		}
 		
 		return numReserva;
+	}
+	
+	public boolean guardarHabReserva(Reserva reserva) {
+		Hotel hotelReserva = (Hotel)reserva.getAlojReservado();
+		String nombreHotel = hotelReserva.getNombre();
+		int idHabReserva = buscarIdHabitacion(nombreHotel);
+		if(idHabReserva >= 0) {
+			Object[] objetos = {ultimoNumReserva(), idHabReserva};
+			return bd.insertGenerico(objetos, "rsvhab");
+		} else {
+			return false;
+		}
+	}
+	
+	public int buscarIdHabitacion (String nombreHotel) {
+		String aux = bd.consultarToGson("SELECT MIN(`idHab`) 'auxiliar' FROM `habhotel` WHERE `idHot` = (SELECT `idHot` FROM hotel WHERE `nombre` = '" + nombreHotel + "')");
+		
+		if (aux != null) {
+			final Gson gson = new Gson();
+			Object[] idHab = gson.fromJson(aux, Global[].class);
+			return ((Double) ((Global)idHab[0]).getAuxiliar()).intValue();
+		} else {
+			return -1;
+		}
 	}
 	
 	/**
