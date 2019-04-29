@@ -36,10 +36,9 @@ public class MetodosPanelRegistroYLogin {
 	public boolean comprobacionLogin = false;
 
 	public MetodosPanelRegistroYLogin(Modelo mod, ConsultaBD bd) {
-		this.bd=bd;
-		this.mod=mod;
+		this.bd = bd;
+		this.mod = mod;
 	}
-	
 
 	/**
 	 * Comprueba que todos los datos introducidos sean correctos
@@ -102,6 +101,7 @@ public class MetodosPanelRegistroYLogin {
 
 	/**
 	 * Limpia el panel de login
+	 * 
 	 * @param panel Panel login
 	 */
 	public void limpiar(PanelLogin panel) {
@@ -115,6 +115,8 @@ public class MetodosPanelRegistroYLogin {
 
 		panel.pwdContra.setText(null);
 		panel.pwdContra.setBackground(colorPass);
+
+		panel.lblValiDni.setVisible(false);
 	}
 
 	/**
@@ -162,7 +164,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @return objeto cliente
 	 */
 	public Cliente crearCliente(PanelRegistro panel) {
-		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), panel.pwdContra.getPassword().toString());
+		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(),encriptarContra(panel.pwdContra.getPassword()));
 	}
 
 	/**
@@ -174,29 +176,34 @@ public class MetodosPanelRegistroYLogin {
 	 */
 	public Cliente login(PanelLogin panel) {
 		String dni = panel.txtDni.getText();
-		char[] contraIntroducida = panel.pwdContra.getPassword();
+		String contraIntroducida = encriptarContra(panel.pwdContra.getPassword());
 
 		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
 		gson = new GsonBuilder();
 		gson.setDateFormat("yyyy-MM-dd");
-		gson1=gson.create();
+		gson1 = gson.create();
 		if (!json.equals("")) {
 			Cliente[] cliente = gson1.fromJson(json, Cliente[].class);
-			if (cliente[0].getPassword().equals(encriptarContra(contraIntroducida))) {
+			if (cliente[0].getPassword().equals(contraIntroducida)) {
 				return cliente[0];
 			} else {
 				JOptionPane.showMessageDialog(null, "Contraseña incorrecta, vuelva a intertarlo", null, JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
-			
+
 		}
 		JOptionPane.showMessageDialog(null, "No hay ningun usuario con ese nombre, porfavor registrese", null, JOptionPane.ERROR_MESSAGE);
 		return null;
 	}
-	
+
 	public Cliente registro(PanelRegistro panel) {
 		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + panel.txtDni.getText() + "'");
-		return crearCliente(panel);
+		if (json.equals("")) {
+			return crearCliente(panel);
+		}else {
+			JOptionPane.showMessageDialog(null, "Este usuario ya esta registrado", null, JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
 	}
 
 	/**
@@ -210,10 +217,12 @@ public class MetodosPanelRegistroYLogin {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			String contraEnc = new String(contrasenia);
 			byte[] hashInBytes = md.digest(contraEnc.getBytes(StandardCharsets.UTF_8));
+			
 			StringBuilder sb = new StringBuilder();
 			for (byte b : hashInBytes) {
-				sb.append(String.format("%02x", b));
+				sb.append(String.format("%02x", b));	
 			}
+				
 			return sb.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();

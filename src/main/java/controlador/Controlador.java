@@ -60,11 +60,12 @@ public class Controlador {
 					break;
 				case 4:
 					if (mod.mRegiLog.comprobarDatos()) {
-						mod.clienteRegis = mod.mRegiLog.crearCliente(vis.pCenter.pRegistro);
-						mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente");
-						vis.pCenter.changePanel("5");
-						mod.reserva.setCliente(mod.clienteRegis);
-						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+						mod.clienteRegis = mod.mRegiLog.registro(vis.pCenter.pRegistro);
+						if (mod.clienteRegis != null) {
+							mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente");
+							vis.pCenter.changePanel("5");
+							mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+						}
 					}
 					break;
 				case 5:

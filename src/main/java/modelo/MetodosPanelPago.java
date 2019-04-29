@@ -246,7 +246,9 @@ public class MetodosPanelPago {
 	}
 	
 	/** 
+	 * Busca el siguiente numero de orden para insertar una nueva reserva
 	 * 
+	 * @return 
 	 */
 	public int siguienteNumReserva() {
 		int numReserva = 0;
