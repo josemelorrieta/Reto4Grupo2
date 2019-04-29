@@ -53,7 +53,7 @@ public class ControladorPanelLogin {
 		public void focusLost(FocusEvent arg0) {
 			Object trigger = arg0.getSource();
 			if (trigger == vis.pCenter.pLogin.txtDni) {
-				mod.mRegiLog.comprobacionLogin = mod.mRegiLog.validarDNI((JTextField) trigger, vis.pCenter.pRegistro.lblValiDni);
+				mod.mRegiLog.comprobacionLogin = mod.mRegiLog.validarDNI((JTextField) trigger, vis.pCenter.pLogin.lblValiDni);
 			}
 		}
 	}

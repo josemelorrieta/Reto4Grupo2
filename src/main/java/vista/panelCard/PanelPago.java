@@ -245,28 +245,4 @@ public class PanelPago extends JPanel {
 		textVueltas.setEditable(false);
 
 	}
-
-	/**
-	 * Limpia el panel reseteando todos los elementos a valores por defecto
-	 * seleccionados por el programador
-	 */
-	public void limpiar() {
-		textPagado.setText("0.00");
-		textAPagar.setText("0.00");
-		textVueltas.setText("--------");
-		modeloCambio.clear();
-		ActDesBotones(true);
-	}
-
-	/**
-	 * Activa o desactiva su array de botones al estado que se le pasa por
-	 * parametros
-	 * 
-	 * @param estado El estado "enables" que se quiere tener para los botones
-	 */
-	public void ActDesBotones(boolean estado) {
-		for (int i = 0; i < this.arrayBtn.length; i++) {
-			this.arrayBtn[i].setEnabled(estado);
-		}
-	}
 }

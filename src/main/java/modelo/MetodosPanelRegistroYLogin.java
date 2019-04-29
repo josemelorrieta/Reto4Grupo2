@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.toedter.calendar.JDateChooser;
 
 import BaseDatos.ConsultaBD;
@@ -22,7 +23,8 @@ import vista.panelCard.PanelRegistro;
 
 public class MetodosPanelRegistroYLogin {
 	private ConsultaBD bd;
-	private Gson gson = new Gson();
+	private GsonBuilder gson;
+	private Gson gson1;
 	private Modelo mod;
 
 	/**
@@ -174,14 +176,13 @@ public class MetodosPanelRegistroYLogin {
 		String dni = panel.txtDni.getText();
 		char[] contraIntroducida = panel.pwdContra.getPassword();
 
-		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellido',`fechaNac`,`sexo`,`password` 'contrasenia' from cliente where `dni`='" + dni + "'");
-		gson = new Gson();
+		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
+		gson = new GsonBuilder();
+		gson.setDateFormat("yyyy-MM-dd");
+		gson1=gson.create();
 		if (!json.equals("")) {
-			//Object[] aux= gson.fromJson(json, Object[].class);
-			//aux.toString();
-			
-			Cliente[] cliente = gson.fromJson(json, Cliente[].class);
-			if (cliente[0].getPassword().equals(contraIntroducida.toString())) {
+			Cliente[] cliente = gson1.fromJson(json, Cliente[].class);
+			if (cliente[0].getPassword().equals(encriptarContra(contraIntroducida))) {
 				return cliente[0];
 			} else {
 				JOptionPane.showMessageDialog(null, "Contraseña incorrecta, vuelva a intertarlo", null, JOptionPane.ERROR_MESSAGE);
@@ -191,6 +192,11 @@ public class MetodosPanelRegistroYLogin {
 		}
 		JOptionPane.showMessageDialog(null, "No hay ningun usuario con ese nombre, porfavor registrese", null, JOptionPane.ERROR_MESSAGE);
 		return null;
+	}
+	
+	public Cliente registro(PanelRegistro panel) {
+		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + panel.txtDni.getText() + "'");
+		return crearCliente(panel);
 	}
 
 	/**

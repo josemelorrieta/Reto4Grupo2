@@ -67,7 +67,7 @@ public class Controlador {
 				case 5:
 					if (mod.isPagoExitoso()) {
 						vis.pCenter.changePanel("1");
-						vis.pCenter.pPago.limpiar();
+						mod.mPago.limpiar(vis.pCenter.pPago);
 						mod.setPagoExitoso(false);
 						mod.mPago.crearReserva(mod);
 						mod.mPago.imprimirBillete(mod.reserva);
@@ -78,13 +78,9 @@ public class Controlador {
 				break;
 			case "VOLVER":
 				switch (vis.pCenter.currentIndex) {
-				case 1:
-					vis.pCenter.prevPanel();
-					vis.pBotones.setBotonesVisible(false);
-					break;
 				case 2:
 					vis.pCenter.prevPanel();
-					vis.pBotones.setBotonesVisible(true);
+					vis.pBotones.setBotonesVisible(false);
 					break;
 				case 3:
 					vis.pCenter.prevPanel();
@@ -93,6 +89,10 @@ public class Controlador {
 				case 4:
 					vis.pCenter.prevPanel();
 					mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+					break;
+				case 5:
+					vis.pCenter.changePanel("3");
+					mod.mPago.limpiar(vis.pCenter.pPago);
 					break;
 				}
 				break;
