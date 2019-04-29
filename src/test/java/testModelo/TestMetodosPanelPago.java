@@ -9,14 +9,16 @@ import java.util.Date;
 
 import org.junit.Test;
 
+import BaseDatos.ConsultaBD;
 import modelo.Cliente;
 import modelo.Hotel;
 import modelo.MetodosPanelPago;
 import modelo.Reserva;
 
 public class TestMetodosPanelPago {
+	private ConsultaBD bd = new ConsultaBD(); 
 
-	private MetodosPanelPago metPago=new MetodosPanelPago();
+	private MetodosPanelPago metPago=new MetodosPanelPago(bd);
 	private double doubleTest=24.5673;
 	private int intTest=2;
 	private String stringNum1Test="50";
