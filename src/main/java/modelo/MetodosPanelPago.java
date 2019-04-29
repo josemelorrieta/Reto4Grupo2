@@ -149,7 +149,7 @@ public class MetodosPanelPago {
 	public void sumarDinero(PanelPago panel, String valor,Modelo mod) {
 		String[] arrDinero = operarDinero(panel.textAPagar.getText(), panel.textPagado.getText(), valor);
 		if (comprobarPago(arrDinero[0])) {
-			panel.ActDesBotones(false);
+			actDesBotones(panel,false);
 			panel.textAPagar.setText("0.00");
 			panel.textPagado.setText(arrDinero[1]);
 			String cambios = floatAString2Dec(Math.abs(stringAFloat(arrDinero[0])));
@@ -238,6 +238,31 @@ public class MetodosPanelPago {
 		objetos[0] = reserva;
 		
 		return bd.insertGenerico(objetos, "reserva");
+
+	}
+	
+	/**
+	 * Limpia el panel reseteando todos los elementos a valores por defecto
+	 * seleccionados por el programador
+	 */
+	public void limpiar(PanelPago panel) {
+		panel.textPagado.setText("0.00");
+		panel.textAPagar.setText("0.00");
+		panel.textVueltas.setText("--------");
+		panel.modeloCambio.clear();
+		actDesBotones(panel,true);
+	}
+	
+	/**
+	 * Activa o desactiva su array de botones al estado que se le pasa por
+	 * parametros
+	 * 
+	 * @param estado El estado "enables" que se quiere tener para los botones
+	 */
+	public void actDesBotones(PanelPago panel,boolean estado) {
+		for (int i = 0; i < panel.arrayBtn.length; i++) {
+			panel.arrayBtn[i].setEnabled(estado);
+		}
 	}
 
 }

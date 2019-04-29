@@ -19,7 +19,7 @@ public class PanelLogin extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JLabel lblContrasenia, lblDni;
+	public JLabel lblContrasenia, lblDni,lblValiDni;
 	public JTextField txtDni;
 	public JPasswordField pwdContra;
 	public JButton contraOn0,btnRegistro;
@@ -74,6 +74,12 @@ public class PanelLogin extends JPanel {
 		btnRegistro = new JButton("Registro");
 		btnRegistro.setBounds(670, 50, 89, 23);
 		add(btnRegistro);
+		
+		lblValiDni = new JLabel("* El DNI esta compuesto por 8 numeros y una letra");
+		lblValiDni.setBounds(324, 160, 270, 14);
+		add(lblValiDni);
+		
+		lblValiDni.setVisible(false);
 
 		JLabel[] arrayLabel = { lblContrasenia, lblDni };
 
