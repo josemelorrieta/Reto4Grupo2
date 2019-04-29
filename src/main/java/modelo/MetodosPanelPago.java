@@ -14,6 +14,8 @@ import java.util.Locale;
 
 import javax.swing.JOptionPane;
 
+import com.google.gson.Gson;
+
 import BaseDatos.ConsultaBD;
 import vista.VentanaPpal;
 import vista.panelCard.PanelPago;
@@ -234,11 +236,32 @@ public class MetodosPanelPago {
 	 * 
 	 */
 	public boolean guardarReserva(Reserva reserva) {
-		Object[] objetos = new Object[1];
-		objetos[0] = reserva;
+		Object[] objetos = reserva.toObjectArray();
+		
+		int indiceReserva = siguienteNumReserva();
+		objetos[0] = indiceReserva;
 		
 		return bd.insertGenerico(objetos, "reserva");
 
+	}
+	
+	/** 
+	 * 
+	 */
+	public int siguienteNumReserva() {
+		int numReserva = 0;
+		
+		String aux = bd.consultarToGson("SELECT COUNT(`idRsv`) 'auxiliar' FROM reserva");
+		
+		if (aux != null) {
+			final Gson gson = new Gson();
+			Object[] numReservas = gson.fromJson(aux, Global[].class);
+			numReserva = ((Double) ((Global)numReservas[0]).getAuxiliar()).intValue() + 1;
+		} else {
+			numReserva = 1;
+		}
+		
+		return numReserva;
 	}
 	
 	/**

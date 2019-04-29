@@ -88,7 +88,10 @@ public class Reserva {
 		this.dormitorioReservado = dormitorioReservado;
 	}
 	
-	
+	public Object[] toObjectArray() {
+		Object[] objeto = {0, this.cliente.getDni(), this.fechaReserva, this.fechaEntrada, this.fechaSalida, this.precio};
+		return objeto;
+	}
 	
 	
 }

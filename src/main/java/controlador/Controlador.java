@@ -47,6 +47,7 @@ public class Controlador {
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty()) {
 						vis.pCenter.changePanel("3");
 						mod.hotel1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
+						mod.reserva.setAlojReservado(mod.hotel1);
 						mod.mPago.pasarPrecioAPanelPago(vis);
 					}
 					break;
@@ -54,6 +55,7 @@ public class Controlador {
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
 						vis.pCenter.changePanel("5");
+						mod.reserva.setCliente(mod.clienteRegis);
 					}
 					break;
 				case 4:
@@ -61,6 +63,7 @@ public class Controlador {
 						mod.clienteRegis = mod.mRegiLog.crearCliente(vis.pCenter.pRegistro);
 						mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente");
 						vis.pCenter.changePanel("5");
+						mod.reserva.setCliente(mod.clienteRegis);
 						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 					}
 					break;

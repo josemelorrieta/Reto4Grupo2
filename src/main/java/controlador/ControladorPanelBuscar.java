@@ -54,6 +54,7 @@ public class ControladorPanelBuscar{
 	}
 	
 	public void fechaHoy() {
+		mod.reserva.setFechaReserva(hoy);
 		calendar.add(Calendar.DAY_OF_MONTH, 1);
 		Date manana = calendar.getTime();
 		try {
