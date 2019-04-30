@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: Pepe
 
 Datos de la reserva:
-Nombre Alojamiento: Hotel NH
+Nombre Alojamiento: Hotel Meliá
 Fecha de la reserva: 30-04-2019
 Fecha de entrada   : 30-04-2019
 Fecha de salida    : 30-04-2019
 
-Precio total: 44.90
+Precio total: 49.90
