@@ -99,6 +99,9 @@ public class ItemResBusqueda extends JPanel  implements ListCellRenderer<Hotel> 
 		if (count == dormitoriosDisp.length) {
 			lblDisponible.setText("No disponible");
 			lblDisponible.setForeground(new Color(255,0,0));
+		} else {
+			lblDisponible.setText("Disponible");
+			lblDisponible.setForeground(new Color(50, 205, 50));
 		}
 		
 		if (isSelected) {
