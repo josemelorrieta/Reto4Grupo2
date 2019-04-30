@@ -91,13 +91,13 @@ public class MetodosBuscar {
 						e.printStackTrace();
 					}
 					if (fechaIn.compareTo(fechaSalida) <= 0 && fechaOut.compareTo(fechaEntrada)>=0 && idHab == hotel.getDormitorios()[i].getIdHab()) {
-						hotel.getDormDisponibles()[i] = false;
+						hotel.dormDisponibles[i] = false;
 					} else {
-						hotel.getDormDisponibles()[i] = true;
+						hotel.dormDisponibles[i] = true;
 					}
 				}
 			} else {
-				hotel.getDormDisponibles()[i] = true;
+				hotel.dormDisponibles[i] = true;
 			}
 		}
 		

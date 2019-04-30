@@ -73,6 +73,8 @@ public class Controlador {
 					if (mod.isPagoExitoso()) {
 						vis.pCenter.changePanel("1");
 						mod.mPago.limpiar(vis.pCenter.pPago);
+						mod.mRegiLog.limpiar(vis.pCenter.pLogin);
+						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 						mod.setPagoExitoso(false);
 						mod.mPago.crearReserva(mod);
 						mod.mPago.imprimirBillete(mod.reserva);
@@ -89,7 +91,7 @@ public class Controlador {
 					break;
 				case 3:
 					vis.pCenter.prevPanel();
-					mod.mRegiLog.limpiar(vis.pCenter.pLogin);
+					//mod.mRegiLog.limpiar(vis.pCenter.pLogin);
 					break;
 				case 4:
 					vis.pCenter.prevPanel();
@@ -97,7 +99,7 @@ public class Controlador {
 					break;
 				case 5:
 					vis.pCenter.changePanel("3");
-					mod.mPago.limpiar(vis.pCenter.pPago);
+					//mod.mPago.limpiar(vis.pCenter.pPago);
 					break;
 				}
 				break;

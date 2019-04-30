@@ -164,7 +164,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @return objeto cliente
 	 */
 	public Cliente crearCliente(PanelRegistro panel) {
-		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(),encriptarContra(panel.pwdContra.getPassword()));
+		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), encriptarContra(panel.pwdContra.getPassword()));
 	}
 
 	/**
@@ -200,7 +200,7 @@ public class MetodosPanelRegistroYLogin {
 		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + panel.txtDni.getText() + "'");
 		if (json.equals("")) {
 			return crearCliente(panel);
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, "Este usuario ya esta registrado", null, JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
@@ -217,12 +217,12 @@ public class MetodosPanelRegistroYLogin {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			String contraEnc = new String(contrasenia);
 			byte[] hashInBytes = md.digest(contraEnc.getBytes(StandardCharsets.UTF_8));
-			
+
 			StringBuilder sb = new StringBuilder();
 			for (byte b : hashInBytes) {
-				sb.append(String.format("%02x", b));	
+				sb.append(String.format("%02x", b));
 			}
-				
+
 			return sb.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
@@ -301,7 +301,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @return
 	 */
 	public boolean validarDNI(JTextField DNI, JLabel aviso) {
-		if (!(DNI.getText().matches("^[0-9]{7,8}['T|R|W|A|G|M|Y|F|P|D|X|B|N|J|Z|S|Q|V|H|L|C|K|E|T]$"))) {
+		if (!(DNI.getText().matches("^[0-9]{7,8}['T|R|W|A|G|M|Y|F|P|D|X|B|N|J|Z|S|Q|V|H|L|C|K|E]$"))) {
 			aviso.setVisible(true);
 			DNI.setBackground(new Color(240, 128, 128));
 			return false;

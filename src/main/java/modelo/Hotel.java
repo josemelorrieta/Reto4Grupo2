@@ -3,7 +3,7 @@ package modelo;
 public class Hotel extends Alojamiento {
 	private Dormitorio[] dormitorios;
 	private int numEstrellas;
-	private boolean[] dormDisponibles;
+	public boolean[] dormDisponibles;
 	
 	public Hotel() {
 		
