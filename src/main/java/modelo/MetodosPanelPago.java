@@ -162,10 +162,6 @@ public class MetodosPanelPago {
 				panel.modeloCambio.addElement(val);
 			if(!guardarReserva(mod.reserva))
 				JOptionPane.showMessageDialog(panel, "Error al guardar la reserva en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
-			if (mod.reserva.getAlojReservado().getClass() == Hotel.class) {
-				if(!guardarHabReserva(mod.reserva))
-					JOptionPane.showMessageDialog(panel, "Error al guardar la reserva en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
-			}
 		} else {
 			panel.textAPagar.setText(arrDinero[0]);
 			panel.textPagado.setText(arrDinero[1]);
@@ -240,12 +236,16 @@ public class MetodosPanelPago {
 	 * 
 	 */
 	public boolean guardarReserva(Reserva reserva) {
-		Object[] objetos = reserva.toObjectArray();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		int idRsv = ultimoNumReserva() + 1;
+		String dni = reserva.getCliente().getDni();
+		String fechaRsv = sdf.format(reserva.getFechaReserva());
+		String fechaIn = sdf.format(reserva.getFechaEntrada());
+		String fechaOut = sdf.format(reserva.getFechaSalida());
+		double precio = reserva.getPrecio();
+		int idHab = buscarIdHabitacion(reserva.getAlojReservado().getNombre());
 		
-		int indiceReserva = ultimoNumReserva() + 1;
-		objetos[0] = indiceReserva;
-		
-		return bd.insertGenerico(objetos, "reserva");
+		return bd.guardarReserva(idRsv, dni, fechaRsv, fechaIn, fechaOut, precio, idHab);
 
 	}
 	
