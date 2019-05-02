@@ -6,17 +6,18 @@ public class Modelo {
 	
 	public ConsultaBD bd;
 	
-	public Hotel hotel1;
+	public Alojamiento aloj1;
 	public Reserva reserva;
 	public Cliente clienteRegis;
 	public Hotel[] hotelesBusqueda;
+	public Casa[] casasBusqueda;
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;
 	private boolean pagoExitoso=false;
 	
 	public Modelo() {
-		hotel1 = new Hotel();
+		aloj1 = new Alojamiento();
 		reserva = new Reserva();
 		bd = new ConsultaBD();
 		addMetodos();

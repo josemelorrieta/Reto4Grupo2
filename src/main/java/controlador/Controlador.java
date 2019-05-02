@@ -46,8 +46,8 @@ public class Controlador {
 				case 2:
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty()) {
 						vis.pCenter.changePanel("3");
-						mod.hotel1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
-						mod.reserva.setAlojReservado(mod.hotel1);
+						mod.aloj1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
+						mod.reserva.setAlojReservado(mod.aloj1);
 						mod.reserva.setPrecio(vis.pCenter.pResBusq.resultBusq.getSelectedValue().getPrecioTAlta());
 						mod.mPago.pasarPrecioAPanelPago(vis);
 					}

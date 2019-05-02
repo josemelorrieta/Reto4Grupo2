@@ -88,7 +88,9 @@ public class ControladorPanelBuscar{
 			mod.reserva.setFechaEntrada(vis.pCenter.pBuscar.calenEntrada.getDate());
 			mod.reserva.setFechaSalida(vis.pCenter.pBuscar.calenSalida.getDate());
 			mod.mBuscar.cargarHoteles(vis.pCenter.pBuscar.cbxBuscar.getSelectedItem().toString());
+			mod.mBuscar.cargarCasas(vis.pCenter.pBuscar.cbxBuscar.getSelectedItem().toString());
 			vis.pCenter.pResBusq.setResultBusqueda(mod.hotelesBusqueda);
+			vis.pCenter.pResBusq.setResultBusqueda(mod.casasBusqueda);
 			vis.pBotones.setBotonesVisible(true);
 			vis.pCenter.nextPanel();
 		}

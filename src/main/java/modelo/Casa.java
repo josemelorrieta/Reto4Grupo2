@@ -26,7 +26,7 @@ public class Casa extends Alojamiento{
 
 	public void setHabitaciones(Habitacion[] habitaciones) {
 		this.habitaciones = habitaciones;
-	}
+	}	
 
 	public int getNumBanios() {
 		return numBanios;
@@ -41,6 +41,20 @@ public class Casa extends Alojamiento{
 
 	public int getM2() {
 		return m2;
+	}
+	
+	public int numCamas() {
+		int cont=0;
+		for(Habitacion hab:this.habitaciones) {
+			if(hab.tipoHabitacion==TipoHabitacion.DORMITORIO) {
+				for(Mobiliario mobi: ((Dormitorio) hab).getMobiliario()) {
+					if(mobi instanceof Cama) {
+						cont+=1;
+					}
+				}
+			}
+		}
+		return cont;
 	}
 
 	public void setM2() {

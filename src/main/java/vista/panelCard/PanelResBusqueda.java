@@ -9,6 +9,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import modelo.Alojamiento;
+import modelo.Casa;
 import modelo.Hotel;
 import javax.swing.ListSelectionModel;
 import java.awt.SystemColor;
@@ -18,8 +20,8 @@ public class PanelResBusqueda extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public JLabel lblLocBusq;
-	public DefaultListModel<Hotel> modelResBusq = new DefaultListModel<Hotel>();
-	public JList<Hotel> resultBusq;
+	public DefaultListModel<Alojamiento> modelResBusq = new DefaultListModel<Alojamiento>();
+	public JList<Alojamiento> resultBusq;
 	public JScrollPane scroll;
 	
 	public PanelResBusqueda() {
@@ -38,7 +40,7 @@ public class PanelResBusqueda extends JPanel {
 		lblLocBusq.setBounds(100, 30, 360, 26);
 		add(lblLocBusq);
 		
-		resultBusq = new JList<Hotel>(modelResBusq);
+		resultBusq = new JList<Alojamiento>(modelResBusq);
 		resultBusq.setBackground(SystemColor.control);
 		resultBusq.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultBusq.setCellRenderer(new ItemResBusqueda());
@@ -55,5 +57,13 @@ public class PanelResBusqueda extends JPanel {
 			modelResBusq.addElement(hotel);
 		}
 		lblLocBusq.setText("Resultados para " + hoteles[0].getDireccion().getLocalidad());
+	}
+	
+	public void setResultBusqueda(Casa[] casas) {
+		//modelResBusq.clear();
+		for(Casa casa:casas) {
+			modelResBusq.addElement(casa);
+		}
+		lblLocBusq.setText("Resultados para " + casas[0].getDireccion().getLocalidad());
 	}
 }
