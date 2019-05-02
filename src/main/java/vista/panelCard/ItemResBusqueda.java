@@ -65,7 +65,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 
 		lblEstrellas = new JLabel("");
 		lblEstrellas.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/hotel/estrellas5.png")));
-		lblEstrellas.setBounds(118, 52, 100, 22);
+		lblEstrellas.setBounds(376, 10, 100, 22);
 		add(lblEstrellas);
 
 		lblDisponible = new JLabel("Disponible");
@@ -83,63 +83,24 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		add(lblNumCamas);
 	}
 
-	// @Override
-	public Component getListCellRendererComponent1(JList<? extends Hotel> lista, Hotel hotel, int index, boolean isSelected, boolean cellHasFocus) {
-		String foto = hotel.getImagen();
-		ImageIcon imagen, estrellas;
-		int count = 0;
-		boolean[] dormitoriosDisp = hotel.getDormDisponibles();
-
-		if (!foto.equals(""))
-			imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/hotel/" + foto + ".jpg"));
-		else
-			imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/noimage.png"));
-
-		lblFoto.setIcon(imagen);
-		lblNombre.setText(hotel.getNombre());
-		lblLocalidad.setText(hotel.getDireccion().getCalle() + " (" + hotel.getDireccion().getLocalidad() + ")");
-		lblPrecio.setText(df.format(hotel.getPrecioTAlta()));
-
-		estrellas = FuncionesGenerales.resizeIcono(lblEstrellas.getWidth(), lblEstrellas.getHeight(), new File(getClass().getResource("/imagenes/alojamiento/hotel/estrellas" + hotel.getNumEstrellas() + ".png").getPath()));
-		lblEstrellas.setIcon(estrellas);
-
-		for (int i = 0; i < dormitoriosDisp.length; i++) {
-			if (dormitoriosDisp[i] == false)
-				count++;
-		}
-
-		if (count == dormitoriosDisp.length) {
-			lblDisponible.setText("No disponible");
-			lblDisponible.setForeground(new Color(255, 0, 0));
-		} else {
-			lblDisponible.setText("Disponible");
-			lblDisponible.setForeground(new Color(50, 205, 50));
-		}
-
-		if (isSelected) {
-			setBackground(lista.getSelectionBackground());
-			setForeground(lista.getSelectionForeground());
-		} else {
-			setBackground(lista.getBackground());
-			setForeground(lista.getForeground());
-		}
-
-		return this;
-	}
+	
 
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Alojamiento> lista, Alojamiento aloj, int index, boolean isSelected, boolean cellHasFocus) {
 		String foto = aloj.getImagen();
 
 		ImageIcon imagen;
+		File archImagen;
 		if (!foto.equals("")) {
 			if (aloj instanceof Hotel) {
-				imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/hotel/" + foto + ".jpg"));
+				archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/" + foto + ".jpg").getPath());
 			} else
-				imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/noHotel/" + foto + ".jpg"));
+				archImagen = new File(getClass().getResource("/imagenes/alojamiento/noHotel/" + foto + ".jpg").getPath());
 		} else
-			imagen = new ImageIcon(getClass().getResource("/imagenes/alojamiento/noimage.png"));
+			archImagen = new File(getClass().getResource("/imagenes/alojamiento/noimage.png").getPath());
 
+		imagen = FuncionesGenerales.resizeIcono(90, 90, archImagen);
+		
 		lblFoto.setIcon(imagen);
 		lblNombre.setText(aloj.getNombre());
 		lblLocalidad.setText(aloj.getDireccion().getCalle() + " (" + aloj.getDireccion().getLocalidad() + ")");

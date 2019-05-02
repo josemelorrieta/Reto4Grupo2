@@ -11,6 +11,7 @@ public class Modelo {
 	public Cliente clienteRegis;
 	public Hotel[] hotelesBusqueda;
 	public Casa[] casasBusqueda;
+	public Apartamento[] apartBusqueda;
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;

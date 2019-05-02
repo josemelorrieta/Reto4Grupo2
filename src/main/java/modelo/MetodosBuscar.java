@@ -32,42 +32,81 @@ public class MetodosBuscar {
 
 	}
 
+	public void cargarAlojamientos(String localidad) {
+		cargarHoteles(localidad);
+		cargarCasas(localidad);
+		cargarApartamentos(localidad);
+	}
+
 	public void cargarHoteles(String localidad) {
 		String json = bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		gson = new Gson();
 		mod.hotelesBusqueda = gson.fromJson(json, Hotel[].class);
 		for (Hotel hotel : mod.hotelesBusqueda) {
-			cargarHotelDireccion(hotel);
+			cargarDireccion(hotel);
 			cargarHotelHabitaciones(hotel);
 			setDisponibilidad(hotel);
 		}
 	}
-	
+
 	public void cargarCasas(String localidad) {
 		String json = bd.consultarToGson("SELECT `idCasa` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `casa` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		gson = new Gson();
 		mod.casasBusqueda = gson.fromJson(json, Casa[].class);
 		for (Casa casa : mod.casasBusqueda) {
-			cargarHotelDireccion(casa);
-			//DESCOMENTAR CUANDO ESTEN LAS HABITACIONES EN LA BBDD
-			//cargarHotelHabitaciones(casa);
-			//setDisponibilidad(casa);
+			cargarDireccion(casa);
+			// DESCOMENTAR CUANDO ESTEN LAS HABITACIONES EN LA BBDD
+			// cargarHabitaciones(casa);
+			// setDisponibilidad(casa);
 		}
 	}
 
+	public void cargarApartamentos(String localidad) {
+		String json = bd.consultarToGson("SELECT `idApart` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest',`piso`, `imagen` FROM `apartamento` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
+		gson = new Gson();
+		mod.apartBusqueda = gson.fromJson(json, Apartamento[].class);
+		for (Apartamento apart : mod.apartBusqueda) {
+			cargarDireccion(apart);
+			// DESCOMENTAR CUANDO ESTEN LAS HABITACIONES EN LA BBDD
+			// cargarHotelHabitaciones(casa);
+			// setDisponibilidad(casa);
+		}
+	}
 
-	private void cargarHotelDireccion(Casa casa) {
+	private void cargarDireccion(Hotel hotel) {
+		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `hotel` WHERE `idHot` = " + hotel.getId() + ")");
+		gson = new Gson();
+		Direccion[] dir = gson.fromJson(json, Direccion[].class);
+		hotel.setDireccion(dir[0]);
+	}
+
+	private void cargarDireccion(Casa casa) {
 		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `casa` WHERE `idCasa` = " + casa.getId() + ")");
 		gson = new Gson();
 		Direccion[] dir = gson.fromJson(json, Direccion[].class);
 		casa.setDireccion(dir[0]);
 	}
 
-	private void cargarHotelDireccion(Hotel hotel) {
-		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `hotel` WHERE `idHot` = " + hotel.getId() + ")");
+	private void cargarDireccion(Apartamento apart) {
+		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `apartamento` WHERE `idApart` = " + apart.getId() + ")");
 		gson = new Gson();
 		Direccion[] dir = gson.fromJson(json, Direccion[].class);
-		hotel.setDireccion(dir[0]);
+		apart.setDireccion(dir[0]);
+	}
+
+	private void cargarDireccion(Alojamiento aloj) {
+		String tipo;
+		if (aloj instanceof Hotel) {
+			tipo = "hotel";
+		} else if (aloj instanceof Casa) {
+			tipo = "casa";
+		} else
+			tipo = "apartamento";
+
+		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `" + tipo + "` WHERE `idHot` = " + aloj.getId() + ")");
+		gson = new Gson();
+		Direccion[] dir = gson.fromJson(json, Direccion[].class);
+		aloj.setDireccion(dir[0]);
 	}
 
 	private void cargarHotelHabitaciones(Hotel hotel) {
@@ -123,18 +162,18 @@ public class MetodosBuscar {
 			}
 		}
 	}
-	
+
 	public static boolean comprobarDisponibilidad(boolean[] arrBool) {
-		int count=0;
+		int count = 0;
 		for (int i = 0; i < arrBool.length; i++) {
 			if (arrBool[i] == false)
 				count++;
 		}
-		if(count== arrBool.length) {
+		if (count == arrBool.length) {
 			return false;
-		}else return false;
+		} else
+			return false;
 	}
-	
 
 	private FechasReserva[] buscarFechasReservas() {
 		String json = bd.consultarToGson("SELECT r.`idRsv`, `idHab`, `fechaIn`, `fechaOut` FROM `reserva` r, `rsvhab` h WHERE r.`idRsv`=h.`idRsv`");
