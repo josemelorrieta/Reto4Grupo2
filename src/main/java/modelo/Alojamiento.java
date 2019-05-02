@@ -3,32 +3,26 @@ package modelo;
 public class Alojamiento {
 	protected int id;
 	protected String nombre;
-	protected Direccion ubicacion;
-	protected Habitacion[] arrayHabitaciones;
-	protected Double precioTAlta;
-	protected Double precioTBaja;
-	protected Double precioTFest;
+	protected Direccion direccion;
+	protected double precioTAlta;
+	protected double precioTBaja;
+	protected double precioTFest;
+	protected String imagen;
+	protected boolean disponible;
 
 	public Alojamiento() {
-		//Constructor por defecto
+		this.disponible = true;
 	}
 	
-	public Alojamiento(String nombre, Direccion ubicacion, Habitacion[] arrayHabitaciones, Double precioA, Double precioB, Double precioF) {
+	public Alojamiento(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
+		this.id = id;
 		this.nombre = nombre;
-		this.ubicacion = ubicacion;
-		this.arrayHabitaciones = arrayHabitaciones;
+		this.direccion = direccion;
 		this.precioTAlta = precioA;
 		this.precioTBaja = precioB;
 		this.precioTFest = precioF;
-	}
-		
-	//const temporal
-	public Alojamiento(int id, String nombre, Double precioTAlta, Double precioTBaja, Double precioTFest) {
-		this.id = id;
-		this.nombre = nombre;
-		this.precioTAlta = precioTAlta;
-		this.precioTBaja = precioTBaja;
-		this.precioTFest = precioTFest;
+		this.imagen = imagen;
+		this.disponible = disponible;
 	}
 
 	public int getId() {
@@ -47,20 +41,12 @@ public class Alojamiento {
 		this.nombre = nombre;
 	}
 
-	public Direccion getUbicacion() {
-		return ubicacion;
+	public Direccion getDireccion() {
+		return direccion;
 	}
 
-	public void setUbicacion(Direccion ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-
-	public Habitacion[] getArrayHabitaciones() {
-		return arrayHabitaciones;
-	}
-
-	public void setArrayHabitaciones(Habitacion[] arrayHabitaciones) {
-		this.arrayHabitaciones = arrayHabitaciones;
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
 	}
 
 	public Double getPrecioTAlta() {
@@ -87,4 +73,20 @@ public class Alojamiento {
 		this.precioTFest = precioTFest;
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+	
 }

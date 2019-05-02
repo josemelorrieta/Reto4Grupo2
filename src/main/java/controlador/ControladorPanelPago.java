@@ -31,7 +31,7 @@ public class ControladorPanelPago {
 	private class ListenerBotonesDinero implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mod.mPago.sumarDinero(vis.pCenter.pPago, (JButton) e.getSource(),mod);
+			mod.mPago.sumarDinero(vis.pCenter.pPago, ((JButton) e.getSource()).getText(),mod);
 		}
 	}
 }

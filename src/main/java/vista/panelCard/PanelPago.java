@@ -36,8 +36,8 @@ public class PanelPago extends JPanel {
 	}
 
 	private void setParametros() {
-		setLayout(null);
 		setPreferredSize(new Dimension(853, 647));
+		setLayout(null);
 	}
 
 	private void instanciarObjetos() {
@@ -178,10 +178,6 @@ public class PanelPago extends JPanel {
 		btn001.setBounds(390, 345, 45, 45);
 		add(btn001);
 		
-		btn2.setOpaque(false);
-		btn2.setContentAreaFilled(false);
-		btn2.setBorderPainted(false);
-		
 		arrayBtn[0]=btn500;
 		arrayBtn[1]=btn200;
 		arrayBtn[2]=btn100;
@@ -248,29 +244,5 @@ public class PanelPago extends JPanel {
 		textAPagar.setEditable(false);
 		textVueltas.setEditable(false);
 
-	}
-
-	/**
-	 * Limpia el panel reseteando todos los elementos a valores por defecto
-	 * seleccionados por el programador
-	 */
-	public void limpiar() {
-		textPagado.setText("0.00");
-		textAPagar.setText("0.00");
-		textVueltas.setText("--------");
-		modeloCambio.clear();
-		ActDesBotones(true);
-	}
-
-	/**
-	 * Activa o desactiva su array de botones al estado que se le pasa por
-	 * parametros
-	 * 
-	 * @param estado El estado "enables" que se quiere tener para los botones
-	 */
-	public void ActDesBotones(boolean estado) {
-		for (int i = 0; i < this.arrayBtn.length; i++) {
-			this.arrayBtn[i].setEnabled(estado);
-		}
 	}
 }

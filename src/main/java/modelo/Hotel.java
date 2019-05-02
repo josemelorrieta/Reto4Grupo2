@@ -1,33 +1,42 @@
 package modelo;
 
 public class Hotel extends Alojamiento {
-	private int estrellas;
-
-	public Hotel(String nombre, Direccion ubicacion, Suite[] arrayHabitaciones, Double precioA, Double precioB, Double precioF) {
-		super(nombre, ubicacion, arrayHabitaciones, precioA, precioB, precioF);
-	}
-
-	public Hotel(String nombre, Direccion ubicacion, Suite[] arrayHabitaciones, Double precioA, Double precioB, Double precioF, int estrellas) {
-		super(nombre, ubicacion, arrayHabitaciones, precioA, precioB, precioF);
-		this.estrellas = estrellas;
-	}
-
+	private Dormitorio[] dormitorios;
+	private int numEstrellas;
+	private boolean[] dormDisponibles;
 	
-	//const temporal
-	public Hotel(int id, String nombre, Double precioTAlta, Double precioTBaja, Double precioTFest, int estrellas) {
-		super(id, nombre, precioTAlta, precioTBaja, precioTFest);
-		this.estrellas = estrellas;
-	}
-
 	public Hotel() {
-
+		
 	}
 
-	public int getEstrellas() {
-		return estrellas;
+	public Hotel(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Dormitorio[] dormitorios, int numEstrellas, boolean[] dormDisponibles) {
+		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
+		this.dormitorios = dormitorios;
+		this.numEstrellas = numEstrellas;
+		this.dormDisponibles = dormDisponibles;
 	}
 
-	public void setEstrellas(int estrellas) {
-		this.estrellas = estrellas;
+	public Dormitorio[] getDormitorios() {
+		return dormitorios;
+	}
+
+	public void setDormitorios(Dormitorio[] dormitorios) {
+		this.dormitorios = dormitorios;
+	}
+
+	public int getNumEstrellas() {
+		return numEstrellas;
+	}
+
+	public void setNumEstrellas(int estrellas) {
+		this.numEstrellas = estrellas;
+	}
+
+	public boolean[] getDormDisponibles() {
+		return dormDisponibles;
+	}
+
+	public void setDormDisponibles(boolean[] dormDisponibles) {
+		this.dormDisponibles = dormDisponibles;
 	}
 }

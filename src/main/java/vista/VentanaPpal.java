@@ -1,13 +1,13 @@
 package vista;
 
-import javax.swing.JFrame;
-
-import vista.panelBorder.PanelCenter;
-import vista.panelBorder.PanelNorth;
-import vista.panelBorder.PanelSouth;
-import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Font;
+
+import javax.swing.JFrame;
+
+import vista.panelBorder.PanelBotones;
+import vista.panelBorder.PanelCenter;
+import vista.panelBorder.PanelTitulo;
 
 public class VentanaPpal extends JFrame {
 
@@ -17,9 +17,9 @@ public class VentanaPpal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	public BorderLayout border;
-	public PanelNorth pNorth;
+	public PanelTitulo pTitulo;
 	public PanelCenter pCenter;
-	public PanelSouth pSouth;
+	public PanelBotones pBotones;
 
 	/**
 	 * Create the frame.
@@ -27,9 +27,8 @@ public class VentanaPpal extends JFrame {
 	public VentanaPpal() {	
 		setParametros();
 		instanciarObjetos();
-		pack();
 	}
-
+	
 	private void setParametros() {
 		border = new BorderLayout(0,0);
 		getContentPane().setLayout(border);
@@ -43,14 +42,14 @@ public class VentanaPpal extends JFrame {
 	}
 	
 	private void instanciarObjetos() {
-		pNorth = new PanelNorth();
-		getContentPane().add(pNorth, BorderLayout.NORTH);
+		pTitulo = new PanelTitulo();
+		getContentPane().add(pTitulo, BorderLayout.NORTH);
 		
 		pCenter = new PanelCenter();
 		pCenter.pBuscar.cbxBuscar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		getContentPane().add(pCenter, BorderLayout.CENTER);
 		
-		pSouth = new PanelSouth();
-		getContentPane().add(pSouth, BorderLayout.SOUTH);
+		pBotones = new PanelBotones();
+		getContentPane().add(pBotones, BorderLayout.SOUTH);
 	}
 }

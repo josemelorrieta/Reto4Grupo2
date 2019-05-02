@@ -9,9 +9,11 @@ public class Reserva {
 	private Date fechaEntrada;
 	private Date fechaSalida;
 	private Alojamiento alojReservado;
+	private Dormitorio dormitorioReservado;
 	
-	
-	
+	public Reserva() {
+		// Constructor por defecto
+	}
 	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado) {
 		this.cliente = cliente;
 		this.precio = precio;
@@ -21,7 +23,14 @@ public class Reserva {
 		this.alojReservado = alojReservado;
 	}
 
-	public Reserva() {
+	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado, Dormitorio dormitorioReservado) {
+		this.cliente = cliente;
+		this.precio = precio;
+		this.fechaReserva = fechaReserva;
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.alojReservado = alojReservado;
+		this.dormitorioReservado = dormitorioReservado;
 	}
 
 	public Cliente getCliente() {
@@ -71,8 +80,18 @@ public class Reserva {
 	public void setAlojReservado(Alojamiento alojReservado) {
 		this.alojReservado = alojReservado;
 	}
+
+	public Dormitorio getDormitorioReservado() {
+		return dormitorioReservado;
+	}
+	public void setDormitorioReservado(Dormitorio dormitorioReservado) {
+		this.dormitorioReservado = dormitorioReservado;
+	}
 	
-	
+	public Object[] toObjectArray() {
+		Object[] objeto = {0, this.cliente.getDni(), this.fechaReserva, this.fechaEntrada, this.fechaSalida, this.precio};
+		return objeto;
+	}
 	
 	
 }

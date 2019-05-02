@@ -9,14 +9,16 @@ import java.util.Date;
 
 import org.junit.Test;
 
+import BaseDatos.ConsultaBD;
 import modelo.Cliente;
 import modelo.Hotel;
 import modelo.MetodosPanelPago;
 import modelo.Reserva;
 
 public class TestMetodosPanelPago {
+	private ConsultaBD bd = new ConsultaBD(); 
 
-	private MetodosPanelPago metPago=new MetodosPanelPago();
+	private MetodosPanelPago metPago=new MetodosPanelPago(bd);
 	private double doubleTest=24.5673;
 	private int intTest=2;
 	private String stringNum1Test="50";
@@ -24,7 +26,7 @@ public class TestMetodosPanelPago {
 	private float floatTest=50f;
 	private ArrayList<String> stringCambiosEsperado= new ArrayList<String>(Arrays.asList("500 €: 1", "200 €: 1", "100 €: 1", "50 €: 1", "20 €: 1", "10 €: 1", "5 €: 1", "2 €: 1", "1 €: 1", "0.50 €: 1", "0.20 €: 1", "0.10 €: 1", "0.05 €: 1", "0.02 €: 1", "0.01 €: 1"));
 	private String[] arrayStringEsperado = {"20.00","50.00"};
-	private Reserva reservaTest=new Reserva(new Cliente("Pepe"), 40, new Date(), new Date(), new Date(), new Hotel("JunjoHoteles", null, null, null, null, null));
+	private Reserva reservaTest=new Reserva(new Cliente("Pepe"), 40, new Date(), new Date(), new Date(), new Hotel(1,"JunjoHoteles", null, 0, 0, 0, null,true,null, 0, null));
 	
 	@Test
 	public void testRedondear() {
@@ -32,7 +34,6 @@ public class TestMetodosPanelPago {
 		assertEquals(metPago.redondear(-doubleTest, intTest), -24.57,0.0001);
 		assertEquals(metPago.redondear(0, intTest), 0,0.0001);
 	}
-	
 	
 	@Test
 	public void testStringAFloat() {
