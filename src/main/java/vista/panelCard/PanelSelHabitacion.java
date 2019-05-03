@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+
 import modelo.Habitacion;
 
 public class PanelSelHabitacion extends JPanel {
@@ -39,15 +40,23 @@ public class PanelSelHabitacion extends JPanel {
 		lblTitulo.setBounds(43, 32, 116, 14);
 		add(lblTitulo);
 		
+		modelResHab = new DefaultListModel<Habitacion>();
+		
 		resultHab = new JList<Habitacion>(modelResHab);
 		resultHab.setBackground(SystemColor.control);
 		resultHab.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultHab.setCellRenderer(new RendererHabitacion());
 		
-		scroll = new JScrollPane();
+		scroll = new JScrollPane(resultHab);
 		scroll.setLocation(100, 60);
 		scroll.setSize(520, 320);
 		add(scroll);
 	}
 	
+	public void setResultHab(Habitacion[] habitaciones) {
+		modelResHab.clear();
+		for(Habitacion habitacion:habitaciones) {
+			modelResHab.addElement(habitacion);
+		}
+	}
 }
