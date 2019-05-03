@@ -4,9 +4,9 @@ public class Hotel extends Alojamiento {
 	private Dormitorio[] dormitorios;
 	private int numEstrellas;
 	private boolean[] dormDisponibles;
-	
+
 	public Hotel() {
-		
+
 	}
 
 	public Hotel(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Dormitorio[] dormitorios, int numEstrellas, boolean[] dormDisponibles) {
@@ -14,6 +14,21 @@ public class Hotel extends Alojamiento {
 		this.dormitorios = dormitorios;
 		this.numEstrellas = numEstrellas;
 		this.dormDisponibles = dormDisponibles;
+	}
+
+	public int numCamas() {
+		int cont = 0;
+		if (this.dormitorios != null)
+			for (Dormitorio dorm : this.dormitorios) {
+				if (dorm.getMobiliario() == null)
+					continue;
+				for (Mobiliario mobi : dorm.getMobiliario()) {
+					if (mobi instanceof Cama) {
+						cont += 1;
+					}
+				}
+			}
+		return cont;
 	}
 
 	public Dormitorio[] getDormitorios() {
@@ -39,4 +54,5 @@ public class Hotel extends Alojamiento {
 	public void setDormDisponibles(boolean[] dormDisponibles) {
 		this.dormDisponibles = dormDisponibles;
 	}
+
 }

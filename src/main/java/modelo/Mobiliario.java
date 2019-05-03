@@ -3,6 +3,7 @@ package modelo;
 public class Mobiliario {
 	
 	protected String nombre;
+	protected double precio;
 
 	public Mobiliario() {
 	

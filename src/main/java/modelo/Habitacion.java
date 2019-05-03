@@ -5,6 +5,7 @@ public class Habitacion {
 	protected int idHab;
 	protected int m2;
 	protected TipoHabitacion tipoHabitacion;
+	protected double precio;
 	
 	public Habitacion() {
 		
