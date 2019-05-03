@@ -1,18 +1,18 @@
 package modelo;
 
-public class Casa extends Alojamiento{
+public class Casa extends Alojamiento {
 	protected Habitacion[] habitaciones;
 	protected int numBanios;
 	protected int m2;
-	
+
 	public Casa() {
-		
+
 	}
-	
+
 	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
 		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 	}
-	
+
 	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Habitacion[] habitaciones, int numBanios, int m2) {
 		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 		this.habitaciones = habitaciones;
@@ -26,15 +26,15 @@ public class Casa extends Alojamiento{
 
 	public void setHabitaciones(Habitacion[] habitaciones) {
 		this.habitaciones = habitaciones;
-	}	
+	}
 
 	public int getNumBanios() {
 		return numBanios;
 	}
 
 	public void setNumBanios() {
-		for(Habitacion habitacion:habitaciones) {
-			if(habitacion.tipoHabitacion==TipoHabitacion.BANIO)
+		for (Habitacion habitacion : habitaciones) {
+			if (habitacion.tipoHabitacion == TipoHabitacion.BANIO)
 				numBanios++;
 		}
 	}
@@ -42,24 +42,27 @@ public class Casa extends Alojamiento{
 	public int getM2() {
 		return m2;
 	}
-	
+
+	public void setM2() {
+		for (Habitacion habitacion : habitaciones)
+			m2 += habitacion.getM2();
+	}
+
 	public int numCamas() {
-		int cont=0;
-		for(Habitacion hab:this.habitaciones) {
-			if(hab.tipoHabitacion==TipoHabitacion.DORMITORIO) {
-				for(Mobiliario mobi: ((Dormitorio) hab).getMobiliario()) {
-					if(mobi instanceof Cama) {
-						cont+=1;
+		int cont = 0;
+		if (this.habitaciones != null)
+			for (Habitacion hab : this.habitaciones) {
+				if (hab.tipoHabitacion == TipoHabitacion.DORMITORIO) {
+					if (((Dormitorio) hab).getMobiliario() == null) {
+						continue;
+					}
+					for (Mobiliario mobi : ((Dormitorio) hab).getMobiliario()) {
+						if (mobi instanceof Cama) {
+							cont += 1;
+						}
 					}
 				}
 			}
-		}
 		return cont;
 	}
-
-	public void setM2() {
-		for(Habitacion habitacion:habitaciones) 
-			m2 += habitacion.getM2();
-	}
-	
 }

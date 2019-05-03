@@ -136,11 +136,10 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 			lblNumCamas.setVisible(true);
 			
 			if (aloj instanceof Casa) {
-				lblNumCamas.setText("5");
+				lblNumCamas.setText(String.valueOf(((Casa) aloj).numCamas()));
 				// String.valueOf(((Casa) aloj).numCamas()) SUSTITUIR 5 CUANDO ESTE LA BBDD
 			} else if (aloj instanceof Apartamento) {
-				// DESCOMENTAR CUANDO ESTEN HECHAS LAS HABITACIONES EN LA BBDD
-				// lblNumCamas.setText(String.valueOf(((Casa) aloj).numCamas()));
+				lblNumCamas.setText(String.valueOf(((Apartamento) aloj).numCamas()));
 			}
 		}
 

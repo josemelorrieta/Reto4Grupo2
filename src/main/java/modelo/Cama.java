@@ -7,8 +7,8 @@ public class Cama extends Mobiliario {
 		
 	}
 	
-	public Cama(String nombre, TipoCama tipoCama) {
-		super(nombre);
+	public Cama(TipoCama tipoCama) {
+		super("Cama");
 		this.setTipoCama(tipoCama);
 	}
 
