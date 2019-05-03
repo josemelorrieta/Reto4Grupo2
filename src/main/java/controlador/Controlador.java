@@ -3,6 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import modelo.Casa;
+import modelo.Hotel;
 import modelo.Modelo;
 import vista.VentanaPpal;
 
@@ -45,31 +47,44 @@ public class Controlador {
 				switch (vis.pCenter.currentIndex) {
 				case 2:
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty()) {
-						vis.pCenter.changePanel("3");
+						
 						mod.aloj1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
 						mod.reserva.setAlojReservado(mod.aloj1);
 						mod.reserva.setPrecio(vis.pCenter.pResBusq.resultBusq.getSelectedValue().getPrecioTAlta());
 						mod.mPago.pasarPrecioAPanelPago(vis);
+						if(mod.aloj1 instanceof Hotel) {
+							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.aloj1).getDormitorios());
+							vis.pCenter.changePanel("3");
+						}else {
+							vis.pCenter.changePanel("4");
+						}
 					}
 					break;
-				case 3:
+				case 3:	
+					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty()) {
+						vis.pCenter.changePanel("4");
+						
+					}
+					
+					break;
+				case 4:
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
-						vis.pCenter.changePanel("5");
+						vis.pCenter.changePanel("6");
 						mod.reserva.setCliente(mod.clienteRegis);
 					}
 					break;
-				case 4:
+				case 5:
 					if (mod.mRegiLog.comprobarDatos()) {
 						mod.clienteRegis = mod.mRegiLog.registro(vis.pCenter.pRegistro);
 						if (mod.clienteRegis != null) {
 							mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente");
-							vis.pCenter.changePanel("5");
+							vis.pCenter.changePanel("6");
 							mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 						}
 					}
 					break;
-				case 5:
+				case 6:
 					if (mod.isPagoExitoso()) {
 						vis.pCenter.changePanel("1");
 						mod.mPago.limpiar(vis.pCenter.pPago);
