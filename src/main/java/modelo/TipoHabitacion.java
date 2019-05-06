@@ -5,26 +5,36 @@ import com.google.gson.Gson;
 import BaseDatos.ConsultaBD;
 
 public enum TipoHabitacion {
-	SALA(3), COMEDOR(2), BALCON(3), GARAJE(5), COCINA(7), BANIO(4), DORMITORIO(12), SUITE(2);
-
-	private final double preciom2;
+	SALA(), COMEDOR(), BALCON(), GARAJE(), COCINA(), BANIO(), DORMITORIO(), SUITE();
 
 	
-	TipoHabitacion(double preciom2) {
-		//this.g
-		this.preciom2 = preciom2;
+	private final double preciom2;
+	private ConsultaBD bd = new ConsultaBD();
+	private Gson gson;
+
+	
+	TipoHabitacion() {
+		this.preciom2 = 2;//consultarPrecio();
 	}
 
 	public double getPreciom2() {
 		return this.preciom2;
 	}
-	/**
-	public void cargarPrecios(ConsultaBD bd) {
-			String json = bd.consultarToGson("");
-			Gson gson = new Gson();
-			this. = gson.fromJson(json, Apartamento[].class);
-			
-		
+	
+	private double consultarPrecio() {
+		String json = bd.consultarToGson("SELECT `precio` 'auxiliar' FROM `tipohabitacion` WHERE `tipoHabitacion` = '"+this.toString()+"'");
+		gson = new Gson();
+		Global[] precio = gson.fromJson(json, Global[].class);
+		return (double)precio[0].getAuxiliar();
 	}
-	**/
+
+	public String toString() {
+		return super.toString().replaceAll("_", " ").toUpperCase();
+	}
+	
+	public String nombreToString() {
+		String aux= super.toString();
+		aux=aux.substring(0, 1).toUpperCase() + aux.substring(1);
+		return aux;
+	}
 }

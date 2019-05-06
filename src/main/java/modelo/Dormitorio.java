@@ -24,4 +24,10 @@ public class Dormitorio extends Habitacion{
 	public void setMobiliario(Mobiliario[] mobiliario) {
 		this.mobiliario = mobiliario;
 	}
+	
+	public void precioDormitorio() {
+		for(Mobiliario mob:this.mobiliario) {
+			this.precio+=mob.getPrecio();
+		}
+	}
 }

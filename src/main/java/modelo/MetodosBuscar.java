@@ -11,7 +11,7 @@ import BaseDatos.ConsultaBD;
 
 public class MetodosBuscar {
 	private ConsultaBD bd;
-	private Gson gson = new Gson();
+	private Gson gson;
 	private Modelo mod;
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Calendar;
+
 public class Casa extends Alojamiento {
 	protected Habitacion[] habitaciones;
 	protected int numBanios;
@@ -48,6 +50,29 @@ public class Casa extends Alojamiento {
 			m2 += habitacion.getM2();
 	}
 
+	/**
+	 * Calcula el precio de la 
+	 * @param casa
+	 * @param index
+	 * @return
+	 */
+	public double calcularPrecioCasa(int indexHab) {
+		Calendar fechaAct= Calendar.getInstance();
+		double precio=0;
+		
+		for (Habitacion hab : habitaciones) {
+			precio+=hab.getPrecio();
+		}
+		
+		if(fechaAct.get(Calendar.MONTH)>Calendar.MAY && fechaAct.get(Calendar.MONTH)<Calendar.OCTOBER) {
+			precio+=this.precioTAlta;
+		}else {
+			precio+=this.precioTBaja;
+		}
+		
+		return 0;
+	}
+	
 	public int numCamas() {
 		int cont = 0;
 		if (this.habitaciones != null)

@@ -4,15 +4,20 @@ import com.google.gson.Gson;
 
 import BaseDatos.ConsultaBD;
 
-public enum TipoCama {
-	INDIVIDUAL(), MATRIMONIO(), INFANTIL();
+public enum TipoMobiliario {
+
+	ARMARIO(),MESITA_DE_NOCHE(),LAMPARA(),CAMA("");
 
 	private final double precio;
 	private ConsultaBD bd = new ConsultaBD();
 	private Gson gson;
 
-	TipoCama() {
+	TipoMobiliario() {
 		this.precio = consultarPrecio();
+	}
+	
+	TipoMobiliario(String aux){
+		this.precio=0;
 	}
 
 	public double getPrecio() {
@@ -25,6 +30,7 @@ public enum TipoCama {
 		Global[] precio = gson.fromJson(json, Global[].class);
 		return (double) precio[0].getAuxiliar();
 	}
+	
 	
 	public String toString() {
 		return super.toString().replaceAll("_", " ").toUpperCase();

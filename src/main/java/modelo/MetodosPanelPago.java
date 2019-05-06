@@ -291,6 +291,7 @@ public class MetodosPanelPago {
 			return -1;
 		}
 	}
+
 	
 	/**
 	 * Limpia el panel reseteando todos los elementos a valores por defecto
