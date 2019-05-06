@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Date;
+
 import BaseDatos.ConsultaBD;
 
 public class Modelo {
@@ -12,6 +14,7 @@ public class Modelo {
 	public Hotel[] hotelesBusqueda;
 	public Casa[] casasBusqueda;
 	public Apartamento[] apartBusqueda;
+	public Date[] festivos;
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;
@@ -45,6 +48,5 @@ public class Modelo {
 	public void setPagoExitoso(boolean pagoExitoso) {
 		this.pagoExitoso = pagoExitoso;
 	}
-	
 }
 

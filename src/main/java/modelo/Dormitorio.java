@@ -1,21 +1,19 @@
 package modelo;
 
-public class Dormitorio extends Habitacion{
+public class Dormitorio extends Habitacion {
 
 	private Mobiliario[] mobiliario;
 	private boolean disponible;
 
-	public Dormitorio() {
-		
-	}
-	
-	public Dormitorio(int idHab, int m2) {
-		super(idHab, m2, TipoHabitacion.DORMITORIO);
-	}
-	
 	public Dormitorio(int idHab, int m2, Mobiliario[] mobiliario) {
 		super(idHab, m2, TipoHabitacion.DORMITORIO);
 		this.mobiliario = mobiliario;
+		precioDormitorio();
+	}
+
+	public void setM2(int m2) {
+		this.m2 = m2;
+		precioDormitorio();
 	}
 	
 	public Mobiliario[] getMobiliario() {
@@ -24,6 +22,7 @@ public class Dormitorio extends Habitacion{
 
 	public void setMobiliario(Mobiliario[] mobiliario) {
 		this.mobiliario = mobiliario;
+		precioDormitorio();
 	}
 
 	public boolean isDisponible() {
@@ -33,10 +32,11 @@ public class Dormitorio extends Habitacion{
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
-	
-	public void precioDormitorio() {
-		for(Mobiliario mob:this.mobiliario) {
-			this.precio+=mob.getPrecio();
+
+	private void precioDormitorio() {
+		this.precio = tipoHabitacion.getPreciom2() * m2;
+		for (Mobiliario mob : this.mobiliario) {
+			this.precio += mob.getPrecio();
 		}
 	}
 }

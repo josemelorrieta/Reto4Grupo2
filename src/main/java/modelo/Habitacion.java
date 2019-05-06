@@ -6,10 +6,7 @@ public class Habitacion {
 	protected int m2;
 	protected TipoHabitacion tipoHabitacion;
 	protected double precio;
-	
-	public Habitacion() {
-		
-	}
+
 	
 	public Habitacion(int idHab, int m2, TipoHabitacion tipoHabitacion) {
 		this.idHab = idHab;
@@ -32,6 +29,7 @@ public class Habitacion {
 	
 	public void setM2(int m2) {
 		this.m2 = m2;
+		this.precio=tipoHabitacion.getPreciom2()*m2;
 	}
 
 	public TipoHabitacion getTipoHabitacion() {
@@ -40,16 +38,10 @@ public class Habitacion {
 
 	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
 		this.tipoHabitacion = tipoHabitacion;
+		this.precio=tipoHabitacion.getPreciom2()*m2;
 	}
 
 	public double getPrecio() {
 		return precio;
 	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
-	
-
 }

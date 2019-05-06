@@ -51,28 +51,40 @@ public class Casa extends Alojamiento {
 	}
 
 	/**
-	 * Calcula el precio de la 
-	 * @param casa
-	 * @param index
-	 * @return
+	 * Calcula el precio base de la casa
+	 * 
+	 * @param festivos array de fechas festivas
+	 * @return el precio base de la casa, se le debe sumar el precio individual de
+	 *         cada habitacion reservada, tiene en cuenta las habitaciones que no
+	 *         sean dormitorios
 	 */
-	public double calcularPrecioCasa(int indexHab) {
-		Calendar fechaAct= Calendar.getInstance();
-		double precio=0;
-		
+	public double calcularPrecioBaseCasa(Calendar[] festivos) {
+		Calendar fechaAct = Calendar.getInstance();
+		double precio = 0, precioTemp = 0;
+
+		if (fechaAct.get(Calendar.MONTH) > Calendar.MAY && fechaAct.get(Calendar.MONTH) < Calendar.OCTOBER) {
+			precioTemp = this.precioTAlta;
+
+		} else {
+			precioTemp = this.precioTBaja;
+		}
+		precio += precioTemp;
+
+		for (Calendar fest : festivos) {
+			if (fechaAct.equals(fest)) {
+				precio += precioTemp * 1.75;
+			}
+		}
+
 		for (Habitacion hab : habitaciones) {
-			precio+=hab.getPrecio();
+			if (!(hab instanceof Dormitorio)) {
+				precio += hab.getPrecio();
+			}
 		}
-		
-		if(fechaAct.get(Calendar.MONTH)>Calendar.MAY && fechaAct.get(Calendar.MONTH)<Calendar.OCTOBER) {
-			precio+=this.precioTAlta;
-		}else {
-			precio+=this.precioTBaja;
-		}
-		
-		return 0;
+
+		return precio;
 	}
-	
+
 	public int numCamas() {
 		int cont = 0;
 		if (this.habitaciones != null)

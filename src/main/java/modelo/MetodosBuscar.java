@@ -3,6 +3,7 @@ package modelo;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.google.gson.Gson;
@@ -242,5 +243,25 @@ public class MetodosBuscar {
 		FechasReserva[] fechasReserva = gson.fromJson(json, FechasReserva[].class);
 
 		return fechasReserva;
+	}
+	
+	public Calendar[] buscarFechasFestivos() {
+		String json = bd.consultarToGson("SELECT COUNT(*) FROM `festivos`");
+		gson = new Gson();
+		Global[] fechasBBDD = gson.fromJson(json, Global[].class);
+		
+		Calendar[] fechas=new Calendar[(int) fechasBBDD[0].getAuxiliar()];
+		
+		json=bd.consultarToGson("SELECT * FROM `festivos`");
+		fechasBBDD = gson.fromJson(json, Global[].class);
+		
+		for(int i =0;i<fechasBBDD.length;i++) {
+			Date fechaAux=(Date) fechasBBDD[i].getAuxiliar();
+			Calendar calendarAux=Calendar.getInstance();
+			calendarAux.setTime(fechaAux);
+			fechas[i]=calendarAux; 
+		}
+
+		return fechas;
 	}
 }
