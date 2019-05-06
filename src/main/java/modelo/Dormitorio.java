@@ -34,5 +34,9 @@ public class Dormitorio extends Habitacion{
 		this.disponible = disponible;
 	}
 	
-	
+	public void precioDormitorio() {
+		for(Mobiliario mob:this.mobiliario) {
+			this.precio+=mob.getPrecio();
+		}
+	}
 }

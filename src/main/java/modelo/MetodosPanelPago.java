@@ -268,6 +268,31 @@ public class MetodosPanelPago {
 		return numReserva;
 	}
 	
+
+	public boolean guardarHabReserva(Reserva reserva) {
+		Hotel hotelReserva = (Hotel)reserva.getAlojReservado();
+		String nombreHotel = hotelReserva.getNombre();
+		int idHabReserva = buscarIdHabitacion(nombreHotel);
+		if(idHabReserva >= 0) {
+			Object[] objetos = {ultimoNumReserva(), idHabReserva};
+			return bd.insertGenerico(objetos, "rsvhab");
+		} else {
+			return false;
+		}
+	}
+	
+	public int buscarIdHabitacion (String nombreHotel) {
+		String aux = bd.consultarToGson("SELECT MIN(`idHab`) 'auxiliar' FROM `habhotel` WHERE `idHot` = (SELECT `idHot` FROM hotel WHERE `nombre` = '" + nombreHotel + "')");
+		
+		if (aux != null) {
+			final Gson gson = new Gson();
+			Object[] idHab = gson.fromJson(aux, Global[].class);
+			return ((Double) ((Global)idHab[0]).getAuxiliar()).intValue();
+		} else {
+			return -1;
+		}
+	}
+
 	/**
 	 * Limpia el panel reseteando todos los elementos a valores por defecto
 	 * seleccionados por el programador

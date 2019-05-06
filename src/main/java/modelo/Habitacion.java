@@ -15,6 +15,7 @@ public class Habitacion {
 		this.idHab = idHab;
 		this.m2 = m2;
 		this.tipoHabitacion=tipoHabitacion;
+		this.precio=tipoHabitacion.getPreciom2()*m2;
 	}
 	
 	public int getIdHab() {
@@ -39,6 +40,14 @@ public class Habitacion {
 
 	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
 		this.tipoHabitacion = tipoHabitacion;
+	}
+
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
 
 	
