@@ -3,6 +3,7 @@ package modelo;
 public class Dormitorio extends Habitacion{
 
 	private Mobiliario[] mobiliario;
+	private boolean disponible;
 
 	public Dormitorio() {
 		
@@ -24,4 +25,14 @@ public class Dormitorio extends Habitacion{
 	public void setMobiliario(Mobiliario[] mobiliario) {
 		this.mobiliario = mobiliario;
 	}
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+	
+	
 }

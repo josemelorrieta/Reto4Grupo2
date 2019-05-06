@@ -1,9 +1,12 @@
 package vista.panelCard;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
@@ -12,19 +15,15 @@ import javax.swing.border.BevelBorder;
 
 import modelo.Cama;
 import modelo.Dormitorio;
-import modelo.Habitacion;
 import modelo.Mobiliario;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
-public class RendererHabitacion extends JPanel implements ListCellRenderer<Habitacion>{
+public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormitorio>{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JLabel lblFoto,lblNombre,lblCamas,lblTamano;
+	public JLabel lblFoto,lblNombre,lblCamas,lblTamano, lblDisponible;
 	
 	
 	public RendererHabitacion() {
@@ -59,23 +58,36 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Habit
 		lblTamano.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTamano.setBounds(353, 64, 106, 36);
 		add(lblTamano);
+		
+		lblDisponible = new JLabel("Disponible");
+		lblDisponible.setForeground(new Color(50, 205, 50));
+		lblDisponible.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		lblDisponible.setBounds(122, 80, 100, 20);
+		add(lblDisponible);
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends Habitacion> lista, Habitacion habitacion, int index,
-			boolean isSelected, boolean cellHasFocus) {
+	public Component getListCellRendererComponent(JList<? extends Dormitorio> lista, Dormitorio dormitorio, int index, boolean isSelected, boolean cellHasFocus) {
 		
 		//lblFoto.setIcon(dormitorio.getImagen());
-		lblNombre.setText(String.valueOf(habitacion.getTipoHabitacion())+" "+habitacion.getIdHab());
+		lblNombre.setText(String.valueOf(dormitorio.getTipoHabitacion())+" "+dormitorio.getIdHab());
 		String camas = "";
 		
-		for(Mobiliario mob:((Dormitorio) habitacion).getMobiliario()) {
+		for(Mobiliario mob:((Dormitorio) dormitorio).getMobiliario()) {
 			if(mob instanceof Cama) {
 				camas += ((Cama) mob).getTipoCama()+"\n";
 			}
 		}		
 		lblCamas.setText(camas);
-		lblTamano.setText(String.valueOf(habitacion.getM2())+"m2");
+		lblTamano.setText(String.valueOf(dormitorio.getM2())+"m2");
+		
+		if (dormitorio.isDisponible()) {
+			lblDisponible.setText("Disponible");
+			lblDisponible.setForeground(new Color(50, 205, 50));
+		} else {
+			lblDisponible.setText("No disponible");
+			lblDisponible.setForeground(new Color(255, 0, 0));
+		}
 		
 		if (isSelected) {
 		    setBackground(lista.getSelectionBackground());

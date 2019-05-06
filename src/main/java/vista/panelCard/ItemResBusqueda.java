@@ -1,5 +1,6 @@
 package vista.panelCard;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,9 +19,7 @@ import modelo.Alojamiento;
 import modelo.Apartamento;
 import modelo.Casa;
 import modelo.Hotel;
-import modelo.MetodosBuscar;
 import util.FuncionesGenerales;
-import java.awt.Color;
 
 public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamiento> {
 
@@ -121,12 +120,14 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 			lblCamas.setVisible(false);
 			lblNumCamas.setVisible(false);
 
-			if (MetodosBuscar.comprobarDisponibilidad(((Hotel) aloj).getDormDisponibles())) {
-				lblDisponible.setText("No disponible");
-				lblDisponible.setForeground(new Color(255, 0, 0));
-			} else {
+			if (aloj.isDisponible()) {
 				lblDisponible.setText("Disponible");
 				lblDisponible.setForeground(new Color(50, 205, 50));
+				aloj.setDisponible(true);
+			} else {
+				lblDisponible.setText("No disponible");
+				lblDisponible.setForeground(new Color(255, 0, 0));
+				aloj.setDisponible(false);
 			}
 		} else {
 			ImageIcon cama = FuncionesGenerales.resizeIcono(lblCamas.getWidth(), lblCamas.getHeight(), new File(getClass().getResource("/imagenes/alojamiento/noHotel/cama.png").getPath()));

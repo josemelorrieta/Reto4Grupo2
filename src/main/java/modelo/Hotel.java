@@ -3,17 +3,15 @@ package modelo;
 public class Hotel extends Alojamiento {
 	private Dormitorio[] dormitorios;
 	private int numEstrellas;
-	private boolean[] dormDisponibles;
 
 	public Hotel() {
 
 	}
 
-	public Hotel(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Dormitorio[] dormitorios, int numEstrellas, boolean[] dormDisponibles) {
+	public Hotel(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Dormitorio[] dormitorios, int numEstrellas) {
 		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 		this.dormitorios = dormitorios;
 		this.numEstrellas = numEstrellas;
-		this.dormDisponibles = dormDisponibles;
 	}
 
 	public int numCamas() {
@@ -45,14 +43,6 @@ public class Hotel extends Alojamiento {
 
 	public void setNumEstrellas(int estrellas) {
 		this.numEstrellas = estrellas;
-	}
-
-	public boolean[] getDormDisponibles() {
-		return dormDisponibles;
-	}
-
-	public void setDormDisponibles(boolean[] dormDisponibles) {
-		this.dormDisponibles = dormDisponibles;
 	}
 
 }

@@ -47,7 +47,7 @@ public class Controlador {
 			case "SIGUIENTE":
 				switch (vis.pCenter.currentIndex) {
 				case 2:
-					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty()) {
+					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty() && vis.pCenter.pResBusq.resultBusq.getSelectedValue().isDisponible()) {
 						
 						mod.aloj1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
 						mod.reserva.setAlojReservado(mod.aloj1);
@@ -62,7 +62,7 @@ public class Controlador {
 					}
 					break;
 				case 3:	
-					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty()) {
+					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.changePanel("4");
 						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
 					}

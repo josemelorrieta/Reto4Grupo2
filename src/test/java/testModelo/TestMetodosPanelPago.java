@@ -26,7 +26,7 @@ public class TestMetodosPanelPago {
 	private float floatTest=50f;
 	private ArrayList<String> stringCambiosEsperado= new ArrayList<String>(Arrays.asList("500 €: 1", "200 €: 1", "100 €: 1", "50 €: 1", "20 €: 1", "10 €: 1", "5 €: 1", "2 €: 1", "1 €: 1", "0.50 €: 1", "0.20 €: 1", "0.10 €: 1", "0.05 €: 1", "0.02 €: 1", "0.01 €: 1"));
 	private String[] arrayStringEsperado = {"20.00","50.00"};
-	private Reserva reservaTest=new Reserva(new Cliente("Pepe"), 40, new Date(), new Date(), new Date(), new Hotel(1,"JunjoHoteles", null, 0, 0, 0, null,true,null, 0, null));
+	private Reserva reservaTest=new Reserva(new Cliente("Pepe"), 40, new Date(), new Date(), new Date(), new Hotel(1,"JunjoHoteles", null, 0, 0, 0, null,true,null, 0));
 	
 	@Test
 	public void testRedondear() {

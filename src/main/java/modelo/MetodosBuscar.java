@@ -103,12 +103,6 @@ public class MetodosBuscar {
 		}
 		// hotel.setArrayHabitaciones(habit);
 		hotel.setDormitorios(dormitorios);
-		boolean[] dormitoriosDisp = new boolean[dormitorios.length];
-		/**
-		 * for (int i = 0; i < dormitoriosDisp.length; i++) { dormitoriosDisp[i] = true;
-		 * }
-		 **/
-		hotel.setDormDisponibles(dormitoriosDisp);
 	}
 
 	private void cargarMobiliarioDormitorioHotel(Dormitorio dormitorio) {
@@ -189,15 +183,16 @@ public class MetodosBuscar {
 						e.printStackTrace();
 					}
 					if (fechaIn.compareTo(fechaSalida) <= 0 && fechaOut.compareTo(fechaEntrada) >= 0 && idHab == hotel.getDormitorios()[i].getIdHab()) {
-						hotel.getDormDisponibles()[i] = false;
+						hotel.getDormitorios()[i].setDisponible(false);
 						break;
 					} else
-						hotel.getDormDisponibles()[i] = true;
+						hotel.getDormitorios()[i].setDisponible(true);
 				}
 			} else {
-				hotel.getDormDisponibles()[i] = true;
+				hotel.getDormitorios()[i].setDisponible(true);
 			}
 		}
+		hotel.setDisponible(comprobarDisponibilidad(hotel));
 	}
 
 	private void setDisponibilidad(Casa casa) {
@@ -229,16 +224,16 @@ public class MetodosBuscar {
 		}
 	}
 
-	public static boolean comprobarDisponibilidad(boolean[] arrBool) {
+	public static boolean comprobarDisponibilidad(Hotel hotel) {
 		int count = 0;
-		for (int i = 0; i < arrBool.length; i++) {
-			if (arrBool[i] == false)
+		for (int i = 0; i < hotel.getDormitorios().length; i++) {
+			if (hotel.getDormitorios()[i].isDisponible() == false)
 				count++;
 		}
-		if (count == arrBool.length) {
+		if (count == hotel.getDormitorios().length) {
 			return false;
 		} else
-			return false;
+			return true;
 	}
 
 	private FechasReserva[] buscarFechasReservas() {
