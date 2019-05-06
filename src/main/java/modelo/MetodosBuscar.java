@@ -12,8 +12,9 @@ import BaseDatos.ConsultaBD;
 
 public class MetodosBuscar {
 	private ConsultaBD bd;
-	private Gson gson;
 	private Modelo mod;
+	
+	private Gson gson = new Gson();
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -22,10 +23,31 @@ public class MetodosBuscar {
 		this.mod = mod;
 	}
 
+	// Getters y setters
+	public ConsultaBD getBd() {
+		return bd;
+	}
+
+	public void setBd(ConsultaBD bd) {
+		this.bd = bd;
+	}
+
+	public Modelo getMod() {
+		return mod;
+	}
+
+	public void setMod(Modelo mod) {
+		this.mod = mod;
+	}
+
+	/**
+	 * Funcion para buscar las localidades en que hay alojamientos en la Base de Datos
+	 * 
+	 * @return array de localidades
+	 */
 	public Localidad[] buscarLocalidades() {
 		String aux = bd.consultarToGson("SELECT DISTINCT `localidad` FROM `direccion`");
 		if (aux != null) {
-			final Gson gson = new Gson();
 			Localidad[] localidades = gson.fromJson(aux, Localidad[].class);
 			return localidades;
 		} else {
@@ -42,7 +64,6 @@ public class MetodosBuscar {
 
 	private void cargarHoteles(String localidad) {
 		String json = bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
-		gson = new Gson();
 		mod.hotelesBusqueda = gson.fromJson(json, Hotel[].class);
 		for (Hotel hotel : mod.hotelesBusqueda) {
 			cargarDireccion(hotel);
@@ -53,7 +74,6 @@ public class MetodosBuscar {
 
 	private void cargarCasas(String localidad) {
 		String json = bd.consultarToGson("SELECT `idCasa` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `casa` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
-		gson = new Gson();
 		mod.casasBusqueda = gson.fromJson(json, Casa[].class);
 		for (Casa casa : mod.casasBusqueda) {
 			cargarDireccion(casa);
@@ -64,7 +84,6 @@ public class MetodosBuscar {
 
 	private void cargarApartamentos(String localidad) {
 		String json = bd.consultarToGson("SELECT `idApart` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest',`piso`, `imagen` FROM `apartamento` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
-		gson = new Gson();
 		mod.apartBusqueda = gson.fromJson(json, Apartamento[].class);
 		for (Apartamento apart : mod.apartBusqueda) {
 			cargarDireccion(apart);
@@ -75,40 +94,33 @@ public class MetodosBuscar {
 
 	private void cargarDireccion(Hotel hotel) {
 		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `hotel` WHERE `idHot` = " + hotel.getId() + ")");
-		gson = new Gson();
 		Direccion[] dir = gson.fromJson(json, Direccion[].class);
 		hotel.setDireccion(dir[0]);
 	}
 
 	private void cargarDireccion(Casa casa) {
 		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `casa` WHERE `idCasa` = " + casa.getId() + ")");
-		gson = new Gson();
 		Direccion[] dir = gson.fromJson(json, Direccion[].class);
 		casa.setDireccion(dir[0]);
 	}
 
 	private void cargarDireccion(Apartamento apart) {
 		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `apartamento` WHERE `idApart` = " + apart.getId() + ")");
-		gson = new Gson();
 		Direccion[] dir = gson.fromJson(json, Direccion[].class);
 		apart.setDireccion(dir[0]);
 	}
 
 	private void cargarHabitaciones(Hotel hotel) {
 		String json = bd.consultarToGson("SELECT `idHab`, `metros` 'm2', 'DORMITORIO' AS `tipoHabitacion` FROM `dormitorio` d, `habhotel` h WHERE d.`idDorm` IN (SELECT `idDorm` FROM `habhotel` WHERE `idHot`=" + hotel.getId() + ") AND d.`idDorm`=h.`idDorm`");
-		gson = new Gson();
-		// Habitacion[] habit = gson.fromJson(json, Habitacion[].class);
 		Dormitorio[] dormitorios = gson.fromJson(json, Dormitorio[].class);
 		for (Dormitorio dorm : dormitorios) {
 			cargarMobiliarioDormitorioHotel(dorm);
 		}
-		// hotel.setArrayHabitaciones(habit);
 		hotel.setDormitorios(dormitorios);
 	}
 
 	private void cargarMobiliarioDormitorioHotel(Dormitorio dormitorio) {
 		String json = bd.consultarToGson("SELECT 'CAMATEST' AS `nombre`,`tipoCama` FROM `cama` WHERE `idCama` IN (SELECT `idCama` FROM `camadorm` WHERE `idDorm` IN (SELECT `idDorm` FROM `habhotel` WHERE `idHab`=" + dormitorio.getIdHab() + "))");
-		gson = new Gson();
 		Cama[] camas = gson.fromJson(json, Cama[].class);
 		dormitorio.setMobiliario(camas);
 	}
@@ -117,7 +129,6 @@ public class MetodosBuscar {
 		String tipo = (casa.getClass()).getSimpleName().toLowerCase();
 
 		String json = bd.consultarToGson("SELECT d.`idDorm` 'idHab', `metros` 'm2', 'DORMITORIO' AS `tipoHabitacion` FROM `dormitorio` d, `dorm" + tipo + "` c WHERE d.`idDorm` IN (SELECT `idDorm` FROM `dorm" + tipo + "` WHERE `id"+tipo.substring(0, 1).toUpperCase() + tipo.substring(1)+"`=" + casa.getId() + ") AND d.`idDorm`=c.`idDorm`");
-		gson = new Gson();
 		Habitacion[] habitaciones = gson.fromJson(json, Dormitorio[].class);
 
 		for (Habitacion habit : habitaciones)
@@ -127,8 +138,6 @@ public class MetodosBuscar {
 	}
 
 	private void cargarMobiliarioDormitorioCasa(Dormitorio dormitorio, String tipo) {
-		gson = new Gson();
-
 		String json = bd.consultarToGson("SELECT 'Cama' AS `nombre`, `tipoCama` FROM `cama` WHERE `idCama` IN(SELECT `idCama` FROM `camadorm` WHERE `idDorm`="+ dormitorio.getIdHab() +")");
 		Cama[] camas = gson.fromJson(json, Cama[].class);
 
@@ -239,7 +248,6 @@ public class MetodosBuscar {
 
 	private FechasReserva[] buscarFechasReservas() {
 		String json = bd.consultarToGson("SELECT r.`idRsv`, `idHab`, `fechaIn`, `fechaOut` FROM `reserva` r, `rsvhab` h WHERE r.`idRsv`=h.`idRsv`");
-		gson = new Gson();
 		FechasReserva[] fechasReserva = gson.fromJson(json, FechasReserva[].class);
 
 		return fechasReserva;

@@ -36,6 +36,16 @@ public class TestMetodosPanelPago {
 	}
 	
 	@Test
+	public void doubleAString() {
+		assertEquals(metPago.doubleAString(doubleTest), "24.57");
+	}
+	
+	@Test
+	public void stringADouble() {
+		assertEquals(metPago.stringADouble(stringNum1Test), 50.0, 0.001);
+	}
+	
+	@Test
 	public void testStringAFloat() {
 		assertEquals(metPago.stringAFloat(stringNum1Test),50,0);
 	}

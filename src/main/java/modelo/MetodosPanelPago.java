@@ -147,7 +147,6 @@ public class MetodosPanelPago {
 	 * @param btn   boton del cual se mira el texto y pasa a string para sumar esa
 	 *              cantidad
 	 */
-
 	public void sumarDinero(PanelPago panel, String valor,Modelo mod) {
 		String[] arrDinero = operarDinero(panel.textAPagar.getText(), panel.textPagado.getText(), valor);
 		if (comprobarPago(arrDinero[0])) {
@@ -252,7 +251,7 @@ public class MetodosPanelPago {
 	/** 
 	 * Busca el siguiente numero de orden para insertar una nueva reserva
 	 * 
-	 * @return 
+	 * @return id de la ultima reserva en la BBDD
 	 */
 	public int ultimoNumReserva() {
 		int numReserva = 0;
@@ -266,31 +265,6 @@ public class MetodosPanelPago {
 		}
 		
 		return numReserva;
-	}
-	
-
-	public boolean guardarHabReserva(Reserva reserva) {
-		Hotel hotelReserva = (Hotel)reserva.getAlojReservado();
-		String nombreHotel = hotelReserva.getNombre();
-		int idHabReserva = buscarIdHabitacion(nombreHotel);
-		if(idHabReserva >= 0) {
-			Object[] objetos = {ultimoNumReserva(), idHabReserva};
-			return bd.insertGenerico(objetos, "rsvhab");
-		} else {
-			return false;
-		}
-	}
-	
-	public int buscarIdHabitacion (String nombreHotel) {
-		String aux = bd.consultarToGson("SELECT MIN(`idHab`) 'auxiliar' FROM `habhotel` WHERE `idHot` = (SELECT `idHot` FROM hotel WHERE `nombre` = '" + nombreHotel + "')");
-		
-		if (aux != null) {
-			final Gson gson = new Gson();
-			Object[] idHab = gson.fromJson(aux, Global[].class);
-			return ((Double) ((Global)idHab[0]).getAuxiliar()).intValue();
-		} else {
-			return -1;
-		}
 	}
 
 	/**
