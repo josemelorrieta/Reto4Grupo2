@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import modelo.Casa;
+import modelo.Dormitorio;
 import modelo.Hotel;
 import modelo.Modelo;
 import vista.VentanaPpal;
@@ -63,7 +64,7 @@ public class Controlador {
 				case 3:	
 					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty()) {
 						vis.pCenter.changePanel("4");
-						
+						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
 					}
 					
 					break;

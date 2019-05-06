@@ -243,7 +243,7 @@ public class MetodosPanelPago {
 		String fechaIn = sdf.format(reserva.getFechaEntrada());
 		String fechaOut = sdf.format(reserva.getFechaSalida());
 		double precio = reserva.getPrecio();
-		int idHab = buscarIdHabitacion(reserva.getAlojReservado().getNombre());
+		int idHab = reserva.getDormitorioReservado().getIdHab();
 		
 		return bd.guardarReserva(idRsv, dni, fechaRsv, fechaIn, fechaOut, precio, idHab);
 
@@ -268,6 +268,7 @@ public class MetodosPanelPago {
 		return numReserva;
 	}
 	
+
 	public boolean guardarHabReserva(Reserva reserva) {
 		Hotel hotelReserva = (Hotel)reserva.getAlojReservado();
 		String nombreHotel = hotelReserva.getNombre();
@@ -292,7 +293,6 @@ public class MetodosPanelPago {
 		}
 	}
 
-	
 	/**
 	 * Limpia el panel reseteando todos los elementos a valores por defecto
 	 * seleccionados por el programador
