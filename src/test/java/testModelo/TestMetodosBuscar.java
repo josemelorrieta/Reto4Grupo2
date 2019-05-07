@@ -10,6 +10,8 @@ import org.junit.Test;
 import com.google.gson.Gson;
 
 import BaseDatos.ConsultaBD;
+import modelo.Direccion;
+import modelo.Hotel;
 import modelo.Localidad;
 import modelo.MetodosBuscar;
 import modelo.Modelo;
@@ -18,7 +20,6 @@ public class TestMetodosBuscar {
 	
 	Modelo mod = new Modelo();
 	ConsultaBD bd = mock(ConsultaBD.class);
-	Gson gson = mock(Gson.class);
 	
 	MetodosBuscar metBuscar = new MetodosBuscar(mod, bd);
 	
@@ -55,12 +56,40 @@ public class TestMetodosBuscar {
 	@Test
 	public void buscarLocalidades() {
 		when(bd.consultarToGson("SELECT DISTINCT `localidad` FROM `direccion`")).thenReturn("");
-		assertArrayEquals(metBuscar.buscarLocalidades(), null);
-		
 		String aux = "Bilbao";
-		Localidad[] localidades = {new Localidad("Bilbao")};
-		when(bd.consultarToGson("SELECT DISTINCT `localidad` FROM `direccion`")).thenReturn("");
-		when(gson.fromJson(aux, Localidad[].class)).thenReturn(localidades);
-		assertArrayEquals(metBuscar.buscarLocalidades(), localidades);
+		Localidad[] localidades = {new Localidad("Bilbao"), new Localidad("Zaragoza")};
+		Localidad[] localidadesBD = metBuscar.buscarLocalidades(); 
+		assertEquals(localidades[0].getLocalidad(), localidades[0].getLocalidad());
+		
+		when(bd.consultarToGson("SELECT DISTINCT `localidad` FROM `direccion`")).thenReturn(null);
+		assertArrayEquals(metBuscar.buscarLocalidades(), null);
+	}
+	
+	@Test
+	public void cargarDireccion() {
+		Hotel hotel = new Hotel();
+		hotel.setId(1);
+		when(bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `hotel` WHERE `idHot` = " + hotel.getId() + ")")).thenReturn("[{\"calle\":\"Plaza Moyua\",\"codPostal\":40002,\"localidad\":\"Bilbao\"}]");
+		assertEquals(metBuscar.cargarDireccion(hotel).getLocalidad(), "Bilbao" );
+	}
+	
+	@Test
+	public void cargarHabitaciones() {
+		Hotel hotel = new Hotel();
+		hotel.setId(1);
+		when(bd.consultarToGson("SELECT `idHab`, `metros` 'm2', 'DORMITORIO' AS `tipoHabitacion` FROM `dormitorio` d, `habhotel` h WHERE d.`idDorm` IN (SELECT `idDorm` FROM `habhotel` WHERE `idHot`=" + hotel.getId() + ") AND d.`idDorm`=h.`idDorm`")).thenReturn("[{\"idHab\":1,\"m2\":20,\"tipoHabitacion\":\"DORMITORIO\"}]");
+		
+		assertEquals(metBuscar.cargarHabitaciones(hotel)[0].getIdHab(), 1 );
+	}
+	
+	@Test
+	public void cargarHoteles() {
+		MetodosBuscar metBuscarMock = mock(MetodosBuscar.class);
+		when(metBuscarMock.cargarDireccion(mod.hotelesBusqueda[0])).thenReturn(new Direccion("Plaza Moyua", 40002, "Bilbao"));
+		String localidad = "Bilbao";
+		when(bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')")).thenReturn("[{\"id\":1,\"nombre\":\"Hotel Meliá\",\"numEstrellas\":5,\"precioTAlta\":49.9,\"precioTBaja\":29.95,\"precioTFest\":8.95,\"imagen\":\"melia_bilbao\"}]");
+		metBuscar.cargarHoteles(localidad);
+		assertEquals(mod.hotelesBusqueda[0].getId(), 1);
+		
 	}
 }
