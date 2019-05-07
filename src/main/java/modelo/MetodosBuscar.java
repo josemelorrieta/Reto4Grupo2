@@ -138,10 +138,10 @@ public class MetodosBuscar {
 	}
 
 	private void cargarMobiliarioDormitorioCasa(Dormitorio dormitorio, String tipo) {
-		String json = bd.consultarToGson("SELECT 'Cama' AS `nombre`, `tipoCama` FROM `cama` WHERE `idCama` IN(SELECT `idCama` FROM `camadorm` WHERE `idDorm`="+ dormitorio.getIdHab() +")");
+		String json = bd.consultarToGson("SELECT 'Cama' AS `nombre`, `tipoCama`,'CAMA' AS `tipoMobiliario` FROM `cama` WHERE `idCama` IN(SELECT `idCama` FROM `camadorm` WHERE `idDorm`="+ dormitorio.getIdHab() +")");
 		Cama[] camas = gson.fromJson(json, Cama[].class);
 
-		json = bd.consultarToGson("SELECT `tipoMob` 'nombre' FROM `mobiliario` WHERE `idMob` IN(SELECT `idMob` FROM `mobdorm` WHERE `idDorm`="+ dormitorio.getIdHab() +")");
+		json = bd.consultarToGson("SELECT `tipoMob` 'nombre',`tipoMob` 'tipoMobiliario' FROM `mobiliario` WHERE `idMob` IN(SELECT `idMob` FROM `mobdorm` WHERE `idDorm`="+ dormitorio.getIdHab() +")");
 		Mobiliario[] mobiliario = gson.fromJson(json, Mobiliario[].class);
 
 		if (mobiliario != null && camas != null) {
@@ -155,7 +155,7 @@ public class MetodosBuscar {
 	}
 
 	/**
-	 * Esto si esta sacado de stack overflow :)
+	 * 
 	 * 
 	 * @param a
 	 * @param b

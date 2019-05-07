@@ -15,7 +15,7 @@ public class Casa extends Alojamiento {
 		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 	}
 
-	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Habitacion[] habitaciones, int numBanios, int m2) {
+	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Habitacion[] habitaciones) {
 		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
 		this.habitaciones = habitaciones;
 		setNumBanios();

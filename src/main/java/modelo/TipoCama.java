@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import BaseDatos.ConsultaBD;
 
 public enum TipoCama {
-	INDIVIDUAL(), MATRIMONIO(), INFANTIL();
+	INDIVIDUAL(), MATRIMONIO(), INFANTIL(),DEFAULT("");
 
 	private final double precio;
 	private ConsultaBD bd = new ConsultaBD();
@@ -13,6 +13,9 @@ public enum TipoCama {
 
 	TipoCama() {
 		this.precio = consultarPrecio();
+	}
+	TipoCama(String def) {
+		this.precio = 0;
 	}
 
 	public double getPrecio() {
