@@ -6,11 +6,9 @@ import BaseDatos.ConsultaBD;
 
 public enum TipoMobiliario {
 
-	ARMARIO(),MESITA_DE_NOCHE(),LAMPARA(),CAMA("");
+	ARMARIO(),MESITA_DE_NOCHE(),LAMPARA(),CAMA(""),DEFAULT("");
 
 	private final double precio;
-	private ConsultaBD bd = new ConsultaBD();
-	private Gson gson;
 
 	TipoMobiliario() {
 		this.precio = consultarPrecio();
@@ -25,8 +23,9 @@ public enum TipoMobiliario {
 	}
 
 	private double consultarPrecio() {
-		String json = bd.consultarToGson("SELECT `precio` 'auxiliar' FROM `mobiliario` WHERE `tipoMob` = '" + this.toString() + "'");
-		gson = new Gson();
+		ConsultaBD bd = new ConsultaBD();
+		Gson gson= new Gson();
+		String json = bd.consultarToGson("SELECT `precio` 'auxiliar' FROM `mobiliario` WHERE `tipoMob` = '" + super.toString() + "'");
 		Global[] precio = gson.fromJson(json, Global[].class);
 		return (double) precio[0].getAuxiliar();
 	}

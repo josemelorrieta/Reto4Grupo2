@@ -5,32 +5,18 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import modelo.Mobiliario;
+import modelo.TipoMobiliario;
 
 public class TestMobiliario {
 
 	private Mobiliario mobiliarioTest;
-	private String stringTest1="Test1";
-	private String stringTest2="Test2";
-
+	private TipoMobiliario tipoMobiliarioTest=TipoMobiliario.DEFAULT;
 
 	@Test
 	public void testConstructor() {
-		mobiliarioTest = new Mobiliario(stringTest1);
-		assertEquals(mobiliarioTest.getNombre(), stringTest1);
+		mobiliarioTest = new Mobiliario(tipoMobiliarioTest);
+		assertEquals(mobiliarioTest.getNombre(), TipoMobiliario.DEFAULT.toString());
+		assertEquals(mobiliarioTest.getTipoMobiliario(), TipoMobiliario.DEFAULT);
+		assertEquals(mobiliarioTest.getPrecio(), TipoMobiliario.DEFAULT.getPrecio(),0);
 	}
-	
-	@Test
-	public void testConstructorVacio() {
-		mobiliarioTest = new Mobiliario();
-		assertEquals(mobiliarioTest.getNombre(), null);
-	}
-	
-	@Test
-	public void testSetNombre() {
-		mobiliarioTest = new Mobiliario();
-		assertEquals(mobiliarioTest.getNombre(), null);
-		mobiliarioTest.setNombre(stringTest2);
-		assertEquals(mobiliarioTest.getNombre(), stringTest2);
-	}
-
 }

@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import BaseDatos.ConsultaBD;
 
 public enum TipoHabitacion {
-	SALA(), COMEDOR(), BALCON(), GARAJE(), COCINA(), BANIO(), DORMITORIO(), SUITE();
+	SALA(), COMEDOR(), BALCON(), GARAJE(), COCINA(), BANIO(), DORMITORIO(), SUITE(),DEFAULT("");
 
 	
 	private final double preciom2;
@@ -15,6 +15,10 @@ public enum TipoHabitacion {
 	
 	TipoHabitacion() {
 		this.preciom2 = 2;//consultarPrecio();
+	}
+	
+	TipoHabitacion(String def){
+		this.preciom2=0;
 	}
 
 	public double getPreciom2() {

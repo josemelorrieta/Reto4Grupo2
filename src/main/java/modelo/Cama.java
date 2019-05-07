@@ -9,10 +9,10 @@ public class Cama extends Mobiliario {
 	}
 
 	public TipoCama getTipoCama() {
-		return tipoCama;
+		return this.tipoCama;
 	}
 	
 	public double getPrecio() {
-		return tipoCama.getPrecio();
+		return this.tipoCama.getPrecio();
 	}
 }
