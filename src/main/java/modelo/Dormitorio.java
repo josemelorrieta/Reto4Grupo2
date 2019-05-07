@@ -5,7 +5,7 @@ public class Dormitorio extends Habitacion {
 	private Mobiliario[] mobiliario;
 	private boolean disponible;
 
-	public Dormitorio(int idHab, int m2, Mobiliario[] mobiliario) {
+	public Dormitorio(int idHab, int m2) {
 		super(idHab, m2, TipoHabitacion.DORMITORIO);
 		this.mobiliario = mobiliario;
 		precioDormitorio();
