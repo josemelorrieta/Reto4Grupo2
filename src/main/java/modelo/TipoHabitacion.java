@@ -26,7 +26,7 @@ public enum TipoHabitacion {
 	}
 	
 	private double consultarPrecio() {
-		String json = bd.consultarToGson("SELECT `precio` 'auxiliar' FROM `tipohabitacion` WHERE `tipoHabitacion` = '"+this.toString()+"'");
+		String json = bd.consultarToGson("SELECT `preciom2` 'auxiliar' FROM `no_dormitorio` WHERE `tipo_habitacion` = '"+this.toString()+"'");
 		gson = new Gson();
 		Global[] precio = gson.fromJson(json, Global[].class);
 		return (double)precio[0].getAuxiliar();
