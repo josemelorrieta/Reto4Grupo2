@@ -3,7 +3,6 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import modelo.Casa;
 import modelo.Dormitorio;
 import modelo.Hotel;
 import modelo.Modelo;
@@ -110,8 +109,12 @@ public class Controlador {
 					//mod.mRegiLog.limpiar(vis.pCenter.pLogin);
 					break;
 				case 4:
-					vis.pCenter.prevPanel();
-					mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+					if(!(mod.aloj1 instanceof Hotel)) {
+						vis.pCenter.changePanel("2");
+					}else {
+						vis.pCenter.prevPanel();
+						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+					}
 					break;
 				case 5:
 					vis.pCenter.changePanel("3");
