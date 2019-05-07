@@ -9,7 +9,7 @@ public class Dormitorio extends Habitacion {
 		super(idHab, m2, TipoHabitacion.DORMITORIO);
 		this.mobiliario = mobiliario;
 		this.disponible=true;
-		calcularPrecio();
+		this.calcularPrecio();
 	}
 
 	public void setM2(int m2) {
