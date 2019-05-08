@@ -1,0 +1,12 @@
+INFORMACIÓN DE LA RESERVA
+
+Datos del cliente:
+Nombre: Yo
+
+Datos de la reserva:
+Nombre Alojamiento: Hotel Meliá
+Fecha de la reserva: 08-05-2019
+Fecha de entrada   : 08-05-2019
+Fecha de salida    : 08-05-2019
+
+Precio total: 92.10

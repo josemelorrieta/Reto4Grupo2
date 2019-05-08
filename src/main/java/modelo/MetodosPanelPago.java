@@ -57,27 +57,31 @@ public class MetodosPanelPago {
 		bd = bd.setScale(numDec, RoundingMode.HALF_UP);
 		return bd.doubleValue();
 	}
-	
+
 	/**
 	 * Parsea un double a un string del numero con 2 decimales
+	 * 
 	 * @param num el numero
 	 * @return string con formato
 	 */
 	public String doubleAString(double num) {
 		return String.valueOf(dosDec.format(num));
 	}
-	
+
 	/**
 	 * Convierte un string en double si es posible
+	 * 
 	 * @param strg string
 	 * @return numero de tipo double
 	 */
 	public double stringADouble(String strg) {
 		return Double.parseDouble(strg);
 	}
-	
+
 	/**
-	 * Metodo que se invoca cuando el usuario decide pasar de panel y proceder al pago, le pasa el precio al panel de pago
+	 * Metodo que se invoca cuando el usuario decide pasar de panel y proceder al
+	 * pago, le pasa el precio al panel de pago
+	 * 
 	 * @param vis
 	 */
 	public void pasarPrecioAPanelPago(VentanaPpal vis) {
@@ -131,13 +135,19 @@ public class MetodosPanelPago {
 		}
 		return arrayReturn;
 	}
-	
+
 	/**
-	 * Crea la reserva en el modelo 
+	 * Crea la reserva en el modelo
+	 * 
 	 * @param mod modelo del programa
 	 */
-	public void crearReserva(Modelo mod) {
-		mod.reserva=new Reserva(new Cliente("Pepe"), mod.aloj1.precioTAlta, new Date(), new Date(), new Date(), mod.aloj1);
+	public Reserva crearReserva(Modelo mod) {
+		Reserva reserva;
+		if (mod.aloj1 instanceof Hotel) {
+			reserva = new Reserva(mod.clienteRegis, mod.aloj1.precioTAlta + mod.dormReservado.getPrecio(), new Date(), new Date(), new Date(), mod.aloj1,mod.dormReservado);
+		} else
+			reserva = new Reserva(mod.clienteRegis, ((Casa) mod.aloj1).calcularPrecioBaseCasa(null), new Date(), new Date(), new Date(), mod.aloj1);
+		return reserva;
 	}
 
 	/**
@@ -147,19 +157,20 @@ public class MetodosPanelPago {
 	 * @param btn   boton del cual se mira el texto y pasa a string para sumar esa
 	 *              cantidad
 	 */
-	public void sumarDinero(PanelPago panel, String valor,Modelo mod) {
+	public void sumarDinero(PanelPago panel, String valor, Modelo mod) {
 		String[] arrDinero = operarDinero(panel.textAPagar.getText(), panel.textPagado.getText(), valor);
 		if (comprobarPago(arrDinero[0])) {
-			actDesBotones(panel,false);
+			actDesBotones(panel, false);
 			panel.textAPagar.setText("0.00");
 			panel.textPagado.setText(arrDinero[1]);
 			String cambios = floatAString2Dec(Math.abs(stringAFloat(arrDinero[0])));
 			panel.textVueltas.setText(cambios);
 			ArrayList<String> arrayCambios = Cambios(cambios);
 			mod.setPagoExitoso(true);
+			mod.reserva= mod.mPago.crearReserva(mod);
 			for (String val : arrayCambios)
 				panel.modeloCambio.addElement(val);
-			if(!guardarReserva(mod.reserva))
+			if (!guardarReserva(mod.reserva))
 				JOptionPane.showMessageDialog(panel, "Error al guardar la reserva en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			panel.textAPagar.setText(arrDinero[0]);
@@ -204,7 +215,7 @@ public class MetodosPanelPago {
 	 * Imprime el ticket de la reserva con los datos requeridos
 	 * 
 	 * @param res La reserva
-
+	 * 
 	 */
 	public void imprimirBillete(Reserva res) {
 		PrintWriter writer;
@@ -225,7 +236,7 @@ public class MetodosPanelPago {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Guarda los datos de la reserva en la base de datos
 	 * 
@@ -243,27 +254,27 @@ public class MetodosPanelPago {
 		String fechaOut = sdf.format(reserva.getFechaSalida());
 		double precio = reserva.getPrecio();
 		int idHab = reserva.getDormitorioReservado().getIdHab();
-		
+
 		return bd.guardarReserva(idRsv, dni, fechaRsv, fechaIn, fechaOut, precio, idHab);
 
 	}
-	
-	/** 
+
+	/**
 	 * Busca el siguiente numero de orden para insertar una nueva reserva
 	 * 
 	 * @return id de la ultima reserva en la BBDD
 	 */
 	public int ultimoNumReserva() {
 		int numReserva = 0;
-		
+
 		String aux = bd.consultarToGson("SELECT COUNT(`idRsv`) 'auxiliar' FROM reserva");
-		
+
 		if (aux != null) {
 			final Gson gson = new Gson();
 			Object[] numReservas = gson.fromJson(aux, Global[].class);
-			numReserva = ((Double) ((Global)numReservas[0]).getAuxiliar()).intValue();
+			numReserva = ((Double) ((Global) numReservas[0]).getAuxiliar()).intValue();
 		}
-		
+
 		return numReserva;
 	}
 
@@ -276,16 +287,16 @@ public class MetodosPanelPago {
 		panel.textAPagar.setText("0.00");
 		panel.textVueltas.setText("--------");
 		panel.modeloCambio.clear();
-		actDesBotones(panel,true);
+		actDesBotones(panel, true);
 	}
-	
+
 	/**
 	 * Activa o desactiva su array de botones al estado que se le pasa por
 	 * parametros
 	 * 
 	 * @param estado El estado "enables" que se quiere tener para los botones
 	 */
-	public void actDesBotones(PanelPago panel,boolean estado) {
+	public void actDesBotones(PanelPago panel, boolean estado) {
 		for (int i = 0; i < panel.arrayBtn.length; i++) {
 			panel.arrayBtn[i].setEnabled(estado);
 		}

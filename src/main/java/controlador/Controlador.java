@@ -49,8 +49,6 @@ public class Controlador {
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty() && vis.pCenter.pResBusq.resultBusq.getSelectedValue().isDisponible()) {
 						
 						mod.aloj1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
-						mod.reserva.setAlojReservado(mod.aloj1);
-						mod.reserva.setPrecio(vis.pCenter.pResBusq.resultBusq.getSelectedValue().getPrecioTAlta());
 						mod.mPago.pasarPrecioAPanelPago(vis);
 						if(mod.aloj1 instanceof Hotel) {
 							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.aloj1).getDormitorios());
@@ -63,7 +61,7 @@ public class Controlador {
 				case 3:	
 					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.changePanel("4");
-						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
+						mod.dormReservado=((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
 					}
 					
 					break;
@@ -71,7 +69,6 @@ public class Controlador {
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
 						vis.pCenter.changePanel("6");
-						mod.reserva.setCliente(mod.clienteRegis);
 					}
 					break;
 				case 5:
@@ -91,7 +88,6 @@ public class Controlador {
 						mod.mRegiLog.limpiar(vis.pCenter.pLogin);
 						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 						mod.setPagoExitoso(false);
-						mod.mPago.crearReserva(mod);
 						mod.mPago.imprimirBillete(mod.reserva);
 						vis.pBotones.setBotonesVisible(false);
 					}

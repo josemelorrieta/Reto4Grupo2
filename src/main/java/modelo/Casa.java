@@ -70,12 +70,13 @@ public class Casa extends Alojamiento {
 		}
 		precio += precioTemp;
 
-		for (Calendar fest : festivos) {
-			if (fechaAct.equals(fest)) {
-				precio += precioTemp * 1.75;
+		if (festivos != null) {
+			for (Calendar fest : festivos) {
+				if (fechaAct.equals(fest)) {
+					precio += precioTemp * 1.75;
+				}
 			}
 		}
-
 		for (Habitacion hab : habitaciones) {
 			if (!(hab instanceof Dormitorio)) {
 				precio += hab.getPrecio();
