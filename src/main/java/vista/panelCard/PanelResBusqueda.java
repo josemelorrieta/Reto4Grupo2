@@ -43,7 +43,7 @@ public class PanelResBusqueda extends JPanel {
 		resultBusq = new JList<Alojamiento>(modelResBusq);
 		resultBusq.setBackground(SystemColor.control);
 		resultBusq.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		resultBusq.setCellRenderer(new ItemResBusqueda());
+		resultBusq.setCellRenderer(new RendererAlojamiento());
 		
 		scroll = new JScrollPane(resultBusq);
 		scroll.setLocation(100, 60);

@@ -15,9 +15,11 @@ public class Modelo {
 	public Casa[] casasBusqueda;
 	public Apartamento[] apartBusqueda;
 	public Date[] festivos;
+	
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;
+	
 	private boolean pagoExitoso=false;
 	
 	public Modelo() {
@@ -48,5 +50,6 @@ public class Modelo {
 	public void setPagoExitoso(boolean pagoExitoso) {
 		this.pagoExitoso = pagoExitoso;
 	}
+	
 }
 

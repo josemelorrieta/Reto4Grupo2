@@ -178,7 +178,7 @@ public class MetodosPanelRegistroYLogin {
 		String dni = panel.txtDni.getText();
 		String contraIntroducida = encriptarContra(panel.pwdContra.getPassword());
 
-		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
+		String json = bd.consultarToJson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
 		gson = new GsonBuilder();
 		gson.setDateFormat("yyyy-MM-dd");
 		gson1 = gson.create();
@@ -197,7 +197,7 @@ public class MetodosPanelRegistroYLogin {
 	}
 
 	public Cliente registro(PanelRegistro panel) {
-		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + panel.txtDni.getText() + "'");
+		String json = bd.consultarToJson("select `dni` from cliente where `dni`='" + panel.txtDni.getText() + "'");
 		if (json.equals("")) {
 			return crearCliente(panel);
 		} else {

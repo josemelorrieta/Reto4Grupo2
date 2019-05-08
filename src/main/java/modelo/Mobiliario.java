@@ -3,22 +3,21 @@ package modelo;
 public class Mobiliario {
 	
 	protected String nombre;
-	protected TipoMobiliario tipoMobiliario;
-
-	public Mobiliario(TipoMobiliario mobiliario) {
-		this.tipoMobiliario=mobiliario;
-		this.nombre=this.tipoMobiliario.nombreToString();
-	}
+	protected double pvpMob;
 
 	public String getNombre() {
 		return nombre;
 	}
 	
-	public TipoMobiliario getTipoMobiliario() {
-		return tipoMobiliario;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public double getPrecio() {
-		return tipoMobiliario.getPrecio();
+	public double getPvpMob() {
+		return pvpMob;
+	}
+
+	public void setPvpMob(double precioMob) {
+		this.pvpMob = precioMob;
 	}
 }

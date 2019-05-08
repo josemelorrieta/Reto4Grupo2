@@ -3,41 +3,20 @@ package modelo;
 import java.util.Calendar;
 
 public class Casa extends Alojamiento {
-	protected Habitacion[] habitaciones;
+
 	protected int numBanios;
 	protected int m2;
-
-	public Casa() {
-
-	}
-
-	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
-	}
-
-	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Habitacion[] habitaciones) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
-		this.habitaciones = habitaciones;
-		setNumBanios();
-		setM2();
-	}
-
-	public Habitacion[] getHabitaciones() {
-		return habitaciones;
-	}
-
-	public void setHabitaciones(Habitacion[] habitaciones) {
-		this.habitaciones = habitaciones;
-	}
+	protected double precioBase;
 
 	public int getNumBanios() {
 		return numBanios;
 	}
 
 	public void setNumBanios() {
-		for (Habitacion habitacion : habitaciones) {
-			if (habitacion.tipoHabitacion == TipoHabitacion.BANIO)
-				numBanios++;
+		if(habitaciones != null) {
+			for (Habitacion habitacion : habitaciones) 
+				if (habitacion.tipoHab == TipoHabitacion.BANIO)
+					numBanios++;	
 		}
 	}
 
@@ -46,8 +25,18 @@ public class Casa extends Alojamiento {
 	}
 
 	public void setM2() {
-		for (Habitacion habitacion : habitaciones)
-			m2 += habitacion.getM2();
+		if(habitaciones != null) {
+			for (Habitacion habitacion : habitaciones)
+				m2 += habitacion.getM2();
+		}
+	}
+
+	public double getPrecioBase() {
+		return precioBase;
+	}
+
+	public void setPrecioBase() {
+		precioBase = m2 * pvpM2;
 	}
 
 	/**
@@ -62,44 +51,20 @@ public class Casa extends Alojamiento {
 		Calendar fechaAct = Calendar.getInstance();
 		double precio = 0, precioTemp = 0;
 
-		if (fechaAct.get(Calendar.MONTH) > Calendar.MAY && fechaAct.get(Calendar.MONTH) < Calendar.OCTOBER) {
-			precioTemp = this.precioTAlta;
-
-		} else {
-			precioTemp = this.precioTBaja;
-		}
+		if (fechaAct.get(Calendar.MONTH) > Calendar.MAY && fechaAct.get(Calendar.MONTH) < Calendar.OCTOBER) 
+			precioTemp = this.pvpTAlta;
+		else
+			precioTemp = this.pvpTBaja;
+		
 		precio += precioTemp;
 
 		for (Calendar fest : festivos) {
-			if (fechaAct.equals(fest)) {
+			if (fechaAct.equals(fest)) 
 				precio += precioTemp * 1.75;
-			}
 		}
-
-		for (Habitacion hab : habitaciones) {
-			if (!(hab instanceof Dormitorio)) {
-				precio += hab.getPrecio();
-			}
-		}
-
+		
 		return precio;
 	}
 
-	public int numCamas() {
-		int cont = 0;
-		if (this.habitaciones != null)
-			for (Habitacion hab : this.habitaciones) {
-				if (hab.tipoHabitacion == TipoHabitacion.DORMITORIO) {
-					if (((Dormitorio) hab).getMobiliario() == null) {
-						continue;
-					}
-					for (Mobiliario mobi : ((Dormitorio) hab).getMobiliario()) {
-						if (mobi instanceof Cama) {
-							cont += 1;
-						}
-					}
-				}
-			}
-		return cont;
-	}
+
 }

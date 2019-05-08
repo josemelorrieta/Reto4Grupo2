@@ -5,18 +5,19 @@ import java.util.Date;
 import org.junit.Test;
 import modelo.Alojamiento;
 import modelo.Cliente;
-import modelo.Dormitorio;
+import modelo.Habitacion;
 import modelo.Reserva;
 
 public class TestReserva {
 	
 	private Reserva reservaTest;
+	
 	private String stringTest = "Test1";
 	private Cliente clienteTest = new Cliente(stringTest);
 	private Date fechaTest = null;
 	private double doubleTest = 20;
 	private Alojamiento alojTest = new Alojamiento();
-	private Dormitorio dormTest = new Dormitorio();
+	private Habitacion dormTest = new Habitacion();
 	
 	@Test
 	public void testConstructorVacio() {

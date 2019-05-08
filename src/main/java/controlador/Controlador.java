@@ -2,8 +2,6 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import modelo.Dormitorio;
 import modelo.Hotel;
 import modelo.Modelo;
 import vista.VentanaPpal;
@@ -50,10 +48,10 @@ public class Controlador {
 						
 						mod.aloj1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
 						mod.reserva.setAlojReservado(mod.aloj1);
-						mod.reserva.setPrecio(vis.pCenter.pResBusq.resultBusq.getSelectedValue().getPrecioTAlta());
+						mod.reserva.setPrecio(vis.pCenter.pResBusq.resultBusq.getSelectedValue().getPvpTAlta());
 						mod.mPago.pasarPrecioAPanelPago(vis);
 						if(mod.aloj1 instanceof Hotel) {
-							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.aloj1).getDormitorios());
+							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.aloj1).getHabitaciones());
 							vis.pCenter.changePanel("3");
 						}else {
 							vis.pCenter.changePanel("4");
@@ -63,7 +61,7 @@ public class Controlador {
 				case 3:	
 					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.changePanel("4");
-						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
+						mod.reserva.setDormitorioReservado(vis.pCenter.pSelHab.resultHab.getSelectedValue());
 					}
 					
 					break;

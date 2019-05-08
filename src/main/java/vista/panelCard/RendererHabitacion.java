@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -12,12 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-
 import modelo.Cama;
-import modelo.Dormitorio;
+import modelo.Habitacion;
 import modelo.Mobiliario;
 
-public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormitorio>{
+public class RendererHabitacion extends JPanel implements ListCellRenderer<Habitacion>{
 
 	/**
 	 * 
@@ -39,7 +37,7 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 
 	private void instanciarObjetos() {
 		lblFoto = new JLabel("New label");
-		lblFoto.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/noimage.png")));
+		lblFoto.setIcon(new ImageIcon(RendererAlojamiento.class.getResource("/imagenes/alojamiento/noimage.png")));
 		lblFoto.setBounds(10, 10, 90, 90);
 		add(lblFoto);
 		
@@ -67,21 +65,20 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends Dormitorio> lista, Dormitorio dormitorio, int index, boolean isSelected, boolean cellHasFocus) {
+	public Component getListCellRendererComponent(JList<? extends Habitacion> lista, Habitacion habitacion, int index, boolean isSelected, boolean cellHasFocus) {
 		
 		//lblFoto.setIcon(dormitorio.getImagen());
-		lblNombre.setText(String.valueOf(dormitorio.getTipoHabitacion())+" "+dormitorio.getIdHab());
+		lblNombre.setText(String.valueOf(habitacion.getTipoHab())+" "+habitacion.getIdHab());
 		String camas = "";
 		
-		for(Mobiliario mob:((Dormitorio) dormitorio).getMobiliario()) {
-			if(mob instanceof Cama) {
+		for(Mobiliario mob: habitacion.getMobiliario()) 
+			if(mob instanceof Cama) 
 				camas += ((Cama) mob).getTipoCama()+"\n";
-			}
-		}		
+					
 		lblCamas.setText(camas);
-		lblTamano.setText(String.valueOf(dormitorio.getM2())+"m2");
+		lblTamano.setText(String.valueOf(habitacion.getM2())+"m2");
 		
-		if (dormitorio.isDisponible()) {
+		if (habitacion.isDisponible()) {
 			lblDisponible.setText("Disponible");
 			lblDisponible.setForeground(new Color(50, 205, 50));
 		} else {

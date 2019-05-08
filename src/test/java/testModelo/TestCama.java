@@ -5,28 +5,24 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import modelo.Cama;
-import modelo.Mobiliario;
-import modelo.TipoCama;
-import modelo.TipoMobiliario;
 
 public class TestCama {
 
 	private Cama camaTest;
-	private TipoMobiliario tipoMobiliarioTest=TipoMobiliario.CAMA;
-	private TipoCama tipoCamaTest=TipoCama.DEFAULT;
+	
+	private String stringTest = "Test";
 
 	@Test
 	public void testConstructor() {
-		camaTest = new Cama(tipoCamaTest);
-		assertEquals(camaTest.getNombre(), TipoMobiliario.CAMA.toString());
-		assertEquals(camaTest.getTipoMobiliario(), TipoMobiliario.CAMA);
-		assertEquals(camaTest.getTipoCama(), TipoCama.DEFAULT);
+		camaTest = new Cama();
+		assertEquals(camaTest.getNombre(), null);
 	}
 	
 	@Test
-	public void testGetPrecio() {
-		camaTest = new Cama(tipoCamaTest);
-		assertEquals(camaTest.getPrecio(), TipoMobiliario.DEFAULT.getPrecio(),0);
+	public void testTipoCama() {
+		camaTest = new Cama();
+		camaTest.setNombre(stringTest);
+		assertEquals(camaTest.getTipoCama(), stringTest);
 	}
 
 }

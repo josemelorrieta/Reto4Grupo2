@@ -81,7 +81,7 @@ public class MetodosPanelPago {
 	 * @param vis
 	 */
 	public void pasarPrecioAPanelPago(VentanaPpal vis) {
-		vis.pCenter.pPago.textAPagar.setText(doubleAString(vis.pCenter.pResBusq.resultBusq.getSelectedValue().getPrecioTAlta()));
+		vis.pCenter.pPago.textAPagar.setText(doubleAString(vis.pCenter.pResBusq.resultBusq.getSelectedValue().getPvpTAlta()));
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class MetodosPanelPago {
 	 * @param mod modelo del programa
 	 */
 	public void crearReserva(Modelo mod) {
-		mod.reserva=new Reserva(new Cliente("Pepe"), mod.aloj1.precioTAlta, new Date(), new Date(), new Date(), mod.aloj1);
+		mod.reserva=new Reserva(new Cliente("Pepe"), mod.aloj1.pvpTAlta, new Date(), new Date(), new Date(), mod.aloj1);
 	}
 
 	/**
@@ -256,7 +256,7 @@ public class MetodosPanelPago {
 	public int ultimoNumReserva() {
 		int numReserva = 0;
 		
-		String aux = bd.consultarToGson("SELECT COUNT(`idRsv`) 'auxiliar' FROM reserva");
+		String aux = bd.consultarToJson("SELECT COUNT(`idRsv`) 'auxiliar' FROM reserva");
 		
 		if (aux != null) {
 			final Gson gson = new Gson();

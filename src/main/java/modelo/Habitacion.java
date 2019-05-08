@@ -4,19 +4,11 @@ public class Habitacion {
 	
 	protected int idHab;
 	protected int m2;
-	protected TipoHabitacion tipoHabitacion;
-	protected double precio=0;
-
-	public Habitacion() {
-		this.tipoHabitacion=TipoHabitacion.DEFAULT;
-	}
+	protected TipoHabitacion tipoHab;
+	protected Mobiliario[] mobiliario;
 	
-	public Habitacion(int idHab, int m2, TipoHabitacion tipoHabitacion) {
-		this.idHab = idHab;
-		this.m2 = m2;
-		this.tipoHabitacion=tipoHabitacion;
-		calcularPrecio();
-	}
+	protected boolean disponible;
+	protected double pvpTotalMobiliario;
 	
 	public int getIdHab() {
 		return idHab;
@@ -32,23 +24,41 @@ public class Habitacion {
 	
 	public void setM2(int m2) {
 		this.m2 = m2;
-		this.precio=tipoHabitacion.getPreciom2()*m2;
 	}
 
-	public TipoHabitacion getTipoHabitacion() {
-		return tipoHabitacion;
+	public TipoHabitacion getTipoHab() {
+		return tipoHab;
 	}
 	
-	protected void calcularPrecio() {
-		this.precio=tipoHabitacion.getPreciom2()*m2;
+	public void setTipoHab(TipoHabitacion tipoHab) {
+		this.tipoHab = tipoHab;
+	}
+	
+	public boolean isDisponible() {
+		return disponible;
 	}
 
-	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
-		this.tipoHabitacion = tipoHabitacion;
-		calcularPrecio();
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 
-	public double getPrecio() {
-		return precio;
+	public Mobiliario[] getMobiliario() {
+		return mobiliario;
 	}
+
+	public void setMobiliario(Mobiliario[] mobiliario) {
+		this.mobiliario = mobiliario;
+	}
+
+	public double getPvpTotalMobiliario() {
+		return pvpTotalMobiliario;
+	}
+
+	public void setPvpTotalMobiliario() {
+		if(mobiliario != null) {
+			for(Mobiliario mob:mobiliario) 
+				pvpTotalMobiliario += mob.getPvpMob();
+		}
+	}
+	
 }

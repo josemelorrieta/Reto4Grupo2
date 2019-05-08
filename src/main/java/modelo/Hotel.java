@@ -1,41 +1,11 @@
 package modelo;
 
 public class Hotel extends Alojamiento {
-	private Dormitorio[] dormitorios;
+	
 	private int numEstrellas;
-
-	public Hotel() {
-
-	}
-
-	public Hotel(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Dormitorio[] dormitorios, int numEstrellas) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
-		this.dormitorios = dormitorios;
-		this.numEstrellas = numEstrellas;
-	}
-
-	public int numCamas() {
-		int cont = 0;
-		if (this.dormitorios != null)
-			for (Dormitorio dorm : this.dormitorios) {
-				if (dorm.getMobiliario() == null)
-					continue;
-				for (Mobiliario mobi : dorm.getMobiliario()) {
-					if (mobi instanceof Cama) {
-						cont += 1;
-					}
-				}
-			}
-		return cont;
-	}
-
-	public Dormitorio[] getDormitorios() {
-		return dormitorios;
-	}
-
-	public void setDormitorios(Dormitorio[] dormitorios) {
-		this.dormitorios = dormitorios;
-	}
+	
+	protected double[] precioBase;
+	protected double[] pvpTotalHab;
 
 	public int getNumEstrellas() {
 		return numEstrellas;
@@ -43,6 +13,35 @@ public class Hotel extends Alojamiento {
 
 	public void setNumEstrellas(int estrellas) {
 		this.numEstrellas = estrellas;
+	}
+
+	public double[] getPrecioBase() {
+		return precioBase;
+	}
+
+	public void setPrecioBase() {
+		if(habitaciones != null) {
+			precioBase = new double[habitaciones.length];
+			for(int i=0;i<precioBase.length;i++) 
+				precioBase[i] = habitaciones[i].getM2() * pvpM2;
+		}
+	}
+
+	public double[] getPvpTotalHab() {
+		return pvpTotalHab;
+	}
+
+	public void setPvpTotalHab() {
+		if(habitaciones != null) {
+			pvpTotalHab = new double[habitaciones.length];
+			for(int i=0;i<pvpTotalHab.length;i++) {
+				//pvpTotalHab[i] = ;
+			}	
+			pvpTotal = pvpTotalHab[0];
+			for(double d:pvpTotalHab) 
+				if(pvpTotal>d)
+					pvpTotal = d;
+		}
 	}
 
 }

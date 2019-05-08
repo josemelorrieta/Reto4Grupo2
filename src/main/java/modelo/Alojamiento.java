@@ -4,26 +4,16 @@ public class Alojamiento {
 	protected int id;
 	protected String nombre;
 	protected Direccion direccion;
-	protected double precioTAlta;
-	protected double precioTBaja;
-	protected double precioTFest;
+	protected double pvpTAlta;
+	protected double pvpTBaja;
+	protected double pvpRecFestivo;
+	protected double pvpM2;
 	protected String imagen;
-	protected boolean disponible;
-
-	public Alojamiento() {
-		this.disponible = true;
-	}
+	protected Habitacion[] habitaciones;
 	
-	public Alojamiento(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
-		this.id = id;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.precioTAlta = precioA;
-		this.precioTBaja = precioB;
-		this.precioTFest = precioF;
-		this.imagen = imagen;
-		this.disponible = disponible;
-	}
+	protected double pvpTotal;
+	protected boolean disponible;
+	protected int numCamas;
 
 	public int getId() {
 		return id;
@@ -49,28 +39,44 @@ public class Alojamiento {
 		this.direccion = direccion;
 	}
 
-	public Double getPrecioTAlta() {
-		return precioTAlta;
+	public double getPvpTAlta() {
+		return pvpTAlta;
 	}
 
-	public void setPrecioTAlta(Double precioTAlta) {
-		this.precioTAlta = precioTAlta;
+	public void setPvpTAlta(double pvpTAlta) {
+		this.pvpTAlta = pvpTAlta;
 	}
 
-	public Double getPrecioTBaja() {
-		return precioTBaja;
+	public double getPvpTBaja() {
+		return pvpTBaja;
 	}
 
-	public void setPrecioTBaja(Double precioTBaja) {
-		this.precioTBaja = precioTBaja;
+	public void setPvpTBaja(double pvpTBaja) {
+		this.pvpTBaja = pvpTBaja;
 	}
 
-	public Double getPrecioTFest() {
-		return precioTFest;
+	public double getPvpRecFestivo() {
+		return pvpRecFestivo;
 	}
 
-	public void setPrecioTFest(Double precioTFest) {
-		this.precioTFest = precioTFest;
+	public void setPvpRecFestivo(double pvpRecFestivo) {
+		this.pvpRecFestivo = pvpRecFestivo;
+	}
+
+	public double getPvpM2() {
+		return pvpM2;
+	}
+
+	public void setPvpM2(double pvpM2) {
+		this.pvpM2 = pvpM2;
+	}
+
+	public double getPvpTotal() {
+		return pvpTotal;
+	}
+
+	public void setPvpTotal() {
+		// setPvp en base a dias * (temp + pvpBase + pvpMob + festivo??)
 	}
 
 	public String getImagen() {
@@ -88,5 +94,27 @@ public class Alojamiento {
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
+
+	public Habitacion[] getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(Habitacion[] habitaciones) {
+		this.habitaciones = habitaciones;
+	}
 	
+	public int getNumCamas() {
+		return numCamas;
+	}
+	
+	public void setNumCamas() {
+		if (habitaciones != null)
+			for (Habitacion hab : habitaciones) 
+				if (hab.tipoHab == TipoHabitacion.DORMITORIO) 
+					if (hab.getMobiliario() != null) 
+						for (Mobiliario mob : hab.getMobiliario()) 
+							if (mob instanceof Cama) 
+								numCamas++;
+	}
+
 }

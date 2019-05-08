@@ -16,19 +16,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
 import modelo.Alojamiento;
-import modelo.Apartamento;
-import modelo.Casa;
 import modelo.Hotel;
 import util.FuncionesGenerales;
 
-public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamiento> {
+public class RendererAlojamiento extends JPanel implements ListCellRenderer<Alojamiento> {
 
 	private static final long serialVersionUID = 1L;
 
 	private JLabel lblFoto, lblNombre, lblLocalidad, lblPrecio, lblEstrellas, lblDisponible, lblCamas, lblNumCamas;
 	private DecimalFormat df = new DecimalFormat("#.00 €");
 
-	public ItemResBusqueda() {
+	public RendererAlojamiento() {
 		setParametros();
 		instanciarObjetos();
 	}
@@ -41,7 +39,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 
 	private void instanciarObjetos() {
 		lblFoto = new JLabel("New label");
-		lblFoto.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/noimage.png")));
+		lblFoto.setIcon(new ImageIcon(RendererAlojamiento.class.getResource("/imagenes/alojamiento/noimage.png")));
 		lblFoto.setBounds(10, 10, 90, 90);
 		lblFoto.setPreferredSize(new Dimension(90, 90));
 		add(lblFoto);
@@ -63,7 +61,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		add(lblPrecio);
 
 		lblEstrellas = new JLabel("");
-		lblEstrellas.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/hotel/estrellas5.png")));
+		lblEstrellas.setIcon(new ImageIcon(RendererAlojamiento.class.getResource("/imagenes/alojamiento/hotel/estrellas5.png")));
 		lblEstrellas.setBounds(376, 10, 100, 22);
 		add(lblEstrellas);
 
@@ -103,8 +101,9 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblFoto.setIcon(imagen);
 		lblNombre.setText(aloj.getNombre());
 		lblLocalidad.setText(aloj.getDireccion().getCalle() + " (" + aloj.getDireccion().getLocalidad() + ")");
-		lblPrecio.setText(df.format(aloj.getPrecioTAlta()));
-
+		lblPrecio.setText(df.format(aloj.getPvpTAlta()));
+		//lblPrecio.setText(df.format(aloj.getPvpTotal()));
+		
 		if (isSelected) {
 			setBackground(lista.getSelectionBackground());
 			setForeground(lista.getSelectionForeground());
@@ -136,12 +135,8 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 			lblCamas.setVisible(true);
 			lblNumCamas.setVisible(true);
 			
-			if (aloj instanceof Casa) {
-				lblNumCamas.setText(String.valueOf(((Casa) aloj).numCamas()));
-				// String.valueOf(((Casa) aloj).numCamas()) SUSTITUIR 5 CUANDO ESTE LA BBDD
-			} else if (aloj instanceof Apartamento) {
-				lblNumCamas.setText(String.valueOf(((Apartamento) aloj).numCamas()));
-			}
+			lblNumCamas.setText(String.valueOf(aloj.getNumCamas()));
+			// String.valueOf(((Casa) aloj).numCamas()) SUSTITUIR 5 CUANDO ESTE LA BBDD		
 		}
 
 		return this;

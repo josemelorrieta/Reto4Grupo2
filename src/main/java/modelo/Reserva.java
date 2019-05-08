@@ -3,17 +3,19 @@ package modelo;
 import java.util.Date;
 
 public class Reserva {
+	
 	private Cliente cliente;
 	private double precio;
 	private Date fechaReserva;
 	private Date fechaEntrada;
 	private Date fechaSalida;
 	private Alojamiento alojReservado;
-	private Dormitorio dormitorioReservado;
+	private Habitacion dormitorioReservado;
 	
 	public Reserva() {
 		// Constructor por defecto
 	}
+	
 	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado) {
 		this.cliente = cliente;
 		this.precio = precio;
@@ -23,7 +25,7 @@ public class Reserva {
 		this.alojReservado = alojReservado;
 	}
 
-	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado, Dormitorio dormitorioReservado) {
+	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado, Habitacion dormitorioReservado) {
 		this.cliente = cliente;
 		this.precio = precio;
 		this.fechaReserva = fechaReserva;
@@ -81,10 +83,10 @@ public class Reserva {
 		this.alojReservado = alojReservado;
 	}
 
-	public Dormitorio getDormitorioReservado() {
+	public Habitacion getDormitorioReservado() {
 		return dormitorioReservado;
 	}
-	public void setDormitorioReservado(Dormitorio dormitorioReservado) {
+	public void setDormitorioReservado(Habitacion dormitorioReservado) {
 		this.dormitorioReservado = dormitorioReservado;
 	}
 	

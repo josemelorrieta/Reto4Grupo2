@@ -8,7 +8,7 @@ public class FechasReserva {
 	
 	public FechasReserva(int idRsv, int idHab, String fechaIn, String fechaOut) {
 		this.idRsv = idRsv;
-		this.setIdHab(idHab);
+		this.idHab = idHab;
 		this.fechaIn = fechaIn;
 		this.fechaOut = fechaOut;
 	}
