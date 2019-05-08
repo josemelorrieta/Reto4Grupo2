@@ -78,15 +78,7 @@ public class MetodosPanelPago {
 		return Double.parseDouble(strg);
 	}
 
-	/**
-	 * Metodo que se invoca cuando el usuario decide pasar de panel y proceder al
-	 * pago, le pasa el precio al panel de pago
-	 * 
-	 * @param vis
-	 */
-	public void pasarPrecioAPanelPago(VentanaPpal vis) {
-		vis.pCenter.pPago.textAPagar.setText(doubleAString(vis.pCenter.pResBusq.resultBusq.getSelectedValue().getPrecioTAlta()));
-	}
+	
 
 	/**
 	 * Pasa de string a float
@@ -144,9 +136,9 @@ public class MetodosPanelPago {
 	public Reserva crearReserva(Modelo mod) {
 		Reserva reserva;
 		if (mod.aloj1 instanceof Hotel) {
-			reserva = new Reserva(mod.clienteRegis, mod.aloj1.precioTAlta + mod.dormReservado.getPrecio(), new Date(), new Date(), new Date(), mod.aloj1,mod.dormReservado);
+			reserva = new Reserva(mod.clienteRegis, ((Hotel) mod.aloj1).calcularPrecioBaseHotel(mod.mBuscar.buscarFechasFestivos(), mod.reserva), new Date(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.aloj1, mod.reserva.getDormitorioReservado());
 		} else
-			reserva = new Reserva(mod.clienteRegis, ((Casa) mod.aloj1).calcularPrecioBaseCasa(null), new Date(), new Date(), new Date(), mod.aloj1);
+			reserva = new Reserva(mod.clienteRegis, ((Casa) mod.aloj1).calcularPrecioBaseCasa(mod.mBuscar.buscarFechasFestivos(),mod.reserva), new Date(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.aloj1);
 		return reserva;
 	}
 
@@ -167,11 +159,13 @@ public class MetodosPanelPago {
 			panel.textVueltas.setText(cambios);
 			ArrayList<String> arrayCambios = Cambios(cambios);
 			mod.setPagoExitoso(true);
-			mod.reserva= mod.mPago.crearReserva(mod);
-			for (String val : arrayCambios)
+			mod.reserva = mod.mPago.crearReserva(mod);
+			for (String val : arrayCambios) {
 				panel.modeloCambio.addElement(val);
-			if (!guardarReserva(mod.reserva))
-				JOptionPane.showMessageDialog(panel, "Error al guardar la reserva en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			guardarReserva(mod.reserva);
+			// JOptionPane.showMessageDialog(panel, "Error al guardar la reserva en la base
+			// de datos", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			panel.textAPagar.setText(arrDinero[0]);
 			panel.textPagado.setText(arrDinero[1]);
@@ -253,10 +247,24 @@ public class MetodosPanelPago {
 		String fechaIn = sdf.format(reserva.getFechaEntrada());
 		String fechaOut = sdf.format(reserva.getFechaSalida());
 		double precio = reserva.getPrecio();
-		int idHab = reserva.getDormitorioReservado().getIdHab();
 
-		return bd.guardarReserva(idRsv, dni, fechaRsv, fechaIn, fechaOut, precio, idHab);
+		int id = 0;
+		Alojamiento alojamiento = reserva.getAlojReservado();
+		String tipo;
 
+		if (alojamiento instanceof Hotel) {
+			id = reserva.getDormitorioReservado().getIdHab();
+			tipo="hotel";
+		} else if(alojamiento instanceof Casa) {
+			id = alojamiento.getId();
+			tipo="casa";
+		}else {
+			id = alojamiento.getId();
+			tipo="apartamento";
+		}
+		
+
+		return bd.guardarReserva(idRsv, dni, fechaRsv, fechaIn, fechaOut, precio, id, tipo);
 	}
 
 	/**

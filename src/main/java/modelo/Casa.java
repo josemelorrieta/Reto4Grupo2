@@ -58,21 +58,28 @@ public class Casa extends Alojamiento {
 	 *         cada habitacion reservada, tiene en cuenta las habitaciones que no
 	 *         sean dormitorios
 	 */
-	public double calcularPrecioBaseCasa(Calendar[] festivos) {
-		Calendar fechaAct = Calendar.getInstance();
+	public double calcularPrecioBaseCasa(Calendar[] festivos,Reserva res) {
+		Calendar fechaEntrada = Calendar.getInstance();
+		Calendar fechaSalida = Calendar.getInstance();
+
+		fechaEntrada.setTime(res.getFechaEntrada());
+		fechaSalida.setTime(res.getFechaSalida());
+
 		double precio = 0, precioTemp = 0;
 
-		if (fechaAct.get(Calendar.MONTH) > Calendar.MAY && fechaAct.get(Calendar.MONTH) < Calendar.OCTOBER) {
+		if (fechaEntrada.get(Calendar.MONTH) > Calendar.MAY && fechaEntrada.get(Calendar.MONTH) < Calendar.OCTOBER) {
 			precioTemp = this.precioTAlta;
-
 		} else {
 			precioTemp = this.precioTBaja;
 		}
 		precio += precioTemp;
 
+		fechaSalida.add(Calendar.DAY_OF_MONTH, 1);
+		fechaEntrada.add(Calendar.DAY_OF_MONTH, -1);
+
 		if (festivos != null) {
 			for (Calendar fest : festivos) {
-				if (fechaAct.equals(fest)) {
+				if (fest.before(fechaSalida) && fest.after(fechaEntrada)) {
 					precio += precioTemp * 1.75;
 				}
 			}
@@ -82,7 +89,6 @@ public class Casa extends Alojamiento {
 				precio += hab.getPrecio();
 			}
 		}
-
 		return precio;
 	}
 

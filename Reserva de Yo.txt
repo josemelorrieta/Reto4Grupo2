@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: Yo
 
 Datos de la reserva:
-Nombre Alojamiento: Hotel Meliá
+Nombre Alojamiento: Apartamento Pepe
 Fecha de la reserva: 08-05-2019
-Fecha de entrada   : 08-05-2019
-Fecha de salida    : 08-05-2019
+Fecha de entrada   : 25-07-2019
+Fecha de salida    : 26-07-2019
 
-Precio total: 92.10
+Precio total: 288.48

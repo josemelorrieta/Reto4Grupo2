@@ -12,9 +12,12 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import modelo.Casa;
+import modelo.Hotel;
 import modelo.Localidad;
 import modelo.Modelo;
 import vista.VentanaPpal;
+import vista.panelCard.PanelResBusqueda;
 
 
 public class ControladorPanelBuscar{
@@ -88,9 +91,9 @@ public class ControladorPanelBuscar{
 			mod.reserva.setFechaEntrada(vis.pCenter.pBuscar.calenEntrada.getDate());
 			mod.reserva.setFechaSalida(vis.pCenter.pBuscar.calenSalida.getDate());
 			mod.mBuscar.cargarAlojamientos(vis.pCenter.pBuscar.cbxBuscar.getSelectedItem().toString());
-			vis.pCenter.pResBusq.setResultBusqueda(mod.hotelesBusqueda);
-			vis.pCenter.pResBusq.setResultBusqueda(mod.casasBusqueda);
-			vis.pCenter.pResBusq.setResultBusqueda(mod.apartBusqueda);
+			setResultBusqueda(mod.hotelesBusqueda,vis.pCenter.pResBusq);
+			setResultBusqueda(mod.casasBusqueda,vis.pCenter.pResBusq);
+			setResultBusqueda(mod.apartBusqueda,vis.pCenter.pResBusq);
 			vis.pBotones.setBotonesVisible(true);
 			vis.pCenter.nextPanel();
 		}
@@ -103,6 +106,22 @@ public class ControladorPanelBuscar{
 			cambioFechaEnt(fechaEntrada);
 		}
 
+	}
+	
+	
+	public void setResultBusqueda(Hotel[] hoteles,PanelResBusqueda panel) {
+		panel.modelResBusq.clear();
+		for(Hotel hotel:hoteles) {
+			panel.modelResBusq.addElement(hotel);
+		}
+		panel.lblLocBusq.setText("Resultados para " + hoteles[0].getDireccion().getLocalidad());
+	}
+	
+	public void setResultBusqueda(Casa[] casas,PanelResBusqueda panel) {
+		for(Casa casa:casas) {
+			panel.modelResBusq.addElement(casa);
+		}
+		panel.lblLocBusq.setText("Resultados para " + casas[0].getDireccion().getLocalidad());
 	}
 
 }

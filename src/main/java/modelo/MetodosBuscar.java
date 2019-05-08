@@ -180,7 +180,7 @@ public class MetodosBuscar {
 		Date fechaOut = new Date();
 		int idHab = 0;
 
-		FechasReserva[] fechasReserva = buscarFechasReservas();
+		FechasReserva[] fechasReserva = buscarFechasReservas(hotel);
 
 		for (int i = 0; i < hotel.getDormitorios().length; i++) {
 			if (fechasReserva != null) {
@@ -188,7 +188,7 @@ public class MetodosBuscar {
 					try {
 						fechaIn = sdf.parse(fechasReserva[j].getFechaIn());
 						fechaOut = sdf.parse(fechasReserva[j].getFechaOut());
-						idHab = fechasReserva[j].getIdHab();
+						idHab = fechasReserva[j].getId();
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
@@ -210,20 +210,20 @@ public class MetodosBuscar {
 		Date fechaSalida = mod.reserva.getFechaSalida();
 		Date fechaIn = new Date();
 		Date fechaOut = new Date();
-		int idHab = 0;
+		int idCasa = 0;
 
-		FechasReserva[] fechasReserva = buscarFechasReservas();
+		FechasReserva[] fechasReserva = buscarFechasReservas(casa);
 
 		if (fechasReserva != null) {
 			for (int j = 0; j < fechasReserva.length; j++) {
 				try {
 					fechaIn = sdf.parse(fechasReserva[j].getFechaIn());
 					fechaOut = sdf.parse(fechasReserva[j].getFechaOut());
-					idHab = fechasReserva[j].getIdHab();
+					idCasa = fechasReserva[j].getId();
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				if (fechaIn.compareTo(fechaSalida) <= 0 && fechaOut.compareTo(fechaEntrada) >= 0 && idHab == casa.getId()) {
+				if (fechaIn.compareTo(fechaSalida) <= 0 && fechaOut.compareTo(fechaEntrada) >= 0 && idCasa == casa.getId()) {
 					casa.setDisponible(false);
 					break;
 				} else
@@ -246,25 +246,39 @@ public class MetodosBuscar {
 			return true;
 	}
 
-	private FechasReserva[] buscarFechasReservas() {
-		String json = bd.consultarToGson("SELECT r.`idRsv`, `idHab`, `fechaIn`, `fechaOut` FROM `reserva` r, `rsvhab` h WHERE r.`idRsv`=h.`idRsv`");
+	private FechasReserva[] buscarFechasReservas(Alojamiento aloj) {
+		String tipo="";
+		if(aloj instanceof Hotel) {
+			tipo="Hab";
+		}else if(aloj instanceof Apartamento) {
+			tipo="Apart";
+		}else if(aloj instanceof Casa) {
+			tipo="Casa";
+		}
+		
+		String json = bd.consultarToGson("SELECT r.`idRsv`, `id"+tipo+"` 'id', `fechaIn`, `fechaOut` FROM `reserva` r, `rsv"+tipo.toLowerCase()+"` h WHERE r.`idRsv`=h.`idRsv`");
 		FechasReserva[] fechasReserva = gson.fromJson(json, FechasReserva[].class);
 
 		return fechasReserva;
 	}
 	
-	public Calendar[] buscarFechasFestivos() {
-		String json = bd.consultarToGson("SELECT COUNT(*) FROM `festivos`");
+
+	
+	public Calendar[] buscarFechasFestivos() {	
+		
+		
+		String json=bd.consultarToGson("SELECT `fecha` 'auxiliar' FROM `festivos`");
 		gson = new Gson();
 		Global[] fechasBBDD = gson.fromJson(json, Global[].class);
-		
-		Calendar[] fechas=new Calendar[(int) fechasBBDD[0].getAuxiliar()];
-		
-		json=bd.consultarToGson("SELECT * FROM `festivos`");
-		fechasBBDD = gson.fromJson(json, Global[].class);
+		Calendar[] fechas=new Calendar[fechasBBDD.length];
 		
 		for(int i =0;i<fechasBBDD.length;i++) {
-			Date fechaAux=(Date) fechasBBDD[i].getAuxiliar();
+			Date fechaAux=null;
+			try {
+				fechaAux = sdf.parse((String) fechasBBDD[i].getAuxiliar());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 			Calendar calendarAux=Calendar.getInstance();
 			calendarAux.setTime(fechaAux);
 			fechas[i]=calendarAux; 

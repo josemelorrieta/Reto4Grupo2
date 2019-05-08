@@ -15,7 +15,6 @@ public class Modelo {
 	public Casa[] casasBusqueda;
 	public Apartamento[] apartBusqueda;
 	public Date[] festivos;
-	public Dormitorio dormReservado;
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;

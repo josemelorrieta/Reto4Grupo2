@@ -49,19 +49,20 @@ public class Controlador {
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty() && vis.pCenter.pResBusq.resultBusq.getSelectedValue().isDisponible()) {
 						
 						mod.aloj1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
-						mod.mPago.pasarPrecioAPanelPago(vis);
 						if(mod.aloj1 instanceof Hotel) {
 							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.aloj1).getDormitorios());
 							vis.pCenter.changePanel("3");
 						}else {
 							vis.pCenter.changePanel("4");
+							cPago.pasarPrecioAPanelPago(mod, vis);
 						}
 					}
 					break;
 				case 3:	
 					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.changePanel("4");
-						mod.dormReservado=((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
+						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
+						cPago.pasarPrecioAPanelPago(mod, vis);
 					}
 					
 					break;
@@ -116,7 +117,9 @@ public class Controlador {
 					vis.pCenter.changePanel("3");
 					//mod.mPago.limpiar(vis.pCenter.pPago);
 					break;
-				}
+				case 6:
+					vis.pCenter.changePanel("4");
+					}
 				break;
 			}
 		}

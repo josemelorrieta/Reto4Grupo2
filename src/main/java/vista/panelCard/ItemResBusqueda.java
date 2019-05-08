@@ -67,8 +67,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblEstrellas.setBounds(376, 10, 100, 22);
 		add(lblEstrellas);
 
-		lblDisponible = new JLabel("Disponible");
-		lblDisponible.setForeground(new Color(50, 205, 50));
+		lblDisponible = new JLabel("");
 		lblDisponible.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblDisponible.setBounds(122, 80, 100, 20);
 		add(lblDisponible);
@@ -112,6 +111,16 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 			setBackground(lista.getBackground());
 			setForeground(lista.getForeground());
 		}
+		
+		if (aloj.isDisponible()) {
+			lblDisponible.setText("Disponible");
+			lblDisponible.setForeground(new Color(50, 205, 50));
+			aloj.setDisponible(true);
+		} else {
+			lblDisponible.setText("No disponible");
+			lblDisponible.setForeground(new Color(255, 0, 0));
+			aloj.setDisponible(false);
+		}
 
 		if (aloj instanceof Hotel) {
 			ImageIcon estrellas = FuncionesGenerales.resizeIcono(lblEstrellas.getWidth(), lblEstrellas.getHeight(), new File(getClass().getResource("/imagenes/alojamiento/hotel/estrellas" + ((Hotel) aloj).getNumEstrellas() + ".png").getPath()));
@@ -120,15 +129,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 			lblCamas.setVisible(false);
 			lblNumCamas.setVisible(false);
 
-			if (aloj.isDisponible()) {
-				lblDisponible.setText("Disponible");
-				lblDisponible.setForeground(new Color(50, 205, 50));
-				aloj.setDisponible(true);
-			} else {
-				lblDisponible.setText("No disponible");
-				lblDisponible.setForeground(new Color(255, 0, 0));
-				aloj.setDisponible(false);
-			}
+			
 		} else {
 			ImageIcon cama = FuncionesGenerales.resizeIcono(lblCamas.getWidth(), lblCamas.getHeight(), new File(getClass().getResource("/imagenes/alojamiento/noHotel/cama.png").getPath()));
 			lblCamas.setIcon(cama);
