@@ -3,32 +3,8 @@ package modelo;
 import java.util.Calendar;
 
 public class Casa extends Alojamiento {
-	protected Habitacion[] habitaciones;
 	protected int numBanios;
 	protected int m2;
-
-	public Casa() {
-
-	}
-
-	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
-	}
-
-	public Casa(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Habitacion[] habitaciones) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
-		this.habitaciones = habitaciones;
-		setNumBanios();
-		setM2();
-	}
-
-	public Habitacion[] getHabitaciones() {
-		return habitaciones;
-	}
-
-	public void setHabitaciones(Habitacion[] habitaciones) {
-		this.habitaciones = habitaciones;
-	}
 
 	public int getNumBanios() {
 		return numBanios;

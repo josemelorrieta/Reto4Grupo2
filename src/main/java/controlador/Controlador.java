@@ -50,7 +50,7 @@ public class Controlador {
 						
 						mod.aloj1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
 						if(mod.aloj1 instanceof Hotel) {
-							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.aloj1).getDormitorios());
+							vis.pCenter.pSelHab.setResultHab((Dormitorio[]) ((Hotel) mod.aloj1).getHabitaciones());
 							vis.pCenter.changePanel("3");
 						}else {
 							vis.pCenter.changePanel("4");

@@ -4,23 +4,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Hotel extends Alojamiento {
-	private Dormitorio[] dormitorios;
 	private int numEstrellas;
-
-	public Hotel() {
-
-	}
-
-	public Hotel(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible, Dormitorio[] dormitorios, int numEstrellas) {
-		super(id, nombre, direccion, precioA, precioB, precioF, imagen, disponible);
-		this.dormitorios = dormitorios;
-		this.numEstrellas = numEstrellas;
-	}
 
 	public int numCamas() {
 		int cont = 0;
-		if (this.dormitorios != null)
-			for (Dormitorio dorm : this.dormitorios) {
+		if (this.habitaciones != null)
+			for (Dormitorio dorm : (Dormitorio[]) this.habitaciones) {
 				if (dorm.getMobiliario() == null)
 					continue;
 				for (Mobiliario mobi : dorm.getMobiliario()) {
@@ -63,13 +52,6 @@ public class Hotel extends Alojamiento {
 		return precio;
 	}
 
-	public Dormitorio[] getDormitorios() {
-		return dormitorios;
-	}
-
-	public void setDormitorios(Dormitorio[] dormitorios) {
-		this.dormitorios = dormitorios;
-	}
 
 	public int getNumEstrellas() {
 		return numEstrellas;
