@@ -1,0 +1,12 @@
+INFORMACIÓN DE LA RESERVA
+
+Datos del cliente:
+Nombre: Yo
+
+Datos de la reserva:
+Nombre Alojamiento: Casa Julia
+Fecha de la reserva: 09-05-2019
+Fecha de entrada   : 09-05-2019
+Fecha de salida    : 10-05-2019
+
+Precio total: 36.40

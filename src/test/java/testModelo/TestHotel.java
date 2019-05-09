@@ -34,7 +34,7 @@ public class TestHotel {
 
 	@Test
 	public void testConstructor() {
-		hotelTest=new Hotel(intTest, stringTest, direccionTest,doubleTest,doubleTest,doubleTest,stringTest,boolTest,dormitoriosTest,intTest,boolArrayTest);
+		hotelTest=new Hotel(intTest, stringTest, direccionTest,doubleTest,doubleTest,doubleTest,stringTest,boolTest,dormitoriosTest,intTest);
 		assertEquals(hotelTest.getId(), intTest);
 		assertEquals(hotelTest.getNombre(), stringTest);
 		assertEquals(hotelTest.getDireccion(), direccionTest);
@@ -45,7 +45,6 @@ public class TestHotel {
 		assertEquals(hotelTest.isDisponible(), boolTest);
 		assertArrayEquals(hotelTest.getDormitorios(), dormitoriosTest);
 		assertEquals(hotelTest.getNumEstrellas(), intTest);
-		assertArrayEquals(hotelTest.getDormDisponibles(), boolArrayTest);
 	}
 	
 	@Test

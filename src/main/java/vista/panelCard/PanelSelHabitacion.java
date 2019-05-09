@@ -3,13 +3,15 @@ package vista.panelCard;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.SystemColor;
-import javax.swing.JPanel;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-import modelo.Habitacion;
+
+import modelo.Dormitorio;
 
 public class PanelSelHabitacion extends JPanel {
 
@@ -19,8 +21,8 @@ public class PanelSelHabitacion extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public JLabel lblTitulo;
-	public DefaultListModel<Habitacion> modelResHab;
-	public JList<Habitacion> resultHab;
+	public DefaultListModel<Dormitorio> modelResHab;
+	public JList<Dormitorio> resultHab;
 	public JScrollPane scroll;
 	
 	public PanelSelHabitacion() {
@@ -39,15 +41,23 @@ public class PanelSelHabitacion extends JPanel {
 		lblTitulo.setBounds(43, 32, 116, 14);
 		add(lblTitulo);
 		
-		resultHab = new JList<Habitacion>(modelResHab);
+		modelResHab = new DefaultListModel<Dormitorio>();
+		
+		resultHab = new JList<Dormitorio>(modelResHab);
 		resultHab.setBackground(SystemColor.control);
 		resultHab.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultHab.setCellRenderer(new RendererHabitacion());
 		
-		scroll = new JScrollPane();
+		scroll = new JScrollPane(resultHab);
 		scroll.setLocation(100, 60);
 		scroll.setSize(520, 320);
 		add(scroll);
 	}
 	
+	public void setResultHab(Dormitorio[] dormitorios) {
+		modelResHab.clear();
+		for(Dormitorio dormitorio:dormitorios) {
+			modelResHab.addElement(dormitorio);
+		}
+	}
 }

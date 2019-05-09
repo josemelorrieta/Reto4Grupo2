@@ -1,0 +1,12 @@
+INFORMACIÓN DE LA RESERVA
+
+Datos del cliente:
+Nombre: AA
+
+Datos de la reserva:
+Nombre Alojamiento: Hotel NH
+Fecha de la reserva: 08-05-2019
+Fecha de entrada   : 08-05-2019
+Fecha de salida    : 09-05-2019
+
+Precio total: 41.20

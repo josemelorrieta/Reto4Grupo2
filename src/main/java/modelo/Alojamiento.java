@@ -8,22 +8,10 @@ public class Alojamiento {
 	protected double precioTBaja;
 	protected double precioTFest;
 	protected String imagen;
+	protected double pvpM2;
+	protected double pvpTotal;
 	protected boolean disponible;
-
-	public Alojamiento() {
-		this.disponible = true;
-	}
-	
-	public Alojamiento(int id, String nombre, Direccion direccion, double precioA, double precioB, double precioF, String imagen, boolean disponible) {
-		this.id = id;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.precioTAlta = precioA;
-		this.precioTBaja = precioB;
-		this.precioTFest = precioF;
-		this.imagen = imagen;
-		this.disponible = disponible;
-	}
+	protected Habitacion[] habitaciones;
 
 	public int getId() {
 		return id;
@@ -87,6 +75,26 @@ public class Alojamiento {
 
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
+	}
+
+	public Habitacion[] getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(Habitacion[] habitaciones) {
+		this.habitaciones = habitaciones;
+	}
+
+	public void setPrecioTAlta(double precioTAlta) {
+		this.precioTAlta = precioTAlta;
+	}
+
+	public void setPrecioTBaja(double precioTBaja) {
+		this.precioTBaja = precioTBaja;
+	}
+
+	public void setPrecioTFest(double precioTFest) {
+		this.precioTFest = precioTFest;
 	}
 	
 }

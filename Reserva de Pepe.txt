@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: Pepe
 
 Datos de la reserva:
-Nombre Alojamiento: Hotel Meliá
-Fecha de la reserva: 01-05-2019
-Fecha de entrada   : 01-05-2019
-Fecha de salida    : 01-05-2019
+Nombre Alojamiento: JunjoHoteles
+Fecha de la reserva: 06-05-2019
+Fecha de entrada   : 06-05-2019
+Fecha de salida    : 06-05-2019
 
-Precio total: 49.90
+Precio total: 40.00

@@ -21,6 +21,7 @@ public class Reserva {
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.alojReservado = alojReservado;
+		this.dormitorioReservado=null;
 	}
 
 	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado, Dormitorio dormitorioReservado) {

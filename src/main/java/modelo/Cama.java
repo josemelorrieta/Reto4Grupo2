@@ -3,20 +3,16 @@ package modelo;
 public class Cama extends Mobiliario {
 	private TipoCama tipoCama;
 	
-	public Cama() {
-		
-	}
-	
-	public Cama(String nombre, TipoCama tipoCama) {
-		super(nombre);
-		this.setTipoCama(tipoCama);
+	public Cama(TipoCama tipoCama) {
+		super(TipoMobiliario.CAMA);
+		this.tipoCama=tipoCama;
 	}
 
 	public TipoCama getTipoCama() {
-		return tipoCama;
+		return this.tipoCama;
 	}
-
-	public void setTipoCama(TipoCama tipoCama) {
-		this.tipoCama = tipoCama;
+	
+	public double getPrecio() {
+		return this.tipoCama.getPrecio();
 	}
 }
