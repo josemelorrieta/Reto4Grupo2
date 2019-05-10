@@ -54,17 +54,20 @@ public class PanelCenter extends JPanel {
 		pSelHab = new PanelSelHabitacion();
 		add(pSelHab, "3");
 	
-		pResumenRes = new PanelResumenReserva();
-		add(pResumenRes, "4");
-		
 		pLogin= new PanelLogin();
-		add(pLogin,"5");
+		add(pLogin,"4");
 		
 		pRegistro=new PanelRegistro();
-		add(pRegistro,"6");
+		add(pRegistro,"5");
 	
+		pResumenRes = new PanelResumenReserva();
+		add(pResumenRes, "6");
+		
 		pPago = new PanelPago();
 		add(pPago,"7");
+		
+		JPanel pResumenPago = new JPanel();
+		add(pResumenPago, "8");
 	}
 	
 	public void prevPanel() {

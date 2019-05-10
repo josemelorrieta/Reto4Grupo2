@@ -9,6 +9,7 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 import BaseDatos.ConsultaBD;
+import util.FuncionesGenerales;
 
 public class MetodosBuscar {
 	private ConsultaBD bd;
@@ -131,7 +132,7 @@ public class MetodosBuscar {
 		Mobiliario[] mobiliario = gson.fromJson(json, Mobiliario[].class);
 
 		if (mobiliario != null && camas != null) {
-			mobiliario = concatenate(mobiliario, camas);
+			mobiliario = FuncionesGenerales.concatenate(mobiliario, camas);
 			dormitorio.setMobiliario(mobiliario);
 		} else if (camas != null) {
 			dormitorio.setMobiliario(camas);
@@ -145,25 +146,6 @@ public class MetodosBuscar {
 		String json = bd.consultarToGson("SELECT 'CAMATEST' AS `nombre`,`tipoCama` FROM `cama` WHERE `idCama` IN (SELECT `idCama` FROM `camadorm` WHERE `idDorm` IN (SELECT `idDorm` FROM `habhotel` WHERE `idHab`=" + dormitorio.getIdHab() + "))");
 		Cama[] camas = gson.fromJson(json, Cama[].class);
 		dormitorio.setMobiliario(camas);
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
-	 */
-	public <T> T[] concatenate(T[] a, T[] b) {
-		int aLen = a.length;
-		int bLen = b.length;
-
-		@SuppressWarnings("unchecked")
-		T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen + bLen);
-		System.arraycopy(a, 0, c, 0, aLen);
-		System.arraycopy(b, 0, c, aLen, bLen);
-
-		return c;
 	}
 
 	private void setDisponibilidad(Hotel hotel) {
@@ -260,8 +242,6 @@ public class MetodosBuscar {
 
 	
 	public Calendar[] buscarFechasFestivos() {	
-		
-		
 		String json=bd.consultarToGson("SELECT `fecha` 'auxiliar' FROM `festivos`");
 		gson = new Gson();
 		Global[] fechasBBDD = gson.fromJson(json, Global[].class);

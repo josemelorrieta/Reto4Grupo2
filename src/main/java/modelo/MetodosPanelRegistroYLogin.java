@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.toedter.calendar.JDateChooser;
 
 import BaseDatos.ConsultaBD;
+import util.FuncionesGenerales;
 import vista.panelCard.PanelLogin;
 import vista.panelCard.PanelRegistro;
 
@@ -193,7 +194,6 @@ public class MetodosPanelRegistroYLogin {
 				JOptionPane.showMessageDialog(null, "Contraseña incorrecta, vuelva a intertarlo", null, JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
-
 		}
 		JOptionPane.showMessageDialog(null, "No hay ningun usuario con ese nombre, porfavor registrese", null, JOptionPane.ERROR_MESSAGE);
 		return null;
@@ -334,27 +334,9 @@ public class MetodosPanelRegistroYLogin {
 	}
 
 	/**
-	 * Devuelve el string correspondiente a cada tipo de objeto alojamiento, usar en
-	 * inserts y selects
-	 * 
-	 * @param aloj
-	 * @return
-	 */
-	public String tipoAloj(Alojamiento aloj) {
-		String tipo = "";
-		if (aloj instanceof Hotel) {
-			tipo = "Hab";
-		} else if (aloj instanceof Apartamento) {
-			tipo = "Apart";
-		} else if (aloj instanceof Casa) {
-			tipo = "Casa";
-		}
-		return tipo;
-	}
-
-	/**
 	 * Comprueba si el codigo introducido por parametro existe en la bbdd y si
-	 * corresponde al usuario y alojamiento seleccionado
+	 * corresponde al usuario y alojamiento seleccionado, si dni y alojamiento son
+	 * null, comprueba que ese codigo exista en la base de datos
 	 * 
 	 * @param codigo codigo promocional
 	 * @param dni    dni del usuario (sin encriptar)
@@ -365,7 +347,7 @@ public class MetodosPanelRegistroYLogin {
 		if (codigo.length() == 5) {
 			Gson gson = new Gson();
 			String json;
-			String tabla = tipoAloj(aloj);
+			String tabla = FuncionesGenerales.tipoAloj(aloj);
 			if (dni != null && aloj != null) {
 				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `dni` ='" + encriptar(dni.toCharArray()) + "' AND `id" + tabla + "` ='" + aloj.getId() + "'");
 				Global[] codigoBD = gson.fromJson(json, Global[].class);
@@ -402,10 +384,17 @@ public class MetodosPanelRegistroYLogin {
 		return stringAleatorio;
 	}
 
+	/**
+	 * Genera e inserta en la bbdd un codigo promocional no repetido
+	 * 
+	 * @param aloj
+	 * @param dni
+	 * @return
+	 */
 	public String generarCodigoPromocional(Alojamiento aloj, String dni) {
 		while (true) {
 			String codigoProm = generarCodigoAleatorio(5).toString();
-			String tipoAloj = tipoAloj(aloj);
+			String tipoAloj = FuncionesGenerales.tipoAloj(aloj);
 
 			if (comprobarCodigoPromocional(codigoProm, null, null)) {
 				Object[] preparedItems = { codigoProm, aloj.getId(), dni };
@@ -413,5 +402,19 @@ public class MetodosPanelRegistroYLogin {
 				return codigoProm;
 			}
 		}
+	}
+
+	/**
+	 * Borra el codigo especificado de la base de datos del tipo de alojamiento que
+	 * le llega por parametro
+	 * 
+	 * @param codigo codigo promocional
+	 * @param aloj   de que tipo de alojamiento debe borrar la tabla
+	 * @return true en caso de delete ejecutado correctamente
+	 */
+	public boolean borrarCodigoPromocional(String codigo, Alojamiento aloj) {
+		String tipo = FuncionesGenerales.tipoAloj(aloj);
+		String[] condiciones = { "`idCod` = '" + codigo + "'" };
+		return bd.deleteGenerico("cod" + tipo.toLowerCase(), condiciones);
 	}
 }
