@@ -55,7 +55,7 @@ public class Controlador {
 						mod.aloj1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
 						if(mod.aloj1 instanceof Hotel) {
 							vis.pCenter.pSelHab.setResultHab((Dormitorio[]) ((Hotel) mod.aloj1).getHabitaciones());
-							vis.pCenter.changePanel("3");
+							vis.pCenter.nextPanel();
 						}else {
 							vis.pCenter.changePanel("4");
 							cPago.pasarPrecioAPanelPago(mod, vis);
@@ -64,27 +64,23 @@ public class Controlador {
 					break;
 				case 3:	
 					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
-						vis.pCenter.changePanel("4");
+						vis.pCenter.nextPanel();
 						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
 						cPago.pasarPrecioAPanelPago(mod, vis);
 					}
-					
 					break;
 				case 4:
-					vis.pCenter.changePanel("5");
-					break;
-				case 5:
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
-						vis.pCenter.changePanel("7");
+						vis.pCenter.changePanel("6");
 					}
 					break;
-				case 6:
+				case 5:
 					if (mod.mRegiLog.comprobarDatos()) {
 						mod.clienteRegis = mod.mRegiLog.registro(vis.pCenter.pRegistro);
 						if (mod.clienteRegis != null) {
 							if(mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente")) {
-								vis.pCenter.changePanel("7");
+								vis.pCenter.nextPanel();;
 								mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 							} else {
 								JOptionPane.showMessageDialog(vis.pCenter, "Error al guardar el cliente en la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
@@ -94,9 +90,12 @@ public class Controlador {
 						JOptionPane.showMessageDialog(vis.pCenter, "Debe rellenar todos los campos", "¡Atención!", JOptionPane.WARNING_MESSAGE);
 					}
 					break;
+				case 6:
+					vis.pCenter.nextPanel();
+					break;
 				case 7:
 					if (mod.isPagoExitoso()) {
-						vis.pCenter.changePanel("1");
+						vis.pCenter.nextPanel();
 						mod.mPago.limpiar(vis.pCenter.pPago);
 						mod.mRegiLog.limpiar(vis.pCenter.pLogin);
 						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
@@ -104,6 +103,9 @@ public class Controlador {
 						mod.mPago.imprimirBillete(mod.reserva);
 						vis.pBotones.setBotonesVisible(false);
 					}
+					break;
+				case 8:
+					vis.pCenter.firstPanel();
 					break;
 				}
 				break;
@@ -133,7 +135,7 @@ public class Controlador {
 					//mod.mPago.limpiar(vis.pCenter.pPago);
 					break;
 				case 7:
-					vis.pCenter.changePanel("5");
+					vis.pCenter.prevPanel();
 					}
 				break;
 			}
