@@ -66,6 +66,7 @@ public class Controlador {
 					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.nextPanel();
 						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
+						vis.pCenter.pResumenRes.txtAlojamiento.setText(mod.aloj1.getNombre());
 						cPago.pasarPrecioAPanelPago(mod, vis);
 					}
 					break;
