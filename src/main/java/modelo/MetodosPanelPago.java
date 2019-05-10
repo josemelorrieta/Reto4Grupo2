@@ -310,4 +310,25 @@ public class MetodosPanelPago {
 		}
 	}
 
+	public boolean comprobarCodigoPromocional(String codigo,String dni,Alojamiento aloj) {
+		if(codigo.length()==5) {
+			Class<? extends Alojamiento> tipo=aloj.getClass();
+			String tabla;
+			if(tipo.equals(Hotel.class)) {
+				tabla="Hot";
+			}else if(tipo.equals(Apartamento.class)) {
+				tabla="Apart";
+			}else if(tipo.equals(Casa.class)) {
+				tabla="Casa";
+			}else return false;
+			
+			Gson gson= new Gson();
+			String json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod"+tabla.toLowerCase()+"` WHERE `dni` ='"+dni+"' AND `id"+tabla+"` ="+aloj.getId()+"");
+			Global[] codigoBD = gson.fromJson(json, Global[].class);
+			if(((String) codigoBD[0].getAuxiliar()).equalsIgnoreCase(codigo)) {
+				return true;
+			}else return false;
+		}else return false;
+	}
+	
 }
