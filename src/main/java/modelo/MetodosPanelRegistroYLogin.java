@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -205,7 +206,7 @@ public class MetodosPanelRegistroYLogin {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Encriptacion de datos en MD5
 	 * 
@@ -229,7 +230,7 @@ public class MetodosPanelRegistroYLogin {
 		}
 		return null;
 	}
-	
+
 	public void limitarFechaNacimiento(JDateChooser calen) {
 		Date fechaLimite = new Date();
 		calen.setDate(fechaLimite);
@@ -329,32 +330,86 @@ public class MetodosPanelRegistroYLogin {
 			return true;
 		}
 	}
-	
+
 	/**
-	 * Comprueba si el codigo introducido por parametro existe en la bbdd y si corresponde al usuario y alojamiento seleccionado
-	 * @param codigo codigo promocional
-	 * @param dni dni del usuario (sin encriptar)
-	 * @param aloj	(objeto hijo de aloj)
+	 * Devuelve el string correspondiente a cada tipo de objeto alojamiento, usar en
+	 * inserts y selects
+	 * 
+	 * @param aloj
 	 * @return
 	 */
-	public boolean comprobarCodigoPromocional(String codigo,String dni,Alojamiento aloj) {
-		if(codigo.length()==5) {
-			Class<? extends Alojamiento> tipo=aloj.getClass();
-			String tabla;
-			if(tipo.equals(Hotel.class)) {
-				tabla="Hot";
-			}else if(tipo.equals(Apartamento.class)) {
-				tabla="Apart";
-			}else if(tipo.equals(Casa.class)) {
-				tabla="Casa";
-			}else return false;
-			
-			Gson gson= new Gson();
-			String json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod"+tabla.toLowerCase()+"` WHERE `dni` ='"+encriptar(dni.toCharArray())+"' AND `id"+tabla+"` ="+aloj.getId()+"");
-			Global[] codigoBD = gson.fromJson(json, Global[].class);
-			if(((String) codigoBD[0].getAuxiliar()).equalsIgnoreCase(codigo)) {
-				return true;
-			}else return false;
-		}else return false;
+	public String tipoAloj(Alojamiento aloj) {
+		String tipo = "";
+		if (aloj instanceof Hotel) {
+			tipo = "Hab";
+		} else if (aloj instanceof Apartamento) {
+			tipo = "Apart";
+		} else if (aloj instanceof Casa) {
+			tipo = "Casa";
+		}
+		return tipo;
+	}
+
+	/**
+	 * Comprueba si el codigo introducido por parametro existe en la bbdd y si
+	 * corresponde al usuario y alojamiento seleccionado
+	 * 
+	 * @param codigo codigo promocional
+	 * @param dni    dni del usuario (sin encriptar)
+	 * @param aloj   (objeto hijo de aloj)
+	 * @return
+	 */
+	public boolean comprobarCodigoPromocional(String codigo, String dni, Alojamiento aloj) {
+		if (codigo.length() == 5) {
+			Gson gson = new Gson();
+			String json;
+			String tabla = tipoAloj(aloj);
+			if (dni != null && aloj != null) {
+				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `dni` ='" + encriptar(dni.toCharArray()) + "' AND `id" + tabla + "` ='" + aloj.getId() + "'");
+				Global[] codigoBD = gson.fromJson(json, Global[].class);
+				if (((String) codigoBD[0].getAuxiliar()).equalsIgnoreCase(codigo)) {
+					return true;
+				} else
+					return false;
+			} else {
+				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `idCod` ='" + codigo + "'");
+				if (json.equals(""))
+					return true;
+				else
+					return false;
+			}
+		} else
+			return false;
+	}
+
+	/**
+	 * Genera un char array de la longitud especificada
+	 * 
+	 * @param longitud longitud del array a crear
+	 * @return el array con valores aleatorios
+	 */
+	public char[] generarCodigoAleatorio(int longitud) {
+		final String stringValores = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		final char[] charArrValores = stringValores.toCharArray();
+
+		char[] stringAleatorio = new char[longitud];
+		for (int i = 0; i < stringAleatorio.length; i++) {
+			int random = (int) (Math.random() * charArrValores.length);
+			stringAleatorio[i] = charArrValores[random];
+		}
+		return stringAleatorio;
+	}
+
+	public String generarCodigoPromocional(Alojamiento aloj, String dni) {
+		while (true) {
+			String codigoProm = generarCodigoAleatorio(5).toString();
+			String tipoAloj = tipoAloj(aloj);
+
+			if (comprobarCodigoPromocional(codigoProm, null, null)) {
+				Object[] preparedItems = { codigoProm, aloj.getId(), dni };
+				bd.insertGenerico(preparedItems, "cod" + tipoAloj.toLowerCase());
+				return codigoProm;
+			}
+		}
 	}
 }
