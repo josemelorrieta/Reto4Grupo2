@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import vista.panelCard.PanelBuscar;
 import vista.panelCard.PanelLogin;
 import vista.panelCard.PanelResBusqueda;
+import vista.panelCard.PanelResumenReserva;
 import vista.panelCard.PanelSelHabitacion;
 import vista.panelCard.PanelPago;
 import vista.panelCard.PanelRegistro;
@@ -25,6 +26,7 @@ public class PanelCenter extends JPanel {
 	public PanelBuscar pBuscar;
 	public PanelResBusqueda pResBusq;
 	public PanelSelHabitacion pSelHab;
+	public PanelResumenReserva pResumenRes;
 	public PanelRegistro pRegistro;
 	public PanelPago pPago;
 	public PanelLogin pLogin;
@@ -52,14 +54,17 @@ public class PanelCenter extends JPanel {
 		pSelHab = new PanelSelHabitacion();
 		add(pSelHab, "3");
 	
+		pResumenRes = new PanelResumenReserva();
+		add(pResumenRes, "4");
+		
 		pLogin= new PanelLogin();
-		add(pLogin,"4");
+		add(pLogin,"5");
 		
 		pRegistro=new PanelRegistro();
-		add(pRegistro,"5");
+		add(pRegistro,"6");
 	
 		pPago = new PanelPago();
-		add(pPago,"6");
+		add(pPago,"7");
 	}
 	
 	public void prevPanel() {
