@@ -28,18 +28,7 @@ public class TestAlojamiento {
 		assertEquals(alojamientoTest.getImagen(), null);
 		assertEquals(alojamientoTest.isDisponible(), true);
 	}
-	@Test
-	public void testConstructorParametros() {
-		alojamientoTest=new Alojamiento(intTest, stringTest, direccionTest, doubleTest, doubleTest, doubleTest, stringTest, boolTest);
-		assertEquals(alojamientoTest.getId(), intTest);
-		assertEquals(alojamientoTest.getNombre(), stringTest);
-		assertEquals(alojamientoTest.getDireccion(), direccionTest);
-		assertEquals(alojamientoTest.getPrecioTAlta(), doubleTest, 0.0001);
-		assertEquals(alojamientoTest.getPrecioTBaja(), doubleTest, 0.0001);
-		assertEquals(alojamientoTest.getPrecioTFest(), doubleTest, 0.0001);
-		assertEquals(alojamientoTest.getImagen(), stringTest);
-		assertEquals(alojamientoTest.isDisponible(), boolTest);
-	}
+
 	
 	@Test
 	public void testId() {
