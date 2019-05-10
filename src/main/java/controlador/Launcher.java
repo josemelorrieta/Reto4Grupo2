@@ -9,7 +9,6 @@ public class Launcher {
 		VentanaPpal vista = new VentanaPpal();
 		Modelo modelo = new Modelo();
 		Controlador controlador = new Controlador(vista, modelo);
-		
 	}
 
 }
