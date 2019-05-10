@@ -3,6 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import modelo.Dormitorio;
 import modelo.Hotel;
 import modelo.Modelo;
@@ -17,6 +19,7 @@ public class Controlador {
 	private ControladorPanelResBusqueda cResBusqueda;
 	private ControladorPanelRegistro cRegistro;
 	private ControladorPanelLogin cLogin;
+	private ControladorPanelCondiciones cCondiciones;
 
 	public Controlador(VentanaPpal vista, Modelo modelo) {
 		this.vis = vista;
@@ -31,6 +34,7 @@ public class Controlador {
 		cResBusqueda = new ControladorPanelResBusqueda(vis, this);
 		cRegistro = new ControladorPanelRegistro(vis, this, mod);
 		cLogin = new ControladorPanelLogin(vis, this, mod);
+		cCondiciones = new ControladorPanelCondiciones(vis);
 	}
 
 	private void initListeners() {
@@ -76,10 +80,15 @@ public class Controlador {
 					if (mod.mRegiLog.comprobarDatos()) {
 						mod.clienteRegis = mod.mRegiLog.registro(vis.pCenter.pRegistro);
 						if (mod.clienteRegis != null) {
-							mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente");
-							vis.pCenter.changePanel("6");
-							mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+							if(mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente")) {
+								vis.pCenter.changePanel("6");
+								mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+							} else {
+								JOptionPane.showMessageDialog(vis.pCenter, "Error al guardar el cliente en la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
+							}
 						}
+					} else {
+						JOptionPane.showMessageDialog(vis.pCenter, "Debe rellenar todos los campos", "¡Atención!", JOptionPane.WARNING_MESSAGE);
 					}
 					break;
 				case 6:

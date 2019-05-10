@@ -32,7 +32,7 @@ public class MetodosPanelRegistroYLogin {
 	 * el cliente, se usa para no volver a comprobar los datos mediante sus metodos
 	 * designados
 	 */
-	public boolean[] comprobacionRegistro = { false, false, false, false, false };
+	public boolean[] comprobacionRegistro = { false, false, false, false, false, false };
 	public boolean comprobacionLogin = false;
 
 	public MetodosPanelRegistroYLogin(Modelo mod, ConsultaBD bd) {
@@ -97,6 +97,8 @@ public class MetodosPanelRegistroYLogin {
 		panel.lblValiDni.setVisible(false);
 		panel.lblValiContra.setVisible(false);
 		panel.lblValiContraCoinciden.setVisible(false);
+		
+		panel.chckbxCondiciones.setSelected(false);
 	}
 
 	/**

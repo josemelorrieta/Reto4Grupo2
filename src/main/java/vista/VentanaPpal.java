@@ -20,6 +20,7 @@ public class VentanaPpal extends JFrame {
 	public PanelTitulo pTitulo;
 	public PanelCenter pCenter;
 	public PanelBotones pBotones;
+	public CondicionesLegales pCondiciones;
 
 	/**
 	 * Create the frame.
@@ -51,5 +52,8 @@ public class VentanaPpal extends JFrame {
 		
 		pBotones = new PanelBotones();
 		getContentPane().add(pBotones, BorderLayout.SOUTH);
+		
+		pCondiciones = new CondicionesLegales();
+		pCondiciones.setVisible(false);
 	}
 }

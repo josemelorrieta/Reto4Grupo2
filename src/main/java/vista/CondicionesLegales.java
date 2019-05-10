@@ -1,13 +1,19 @@
 package vista;
 
-import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextPane;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class CondicionesLegales extends JPanel {
+public class CondicionesLegales extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+
+	public JButton btnCerrar;
+	public JScrollPane scroll;
 
 	final String texto = "1. DATOS IDENTIFICATIVOS\r\n" + 
 			"En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, a continuación se reflejan los siguientes datos: la empresa titular de dominio web es RRRRR (en adelante NNNNN), con domicilio a estos efectos en DDDDD número de C.I.F.: CCCCC inscrita en el MMMMM. Correo electrónico de contacto: EEEEE del sitio web.\r\n" + 
@@ -82,12 +88,16 @@ public class CondicionesLegales extends JPanel {
 	 * Create the panel.
 	 */
 	public CondicionesLegales() {
-		setLayout(null);
+		getContentPane().setLayout(null);
+		setSize(695,587);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setTitle("BIDAI-ON - Condiciones legales");
 		
 		JLabel lblTitulo = new JLabel("Condiciones Legales");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblTitulo.setBounds(23, 22, 402, 47);
-		add(lblTitulo);
+		lblTitulo.setBounds(23, 11, 402, 47);
+		getContentPane().add(lblTitulo);
 		
 		JTextArea txtAreaCondiciones = new JTextArea();
 		txtAreaCondiciones.setFont(new Font("Monospaced", Font.PLAIN, 14));
@@ -95,8 +105,18 @@ public class CondicionesLegales extends JPanel {
 		txtAreaCondiciones.setWrapStyleWord(true);
 		txtAreaCondiciones.setEditable(false);
 		txtAreaCondiciones.setText(texto);
-		txtAreaCondiciones.setBounds(23, 66, 644, 420);
-		add(txtAreaCondiciones);
+//		txtAreaCondiciones.setBounds(23, 53, 644, 420);
+		getContentPane().add(txtAreaCondiciones);
+		
+		scroll = new JScrollPane(txtAreaCondiciones);
+		scroll.setLocation(23, 53);
+		scroll.setSize(644, 420);
+		add(scroll);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnCerrar.setBounds(290, 504, 101, 31);
+		getContentPane().add(btnCerrar);
 
 	}
 }
