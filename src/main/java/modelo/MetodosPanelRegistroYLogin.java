@@ -329,4 +329,32 @@ public class MetodosPanelRegistroYLogin {
 			return true;
 		}
 	}
+	
+	/**
+	 * Comprueba si el codigo introducido por parametro existe en la bbdd y si corresponde al usuario y alojamiento seleccionado
+	 * @param codigo codigo promocional
+	 * @param dni dni del usuario (sin encriptar)
+	 * @param aloj	(objeto hijo de aloj)
+	 * @return
+	 */
+	public boolean comprobarCodigoPromocional(String codigo,String dni,Alojamiento aloj) {
+		if(codigo.length()==5) {
+			Class<? extends Alojamiento> tipo=aloj.getClass();
+			String tabla;
+			if(tipo.equals(Hotel.class)) {
+				tabla="Hot";
+			}else if(tipo.equals(Apartamento.class)) {
+				tabla="Apart";
+			}else if(tipo.equals(Casa.class)) {
+				tabla="Casa";
+			}else return false;
+			
+			Gson gson= new Gson();
+			String json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod"+tabla.toLowerCase()+"` WHERE `dni` ='"+encriptar(dni.toCharArray())+"' AND `id"+tabla+"` ="+aloj.getId()+"");
+			Global[] codigoBD = gson.fromJson(json, Global[].class);
+			if(((String) codigoBD[0].getAuxiliar()).equalsIgnoreCase(codigo)) {
+				return true;
+			}else return false;
+		}else return false;
+	}
 }
