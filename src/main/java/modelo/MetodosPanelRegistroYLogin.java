@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -166,7 +167,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @return objeto cliente
 	 */
 	public Cliente crearCliente(PanelRegistro panel) {
-		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), encriptarContra(panel.pwdContra.getPassword()));
+		return new Cliente(encriptar(panel.txtDni.getText().toCharArray()), encriptar(panel.txtNombre.getText().toCharArray()), encriptar(panel.txtApellido.getText().toCharArray()), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), encriptar(panel.pwdContra.getPassword()));
 	}
 
 	/**
@@ -177,8 +178,8 @@ public class MetodosPanelRegistroYLogin {
 	 *         contraseña es correcta o si no hay ningun usuario con ese dni
 	 */
 	public Cliente login(PanelLogin panel) {
-		String dni = panel.txtDni.getText();
-		String contraIntroducida = encriptarContra(panel.pwdContra.getPassword());
+		String dni = encriptar(panel.txtDni.getText().toCharArray());
+		String contraIntroducida = encriptar(panel.pwdContra.getPassword());
 
 		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
 		gson = new GsonBuilder();
@@ -199,7 +200,7 @@ public class MetodosPanelRegistroYLogin {
 	}
 
 	public Cliente registro(PanelRegistro panel) {
-		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + panel.txtDni.getText() + "'");
+		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + encriptar(panel.txtDni.getText().toCharArray()) + "'");
 		if (json.equals("")) {
 			return crearCliente(panel);
 		} else {
@@ -209,15 +210,15 @@ public class MetodosPanelRegistroYLogin {
 	}
 
 	/**
-	 * Encriptacion de contrasenia en MD5
+	 * Encriptacion de datos en MD5
 	 * 
-	 * @param contrasenia contrasenia que se quiere encriptar
-	 * @return string de la contrasenia encriptada
+	 * @param cadena Cadena de datos que se quiere encriptar
+	 * @return String de los datos encriptados
 	 */
-	public String encriptarContra(char[] contrasenia) {
+	public String encriptar(char[] cadena) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
-			String contraEnc = new String(contrasenia);
+			String contraEnc = new String(cadena);
 			byte[] hashInBytes = md.digest(contraEnc.getBytes(StandardCharsets.UTF_8));
 
 			StringBuilder sb = new StringBuilder();
@@ -329,6 +330,88 @@ public class MetodosPanelRegistroYLogin {
 			aviso.setVisible(false);
 			campoTexto.setBackground(new JTextField().getBackground());
 			return true;
+		}
+	}
+
+	/**
+	 * Devuelve el string correspondiente a cada tipo de objeto alojamiento, usar en
+	 * inserts y selects
+	 * 
+	 * @param aloj
+	 * @return
+	 */
+	public String tipoAloj(Alojamiento aloj) {
+		String tipo = "";
+		if (aloj instanceof Hotel) {
+			tipo = "Hab";
+		} else if (aloj instanceof Apartamento) {
+			tipo = "Apart";
+		} else if (aloj instanceof Casa) {
+			tipo = "Casa";
+		}
+		return tipo;
+	}
+
+	/**
+	 * Comprueba si el codigo introducido por parametro existe en la bbdd y si
+	 * corresponde al usuario y alojamiento seleccionado
+	 * 
+	 * @param codigo codigo promocional
+	 * @param dni    dni del usuario (sin encriptar)
+	 * @param aloj   (objeto hijo de aloj)
+	 * @return
+	 */
+	public boolean comprobarCodigoPromocional(String codigo, String dni, Alojamiento aloj) {
+		if (codigo.length() == 5) {
+			Gson gson = new Gson();
+			String json;
+			String tabla = tipoAloj(aloj);
+			if (dni != null && aloj != null) {
+				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `dni` ='" + encriptar(dni.toCharArray()) + "' AND `id" + tabla + "` ='" + aloj.getId() + "'");
+				Global[] codigoBD = gson.fromJson(json, Global[].class);
+				if (((String) codigoBD[0].getAuxiliar()).equalsIgnoreCase(codigo)) {
+					return true;
+				} else
+					return false;
+			} else {
+				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `idCod` ='" + codigo + "'");
+				if (json.equals(""))
+					return true;
+				else
+					return false;
+			}
+		} else
+			return false;
+	}
+
+	/**
+	 * Genera un char array de la longitud especificada
+	 * 
+	 * @param longitud longitud del array a crear
+	 * @return el array con valores aleatorios
+	 */
+	public char[] generarCodigoAleatorio(int longitud) {
+		final String stringValores = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		final char[] charArrValores = stringValores.toCharArray();
+
+		char[] stringAleatorio = new char[longitud];
+		for (int i = 0; i < stringAleatorio.length; i++) {
+			int random = (int) (Math.random() * charArrValores.length);
+			stringAleatorio[i] = charArrValores[random];
+		}
+		return stringAleatorio;
+	}
+
+	public String generarCodigoPromocional(Alojamiento aloj, String dni) {
+		while (true) {
+			String codigoProm = generarCodigoAleatorio(5).toString();
+			String tipoAloj = tipoAloj(aloj);
+
+			if (comprobarCodigoPromocional(codigoProm, null, null)) {
+				Object[] preparedItems = { codigoProm, aloj.getId(), dni };
+				bd.insertGenerico(preparedItems, "cod" + tipoAloj.toLowerCase());
+				return codigoProm;
+			}
 		}
 	}
 }

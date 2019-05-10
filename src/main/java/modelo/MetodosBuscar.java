@@ -238,6 +238,8 @@ public class MetodosBuscar {
 		} else
 			return true;
 	}
+	
+	
 
 	private FechasReserva[] buscarFechasReservas(Alojamiento aloj) {
 		String tipo="";

@@ -71,17 +71,20 @@ public class Controlador {
 					
 					break;
 				case 4:
-					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
-					if (mod.clienteRegis != null) {
-						vis.pCenter.changePanel("6");
-					}
+					vis.pCenter.changePanel("5");
 					break;
 				case 5:
+					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
+					if (mod.clienteRegis != null) {
+						vis.pCenter.changePanel("7");
+					}
+					break;
+				case 6:
 					if (mod.mRegiLog.comprobarDatos()) {
 						mod.clienteRegis = mod.mRegiLog.registro(vis.pCenter.pRegistro);
 						if (mod.clienteRegis != null) {
 							if(mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente")) {
-								vis.pCenter.changePanel("6");
+								vis.pCenter.changePanel("7");
 								mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 							} else {
 								JOptionPane.showMessageDialog(vis.pCenter, "Error al guardar el cliente en la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
@@ -91,7 +94,7 @@ public class Controlador {
 						JOptionPane.showMessageDialog(vis.pCenter, "Debe rellenar todos los campos", "¡Atención!", JOptionPane.WARNING_MESSAGE);
 					}
 					break;
-				case 6:
+				case 7:
 					if (mod.isPagoExitoso()) {
 						vis.pCenter.changePanel("1");
 						mod.mPago.limpiar(vis.pCenter.pPago);
@@ -123,11 +126,14 @@ public class Controlador {
 					}
 					break;
 				case 5:
-					vis.pCenter.changePanel("3");
-					//mod.mPago.limpiar(vis.pCenter.pPago);
+					vis.pCenter.prevPanel();
 					break;
 				case 6:
 					vis.pCenter.changePanel("4");
+					//mod.mPago.limpiar(vis.pCenter.pPago);
+					break;
+				case 7:
+					vis.pCenter.changePanel("5");
 					}
 				break;
 			}

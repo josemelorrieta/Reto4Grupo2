@@ -309,5 +309,4 @@ public class MetodosPanelPago {
 			panel.arrayBtn[i].setEnabled(estado);
 		}
 	}
-
 }
