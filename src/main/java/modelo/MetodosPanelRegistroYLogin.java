@@ -164,7 +164,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @return objeto cliente
 	 */
 	public Cliente crearCliente(PanelRegistro panel) {
-		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), encriptarContra(panel.pwdContra.getPassword()));
+		return new Cliente(encriptar(panel.txtDni.getText().toCharArray()), encriptar(panel.txtNombre.getText().toCharArray()), encriptar(panel.txtApellido.getText().toCharArray()), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), encriptar(panel.pwdContra.getPassword()));
 	}
 
 	/**
@@ -175,8 +175,8 @@ public class MetodosPanelRegistroYLogin {
 	 *         contraseña es correcta o si no hay ningun usuario con ese dni
 	 */
 	public Cliente login(PanelLogin panel) {
-		String dni = panel.txtDni.getText();
-		String contraIntroducida = encriptarContra(panel.pwdContra.getPassword());
+		String dni = encriptar(panel.txtDni.getText().toCharArray());
+		String contraIntroducida = encriptar(panel.pwdContra.getPassword());
 
 		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
 		gson = new GsonBuilder();
@@ -197,7 +197,7 @@ public class MetodosPanelRegistroYLogin {
 	}
 
 	public Cliente registro(PanelRegistro panel) {
-		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + panel.txtDni.getText() + "'");
+		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + encriptar(panel.txtDni.getText().toCharArray()) + "'");
 		if (json.equals("")) {
 			return crearCliente(panel);
 		} else {
@@ -205,17 +205,17 @@ public class MetodosPanelRegistroYLogin {
 			return null;
 		}
 	}
-
+	
 	/**
-	 * Encriptacion de contrasenia en MD5
+	 * Encriptacion de datos en MD5
 	 * 
-	 * @param contrasenia contrasenia que se quiere encriptar
-	 * @return string de la contrasenia encriptada
+	 * @param cadena Cadena de datos que se quiere encriptar
+	 * @return String de los datos encriptados
 	 */
-	public String encriptarContra(char[] contrasenia) {
+	public String encriptar(char[] cadena) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
-			String contraEnc = new String(contrasenia);
+			String contraEnc = new String(cadena);
 			byte[] hashInBytes = md.digest(contraEnc.getBytes(StandardCharsets.UTF_8));
 
 			StringBuilder sb = new StringBuilder();
@@ -229,7 +229,7 @@ public class MetodosPanelRegistroYLogin {
 		}
 		return null;
 	}
-
+	
 	public void limitarFechaNacimiento(JDateChooser calen) {
 		Date fechaLimite = new Date();
 		calen.setDate(fechaLimite);
