@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
+import java.awt.SystemColor;
 
 
 public class PanelResumenReserva extends JPanel {
@@ -18,34 +19,29 @@ public class PanelResumenReserva extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public JLabel lblTitulo;
-	public JCheckBox chkCodigo;
-	public JPanel panelDatosCliente;
-	public JLabel lblDatosCliente;
-	public JLabel lblDni;
-	public JLabel lblNombre;
-	public JLabel lblApellidos;
-	public JTextField txtDni;
-	public JTextField txtNombre;
-	public JTextField txtApellidos;
-	public JPanel panelDatosReserva;
-	public JLabel lblDatosReserva;
+	public JLabel lblCodigo;
 	public JLabel lblAlojamiento;
 	public JLabel lblNHab;
-	public JLabel lblFecReserva;
 	public JLabel lblFecEntrada;
 	public JLabel lblFecSalida;
-	public JLabel lblPrecio;
 	public JTextField txtAlojamiento;
 	public JTextField txtNHab;
-	public JTextField txtFecReserva;
 	public JTextField txtFecEntrada;
 	public JTextField txtFecSalida;
-	public JTextField txtPrecio;
+	private JTextField txtPrecioBase;
+	private JTextField txtEquip;
+	private JTextField txtExtras;
+	private JTextField txtTotal;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField txtTemporada;
+	private JTextField txtHmy;
 	
 	/**
 	 * Create the panel.
 	 */
 	public PanelResumenReserva() {
+		setBorder(null);
 		setPanelParametros();
 		instanciarObjetos();
 	}
@@ -63,112 +59,159 @@ public class PanelResumenReserva extends JPanel {
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(lblTitulo);
 		
-		panelDatosCliente = new JPanel();
-		panelDatosCliente.setBounds(544, 60, 211, 142);
-		panelDatosCliente.setLayout(null);
-		add(panelDatosCliente);
-		
-		lblDatosCliente = new JLabel("DATOS CLIENTE");
-		lblDatosCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDatosCliente.setBounds(10, 11, 191, 26);
-		panelDatosCliente.add(lblDatosCliente);
-		
-		lblDni = new JLabel("DNI:");
-		lblDni.setBounds(10, 38, 51, 26);
-		panelDatosCliente.add(lblDni);
-		
-		lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(10, 64, 51, 26);
-		panelDatosCliente.add(lblNombre);
-		
-		lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setBounds(10, 90, 51, 26);
-		panelDatosCliente.add(lblApellidos);
-		
-		txtDni = new JTextField();
-		txtDni.setBounds(71, 40, 117, 23);
-		panelDatosCliente.add(txtDni);
-		txtDni.setColumns(10);
-		
-		txtNombre = new JTextField();
-		txtNombre.setBounds(71, 67, 117, 23);
-		panelDatosCliente.add(txtNombre);
-		txtNombre.setColumns(10);
-		
-		txtApellidos = new JTextField();
-		txtApellidos.setBounds(71, 93, 117, 26);
-		panelDatosCliente.add(txtApellidos);
-		txtApellidos.setColumns(10);
-		
-		chkCodigo = new JCheckBox("Usar codigo promocional");
-		chkCodigo.setBounds(544, 239, 177, 23);
-		add(chkCodigo);	
-		
-		panelDatosReserva = new JPanel();
-		panelDatosReserva.setBounds(20, 60, 478, 288);
-		add(panelDatosReserva);
-		panelDatosReserva.setLayout(null);
-		
-		lblDatosReserva = new JLabel("DATOS RESERVA");
-		lblDatosReserva.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDatosReserva.setBounds(10, 11, 419, 26);
-		panelDatosReserva.add(lblDatosReserva);
-		
 		lblAlojamiento = new JLabel("Nombre Alojamiento:");
-		lblAlojamiento.setBounds(10, 44, 189, 20);
-		panelDatosReserva.add(lblAlojamiento);
-		
-		lblNHab = new JLabel("Nº Habitacion:");
-		lblNHab.setBounds(10, 75, 189, 20);
-		panelDatosReserva.add(lblNHab);
-		
-		lblFecReserva = new JLabel("Fecha de Reserva");
-		lblFecReserva.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFecReserva.setBounds(10, 130, 120, 26);
-		panelDatosReserva.add(lblFecReserva);
-		
-		lblFecEntrada = new JLabel("Fecha de Entrada");
-		lblFecEntrada.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFecEntrada.setBounds(140, 130, 120, 26);
-		panelDatosReserva.add(lblFecEntrada);
-		
-		lblFecSalida = new JLabel("Fecha de Salida");
-		lblFecSalida.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFecSalida.setBounds(272, 130, 120, 26);
-		panelDatosReserva.add(lblFecSalida);
-		
-		lblPrecio = new JLabel("Precio Total:");
-		lblPrecio.setBounds(153, 211, 107, 34);
-		panelDatosReserva.add(lblPrecio);
+		lblAlojamiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAlojamiento.setBounds(49, 84, 158, 20);
+		add(lblAlojamiento);
 		
 		txtAlojamiento = new JTextField();
-		txtAlojamiento.setBounds(124, 44, 319, 20);
-		panelDatosReserva.add(txtAlojamiento);
+		txtAlojamiento.setBackground(SystemColor.control);
+		txtAlojamiento.setBorder(null);
+		txtAlojamiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtAlojamiento.setBounds(203, 82, 258, 26);
+		add(txtAlojamiento);
 		txtAlojamiento.setColumns(10);
 		
+		lblNHab = new JLabel("Nº Habitacion:");
+		lblNHab.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNHab.setBounds(49, 124, 134, 20);
+		add(lblNHab);
+		
 		txtNHab = new JTextField();
-		txtNHab.setBounds(124, 75, 112, 20);
-		panelDatosReserva.add(txtNHab);
+		txtNHab.setBackground(SystemColor.control);
+		txtNHab.setBorder(null);
+		txtNHab.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtNHab.setBounds(203, 122, 86, 26);
+		add(txtNHab);
 		txtNHab.setColumns(10);
 		
-		txtFecReserva = new JTextField();
-		txtFecReserva.setBounds(10, 158, 120, 26);
-		panelDatosReserva.add(txtFecReserva);
-		txtFecReserva.setColumns(10);
+		lblFecEntrada = new JLabel("Fecha de Entrada");
+		lblFecEntrada.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFecEntrada.setBounds(496, 84, 120, 26);
+		add(lblFecEntrada);
+		lblFecEntrada.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		txtFecEntrada = new JTextField();
-		txtFecEntrada.setBounds(140, 158, 120, 26);
-		panelDatosReserva.add(txtFecEntrada);
+		txtFecEntrada.setBackground(SystemColor.control);
+		txtFecEntrada.setBorder(null);
+		txtFecEntrada.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtFecEntrada.setBounds(632, 85, 120, 26);
+		add(txtFecEntrada);
 		txtFecEntrada.setColumns(10);
 		
+		lblFecSalida = new JLabel("Fecha de Salida");
+		lblFecSalida.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFecSalida.setBounds(496, 124, 120, 26);
+		add(lblFecSalida);
+		lblFecSalida.setHorizontalAlignment(SwingConstants.LEFT);
+		
 		txtFecSalida = new JTextField();
-		txtFecSalida.setBounds(272, 158, 120, 26);
-		panelDatosReserva.add(txtFecSalida);
+		txtFecSalida.setBackground(SystemColor.control);
+		txtFecSalida.setBorder(null);
+		txtFecSalida.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtFecSalida.setBounds(632, 125, 120, 26);
+		add(txtFecSalida);
 		txtFecSalida.setColumns(10);
 		
-		txtPrecio = new JTextField();
-		txtPrecio.setBounds(240, 218, 134, 27);
-		panelDatosReserva.add(txtPrecio);
-		txtPrecio.setColumns(10);
+		lblCodigo = new JLabel("Código promocional");
+		lblCodigo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCodigo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCodigo.setBounds(520, 314, 134, 23);
+		add(lblCodigo);
+		
+		JLabel lblPrecioBase = new JLabel("Precio Base");
+		lblPrecioBase.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPrecioBase.setBounds(49, 188, 105, 20);
+		add(lblPrecioBase);
+		
+		JLabel lblEquipamiento = new JLabel("Equipamiento");
+		lblEquipamiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEquipamiento.setBounds(49, 220, 105, 20);
+		add(lblEquipamiento);
+		
+		JLabel lblExtras = new JLabel("Extras");
+		lblExtras.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblExtras.setBounds(49, 253, 78, 20);
+		add(lblExtras);
+		
+		JLabel lblNoches = new JLabel("Noches");
+		lblNoches.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNoches.setBounds(496, 219, 46, 14);
+		add(lblNoches);
+		
+		JLabel lblTotal = new JLabel("Total");
+		lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTotal.setBounds(49, 295, 46, 14);
+		add(lblTotal);
+		
+		txtPrecioBase = new JTextField();
+		txtPrecioBase.setBorder(null);
+		txtPrecioBase.setBackground(SystemColor.control);
+		txtPrecioBase.setBounds(203, 187, 86, 26);
+		add(txtPrecioBase);
+		txtPrecioBase.setColumns(10);
+		
+		txtEquip = new JTextField();
+		txtEquip.setBackground(SystemColor.control);
+		txtEquip.setBorder(null);
+		txtEquip.setColumns(10);
+		txtEquip.setBounds(203, 219, 86, 26);
+		add(txtEquip);
+		
+		txtExtras = new JTextField();
+		txtExtras.setBackground(SystemColor.control);
+		txtExtras.setBorder(null);
+		txtExtras.setColumns(10);
+		txtExtras.setBounds(203, 252, 86, 26);
+		add(txtExtras);
+		
+		txtTotal = new JTextField();
+		txtTotal.setBackground(SystemColor.control);
+		txtTotal.setBorder(null);
+		txtTotal.setColumns(10);
+		txtTotal.setBounds(203, 291, 86, 26);
+		add(txtTotal);
+		
+		textField_1 = new JTextField();
+		textField_1.setBackground(SystemColor.control);
+		textField_1.setBorder(null);
+		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textField_1.setColumns(10);
+		textField_1.setBounds(632, 214, 41, 26);
+		add(textField_1);
+		
+		JLabel lblFestivos = new JLabel("Festivos");
+		lblFestivos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFestivos.setBounds(496, 263, 107, 20);
+		add(lblFestivos);
+		
+		textField_2 = new JTextField();
+		textField_2.setBackground(SystemColor.control);
+		textField_2.setBorder(null);
+		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textField_2.setColumns(10);
+		textField_2.setBounds(632, 261, 41, 26);
+		add(textField_2);
+		
+		JLabel lblTemporada = new JLabel("Temporada");
+		lblTemporada.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTemporada.setBounds(496, 177, 107, 20);
+		add(lblTemporada);
+		
+		txtTemporada = new JTextField();
+		txtTemporada.setBackground(SystemColor.control);
+		txtTemporada.setBorder(null);
+		txtTemporada.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtTemporada.setColumns(10);
+		txtTemporada.setBounds(632, 175, 120, 26);
+		add(txtTemporada);
+		
+		txtHmy = new JTextField();
+		txtHmy.setHorizontalAlignment(SwingConstants.CENTER);
+		txtHmy.setText("HM12Y");
+		txtHmy.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtHmy.setBounds(520, 339, 134, 26);
+		add(txtHmy);
+		txtHmy.setColumns(10);
 	}
 }
