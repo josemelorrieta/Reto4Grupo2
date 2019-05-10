@@ -12,6 +12,9 @@ public class Dormitorio extends Habitacion {
 		this.calcularPrecio();
 	}
 
+	public Dormitorio() {
+	}
+
 	public void setM2(int m2) {
 		this.m2 = m2;
 		calcularPrecio();

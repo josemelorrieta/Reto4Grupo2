@@ -70,7 +70,7 @@ public class TestMetodosBuscar {
 		Hotel hotel = new Hotel();
 		hotel.setId(1);
 		when(bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `hotel` WHERE `idHot` = " + hotel.getId() + ")")).thenReturn("[{\"calle\":\"Plaza Moyua\",\"codPostal\":40002,\"localidad\":\"Bilbao\"}]");
-		assertEquals(metBuscar.cargarDireccion(hotel).getLocalidad(), "Bilbao" );
+		assertEquals(metBuscar.cargarDireccion(hotel, "Hotel", "idApart").getLocalidad(), "Bilbao" );
 	}
 	
 	@Test
