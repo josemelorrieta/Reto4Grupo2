@@ -20,6 +20,9 @@ import com.toedter.calendar.JSpinnerDateEditor;
 
 import modelo.Sexo;
 import util.FuncionesGenerales;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+import java.awt.SystemColor;
 
 public class PanelRegistro extends JPanel {
 
@@ -158,6 +161,16 @@ public class PanelRegistro extends JPanel {
 		lblValiContraCoinciden = new JLabel("* Las contraseñas no coinciden");
 		lblValiContraCoinciden.setBounds(502, 323, 249, 20);
 		add(lblValiContraCoinciden);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("  Acepto las");
+		chckbxNewCheckBox.setBounds(274, 406, 81, 23);
+		add(chckbxNewCheckBox);
+		
+		JLabel btnAceptoLasCondiciones = new JLabel("Condiciones Legales");
+		btnAceptoLasCondiciones.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAceptoLasCondiciones.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAceptoLasCondiciones.setBounds(358, 406, 150, 23);
+		add(btnAceptoLasCondiciones);
 
 		JLabel[] arrayLabel = { lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni };
 		JLabel[] arrayLabelVali= {lblValiNombre,lblValiApellido,lblValiDni,lblValiContra,lblValiContraCoinciden};
