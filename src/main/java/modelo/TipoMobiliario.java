@@ -32,7 +32,7 @@ public enum TipoMobiliario {
 	
 	
 	public String toString() {
-		return super.toString().replaceAll("_", " ").toUpperCase();
+		return super.toString().replaceAll("_", " ").toLowerCase();
 	}
 	
 	public String nombreToString() {
