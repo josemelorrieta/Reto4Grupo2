@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -48,6 +50,19 @@ public class FuncionesGenerales {
 		}
 		return tipo;
 	}
+	
+	/**
+	 * Calcula la diferencia de tiempo entre dos fechas
+	 * @param fecha1
+	 * @param fecha2
+	 * @param unidadTiempo utilizar TimeUnit.DAYS etc, devuelve ese tiempo en long(milisegundos)
+	 * @return
+	 */
+	public static long diferenciaEntreFechas(Date fecha1, Date fecha2, TimeUnit unidadTiempo) {
+	    long diffInMillies = fecha1.getTime() - fecha2.getTime();
+	    return unidadTiempo.convert(diffInMillies,TimeUnit.MILLISECONDS);
+	}
+	
 	
 	/**
 	 * Concatena dos arrays

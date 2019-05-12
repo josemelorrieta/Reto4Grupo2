@@ -136,9 +136,9 @@ public class MetodosPanelPago {
 	public Reserva crearReserva(Modelo mod) {
 		Reserva reserva;
 		if (mod.aloj1 instanceof Hotel) {
-			reserva = new Reserva(mod.clienteRegis, ((Hotel) mod.aloj1).calcularPrecioBaseHotel(mod.mBuscar.buscarFechasFestivos(), mod.reserva), new Date(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.aloj1, mod.reserva.getDormitorioReservado());
+			reserva = new Reserva(mod.clienteRegis, ((Hotel) mod.aloj1).calcularPrecioBaseHotel(mod.festivos, mod.reserva), new Date(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.aloj1, mod.reserva.getDormitorioReservado());
 		} else
-			reserva = new Reserva(mod.clienteRegis, ((Casa) mod.aloj1).calcularPrecioBaseCasa(mod.mBuscar.buscarFechasFestivos(),mod.reserva), new Date(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.aloj1);
+			reserva = new Reserva(mod.clienteRegis, ((Casa) mod.aloj1).calcularPrecioBaseCasa(mod.festivos,mod.reserva), new Date(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.aloj1);
 		return reserva;
 	}
 

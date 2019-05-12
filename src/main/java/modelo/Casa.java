@@ -60,13 +60,15 @@ public class Casa extends Alojamiento {
 				}
 			}
 		}
-		for (Habitacion hab : habitaciones) {
-			if (!(hab instanceof Dormitorio)) {
-				precio += hab.getPrecio();
-			}
-		}
+
+		precio+=precioNoDormitorios();
+		precio+=precioDormitorios();
+		
 		return precio;
 	}
+	
+	
+	
 
 	public int numCamas() {
 		int cont = 0;

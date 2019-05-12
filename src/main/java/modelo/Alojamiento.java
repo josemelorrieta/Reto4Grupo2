@@ -12,6 +12,29 @@ public class Alojamiento {
 	protected double pvpTotal;
 	protected boolean disponible;
 	protected Habitacion[] habitaciones;
+	
+	
+	public double precioNoDormitorios() {
+		double precio=0;
+		for (Habitacion hab : this.habitaciones) {
+			if (!(hab instanceof Dormitorio)) {
+				precio += hab.getPrecio();
+			}
+		}
+		return precio;
+	}
+	
+	public double precioDormitorios() {
+		double precio=0;
+		for (Habitacion hab : this.habitaciones) {
+			if (hab instanceof Dormitorio) {
+				precio += hab.getPrecio();
+			}
+		}
+		return precio;
+	}
+	
+	
 
 	public int getId() {
 		return id;

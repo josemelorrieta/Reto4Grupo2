@@ -1,6 +1,5 @@
 package modelo;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -243,6 +242,9 @@ public class MetodosBuscar {
 	
 	public Calendar[] buscarFechasFestivos() {	
 		String json=bd.consultarToGson("SELECT `fecha` 'auxiliar' FROM `festivos`");
+		if(json.equals("")) {
+			return null;
+		}
 		gson = new Gson();
 		Global[] fechasBBDD = gson.fromJson(json, Global[].class);
 		Calendar[] fechas=new Calendar[fechasBBDD.length];

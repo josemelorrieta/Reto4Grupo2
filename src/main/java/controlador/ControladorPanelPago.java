@@ -47,9 +47,9 @@ public class ControladorPanelPago {
 	public void pasarPrecioAPanelPago(Modelo mod, VentanaPpal vis) {
 		Alojamiento aloj = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
 		if (aloj instanceof Hotel) {
-			vis.pCenter.pPago.textAPagar.setText(mod.mPago.doubleAString( ((Hotel)aloj).calcularPrecioBaseHotel(mod.mBuscar.buscarFechasFestivos(),mod.reserva)));
+			vis.pCenter.pPago.textAPagar.setText(mod.mPago.doubleAString( ((Hotel)aloj).calcularPrecioBaseHotel(mod.festivos,mod.reserva)));
 		} else {
-			vis.pCenter.pPago.textAPagar.setText(mod.mPago.doubleAString( ((Casa)aloj).calcularPrecioBaseCasa(mod.mBuscar.buscarFechasFestivos(),mod.reserva)));
+			vis.pCenter.pPago.textAPagar.setText(mod.mPago.doubleAString( ((Casa)aloj).calcularPrecioBaseCasa(mod.festivos,mod.reserva)));
 		}
 	}
 }

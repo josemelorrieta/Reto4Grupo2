@@ -49,6 +49,7 @@ public class Habitacion {
 	}
 
 	public double getPrecio() {
+		calcularPrecio();
 		return precio;
 	}
 }
