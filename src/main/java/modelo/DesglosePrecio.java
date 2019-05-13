@@ -63,16 +63,6 @@ public class DesglosePrecio {
 		this.total=(this.pBaseAloj+this.pNoDormitorio+this.pDormitorio+this.precioExtras)*this.noches+this.totalExtraFestivos;
 	}
 
-	public int NumFestivosEntreFechas(Calendar fecha1, Calendar fecha2, Calendar[] festivos) {
-		int num = 0;
-		for (Calendar festivo : festivos) {
-			if (festivo.before(fecha2) && festivo.after(fecha1)) {
-				num++;
-			}
-		}
-		return num;
-	}
-
 	public double getpBaseAloj() {
 		return pBaseAloj;
 	}
@@ -81,20 +71,20 @@ public class DesglosePrecio {
 		this.pBaseAloj = pBaseAloj;
 	}
 
-	public double getpHabNoDormitorio() {
+	public double getpNoDormitorio() {
 		return pNoDormitorio;
 	}
 
-	public void setpHabNoDormitorio(double pHabNoDormitorio) {
-		this.pNoDormitorio = pHabNoDormitorio;
+	public void setpNoDormitorio(double pNoDormitorio) {
+		this.pNoDormitorio = pNoDormitorio;
 	}
 
-	public double getCosteDormitorio() {
+	public double getpDormitorio() {
 		return pDormitorio;
 	}
 
-	public void setCosteDormitorio(double costeDormitorio) {
-		this.pDormitorio = costeDormitorio;
+	public void setpDormitorio(double pDormitorio) {
+		this.pDormitorio = pDormitorio;
 	}
 
 	public int getNoches() {
@@ -144,4 +134,15 @@ public class DesglosePrecio {
 	public void setTotal(double total) {
 		this.total = total;
 	}
+
+	public int NumFestivosEntreFechas(Calendar fecha1, Calendar fecha2, Calendar[] festivos) {
+		int num = 0;
+		for (Calendar festivo : festivos) {
+			if (festivo.before(fecha2) && festivo.after(fecha1)) {
+				num++;
+			}
+		}
+		return num;
+	}
+
 }
