@@ -45,10 +45,14 @@ public class MetodosBuscar {
 	 * 
 	 * @return array de localidades
 	 */
-	public Localidad[] buscarLocalidades() {
-		String aux = bd.consultarToGson("SELECT DISTINCT `localidad` FROM `direccion`");
+	public String[] buscarLocalidades() {
+		String aux = bd.consultarToGson("SELECT DISTINCT `localidad` 'auxiliar' FROM `direccion`");
 		if (aux != null) {
-			Localidad[] localidades = gson.fromJson(aux, Localidad[].class);
+			Global[] localidadesGlobal = gson.fromJson(aux, Global[].class);
+			String[] localidades=new String[localidadesGlobal.length];
+			for(int i=0;i<localidadesGlobal.length;i++) {
+				localidades[i]=(String) localidadesGlobal[i].getAuxiliar();
+			}
 			return localidades;
 		} else {
 			return null;

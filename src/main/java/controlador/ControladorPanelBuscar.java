@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 
 import modelo.Casa;
 import modelo.Hotel;
-import modelo.Localidad;
 import modelo.Modelo;
 import vista.VentanaPpal;
 import vista.panelCard.PanelResBusqueda;
@@ -46,10 +45,10 @@ public class ControladorPanelBuscar{
 	}
 
 	public void cargarLocalidades() {
-		Localidad[] localidades = mod.mBuscar.buscarLocalidades();
+		String[] localidades = mod.mBuscar.buscarLocalidades();
 		if(localidades!=null) {
-			for(Localidad localidad : localidades)
-				vis.pCenter.pBuscar.cbxBuscar.addItem(localidad.getLocalidad());
+			for(String localidad : localidades)
+				vis.pCenter.pBuscar.cbxBuscar.addItem(localidad);
 		} else {
 			JOptionPane.showMessageDialog(vis, "Error en la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
 			vis.dispose();
