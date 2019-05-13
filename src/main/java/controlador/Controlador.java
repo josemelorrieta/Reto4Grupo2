@@ -77,7 +77,7 @@ public class Controlador {
 					calcularDesglosePrecio();
 					mod.reserva.setDesglose(mod.desglosePrecio);
 					cResumenRes.actualizarResumenReserva(mod);
-					cPago.pasarPrecioAPanelPago(mod, vis);
+					vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
 						mod.reserva.setCliente(mod.clienteRegis);
