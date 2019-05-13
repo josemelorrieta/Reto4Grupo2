@@ -16,6 +16,7 @@ public class DesglosePrecio {
 	private int numFestivos;
 	private double totalExtraFestivos;
 	private String temporada;
+	private boolean codPromocional;
 
 	// wifi etc
 	private double precioExtras;
@@ -59,7 +60,9 @@ public class DesglosePrecio {
 
 		this.precioExtras = 0;
 
-		this.total = (this.pBaseAloj + this.pEquipamiento + this.precioExtras) * this.noches + this.totalExtraFestivos;
+		calcularTotal();
+		
+		this.setCodPromocional(false);
 	}
 
 	public int NumFestivosEntreFechas(Calendar fecha1, Calendar fecha2, Calendar[] festivos) {
@@ -84,7 +87,7 @@ public class DesglosePrecio {
 		return pEquipamiento;
 	}
 
-	public void setpEquipamiento(double pNoDormitorio) {
+	public void setpEquipamiento(double pEquipamiento) {
 		this.pEquipamiento = pEquipamiento;
 	}
 
@@ -142,6 +145,23 @@ public class DesglosePrecio {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public boolean isCodPromocional() {
+		return codPromocional;
+	}
+
+	public void setCodPromocional(boolean codPromocional) {
+		this.codPromocional = codPromocional;
+		calcularTotal();
+	}
+	
+	private void calcularTotal() {
+		if (codPromocional) {
+			this.total = ((this.pBaseAloj + this.pEquipamiento + this.precioExtras) * this.noches + this.totalExtraFestivos) * 0.8;
+		} else {
+			this.total = ((this.pBaseAloj + this.pEquipamiento + this.precioExtras) * this.noches + this.totalExtraFestivos);
+		}
 	}
 
 }

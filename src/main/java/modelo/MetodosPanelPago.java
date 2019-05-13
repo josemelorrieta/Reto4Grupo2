@@ -23,7 +23,7 @@ import vista.panelCard.PanelPago;
 public class MetodosPanelPago {
 
 	private DecimalFormatSymbols simbolos = new DecimalFormatSymbols(Locale.getDefault());
-	private DecimalFormat dosDec;
+	public DecimalFormat dosDec;
 	private ConsultaBD bd;
 
 	public MetodosPanelPago(ConsultaBD bd) {

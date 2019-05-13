@@ -10,6 +10,7 @@ public class Reserva {
 	private Date fechaSalida;
 	private Alojamiento alojReservado;
 	private Dormitorio dormitorioReservado;
+	private String codPromocional; 
 	
 	public Reserva() {
 		// Constructor por defecto
@@ -92,6 +93,12 @@ public class Reserva {
 	public Object[] toObjectArray() {
 		Object[] objeto = {0, this.cliente.getDni(), this.fechaReserva, this.fechaEntrada, this.fechaSalida, this.precio};
 		return objeto;
+	}
+	public String getCodPromocional() {
+		return codPromocional;
+	}
+	public void setCodPromocional(String codPromocional) {
+		this.codPromocional = codPromocional;
 	}
 	
 	

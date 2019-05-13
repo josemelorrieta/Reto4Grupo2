@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import modelo.Alojamiento;
-import modelo.Casa;
-import modelo.Hotel;
 import modelo.Modelo;
 import vista.VentanaPpal;
 
@@ -15,11 +12,9 @@ public class ControladorPanelPago {
 
 	private VentanaPpal vis;
 	private Modelo mod;
-	private Controlador controlador;
 
-	public ControladorPanelPago(VentanaPpal vis, Controlador cont, Modelo mod) {
+	public ControladorPanelPago(VentanaPpal vis, Modelo mod) {
 		this.vis = vis;
-		this.controlador = cont;
 		this.mod = mod;
 		initListeners();
 	}
@@ -45,11 +40,6 @@ public class ControladorPanelPago {
 	 * @param vis
 	 */
 	public void pasarPrecioAPanelPago(Modelo mod, VentanaPpal vis) {
-		Alojamiento aloj = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
-		if (aloj instanceof Hotel) {
-			vis.pCenter.pPago.textAPagar.setText(mod.mPago.doubleAString( ((Hotel)aloj).calcularPrecioBaseHotel(mod.festivos,mod.reserva)));
-		} else {
-			vis.pCenter.pPago.textAPagar.setText(mod.mPago.doubleAString( ((Casa)aloj).calcularPrecioBaseCasa(mod.festivos,mod.reserva)));
-		}
+		vis.pCenter.pPago.textAPagar.setText(String.valueOf(mod.mPago.dosDec.format(mod.desglosePrecio.getTotal())));
 	}
 }

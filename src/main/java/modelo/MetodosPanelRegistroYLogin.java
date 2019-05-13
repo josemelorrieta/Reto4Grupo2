@@ -348,10 +348,15 @@ public class MetodosPanelRegistroYLogin {
 			Gson gson = new Gson();
 			String json;
 			String tabla = FuncionesGenerales.tipoAloj(aloj);
+			if (tabla.equalsIgnoreCase("hab"))
+				tabla = "Hot";
 			if (dni != null && aloj != null) {
-				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `dni` ='" + encriptar(dni.toCharArray()) + "' AND `id" + tabla + "` ='" + aloj.getId() + "'");
+				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `dni` ='" + dni + "' AND `id" + tabla + "` ='" + aloj.getId() + "'");
 				Global[] codigoBD = gson.fromJson(json, Global[].class);
-				if (((String) codigoBD[0].getAuxiliar()).equalsIgnoreCase(codigo)) {
+				if (json.equals("")) {
+					return false;
+				}
+				else if (((String) codigoBD[0].getAuxiliar()).equals(codigo)) {
 					return true;
 				} else
 					return false;

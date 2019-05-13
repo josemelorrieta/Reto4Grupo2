@@ -32,12 +32,12 @@ public class Controlador {
 
 	private void addControladores() {
 		cBuscar = new ControladorPanelBuscar(vis, this, mod);
-		cPago = new ControladorPanelPago(vis, this, mod);
+		cPago = new ControladorPanelPago(vis, mod);
 		cResBusqueda = new ControladorPanelResBusqueda(vis, this);
 		cRegistro = new ControladorPanelRegistro(vis, this, mod);
 		cLogin = new ControladorPanelLogin(vis, this, mod);
 		cCondiciones = new ControladorPanelCondiciones(vis);
-		cResumenRes = new ControladorPanelResumenReserva(vis);
+		cResumenRes = new ControladorPanelResumenReserva(vis, mod);
 	}
 
 	private void initListeners() {
@@ -69,13 +69,12 @@ public class Controlador {
 					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.nextPanel();
 						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
-						mod.reserva.setPrecio(mod.desglosePrecio.getTotal());
-						cPago.pasarPrecioAPanelPago(mod, vis);
 					}
 					break;
 				case 4:
 					calcularDesglosePrecio();
 					cResumenRes.actualizarResumenReserva(mod);
+					mod.reserva.setPrecio(mod.desglosePrecio.getTotal());
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
 						vis.pCenter.changePanel("6");
@@ -97,6 +96,7 @@ public class Controlador {
 					}
 					break;
 				case 6:
+					cPago.pasarPrecioAPanelPago(mod, vis);
 					vis.pCenter.nextPanel();
 					break;
 				case 7:
