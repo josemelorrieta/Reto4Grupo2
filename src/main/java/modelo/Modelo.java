@@ -20,6 +20,7 @@ public class Modelo {
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;
 	private boolean pagoExitoso=false;
+	public DesglosePrecio desglosePrecio;
 	
 	public Modelo() {
 		aloj1 = new Alojamiento();
