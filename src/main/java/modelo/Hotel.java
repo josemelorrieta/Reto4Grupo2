@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class Hotel extends Alojamiento {
 	private int numEstrellas;
@@ -47,7 +46,7 @@ public class Hotel extends Alojamiento {
 				}
 			}
 		}
-		precio += res.getDormitorioReservado().getPrecio();
+		precio += res.getDormitorioReservado().calcularPrecio(res.getAlojReservado().getPvpM2());
 
 		return precio;
 	}

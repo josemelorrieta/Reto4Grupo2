@@ -67,7 +67,7 @@ public class MetodosBuscar {
 	}
 
 	private void cargarHoteles(String localidad) {
-		String json = bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
+		String json = bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest',`pvpM2`, `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.hotelesBusqueda = gson.fromJson(json, Hotel[].class);
 		for (Hotel hotel : mod.hotelesBusqueda) {
 			cargarDireccion(hotel,"hotel","idHot");
@@ -77,7 +77,7 @@ public class MetodosBuscar {
 	}
 
 	private void cargarCasas(String localidad) {
-		String json = bd.consultarToGson("SELECT `idCasa` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `casa` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
+		String json = bd.consultarToGson("SELECT `idCasa` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest',`pvpM2`, `imagen` FROM `casa` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.casasBusqueda = gson.fromJson(json, Casa[].class);
 		for (Casa casa : mod.casasBusqueda) {
 			cargarDireccion(casa,"casa","idCasa");
@@ -87,7 +87,7 @@ public class MetodosBuscar {
 	}
 
 	private void cargarApartamentos(String localidad) {
-		String json = bd.consultarToGson("SELECT `idApart` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest',`piso`, `imagen` FROM `apartamento` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
+		String json = bd.consultarToGson("SELECT `idApart` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest',`pvpM2`,`piso`, `imagen` FROM `apartamento` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.apartBusqueda = gson.fromJson(json, Apartamento[].class);
 		for (Apartamento apart : mod.apartBusqueda) {
 			cargarDireccion(apart,"Apartamento","idApart");

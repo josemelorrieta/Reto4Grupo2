@@ -44,7 +44,7 @@ public class DesglosePrecio {
 		}
 
 		if (aloj instanceof Hotel && dormHotel != null) {
-			this.pEquipamiento = dormHotel.getPrecio();
+			this.pEquipamiento = dormHotel.calcularPrecio(aloj.pvpM2);
 		} else if (aloj instanceof Casa || aloj instanceof Apartamento) {
 			this.pEquipamiento = aloj.precioDormitorios() + aloj.precioNoDormitorios();
 		} else {
@@ -62,6 +62,16 @@ public class DesglosePrecio {
 		this.total = (this.pBaseAloj + this.pEquipamiento + this.precioExtras) * this.noches + this.totalExtraFestivos;
 	}
 
+	public int NumFestivosEntreFechas(Calendar fecha1, Calendar fecha2, Calendar[] festivos) {
+		int num = 0;
+		for (Calendar festivo : festivos) {
+			if (festivo.before(fecha2) && festivo.after(fecha1)) {
+				num++;
+			}
+		}
+		return num;
+	}
+
 	public double getpBaseAloj() {
 		return pBaseAloj;
 	}
@@ -74,7 +84,7 @@ public class DesglosePrecio {
 		return pEquipamiento;
 	}
 
-	public void setpEquipamiento(double pNoDormitorio) {
+	public void setpEquipamiento(double pEquipamiento) {
 		this.pEquipamiento = pEquipamiento;
 	}
 
@@ -132,16 +142,6 @@ public class DesglosePrecio {
 
 	public void setTotal(double total) {
 		this.total = total;
-	}
-
-	public int NumFestivosEntreFechas(Calendar fecha1, Calendar fecha2, Calendar[] festivos) {
-		int num = 0;
-		for (Calendar festivo : festivos) {
-			if (festivo.before(fecha2) && festivo.after(fecha1)) {
-				num++;
-			}
-		}
-		return num;
 	}
 
 }
