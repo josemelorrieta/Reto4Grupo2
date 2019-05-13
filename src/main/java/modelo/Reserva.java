@@ -4,29 +4,31 @@ import java.util.Date;
 
 public class Reserva {
 	private Cliente cliente;
-	private double precio;
+	private DesglosePrecio desglose;
 	private Date fechaReserva;
 	private Date fechaEntrada;
 	private Date fechaSalida;
 	private Alojamiento alojReservado;
 	private Dormitorio dormitorioReservado;
+	private String codPromocional; 
 	
 	public Reserva() {
 		// Constructor por defecto
 	}
-	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado) {
+
+	public Reserva(Cliente cliente, DesglosePrecio desglose, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado) {
 		this.cliente = cliente;
-		this.precio = precio;
+		this.desglose = desglose;
 		this.fechaReserva = fechaReserva;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.alojReservado = alojReservado;
-		this.dormitorioReservado=null;
+		this.dormitorioReservado = null;
 	}
 
-	public Reserva(Cliente cliente, double precio, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado, Dormitorio dormitorioReservado) {
+	public Reserva(Cliente cliente, DesglosePrecio desglose, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado, Dormitorio dormitorioReservado) {
 		this.cliente = cliente;
-		this.precio = precio;
+		this.desglose = desglose;
 		this.fechaReserva = fechaReserva;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
@@ -42,12 +44,12 @@ public class Reserva {
 		this.cliente = cliente;
 	}
 
-	public double getPrecio() {
-		return precio;
+	public DesglosePrecio getDesglose() {
+		return desglose;
 	}
 
-	public void setPrecio(double precio) {
-		this.precio = precio;
+	public void setDesglose(DesglosePrecio desglose) {
+		this.desglose = desglose;
 	}
 
 	public Date getFechaReserva() {
@@ -85,16 +87,17 @@ public class Reserva {
 	public Dormitorio getDormitorioReservado() {
 		return dormitorioReservado;
 	}
+
 	public void setDormitorioReservado(Dormitorio dormitorioReservado) {
 		this.dormitorioReservado = dormitorioReservado;
 	}
-	
-	public Object[] toObjectArray() {
-		Object[] objeto = {0, this.cliente.getDni(), this.fechaReserva, this.fechaEntrada, this.fechaSalida, this.precio};
-		return objeto;
-	}
-	
-	
-}
 
+	public String getCodPromocional() {
+		return codPromocional;
+	}
+	public void setCodPromocional(String codPromocional) {
+		this.codPromocional = codPromocional;
+	}
+		
+}
 

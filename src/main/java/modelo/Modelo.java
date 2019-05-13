@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import BaseDatos.ConsultaBD;
@@ -7,24 +8,23 @@ import BaseDatos.ConsultaBD;
 public class Modelo {
 	
 	public ConsultaBD bd;
-	
-	public Alojamiento aloj1;
 	public Reserva reserva;
 	public Cliente clienteRegis;
 	public Hotel[] hotelesBusqueda;
 	public Casa[] casasBusqueda;
 	public Apartamento[] apartBusqueda;
-	public Date[] festivos;
+	public Calendar[] festivos;
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;
 	private boolean pagoExitoso=false;
+	public DesglosePrecio desglosePrecio;
 	
 	public Modelo() {
-		aloj1 = new Alojamiento();
 		reserva = new Reserva();
 		bd = new ConsultaBD();
 		addMetodos();
+		festivos=mBuscar.buscarFechasFestivos();
 	}
 	
 	public void addMetodos() {

@@ -68,7 +68,7 @@ public class Cliente {
 	}
 	
 	public Object[] toArray() {
-		Object[] objetos= {dni,nombre,apellidos,fechaNac,sexo.toString(),password};
+		Object[] objetos= {dni,nombre,apellidos,fechaNac, new Date(),sexo.toString(),password};
 		return objetos;
 	}
 

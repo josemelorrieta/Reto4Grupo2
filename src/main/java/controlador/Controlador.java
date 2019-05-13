@@ -3,6 +3,9 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import modelo.DesglosePrecio;
 import modelo.Dormitorio;
 import modelo.Hotel;
 import modelo.Modelo;
@@ -17,6 +20,9 @@ public class Controlador {
 	private ControladorPanelResBusqueda cResBusqueda;
 	private ControladorPanelRegistro cRegistro;
 	private ControladorPanelLogin cLogin;
+	private ControladorPanelCondiciones cCondiciones;
+	private ControladorPanelResumenPago cResumenPago;
+	private ControladorPanelResumenReserva cResumenRes;
 
 	public Controlador(VentanaPpal vista, Modelo modelo) {
 		this.vis = vista;
@@ -27,10 +33,13 @@ public class Controlador {
 
 	private void addControladores() {
 		cBuscar = new ControladorPanelBuscar(vis, this, mod);
-		cPago = new ControladorPanelPago(vis, this, mod);
+		cPago = new ControladorPanelPago(vis, mod);
 		cResBusqueda = new ControladorPanelResBusqueda(vis, this);
 		cRegistro = new ControladorPanelRegistro(vis, this, mod);
 		cLogin = new ControladorPanelLogin(vis, this, mod);
+		cCondiciones = new ControladorPanelCondiciones(vis);
+		cResumenRes = new ControladorPanelResumenReserva(vis, mod);
+		cResumenPago = new ControladorPanelResumenPago(mod, vis.pCenter.pResumenPago);
 	}
 
 	private void initListeners() {
@@ -48,27 +57,29 @@ public class Controlador {
 				case 2:
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty() && vis.pCenter.pResBusq.resultBusq.getSelectedValue().isDisponible()) {
 						
-						mod.aloj1 = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
-						if(mod.aloj1 instanceof Hotel) {
-							vis.pCenter.pSelHab.setResultHab((Dormitorio[]) ((Hotel) mod.aloj1).getHabitaciones());
-							vis.pCenter.changePanel("3");
+						mod.reserva.setAlojReservado(vis.pCenter.pResBusq.resultBusq.getSelectedValue());
+						if(mod.reserva.getAlojReservado() instanceof Hotel) {
+							vis.pCenter.pSelHab.setResultHab((Dormitorio[]) ((Hotel) mod.reserva.getAlojReservado()).getHabitaciones());
+							vis.pCenter.nextPanel();
 						}else {
 							vis.pCenter.changePanel("4");
-							cPago.pasarPrecioAPanelPago(mod, vis);
 						}
 					}
 					break;
 				case 3:	
 					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
-						vis.pCenter.changePanel("4");
+						vis.pCenter.nextPanel();
 						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
-						cPago.pasarPrecioAPanelPago(mod, vis);
 					}
-					
 					break;
 				case 4:
+					//DESGLOSES Y DATOS DEL PAGO
+					calcularDesglosePrecio();
+					mod.reserva.setDesglose(mod.desglosePrecio);
+					cResumenRes.actualizarResumenReserva(mod);
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
+						mod.reserva.setCliente(mod.clienteRegis);
 						vis.pCenter.changePanel("6");
 					}
 					break;
@@ -76,22 +87,37 @@ public class Controlador {
 					if (mod.mRegiLog.comprobarDatos()) {
 						mod.clienteRegis = mod.mRegiLog.registro(vis.pCenter.pRegistro);
 						if (mod.clienteRegis != null) {
-							mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente");
-							vis.pCenter.changePanel("6");
-							mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+							if(mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente")) {
+								vis.pCenter.nextPanel();
+								mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
+								mod.reserva.setCliente(mod.clienteRegis);
+							} else {
+								JOptionPane.showMessageDialog(vis.pCenter, "Error al guardar el cliente en la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
+							}
 						}
+					} else {
+						JOptionPane.showMessageDialog(vis.pCenter, "Debe rellenar todos los campos", "¡Atención!", JOptionPane.WARNING_MESSAGE);
 					}
 					break;
 				case 6:
+					vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
+					cResumenPago.insertarDatos();
+					vis.pCenter.nextPanel();
+					break;
+				case 7:
 					if (mod.isPagoExitoso()) {
-						vis.pCenter.changePanel("1");
+						vis.pCenter.nextPanel();
 						mod.mPago.limpiar(vis.pCenter.pPago);
 						mod.mRegiLog.limpiar(vis.pCenter.pLogin);
 						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 						mod.setPagoExitoso(false);
 						mod.mPago.imprimirBillete(mod.reserva);
-						vis.pBotones.setBotonesVisible(false);
+						mod.mPago.guardarReserva(mod.reserva);
 					}
+					break;
+				case 8:
+					vis.pBotones.setBotonesVisible(false);
+					vis.pCenter.firstPanel();
 					break;
 				}
 				break;
@@ -106,7 +132,7 @@ public class Controlador {
 					//mod.mRegiLog.limpiar(vis.pCenter.pLogin);
 					break;
 				case 4:
-					if(!(mod.aloj1 instanceof Hotel)) {
+					if(!(mod.reserva.getAlojReservado() instanceof Hotel)) {
 						vis.pCenter.changePanel("2");
 					}else {
 						vis.pCenter.prevPanel();
@@ -114,14 +140,24 @@ public class Controlador {
 					}
 					break;
 				case 5:
-					vis.pCenter.changePanel("3");
-					//mod.mPago.limpiar(vis.pCenter.pPago);
+					vis.pCenter.prevPanel();
 					break;
 				case 6:
 					vis.pCenter.changePanel("4");
+					//mod.mPago.limpiar(vis.pCenter.pPago);
+					break;
+				case 7:
+					vis.pCenter.prevPanel();
 					}
 				break;
 			}
 		}
+	}
+	
+	public void calcularDesglosePrecio() {
+		if (mod.reserva.getAlojReservado() instanceof Hotel )
+			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.reserva.getDormitorioReservado(), mod.festivos);
+		else
+			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), null, mod.festivos);
 	}
 }

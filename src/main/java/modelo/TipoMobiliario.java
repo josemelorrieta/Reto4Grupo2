@@ -30,11 +30,6 @@ public enum TipoMobiliario {
 		return (double) precio[0].getAuxiliar();
 	}
 	
-	
-	public String toString() {
-		return super.toString().replaceAll("_", " ").toUpperCase();
-	}
-	
 	public String nombreToString() {
 		String aux= super.toString();
 		aux=aux.substring(0, 1).toUpperCase() + aux.substring(1);

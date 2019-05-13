@@ -5,25 +5,15 @@ public class Dormitorio extends Habitacion {
 	private Mobiliario[] mobiliario;
 	private boolean disponible;
 
-	public Dormitorio(int idHab, int m2,Mobiliario[] mobi) {
-		super(idHab, m2, TipoHabitacion.DORMITORIO);
-		this.mobiliario = mobi;
-		this.disponible=true;
-		this.calcularPrecio();
+	public Dormitorio() {
 	}
 
-	public void setM2(int m2) {
-		this.m2 = m2;
-		calcularPrecio();
-	}
-	
 	public Mobiliario[] getMobiliario() {
 		return mobiliario;
 	}
 
 	public void setMobiliario(Mobiliario[] mobiliario) {
 		this.mobiliario = mobiliario;
-		calcularPrecio();
 	}
 
 	public boolean isDisponible() {
@@ -34,10 +24,11 @@ public class Dormitorio extends Habitacion {
 		this.disponible = disponible;
 	}
 
-	protected void calcularPrecio() {
-		super.calcularPrecio();
+	protected double calcularPrecio(double precioM2) {
+		super.calcularPrecio(precioM2);
 		for (Mobiliario mob : this.mobiliario) {
 			this.precio += mob.getPrecio();
 		}
+		return this.precio;
 	}
 }

@@ -23,7 +23,7 @@ import vista.panelCard.PanelPago;
 public class MetodosPanelPago {
 
 	private DecimalFormatSymbols simbolos = new DecimalFormatSymbols(Locale.getDefault());
-	private DecimalFormat dosDec;
+	public DecimalFormat dosDec;
 	private ConsultaBD bd;
 
 	public MetodosPanelPago(ConsultaBD bd) {
@@ -129,20 +129,6 @@ public class MetodosPanelPago {
 	}
 
 	/**
-	 * Crea la reserva en el modelo
-	 * 
-	 * @param mod modelo del programa
-	 */
-	public Reserva crearReserva(Modelo mod) {
-		Reserva reserva;
-		if (mod.aloj1 instanceof Hotel) {
-			reserva = new Reserva(mod.clienteRegis, ((Hotel) mod.aloj1).calcularPrecioBaseHotel(mod.mBuscar.buscarFechasFestivos(), mod.reserva), new Date(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.aloj1, mod.reserva.getDormitorioReservado());
-		} else
-			reserva = new Reserva(mod.clienteRegis, ((Casa) mod.aloj1).calcularPrecioBaseCasa(mod.mBuscar.buscarFechasFestivos(),mod.reserva), new Date(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.aloj1);
-		return reserva;
-	}
-
-	/**
 	 * Metodo para sumar dinero con un boton
 	 * 
 	 * @param panel donde se encuentra los textfielda editar y los botones
@@ -159,7 +145,6 @@ public class MetodosPanelPago {
 			panel.textVueltas.setText(cambios);
 			ArrayList<String> arrayCambios = Cambios(cambios);
 			mod.setPagoExitoso(true);
-			mod.reserva = mod.mPago.crearReserva(mod);
 			for (String val : arrayCambios) {
 				panel.modeloCambio.addElement(val);
 			}
@@ -224,7 +209,7 @@ public class MetodosPanelPago {
 			writer.println("Fecha de la reserva: " + formFecha.format(res.getFechaReserva()));
 			writer.println("Fecha de entrada   : " + formFecha.format(res.getFechaEntrada()));
 			writer.println("Fecha de salida    : " + formFecha.format(res.getFechaSalida()));
-			writer.println("\nPrecio total: " + doubleAString(res.getPrecio()));
+			writer.println("\nPrecio total: " + doubleAString(res.getDesglose().getTotal()));
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -246,7 +231,7 @@ public class MetodosPanelPago {
 		String fechaRsv = sdf.format(reserva.getFechaReserva());
 		String fechaIn = sdf.format(reserva.getFechaEntrada());
 		String fechaOut = sdf.format(reserva.getFechaSalida());
-		double precio = reserva.getPrecio();
+		double precio = reserva.getDesglose().getTotal();
 
 		int id = 0;
 		Alojamiento alojamiento = reserva.getAlojReservado();
@@ -309,5 +294,4 @@ public class MetodosPanelPago {
 			panel.arrayBtn[i].setEnabled(estado);
 		}
 	}
-
 }

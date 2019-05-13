@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.toedter.calendar.JDateChooser;
 
 import BaseDatos.ConsultaBD;
+import util.FuncionesGenerales;
 import vista.panelCard.PanelLogin;
 import vista.panelCard.PanelRegistro;
 
@@ -32,7 +34,7 @@ public class MetodosPanelRegistroYLogin {
 	 * el cliente, se usa para no volver a comprobar los datos mediante sus metodos
 	 * designados
 	 */
-	public boolean[] comprobacionRegistro = { false, false, false, false, false };
+	public boolean[] comprobacionRegistro = { false, false, false, false, false, false };
 	public boolean comprobacionLogin = false;
 
 	public MetodosPanelRegistroYLogin(Modelo mod, ConsultaBD bd) {
@@ -97,6 +99,8 @@ public class MetodosPanelRegistroYLogin {
 		panel.lblValiDni.setVisible(false);
 		panel.lblValiContra.setVisible(false);
 		panel.lblValiContraCoinciden.setVisible(false);
+		
+		panel.chckbxCondiciones.setSelected(false);
 	}
 
 	/**
@@ -164,7 +168,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @return objeto cliente
 	 */
 	public Cliente crearCliente(PanelRegistro panel) {
-		return new Cliente(panel.txtDni.getText(), panel.txtNombre.getText(), panel.txtApellido.getText(), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), encriptarContra(panel.pwdContra.getPassword()));
+		return new Cliente(encriptar(panel.txtDni.getText().toCharArray()), encriptar(panel.txtNombre.getText().toCharArray()), encriptar(panel.txtApellido.getText().toCharArray()), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), encriptar(panel.pwdContra.getPassword()));
 	}
 
 	/**
@@ -175,8 +179,8 @@ public class MetodosPanelRegistroYLogin {
 	 *         contraseña es correcta o si no hay ningun usuario con ese dni
 	 */
 	public Cliente login(PanelLogin panel) {
-		String dni = panel.txtDni.getText();
-		String contraIntroducida = encriptarContra(panel.pwdContra.getPassword());
+		String dni = encriptar(panel.txtDni.getText().toCharArray());
+		String contraIntroducida = encriptar(panel.pwdContra.getPassword());
 
 		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
 		gson = new GsonBuilder();
@@ -190,14 +194,13 @@ public class MetodosPanelRegistroYLogin {
 				JOptionPane.showMessageDialog(null, "Contraseña incorrecta, vuelva a intertarlo", null, JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
-
 		}
 		JOptionPane.showMessageDialog(null, "No hay ningun usuario con ese nombre, porfavor registrese", null, JOptionPane.ERROR_MESSAGE);
 		return null;
 	}
 
 	public Cliente registro(PanelRegistro panel) {
-		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + panel.txtDni.getText() + "'");
+		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + encriptar(panel.txtDni.getText().toCharArray()) + "'");
 		if (json.equals("")) {
 			return crearCliente(panel);
 		} else {
@@ -207,15 +210,15 @@ public class MetodosPanelRegistroYLogin {
 	}
 
 	/**
-	 * Encriptacion de contrasenia en MD5
+	 * Encriptacion de datos en MD5
 	 * 
-	 * @param contrasenia contrasenia que se quiere encriptar
-	 * @return string de la contrasenia encriptada
+	 * @param cadena Cadena de datos que se quiere encriptar
+	 * @return String de los datos encriptados
 	 */
-	public String encriptarContra(char[] contrasenia) {
+	public String encriptar(char[] cadena) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
-			String contraEnc = new String(contrasenia);
+			String contraEnc = new String(cadena);
 			byte[] hashInBytes = md.digest(contraEnc.getBytes(StandardCharsets.UTF_8));
 
 			StringBuilder sb = new StringBuilder();
@@ -264,7 +267,7 @@ public class MetodosPanelRegistroYLogin {
 		}
 		aviso.setVisible(false);
 		pass1.setBackground(new JPasswordField().getBackground());
-		pass1.setBackground(new JPasswordField().getBackground());
+		pass2.setBackground(new JPasswordField().getBackground());
 		return true;
 	}
 
@@ -277,8 +280,7 @@ public class MetodosPanelRegistroYLogin {
 	 */
 	public boolean seguridadContrasenia(JPasswordField pass, JLabel aviso) {
 		// Regex para validar contraseña, por orden: Una letra minuscula, una letra
-		// mayuscula, un numero y minimo 8 caracteres de longitud
-
+		// mayuscula, un numero y minimo 8 caracteres de longitud	
 		Pattern p = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");
 		String contraString = new String(pass.getPassword());
 		Matcher m = p.matcher(contraString);
@@ -319,7 +321,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @return
 	 */
 	public boolean validarSoloLetras(JTextField campoTexto, JLabel aviso) {
-		if (!(campoTexto.getText().matches("^[a-zA-Z]+$"))) {
+		if (!(campoTexto.getText().matches("^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+$"))) {
 			aviso.setVisible(true);
 			campoTexto.setBackground(new Color(240, 128, 128));
 			return false;
@@ -328,5 +330,95 @@ public class MetodosPanelRegistroYLogin {
 			campoTexto.setBackground(new JTextField().getBackground());
 			return true;
 		}
+	}
+
+	/**
+	 * Comprueba si el codigo introducido por parametro existe en la bbdd y si
+	 * corresponde al usuario y alojamiento seleccionado, si dni y alojamiento son
+	 * null, comprueba que ese codigo exista en la base de datos
+	 * 
+	 * @param codigo codigo promocional
+	 * @param dni    dni del usuario (sin encriptar)
+	 * @param aloj   (objeto hijo de aloj)
+	 * @return
+	 */
+	public boolean comprobarCodigoPromocional(String codigo, String dni, Alojamiento aloj) {
+		if (codigo.length() == 5) {
+			Gson gson = new Gson();
+			String json;
+			String tabla = FuncionesGenerales.tipoAloj(aloj);
+			if (tabla.equalsIgnoreCase("hab"))
+				tabla = "Hot";
+			if (dni != null && aloj != null) {
+				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `dni` ='" + dni + "' AND `id" + tabla + "` ='" + aloj.getId() + "'");
+				Global[] codigoBD = gson.fromJson(json, Global[].class);
+				if (json.equals("")) {
+					return false;
+				}
+				else if (((String) codigoBD[0].getAuxiliar()).equals(codigo)) {
+					return true;
+				} else
+					return false;
+			} else {
+				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `idCod` ='" + codigo + "'");
+				if (json.equals(""))
+					return true;
+				else
+					return false;
+			}
+		} else
+			return false;
+	}
+
+	/**
+	 * Genera un char array de la longitud especificada
+	 * 
+	 * @param longitud longitud del array a crear
+	 * @return el array con valores aleatorios
+	 */
+	public char[] generarCodigoAleatorio(int longitud) {
+		final String stringValores = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		final char[] charArrValores = stringValores.toCharArray();
+
+		char[] stringAleatorio = new char[longitud];
+		for (int i = 0; i < stringAleatorio.length; i++) {
+			int random = (int) (Math.random() * charArrValores.length);
+			stringAleatorio[i] = charArrValores[random];
+		}
+		return stringAleatorio;
+	}
+
+	/**
+	 * Genera e inserta en la bbdd un codigo promocional no repetido
+	 * 
+	 * @param aloj
+	 * @param dni
+	 * @return
+	 */
+	public String generarCodigoPromocional(Alojamiento aloj, String dni) {
+		while (true) {
+			String codigoProm = generarCodigoAleatorio(5).toString();
+			String tipoAloj = FuncionesGenerales.tipoAloj(aloj);
+
+			if (comprobarCodigoPromocional(codigoProm, null, null)) {
+				Object[] preparedItems = { codigoProm, aloj.getId(), dni };
+				bd.insertGenerico(preparedItems, "cod" + tipoAloj.toLowerCase());
+				return codigoProm;
+			}
+		}
+	}
+
+	/**
+	 * Borra el codigo especificado de la base de datos del tipo de alojamiento que
+	 * le llega por parametro
+	 * 
+	 * @param codigo codigo promocional
+	 * @param aloj   de que tipo de alojamiento debe borrar la tabla
+	 * @return true en caso de delete ejecutado correctamente
+	 */
+	public boolean borrarCodigoPromocional(String codigo, Alojamiento aloj) {
+		String tipo = FuncionesGenerales.tipoAloj(aloj);
+		String[] condiciones = { "`idCod` = '" + codigo + "'" };
+		return bd.deleteGenerico("cod" + tipo.toLowerCase(), condiciones);
 	}
 }

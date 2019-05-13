@@ -1,11 +1,10 @@
 package testModelo;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import modelo.Direccion;
-import modelo.Dormitorio;
 import modelo.Hotel;
 
 public class TestHotel {
@@ -16,8 +15,6 @@ public class TestHotel {
 	private Direccion direccionTest = new Direccion();
 	private double doubleTest = 20.0;
 	private boolean boolTest = true;
-	private Dormitorio[] dormitoriosTest = {new Dormitorio(),new Dormitorio(),new Dormitorio()};
-	private boolean[] boolArrayTest = {false,true,false};
 		
 	@Test
 	public void testConstructorVacio() {
@@ -32,20 +29,7 @@ public class TestHotel {
 		assertEquals(hotelTest.isDisponible(), true);
 	}
 
-	@Test
-	public void testConstructor() {
-		hotelTest=new Hotel(intTest, stringTest, direccionTest,doubleTest,doubleTest,doubleTest,stringTest,boolTest,dormitoriosTest,intTest);
-		assertEquals(hotelTest.getId(), intTest);
-		assertEquals(hotelTest.getNombre(), stringTest);
-		assertEquals(hotelTest.getDireccion(), direccionTest);
-		assertEquals(hotelTest.getPrecioTAlta(), doubleTest, 0.00001);
-		assertEquals(hotelTest.getPrecioTBaja(), doubleTest, 0.00001);
-		assertEquals(hotelTest.getPrecioTFest(), doubleTest, 0.00001);
-		assertEquals(hotelTest.getImagen(), stringTest);
-		assertEquals(hotelTest.isDisponible(), boolTest);
-		assertArrayEquals(hotelTest.getDormitorios(), dormitoriosTest);
-		assertEquals(hotelTest.getNumEstrellas(), intTest);
-	}
+	
 	
 	@Test
 	public void testId() {
@@ -103,10 +87,4 @@ public class TestHotel {
 		assertEquals(hotelTest.isDisponible(), boolTest);
 	}
 	
-	@Test
-	public void testDormitorios() {
-		hotelTest = new Hotel();
-		hotelTest.setDormitorios(dormitoriosTest);
-		assertArrayEquals(hotelTest.getDormitorios(),dormitoriosTest);
-	}
 }

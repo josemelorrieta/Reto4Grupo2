@@ -1,0 +1,12 @@
+INFORMACIÓN DE LA RESERVA
+
+Datos del cliente:
+Nombre: 48bc893fcbc0a33ed3ad2cf2d5d57cfe
+
+Datos de la reserva:
+Nombre Alojamiento: Hotel Carlton
+Fecha de la reserva: 13-05-2019
+Fecha de entrada   : 13-05-2019
+Fecha de salida    : 14-05-2019
+
+Precio total: 65.60
