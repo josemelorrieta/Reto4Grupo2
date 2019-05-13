@@ -18,24 +18,8 @@ public class PanelResumenReserva extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public JLabel lblTitulo;
-	public JLabel lblCodigo;
-	public JLabel lblAlojamiento;
-	public JLabel lblNHab;
-	public JLabel lblFecEntrada;
-	public JLabel lblFecSalida;
-	public JTextField txtAlojamiento;
-	public JTextField txtNHab;
-	public JTextField txtFecEntrada;
-	public JTextField txtFecSalida;
-	private JTextField txtPrecioBase;
-	private JTextField txtEquip;
-	private JTextField txtExtras;
-	private JTextField txtTotal;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField txtTemporada;
-	private JTextField txtHmy;
+	public JLabel lblTitulo, lblCodigo, lblAlojamiento, lblNHab, lblFecEntrada, lblFecSalida;
+	public JTextField txtAlojamiento, txtNHab, txtFecEntrada, txtFecSalida, txtPrecioBase, txtEquip, txtExtras, txtTotal, textNoches, textFestivos, txtTemporada, txtCodProm;
 	
 	/**
 	 * Create the panel.
@@ -65,6 +49,7 @@ public class PanelResumenReserva extends JPanel {
 		add(lblAlojamiento);
 		
 		txtAlojamiento = new JTextField();
+		txtAlojamiento.setEditable(false);
 		txtAlojamiento.setBackground(SystemColor.control);
 		txtAlojamiento.setBorder(null);
 		txtAlojamiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -78,6 +63,7 @@ public class PanelResumenReserva extends JPanel {
 		add(lblNHab);
 		
 		txtNHab = new JTextField();
+		txtNHab.setEditable(false);
 		txtNHab.setBackground(SystemColor.control);
 		txtNHab.setBorder(null);
 		txtNHab.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -92,6 +78,7 @@ public class PanelResumenReserva extends JPanel {
 		lblFecEntrada.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		txtFecEntrada = new JTextField();
+		txtFecEntrada.setEditable(false);
 		txtFecEntrada.setBackground(SystemColor.control);
 		txtFecEntrada.setBorder(null);
 		txtFecEntrada.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -106,6 +93,7 @@ public class PanelResumenReserva extends JPanel {
 		lblFecSalida.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		txtFecSalida = new JTextField();
+		txtFecSalida.setEditable(false);
 		txtFecSalida.setBackground(SystemColor.control);
 		txtFecSalida.setBorder(null);
 		txtFecSalida.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -145,6 +133,7 @@ public class PanelResumenReserva extends JPanel {
 		add(lblTotal);
 		
 		txtPrecioBase = new JTextField();
+		txtPrecioBase.setEditable(false);
 		txtPrecioBase.setBorder(null);
 		txtPrecioBase.setBackground(SystemColor.control);
 		txtPrecioBase.setBounds(203, 187, 86, 26);
@@ -152,6 +141,7 @@ public class PanelResumenReserva extends JPanel {
 		txtPrecioBase.setColumns(10);
 		
 		txtEquip = new JTextField();
+		txtEquip.setEditable(false);
 		txtEquip.setBackground(SystemColor.control);
 		txtEquip.setBorder(null);
 		txtEquip.setColumns(10);
@@ -159,6 +149,7 @@ public class PanelResumenReserva extends JPanel {
 		add(txtEquip);
 		
 		txtExtras = new JTextField();
+		txtExtras.setEditable(false);
 		txtExtras.setBackground(SystemColor.control);
 		txtExtras.setBorder(null);
 		txtExtras.setColumns(10);
@@ -166,32 +157,35 @@ public class PanelResumenReserva extends JPanel {
 		add(txtExtras);
 		
 		txtTotal = new JTextField();
+		txtTotal.setEditable(false);
 		txtTotal.setBackground(SystemColor.control);
 		txtTotal.setBorder(null);
 		txtTotal.setColumns(10);
 		txtTotal.setBounds(203, 291, 86, 26);
 		add(txtTotal);
 		
-		textField_1 = new JTextField();
-		textField_1.setBackground(SystemColor.control);
-		textField_1.setBorder(null);
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_1.setColumns(10);
-		textField_1.setBounds(632, 214, 41, 26);
-		add(textField_1);
+		textNoches = new JTextField();
+		textNoches.setEditable(false);
+		textNoches.setBackground(SystemColor.control);
+		textNoches.setBorder(null);
+		textNoches.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textNoches.setColumns(10);
+		textNoches.setBounds(632, 214, 41, 26);
+		add(textNoches);
 		
 		JLabel lblFestivos = new JLabel("Festivos");
 		lblFestivos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblFestivos.setBounds(496, 263, 107, 20);
 		add(lblFestivos);
 		
-		textField_2 = new JTextField();
-		textField_2.setBackground(SystemColor.control);
-		textField_2.setBorder(null);
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_2.setColumns(10);
-		textField_2.setBounds(632, 261, 41, 26);
-		add(textField_2);
+		textFestivos = new JTextField();
+		textFestivos.setEditable(false);
+		textFestivos.setBackground(SystemColor.control);
+		textFestivos.setBorder(null);
+		textFestivos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textFestivos.setColumns(10);
+		textFestivos.setBounds(632, 261, 41, 26);
+		add(textFestivos);
 		
 		JLabel lblTemporada = new JLabel("Temporada");
 		lblTemporada.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -199,6 +193,7 @@ public class PanelResumenReserva extends JPanel {
 		add(lblTemporada);
 		
 		txtTemporada = new JTextField();
+		txtTemporada.setEditable(false);
 		txtTemporada.setBackground(SystemColor.control);
 		txtTemporada.setBorder(null);
 		txtTemporada.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -206,12 +201,12 @@ public class PanelResumenReserva extends JPanel {
 		txtTemporada.setBounds(632, 175, 120, 26);
 		add(txtTemporada);
 		
-		txtHmy = new JTextField();
-		txtHmy.setHorizontalAlignment(SwingConstants.CENTER);
-		txtHmy.setText("HM12Y");
-		txtHmy.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtHmy.setBounds(520, 339, 134, 26);
-		add(txtHmy);
-		txtHmy.setColumns(10);
+		txtCodProm = new JTextField();
+		txtCodProm.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCodProm.setText("HM12Y");
+		txtCodProm.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtCodProm.setBounds(520, 339, 134, 26);
+		add(txtCodProm);
+		txtCodProm.setColumns(10);
 	}
 }

@@ -73,29 +73,32 @@ public class PanelResumenPago extends JPanel {
 		panelDatosCliente.add(lblDatosCliente);
 		
 		lblDni = new JLabel("DNI:");
-		lblDni.setBounds(10, 38, 51, 26);
+		lblDni.setBounds(10, 38, 74, 26);
 		panelDatosCliente.add(lblDni);
 		
 		lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(10, 64, 51, 26);
+		lblNombre.setBounds(10, 64, 74, 26);
 		panelDatosCliente.add(lblNombre);
 		
 		lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setBounds(10, 90, 51, 26);
+		lblApellidos.setBounds(10, 90, 74, 26);
 		panelDatosCliente.add(lblApellidos);
 		
 		txtDni = new JTextField();
-		txtDni.setBounds(71, 40, 117, 23);
+		txtDni.setOpaque(false);
+		txtDni.setBounds(94, 40, 117, 23);
 		panelDatosCliente.add(txtDni);
 		txtDni.setColumns(10);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(71, 67, 117, 23);
+		txtNombre.setOpaque(false);
+		txtNombre.setBounds(94, 66, 117, 23);
 		panelDatosCliente.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtApellidos = new JTextField();
-		txtApellidos.setBounds(71, 93, 117, 26);
+		txtApellidos.setOpaque(false);
+		txtApellidos.setBounds(94, 90, 117, 26);
 		panelDatosCliente.add(txtApellidos);
 		txtApellidos.setColumns(10);
 		
@@ -110,11 +113,11 @@ public class PanelResumenPago extends JPanel {
 		panelDatosReserva.add(lblDatosReserva);
 		
 		lblAlojamiento = new JLabel("Nombre Alojamiento:");
-		lblAlojamiento.setBounds(10, 44, 189, 20);
+		lblAlojamiento.setBounds(10, 44, 170, 20);
 		panelDatosReserva.add(lblAlojamiento);
 		
 		lblNHab = new JLabel("Nº Habitacion:");
-		lblNHab.setBounds(10, 75, 189, 20);
+		lblNHab.setBounds(10, 75, 107, 20);
 		panelDatosReserva.add(lblNHab);
 		
 		lblFecReserva = new JLabel("Fecha de Reserva");
@@ -133,35 +136,44 @@ public class PanelResumenPago extends JPanel {
 		panelDatosReserva.add(lblFecSalida);
 		
 		lblPrecio = new JLabel("Precio Total:");
-		lblPrecio.setBounds(153, 211, 107, 34);
+		lblPrecio.setBounds(124, 214, 78, 34);
 		panelDatosReserva.add(lblPrecio);
 		
 		txtAlojamiento = new JTextField();
-		txtAlojamiento.setBounds(124, 44, 319, 20);
+		txtAlojamiento.setOpaque(false);
+		txtAlojamiento.setBounds(190, 44, 265, 20);
 		panelDatosReserva.add(txtAlojamiento);
 		txtAlojamiento.setColumns(10);
 		
 		txtNHab = new JTextField();
-		txtNHab.setBounds(124, 75, 112, 20);
+		txtNHab.setOpaque(false);
+		txtNHab.setBounds(190, 75, 112, 20);
 		panelDatosReserva.add(txtNHab);
 		txtNHab.setColumns(10);
 		
 		txtFecReserva = new JTextField();
+		txtFecReserva.setOpaque(false);
+		txtFecReserva.setHorizontalAlignment(SwingConstants.CENTER);
 		txtFecReserva.setBounds(10, 158, 120, 26);
 		panelDatosReserva.add(txtFecReserva);
 		txtFecReserva.setColumns(10);
 		
 		txtFecEntrada = new JTextField();
+		txtFecEntrada.setOpaque(false);
+		txtFecEntrada.setHorizontalAlignment(SwingConstants.CENTER);
 		txtFecEntrada.setBounds(140, 158, 120, 26);
 		panelDatosReserva.add(txtFecEntrada);
 		txtFecEntrada.setColumns(10);
 		
 		txtFecSalida = new JTextField();
+		txtFecSalida.setOpaque(false);
+		txtFecSalida.setHorizontalAlignment(SwingConstants.CENTER);
 		txtFecSalida.setBounds(272, 158, 120, 26);
 		panelDatosReserva.add(txtFecSalida);
 		txtFecSalida.setColumns(10);
 		
 		txtPrecio = new JTextField();
+		txtPrecio.setOpaque(false);
 		txtPrecio.setBounds(240, 218, 134, 27);
 		panelDatosReserva.add(txtPrecio);
 		txtPrecio.setColumns(10);
