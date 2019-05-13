@@ -28,7 +28,7 @@ public class ControladorPanelResumenReserva {
 	}
 	
 	public void actualizarResumenReserva (Modelo mod) {
-		vis.pCenter.pResumenRes.txtAlojamiento.setText(mod.aloj1.getNombre() + " (" + mod.aloj1.getDireccion().getLocalidad() + ")");
+		vis.pCenter.pResumenRes.txtAlojamiento.setText(mod.reserva.getAlojReservado().getNombre() + " (" + mod.reserva.getAlojReservado().getDireccion().getLocalidad() + ")");
 		if(mod.reserva.getDormitorioReservado() != null)
 			vis.pCenter.pResumenRes.txtNHab.setText(String.valueOf(mod.reserva.getDormitorioReservado().getIdHab()));
 		else
@@ -51,7 +51,7 @@ public class ControladorPanelResumenReserva {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (!vis.pCenter.pResumenRes.txtCodProm.getText().equals("")) {
-				if (mod.mRegiLog.comprobarCodigoPromocional(vis.pCenter.pResumenRes.txtCodProm.getText(), mod.clienteRegis.getDni(), mod.aloj1)) {
+				if (mod.mRegiLog.comprobarCodigoPromocional(vis.pCenter.pResumenRes.txtCodProm.getText(), mod.clienteRegis.getDni(), mod.reserva.getAlojReservado())) {
 					JOptionPane.showMessageDialog(vis.pCenter, "Código promocional válido", "INFO", JOptionPane.INFORMATION_MESSAGE);
 					mod.desglosePrecio.setCodPromocional(true);
 					mod.reserva.setCodPromocional(vis.pCenter.pResumenRes.txtCodProm.getText());

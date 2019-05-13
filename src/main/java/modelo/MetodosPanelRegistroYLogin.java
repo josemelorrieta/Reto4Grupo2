@@ -267,7 +267,7 @@ public class MetodosPanelRegistroYLogin {
 		}
 		aviso.setVisible(false);
 		pass1.setBackground(new JPasswordField().getBackground());
-		pass1.setBackground(new JPasswordField().getBackground());
+		pass2.setBackground(new JPasswordField().getBackground());
 		return true;
 	}
 
@@ -280,8 +280,7 @@ public class MetodosPanelRegistroYLogin {
 	 */
 	public boolean seguridadContrasenia(JPasswordField pass, JLabel aviso) {
 		// Regex para validar contraseña, por orden: Una letra minuscula, una letra
-		// mayuscula, un numero y minimo 8 caracteres de longitud
-
+		// mayuscula, un numero y minimo 8 caracteres de longitud	
 		Pattern p = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");
 		String contraString = new String(pass.getPassword());
 		Matcher m = p.matcher(contraString);
@@ -322,7 +321,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @return
 	 */
 	public boolean validarSoloLetras(JTextField campoTexto, JLabel aviso) {
-		if (!(campoTexto.getText().matches("^[a-zA-Z]+$"))) {
+		if (!(campoTexto.getText().matches("^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+$"))) {
 			aviso.setVisible(true);
 			campoTexto.setBackground(new Color(240, 128, 128));
 			return false;

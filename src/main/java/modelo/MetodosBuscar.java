@@ -45,10 +45,14 @@ public class MetodosBuscar {
 	 * 
 	 * @return array de localidades
 	 */
-	public Localidad[] buscarLocalidades() {
-		String aux = bd.consultarToGson("SELECT DISTINCT `localidad` FROM `direccion`");
+	public String[] buscarLocalidades() {
+		String aux = bd.consultarToGson("SELECT DISTINCT `localidad` 'auxiliar' FROM `direccion`");
 		if (aux != null) {
-			Localidad[] localidades = gson.fromJson(aux, Localidad[].class);
+			Global[] localidadesGlobal = gson.fromJson(aux, Global[].class);
+			String[] localidades=new String[localidadesGlobal.length];
+			for(int i=0;i<localidadesGlobal.length;i++) {
+				localidades[i]=(String) localidadesGlobal[i].getAuxiliar();
+			}
 			return localidades;
 		} else {
 			return null;
@@ -63,7 +67,7 @@ public class MetodosBuscar {
 	}
 
 	private void cargarHoteles(String localidad) {
-		String json = bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
+		String json = bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.hotelesBusqueda = gson.fromJson(json, Hotel[].class);
 		for (Hotel hotel : mod.hotelesBusqueda) {
 			cargarDireccion(hotel,"hotel","idHot");
@@ -73,7 +77,7 @@ public class MetodosBuscar {
 	}
 
 	private void cargarCasas(String localidad) {
-		String json = bd.consultarToGson("SELECT `idCasa` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `casa` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
+		String json = bd.consultarToGson("SELECT `idCasa` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `imagen` FROM `casa` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.casasBusqueda = gson.fromJson(json, Casa[].class);
 		for (Casa casa : mod.casasBusqueda) {
 			cargarDireccion(casa,"casa","idCasa");
@@ -83,7 +87,7 @@ public class MetodosBuscar {
 	}
 
 	private void cargarApartamentos(String localidad) {
-		String json = bd.consultarToGson("SELECT `idApart` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest',`piso`, `imagen` FROM `apartamento` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
+		String json = bd.consultarToGson("SELECT `idApart` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `piso`, `imagen` FROM `apartamento` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.apartBusqueda = gson.fromJson(json, Apartamento[].class);
 		for (Apartamento apart : mod.apartBusqueda) {
 			cargarDireccion(apart,"Apartamento","idApart");
@@ -115,12 +119,22 @@ public class MetodosBuscar {
 		String tipo = (casa.getClass()).getSimpleName().toLowerCase();
 
 		String json = bd.consultarToGson("SELECT d.`idDorm` 'idHab', `metros` 'm2', 'DORMITORIO' AS `tipoHabitacion` FROM `dormitorio` d, `dorm" + tipo + "` c WHERE d.`idDorm` IN (SELECT `idDorm` FROM `dorm" + tipo + "` WHERE `id"+tipo.substring(0, 1).toUpperCase() + tipo.substring(1)+"`=" + casa.getId() + ") AND d.`idDorm`=c.`idDorm`");
-		Habitacion[] habitaciones = gson.fromJson(json, Dormitorio[].class);
-
-		for (Habitacion habit : habitaciones)
-			if (habit instanceof Dormitorio)
-				cargarMobiliarioDormitorioCasa((Dormitorio) habit, tipo);
-		casa.setHabitaciones(habitaciones);
+		Dormitorio[] dormitorios = gson.fromJson(json, Dormitorio[].class);
+		for (Dormitorio dorm : dormitorios)
+			cargarMobiliarioDormitorioCasa(dorm, tipo);
+		
+		json = bd.consultarToGson("SELECT d.`idNDorm` 'idHab', `metros` 'm2', `tipoHab` 'tipoHabitacion' FROM `noDormitorio` d, `nDorm" + tipo + "` c WHERE d.`idNDorm` IN (SELECT `idNDorm` FROM `nDorm" + tipo + "` WHERE `id"+tipo.substring(0, 1).toUpperCase() + tipo.substring(1)+"`=" + casa.getId() + ") AND d.`idNDorm`=c.`idNDorm`");
+		Habitacion[] noDormitorios = gson.fromJson(json, Habitacion[].class);
+		
+		if(dormitorios != null && noDormitorios != null) {
+			noDormitorios = FuncionesGenerales.concatenate(noDormitorios, dormitorios);	
+			casa.setHabitaciones(noDormitorios);
+		}else if(dormitorios != null) {
+			casa.setHabitaciones(dormitorios);
+		}else {
+			casa.setHabitaciones(null);
+		}
+		
 	}
 
 	private void cargarMobiliarioDormitorioCasa(Dormitorio dormitorio, String tipo) {

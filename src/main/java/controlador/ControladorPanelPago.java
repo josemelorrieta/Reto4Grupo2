@@ -33,13 +33,4 @@ public class ControladorPanelPago {
 		}
 	}
 
-	/**
-	 * Metodo que se invoca cuando el usuario decide pasar de panel y proceder al
-	 * pago, le pasa el precio al panel de pago
-	 * 
-	 * @param vis
-	 */
-	public void pasarPrecioAPanelPago(Modelo mod, VentanaPpal vis) {
-		vis.pCenter.pPago.textAPagar.setText(String.valueOf(mod.mPago.dosDec.format(mod.desglosePrecio.getTotal())));
-	}
 }

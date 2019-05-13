@@ -45,7 +45,7 @@ public class DesglosePrecio {
 		}
 
 		if (aloj instanceof Hotel && dormHotel != null) {
-			this.pEquipamiento = dormHotel.getPrecio();
+			this.pEquipamiento = dormHotel.calcularPrecio(aloj.pvpM2);
 		} else if (aloj instanceof Casa || aloj instanceof Apartamento) {
 			this.pEquipamiento = aloj.precioDormitorios() + aloj.precioNoDormitorios();
 		} else {
