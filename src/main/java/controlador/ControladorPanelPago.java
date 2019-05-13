@@ -37,19 +37,4 @@ public class ControladorPanelPago {
 			mod.mPago.sumarDinero(vis.pCenter.pPago, ((JButton) e.getSource()).getText(), mod);
 		}
 	}
-
-	/**
-	 * Metodo que se invoca cuando el usuario decide pasar de panel y proceder al
-	 * pago, le pasa el precio al panel de pago
-	 * 
-	 * @param vis
-	 */
-	public void pasarPrecioAPanelPago(Modelo mod, VentanaPpal vis) {
-		Alojamiento aloj = vis.pCenter.pResBusq.resultBusq.getSelectedValue();
-		if (aloj instanceof Hotel) {
-			vis.pCenter.pPago.textAPagar.setText(mod.mPago.doubleAString( ((Hotel)aloj).calcularPrecioBaseHotel(mod.festivos,mod.reserva)));
-		} else {
-			vis.pCenter.pPago.textAPagar.setText(mod.mPago.doubleAString( ((Casa)aloj).calcularPrecioBaseCasa(mod.festivos,mod.reserva)));
-		}
-	}
 }
