@@ -267,7 +267,7 @@ public class MetodosPanelRegistroYLogin {
 		}
 		aviso.setVisible(false);
 		pass1.setBackground(new JPasswordField().getBackground());
-		pass1.setBackground(new JPasswordField().getBackground());
+		pass2.setBackground(new JPasswordField().getBackground());
 		return true;
 	}
 
