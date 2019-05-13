@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: 3700f097e741a7702f7e4ac61ed88c1a
 
 Datos de la reserva:
-Nombre Alojamiento: Casa Pepe
+Nombre Alojamiento: Hotel Carlton
 Fecha de la reserva: 13-05-2019
 Fecha de entrada   : 13-05-2019
 Fecha de salida    : 14-05-2019
 
-Precio total: 165.10
+Precio total: 58.80

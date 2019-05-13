@@ -22,8 +22,8 @@ public class ControladorPanelResumenPago {
 	}
 	
 	public void insertarDatos() {		
-		vis.txtAlojamiento.setText(mod.aloj1.getNombre());
-		if(mod.aloj1 instanceof Hotel) {
+		vis.txtAlojamiento.setText(mod.reserva.getAlojReservado().getNombre());
+		if(mod.reserva.getAlojReservado() instanceof Hotel) {
 			vis.lblNHab.setVisible(true);
 			vis.txtNHab.setVisible(true);
 			vis.txtNHab.setText(String.valueOf(mod.reserva.getDormitorioReservado().getIdHab()));
@@ -34,7 +34,7 @@ public class ControladorPanelResumenPago {
 		vis.txtFecReserva.setText(sdf.format(mod.reserva.getFechaReserva()));
 		vis.txtFecEntrada.setText(sdf.format(mod.reserva.getFechaEntrada()));
 		vis.txtFecSalida.setText(sdf.format(mod.reserva.getFechaSalida()));
-		vis.txtPrecio.setText(df.format(mod.reserva.getPrecio()));
+		vis.txtPrecio.setText(df.format(mod.reserva.getDesglose().getTotal()));
 		
 		vis.txtDni.setText(mod.clienteRegis.getDni());
 		vis.txtNombre.setText(mod.clienteRegis.getNombre());
