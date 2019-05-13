@@ -5,7 +5,7 @@ import java.util.Calendar;
 public class Casa extends Alojamiento {
 	protected int numBanios;
 	protected int m2;
-
+	
 	public int getNumBanios() {
 		return numBanios;
 	}
