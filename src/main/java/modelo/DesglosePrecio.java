@@ -8,14 +8,14 @@ import util.FuncionesGenerales;
 
 public class DesglosePrecio {
 	private double pBaseAloj;
-	private double pNoDormitorio;
-	private double pDormitorio;
+	private double pEquipamiento;
 
 	private int noches;
 
 	private double pBaseFestivos;
 	private int numFestivos;
 	private double totalExtraFestivos;
+	private String temporada;
 
 	// wifi etc
 	private double precioExtras;
@@ -23,9 +23,9 @@ public class DesglosePrecio {
 	private double total;
 
 	// public double
-	
+
 	public DesglosePrecio() {
-		
+
 	}
 
 	public DesglosePrecio(Alojamiento aloj, Date fechanEnt, Date fechaSal, Dormitorio dormHotel, Calendar[] festivos) {
@@ -37,30 +37,29 @@ public class DesglosePrecio {
 
 		if (fechaEntrada.get(Calendar.MONTH) > Calendar.MAY && fechaEntrada.get(Calendar.MONTH) < Calendar.OCTOBER) {
 			this.pBaseAloj = aloj.getPrecioTAlta();
+			this.setTemporada("Alta");
 		} else {
 			this.pBaseAloj = aloj.getPrecioTBaja();
+			this.setTemporada("Baja");
 		}
 
 		if (aloj instanceof Hotel && dormHotel != null) {
-			this.pDormitorio = dormHotel.getPrecio();
-			this.pNoDormitorio = 0;
+			this.pEquipamiento = dormHotel.getPrecio();
 		} else if (aloj instanceof Casa || aloj instanceof Apartamento) {
-			this.pDormitorio = aloj.precioDormitorios();
-			this.pNoDormitorio = aloj.precioNoDormitorios();
+			this.pEquipamiento = aloj.precioDormitorios() + aloj.precioNoDormitorios();
 		} else {
-			this.pDormitorio = 0;
-			this.pNoDormitorio = 0;
+			pEquipamiento = 0;
 		}
 
-		this.noches = (int) FuncionesGenerales.diferenciaEntreFechas(fechanEnt, fechaSal, TimeUnit.DAYS);
-		
+		this.noches = Math.abs((int) FuncionesGenerales.diferenciaEntreFechas(fechanEnt, fechaSal, TimeUnit.DAYS));
+
 		this.pBaseFestivos = aloj.getPrecioTFest();
 		this.numFestivos = NumFestivosEntreFechas(fechaEntrada, fechaSalida, festivos);
-		this.totalExtraFestivos=pBaseFestivos*numFestivos;
-		
+		this.totalExtraFestivos = pBaseFestivos * numFestivos;
+
 		this.precioExtras = 0;
-		
-		this.total=(this.pBaseAloj+this.pNoDormitorio+this.pDormitorio+this.precioExtras)*this.noches+this.totalExtraFestivos;
+
+		this.total = (this.pBaseAloj + this.pEquipamiento + this.precioExtras) * this.noches + this.totalExtraFestivos;
 	}
 
 	public double getpBaseAloj() {
@@ -71,20 +70,12 @@ public class DesglosePrecio {
 		this.pBaseAloj = pBaseAloj;
 	}
 
-	public double getpNoDormitorio() {
-		return pNoDormitorio;
+	public double getpEquipamiento() {
+		return pEquipamiento;
 	}
 
-	public void setpNoDormitorio(double pNoDormitorio) {
-		this.pNoDormitorio = pNoDormitorio;
-	}
-
-	public double getpDormitorio() {
-		return pDormitorio;
-	}
-
-	public void setpDormitorio(double pDormitorio) {
-		this.pDormitorio = pDormitorio;
+	public void setpEquipamiento(double pNoDormitorio) {
+		this.pEquipamiento = pEquipamiento;
 	}
 
 	public int getNoches() {
@@ -117,6 +108,14 @@ public class DesglosePrecio {
 
 	public void setTotalExtraFestivos(double totalExtraFestivos) {
 		this.totalExtraFestivos = totalExtraFestivos;
+	}
+
+	public String getTemporada() {
+		return temporada;
+	}
+
+	public void setTemporada(String temporada) {
+		this.temporada = temporada;
 	}
 
 	public double getPrecioExtras() {

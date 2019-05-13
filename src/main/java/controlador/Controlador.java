@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import modelo.DesglosePrecio;
 import modelo.Dormitorio;
 import modelo.Hotel;
 import modelo.Modelo;
@@ -21,6 +22,7 @@ public class Controlador {
 	private ControladorPanelLogin cLogin;
 	private ControladorPanelCondiciones cCondiciones;
 	private ControladorPanelResumenPago cResumenPago;
+	private ControladorPanelResumenReserva cResumenRes;
 
 	public Controlador(VentanaPpal vista, Modelo modelo) {
 		this.vis = vista;
@@ -37,6 +39,7 @@ public class Controlador {
 		cLogin = new ControladorPanelLogin(vis, this, mod);
 		cCondiciones = new ControladorPanelCondiciones(vis);
 		cResumenPago = new ControladorPanelResumenPago(mod, vis.pCenter.pResumenPago);
+		cResumenRes = new ControladorPanelResumenReserva(vis);
 	}
 
 	private void initListeners() {
@@ -68,11 +71,13 @@ public class Controlador {
 					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.nextPanel();
 						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
-						vis.pCenter.pResumenRes.txtAlojamiento.setText(mod.aloj1.getNombre());
+						mod.reserva.setPrecio(mod.desglosePrecio.getTotal());
 						cPago.pasarPrecioAPanelPago(mod, vis);
 					}
 					break;
 				case 4:
+					calcularDesglosePrecio();
+					cResumenRes.actualizarResumenReserva(mod);
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
 						vis.pCenter.changePanel("6");
@@ -144,5 +149,12 @@ public class Controlador {
 				break;
 			}
 		}
+	}
+	
+	public void calcularDesglosePrecio() {
+		if (mod.aloj1 instanceof Hotel )
+			mod.desglosePrecio = new DesglosePrecio(mod.aloj1, mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.reserva.getDormitorioReservado(), mod.festivos);
+		else
+			mod.desglosePrecio = new DesglosePrecio(mod.aloj1, mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), null, mod.festivos);
 	}
 }
