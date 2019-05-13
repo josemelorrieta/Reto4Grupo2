@@ -9,7 +9,6 @@ public class Alojamiento {
 	protected double precioTFest;
 	protected String imagen;
 	protected double pvpM2;
-	protected double pvpTotal;
 	protected boolean disponible;
 	protected Habitacion[] habitaciones;
 	
@@ -18,7 +17,7 @@ public class Alojamiento {
 		double precio=0;
 		for (Habitacion hab : this.habitaciones) {
 			if (!(hab instanceof Dormitorio)) {
-				precio += hab.getPrecio();
+				precio += hab.calcularPrecio(pvpM2);
 			}
 		}
 		return precio;
@@ -28,13 +27,21 @@ public class Alojamiento {
 		double precio=0;
 		for (Habitacion hab : this.habitaciones) {
 			if (hab instanceof Dormitorio) {
-				precio += hab.getPrecio();
+				precio += hab.calcularPrecio(pvpM2);
 			}
 		}
 		return precio;
 	}
 	
 	
+
+	public double getPvpM2() {
+		return pvpM2;
+	}
+
+	public void setPvpM2(double pvpM2) {
+		this.pvpM2 = pvpM2;
+	}
 
 	public int getId() {
 		return id;

@@ -17,7 +17,7 @@ public class ControladorPanelResumenReserva {
 	}
 	
 	public void actualizarResumenReserva (Modelo mod) {
-		vis.pCenter.pResumenRes.txtAlojamiento.setText(mod.aloj1.getNombre() + " (" + mod.aloj1.getDireccion().getLocalidad() + ")");
+		vis.pCenter.pResumenRes.txtAlojamiento.setText(mod.reserva.getAlojReservado().getNombre() + " (" + mod.reserva.getAlojReservado().getDireccion().getLocalidad() + ")");
 		if(mod.reserva.getDormitorioReservado() != null)
 			vis.pCenter.pResumenRes.txtNHab.setText(String.valueOf(mod.reserva.getDormitorioReservado().getIdHab()));
 		else

@@ -8,8 +8,6 @@ import BaseDatos.ConsultaBD;
 public class Modelo {
 	
 	public ConsultaBD bd;
-	
-	public Alojamiento aloj1;
 	public Reserva reserva;
 	public Cliente clienteRegis;
 	public Hotel[] hotelesBusqueda;
@@ -23,7 +21,6 @@ public class Modelo {
 	public DesglosePrecio desglosePrecio;
 	
 	public Modelo() {
-		aloj1 = new Alojamiento();
 		reserva = new Reserva();
 		bd = new ConsultaBD();
 		addMetodos();
