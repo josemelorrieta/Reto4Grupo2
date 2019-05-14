@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +34,7 @@ public class MetodosPanelRegistroYLogin {
 	 * designados
 	 */
 	public boolean[] comprobacionRegistro = { false, false, false, false, false, false };
+	public boolean[] comprobarAcompaniante= {false,false,false};
 	public boolean comprobacionLogin = false;
 
 	public MetodosPanelRegistroYLogin(Modelo mod, ConsultaBD bd) {
@@ -47,8 +47,8 @@ public class MetodosPanelRegistroYLogin {
 	 * 
 	 * @return true si esta todo bien
 	 */
-	public boolean comprobarDatos() {
-		for (boolean estado : comprobacionRegistro) {
+	public boolean comprobarDatos(boolean[] array) {
+		for (boolean estado : array) {
 			if (!estado)
 				return false;
 		}

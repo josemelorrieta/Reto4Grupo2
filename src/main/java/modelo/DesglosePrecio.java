@@ -67,6 +67,9 @@ public class DesglosePrecio {
 
 	public int NumFestivosEntreFechas(Calendar fecha1, Calendar fecha2, Calendar[] festivos) {
 		int num = 0;
+		if (festivos==null) {
+			return num;
+		}
 		for (Calendar festivo : festivos) {
 			if (festivo.before(fecha2) && festivo.after(fecha1)) {
 				num++;

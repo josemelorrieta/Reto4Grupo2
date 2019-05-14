@@ -1,7 +1,7 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import BaseDatos.ConsultaBD;
 
@@ -10,6 +10,7 @@ public class Modelo {
 	public ConsultaBD bd;
 	public Reserva reserva;
 	public Cliente clienteRegis;
+	public ArrayList<Cliente> acompaniantes=new ArrayList<Cliente>();
 	public Hotel[] hotelesBusqueda;
 	public Casa[] casasBusqueda;
 	public Apartamento[] apartBusqueda;
@@ -47,6 +48,14 @@ public class Modelo {
 
 	public void setPagoExitoso(boolean pagoExitoso) {
 		this.pagoExitoso = pagoExitoso;
+	}
+	
+	public void limpiar() {
+		reserva=new Reserva();
+		clienteRegis=null;
+		acompaniantes.clear();
+		desglosePrecio=null;
+		pagoExitoso=false;
 	}
 }
 

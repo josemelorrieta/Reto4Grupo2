@@ -9,14 +9,20 @@ public class Cliente {
 	private Date fechaNac;
 	private Sexo sexo;
 	private String password;
-	
+
 	public Cliente() {
 	}
-	
+
 	public Cliente(String nombre) {
 		this.nombre = nombre;
 	}
 
+	public Cliente(String dni, String nombre, String apellidos) {
+		super();
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+	}
 
 	public Cliente(String dni, String nombre, String apellidos, Date fechaNac, Sexo sexo, String password) {
 		this.dni = dni;
@@ -66,9 +72,9 @@ public class Cliente {
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
-	
+
 	public Object[] toArray() {
-		Object[] objetos= {dni,nombre,apellidos,fechaNac, new Date(),sexo.toString(),password};
+		Object[] objetos = { dni, nombre, apellidos, fechaNac, new Date(), sexo.toString(), password };
 		return objetos;
 	}
 
