@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -19,9 +20,10 @@ public class PanelResumenReserva extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public JLabel lblTitulo, lblCodigo, lblAlojamiento, lblNHab, lblFecEntrada, lblFecSalida, lblTemporada, lblDescuento, lblPrecioBase, lblEquipamiento, lblExtras, lblNoches, lblTotal, lblFestivos;
+	public JLabel lblTitulo, lblCodigo, lblAlojamiento, lblNHab, lblFecEntrada, lblFecSalida, lblTemporada, lblDescuento, lblPrecioBase, lblEquipamiento, lblExtras, lblNoches, lblTotal, lblFestivos, lblCondiciones;
 	public JTextField txtAlojamiento, txtNHab, txtFecEntrada, txtFecSalida, txtPrecioBase, txtEquip, txtExtras, txtTotal, textNoches, textFestivos, txtTemporada, txtCodProm, txtDescuento;
 	public JButton btnCodProm;
+	public JCheckBox chckbxCondiciones;
 	
 	/**
 	 * Create the panel.
@@ -106,7 +108,7 @@ public class PanelResumenReserva extends JPanel {
 		lblCodigo = new JLabel("Código promocional");
 		lblCodigo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCodigo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblCodigo.setBounds(520, 314, 165, 23);
+		lblCodigo.setBounds(520, 275, 165, 23);
 		add(lblCodigo);
 		
 		lblPrecioBase = new JLabel("Precio Base");
@@ -167,7 +169,7 @@ public class PanelResumenReserva extends JPanel {
 		
 		lblNoches = new JLabel("Noches");
 		lblNoches.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNoches.setBounds(496, 219, 46, 14);
+		lblNoches.setBounds(496, 198, 46, 14);
 		add(lblNoches);
 		
 		textNoches = new JTextField();
@@ -176,7 +178,7 @@ public class PanelResumenReserva extends JPanel {
 		textNoches.setBorder(null);
 		textNoches.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textNoches.setColumns(10);
-		textNoches.setBounds(632, 214, 41, 26);
+		textNoches.setBounds(632, 193, 41, 26);
 		add(textNoches);
 		
 		lblTotal = new JLabel("Total");
@@ -196,7 +198,7 @@ public class PanelResumenReserva extends JPanel {
 		
 		lblFestivos = new JLabel("Festivos");
 		lblFestivos.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblFestivos.setBounds(496, 263, 107, 20);
+		lblFestivos.setBounds(496, 227, 107, 20);
 		add(lblFestivos);
 		
 		textFestivos = new JTextField();
@@ -205,12 +207,12 @@ public class PanelResumenReserva extends JPanel {
 		textFestivos.setBorder(null);
 		textFestivos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textFestivos.setColumns(10);
-		textFestivos.setBounds(632, 261, 41, 26);
+		textFestivos.setBounds(632, 225, 41, 26);
 		add(textFestivos);
 		
 		lblTemporada = new JLabel("Temporada");
 		lblTemporada.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTemporada.setBounds(496, 177, 107, 20);
+		lblTemporada.setBounds(496, 163, 107, 20);
 		add(lblTemporada);
 		
 		txtTemporada = new JTextField();
@@ -219,23 +221,34 @@ public class PanelResumenReserva extends JPanel {
 		txtTemporada.setBorder(null);
 		txtTemporada.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtTemporada.setColumns(10);
-		txtTemporada.setBounds(632, 175, 120, 26);
+		txtTemporada.setBounds(632, 161, 120, 26);
 		add(txtTemporada);
 		
 		txtCodProm = new JTextField();
 		txtCodProm.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCodProm.setText("HM12Y");
 		txtCodProm.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtCodProm.setBounds(520, 339, 105, 26);
+		txtCodProm.setBounds(520, 300, 105, 26);
 		add(txtCodProm);
 		txtCodProm.setColumns(10);
 		
 		btnCodProm = new JButton("Ok");
-		btnCodProm.setBounds(632, 339, 53, 26);
+		btnCodProm.setBounds(632, 300, 53, 26);
 		add(btnCodProm);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(49, 314, 240, 2);
 		add(separator);
+
+		chckbxCondiciones = new JCheckBox("  Acepto las");
+		chckbxCondiciones.setBounds(496, 353, 91, 23);
+		add(chckbxCondiciones);
+		
+		lblCondiciones = new JLabel("Condiciones Legales");
+		lblCondiciones.setForeground(SystemColor.textHighlight);
+		lblCondiciones.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		lblCondiciones.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCondiciones.setBounds(589, 354, 150, 23);
+		add(lblCondiciones);
 	}
 }

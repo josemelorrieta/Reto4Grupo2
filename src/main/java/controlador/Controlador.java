@@ -100,9 +100,13 @@ public class Controlador {
 					}
 					break;
 				case 6:
-					vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
-					cResumenPago.insertarDatos();
-					vis.pCenter.nextPanel();
+					if (vis.pCenter.pResumenRes.chckbxCondiciones.isSelected()) {
+						vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
+						cResumenPago.insertarDatos();
+						vis.pCenter.nextPanel();
+					} else {
+						JOptionPane.showMessageDialog(vis, "Debe aceptar las condiciones para proceder al pago", "INFO", JOptionPane.INFORMATION_MESSAGE);
+					}
 					break;
 				case 7:
 					if (mod.isPagoExitoso()) {

@@ -2,6 +2,10 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
@@ -25,6 +29,7 @@ public class ControladorPanelResumenReserva {
 
 	private void initListeners() {
 		vis.pCenter.pResumenRes.btnCodProm.addActionListener(new ListenerCodProm());
+		vis.pCenter.pResumenRes.lblCondiciones.addMouseListener(new ListenerMouse());
 	}
 	
 	public void actualizarResumenReserva (Modelo mod) {
@@ -67,8 +72,35 @@ public class ControladorPanelResumenReserva {
 				vis.pCenter.pResumenRes.txtDescuento.setText(moneda.format(0));
 			}
 			vis.pCenter.pResumenRes.txtTotal.setText(moneda.format(mod.desglosePrecio.getTotal()));
+		}		
+	}
+	
+	private class ListenerMouse implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			vis.pCondiciones.setVisible(true);
 		}
 
-		
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			
+		}
 	}
+	
 }
