@@ -27,6 +27,9 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 
 	private JLabel lblFoto, lblNombre, lblLocalidad, lblPrecio, lblEstrellas, lblDisponible, lblCamas, lblNumCamas;
 	private DecimalFormat df = new DecimalFormat("#.00 €");
+	private JLabel lblBar;
+	private JLabel label_4;
+	private JLabel label;
 
 	public ItemResBusqueda() {
 		setParametros();
@@ -85,6 +88,45 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblWifi.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/wifi.png")));
 		lblWifi.setBounds(122, 80, 24, 24);
 		add(lblWifi);
+		
+		JLabel lblPiscina = new JLabel("");
+		lblPiscina.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/piscina.png")));
+		lblPiscina.setBounds(156, 80, 24, 24);
+		add(lblPiscina);
+		
+		JLabel lblSpa = new JLabel("");
+		lblSpa.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/spa.png")));
+		lblSpa.setBounds(190, 80, 24, 24);
+		add(lblSpa);
+		
+		JLabel lblParking = new JLabel("");
+		lblParking.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/aparcamiento.png")));
+		lblParking.setBounds(224, 80, 24, 24);
+		add(lblParking);
+		
+		JLabel lblAC = new JLabel("");
+		lblAC.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/aire-acondicionado.png")));
+		lblAC.setBounds(258, 80, 24, 24);
+		add(lblAC);
+		
+		JLabel lblResturante = new JLabel("");
+		lblResturante.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/restaurante.png")));
+		lblResturante.setBounds(288, 80, 24, 24);
+		add(lblResturante);
+		
+		lblBar = new JLabel("");
+		lblBar.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/cafeteria.png")));
+		lblBar.setBounds(322, 80, 24, 24);
+		add(lblBar);
+		
+		label_4 = new JLabel("");
+		label_4.setBounds(356, 80, 24, 24);
+		add(label_4);
+		
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/gimnasio.png")));
+		label.setBounds(356, 80, 24, 24);
+		add(label);
 	}
 
 	
