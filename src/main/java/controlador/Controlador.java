@@ -23,6 +23,7 @@ public class Controlador {
 	private ControladorPanelCondiciones cCondiciones;
 	private ControladorPanelResumenPago cResumenPago;
 	private ControladorPanelResumenReserva cResumenRes;
+	private ControladorPanelAcompaniante cAcompaniante;
 
 	public Controlador(VentanaPpal vista, Modelo modelo) {
 		this.vis = vista;
@@ -40,6 +41,7 @@ public class Controlador {
 		cCondiciones = new ControladorPanelCondiciones(vis);
 		cResumenRes = new ControladorPanelResumenReserva(vis, mod);
 		cResumenPago = new ControladorPanelResumenPago(mod, vis.pCenter.pResumenPago);
+		cAcompaniante=new ControladorPanelAcompaniante(vis, this, mod);
 	}
 
 	private void initListeners() {
@@ -84,7 +86,7 @@ public class Controlador {
 					}
 					break;
 				case 5:
-					if (mod.mRegiLog.comprobarDatos()) {
+					if (mod.mRegiLog.comprobarDatos(mod.mRegiLog.comprobacionRegistro)) {
 						mod.clienteRegis = mod.mRegiLog.registro(vis.pCenter.pRegistro);
 						if (mod.clienteRegis != null) {
 							if(mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente")) {
@@ -100,13 +102,21 @@ public class Controlador {
 					}
 					break;
 				case 6:
-					if (vis.pCenter.pResumenRes.chckbxCondiciones.isSelected()) {
+					//vis.pCenter.pResumenRes.chckbxCondiciones.isSelected()
+					if (true) {
 						vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
 						cResumenPago.insertarDatos();
 						vis.pCenter.nextPanel();
 					} else {
 						JOptionPane.showMessageDialog(vis, "Debe aceptar las condiciones para proceder al pago", "INFO", JOptionPane.INFORMATION_MESSAGE);
 					}
+					vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
+					cResumenPago.insertarDatos();
+					vis.pCenter.changePanel("9");
+					break;
+				case 9:
+					//CONDICION PARA LIMITAR PERSONAS POR HACER
+					vis.pCenter.changePanel("7");
 					break;
 				case 7:
 					if (mod.isPagoExitoso()) {
@@ -150,8 +160,11 @@ public class Controlador {
 					vis.pCenter.changePanel("4");
 					//mod.mPago.limpiar(vis.pCenter.pPago);
 					break;
+				case 9:
+					vis.pCenter.changePanel("6");
+					break;
 				case 7:
-					vis.pCenter.prevPanel();
+					vis.pCenter.changePanel("9");
 					}
 				break;
 			}
