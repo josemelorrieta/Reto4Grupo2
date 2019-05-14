@@ -93,6 +93,7 @@ public class ControladorPanelBuscar{
 			setResultBusqueda(mod.hotelesBusqueda,vis.pCenter.pResBusq);
 			setResultBusqueda(mod.casasBusqueda,vis.pCenter.pResBusq);
 			setResultBusqueda(mod.apartBusqueda,vis.pCenter.pResBusq);
+			vis.pCenter.pResBusq.resultBusq.ensureIndexIsVisible(0);
 			vis.pBotones.setBotonesVisible(true);
 			vis.pCenter.nextPanel();
 		}

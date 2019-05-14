@@ -12,7 +12,6 @@ public class Alojamiento {
 	protected boolean disponible;
 	protected Habitacion[] habitaciones;
 	
-	
 	public double precioNoDormitorios() {
 		double precio=0;
 		for (Habitacion hab : this.habitaciones) {

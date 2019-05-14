@@ -5,8 +5,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -25,11 +27,8 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 
 	private static final long serialVersionUID = 1L;
 
-	private JLabel lblFoto, lblNombre, lblLocalidad, lblPrecio, lblEstrellas, lblDisponible, lblCamas, lblNumCamas;
+	private JLabel lblFoto, lblNombre, lblLocalidad, lblPrecio, lblEstrellas, lblDisponible, lblCamas, lblNumCamas, lblBar, lblGym, lblWifi, lblPiscina, lblParking, lblAC, lblRestaurante, lblSpa;
 	private DecimalFormat df = new DecimalFormat("#.00 €");
-	private JLabel lblBar;
-	private JLabel label_4;
-	private JLabel label;
 
 	public ItemResBusqueda() {
 		setParametros();
@@ -66,7 +65,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		add(lblPrecio);
 
 		lblEstrellas = new JLabel("");
-		lblEstrellas.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/hotel/estrellas5.png")));
+		lblEstrellas.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/hotel/estrellas1.png")));
 		lblEstrellas.setBounds(376, 10, 100, 22);
 		add(lblEstrellas);
 
@@ -84,49 +83,54 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblNumCamas.setBounds(165, 52, 53, 22);
 		add(lblNumCamas);
 		
-		JLabel lblWifi = new JLabel("");
+		lblWifi = new JLabel("");
+		lblWifi.setEnabled(false);
 		lblWifi.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/wifi.png")));
-		lblWifi.setBounds(122, 80, 24, 24);
+		lblWifi.setBounds(122, 80, 16, 16);
+		lblWifi.setToolTipText("Wifi");
 		add(lblWifi);
 		
-		JLabel lblPiscina = new JLabel("");
+		lblPiscina = new JLabel("");
+		lblPiscina.setEnabled(false);
 		lblPiscina.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/piscina.png")));
-		lblPiscina.setBounds(156, 80, 24, 24);
+		lblPiscina.setBounds(148, 80, 16, 16);
 		add(lblPiscina);
 		
-		JLabel lblSpa = new JLabel("");
+		lblSpa = new JLabel("");
+		lblSpa.setEnabled(false);
 		lblSpa.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/spa.png")));
-		lblSpa.setBounds(190, 80, 24, 24);
+		lblSpa.setBounds(278, 80, 16, 16);
 		add(lblSpa);
 		
-		JLabel lblParking = new JLabel("");
-		lblParking.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/aparcamiento.png")));
-		lblParking.setBounds(224, 80, 24, 24);
+		lblParking = new JLabel("");
+		lblParking.setEnabled(false);
+		lblParking.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/parking.png")));
+		lblParking.setBounds(200, 80, 16, 16);
 		add(lblParking);
 		
-		JLabel lblAC = new JLabel("");
-		lblAC.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/aire-acondicionado.png")));
-		lblAC.setBounds(258, 80, 24, 24);
+		lblAC = new JLabel("");
+		lblAC.setEnabled(false);
+		lblAC.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/aireacondicionado.png")));
+		lblAC.setBounds(174, 80, 16, 16);
 		add(lblAC);
 		
-		JLabel lblResturante = new JLabel("");
-		lblResturante.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/restaurante.png")));
-		lblResturante.setBounds(288, 80, 24, 24);
-		add(lblResturante);
+		lblRestaurante = new JLabel("");
+		lblRestaurante.setEnabled(false);
+		lblRestaurante.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/restaurante.png")));
+		lblRestaurante.setBounds(252, 80, 16, 16);
+		add(lblRestaurante);
 		
 		lblBar = new JLabel("");
-		lblBar.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/cafeteria.png")));
-		lblBar.setBounds(322, 80, 24, 24);
+		lblBar.setEnabled(false);
+		lblBar.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/bar.png")));
+		lblBar.setBounds(226, 80, 16, 16);
 		add(lblBar);
 		
-		label_4 = new JLabel("");
-		label_4.setBounds(356, 80, 24, 24);
-		add(label_4);
-		
-		label = new JLabel("");
-		label.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/gimnasio.png")));
-		label.setBounds(356, 80, 24, 24);
-		add(label);
+		lblGym = new JLabel("");
+		lblGym.setEnabled(false);
+		lblGym.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/gimnasio.png")));
+		lblGym.setBounds(304, 80, 16, 16);
+		add(lblGym);
 	}
 
 	
@@ -135,7 +139,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 	public Component getListCellRendererComponent(JList<? extends Alojamiento> lista, Alojamiento aloj, int index, boolean isSelected, boolean cellHasFocus) {
 		String foto = aloj.getImagen();
 
-		ImageIcon imagen;
+		ImageIcon imagen = null;
 		File archImagen;
 		if (!foto.equals("")) {
 			if (aloj instanceof Hotel) {
@@ -145,7 +149,11 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		} else
 			archImagen = new File(getClass().getResource("/imagenes/alojamiento/noimage.png").getPath());
 
-		imagen = FuncionesGenerales.resizeIcono(90, 90, archImagen);
+		try {
+			imagen = new ImageIcon(ImageIO.read(archImagen));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		lblFoto.setIcon(imagen);
 		lblNombre.setText(aloj.getNombre());
@@ -171,19 +179,43 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		}
 
 		if (aloj instanceof Hotel) {
-			ImageIcon estrellas = FuncionesGenerales.resizeIcono(lblEstrellas.getWidth(), lblEstrellas.getHeight(), new File(getClass().getResource("/imagenes/alojamiento/hotel/estrellas" + ((Hotel) aloj).getNumEstrellas() + ".png").getPath()));
+			ImageIcon estrellas = null;
+			try {
+				estrellas = new ImageIcon(ImageIO.read(new File(getClass().getResource("/imagenes/alojamiento/hotel/estrellas" + ((Hotel) aloj).getNumEstrellas() + ".png").getPath())));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			lblEstrellas.setIcon(estrellas);
 			lblEstrellas.setVisible(true);
 			lblCamas.setVisible(false);
 			lblNumCamas.setVisible(false);
-
-			
+			lblWifi.setVisible(true);
+			lblPiscina.setVisible(true);
+			lblParking.setVisible(true);
+			lblAC.setVisible(true);
+			lblBar.setVisible(true);
+			lblRestaurante.setVisible(true);
+			lblSpa.setVisible(true);
+			lblGym.setVisible(true);
 		} else {
-			ImageIcon cama = FuncionesGenerales.resizeIcono(lblCamas.getWidth(), lblCamas.getHeight(), new File(getClass().getResource("/imagenes/alojamiento/noHotel/cama.png").getPath()));
+			ImageIcon cama = null;
+			try {
+				cama = new ImageIcon(ImageIO.read(new File(getClass().getResource("/imagenes/alojamiento/noHotel/cama.png").getPath())));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			lblCamas.setIcon(cama);
 			lblEstrellas.setVisible(false);
 			lblCamas.setVisible(true);
 			lblNumCamas.setVisible(true);
+			lblWifi.setVisible(true);
+			lblPiscina.setVisible(true);
+			lblParking.setVisible(true);
+			lblAC.setVisible(true);
+			lblBar.setVisible(false);
+			lblRestaurante.setVisible(false);
+			lblSpa.setVisible(false);
+			lblGym.setVisible(false);
 			
 			if (aloj instanceof Casa) {
 				lblNumCamas.setText(String.valueOf(((Casa) aloj).numCamas()));

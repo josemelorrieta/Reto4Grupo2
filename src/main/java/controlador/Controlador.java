@@ -62,6 +62,7 @@ public class Controlador {
 						mod.reserva.setAlojReservado(vis.pCenter.pResBusq.resultBusq.getSelectedValue());
 						if(mod.reserva.getAlojReservado() instanceof Hotel) {
 							vis.pCenter.pSelHab.setResultHab((Dormitorio[]) ((Hotel) mod.reserva.getAlojReservado()).getHabitaciones());
+							vis.pCenter.pSelHab.resultHab.ensureIndexIsVisible(0);
 							vis.pCenter.nextPanel();
 						}else {
 							vis.pCenter.changePanel("4");
