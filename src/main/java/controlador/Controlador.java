@@ -102,8 +102,7 @@ public class Controlador {
 					}
 					break;
 				case 6:
-					//vis.pCenter.pResumenRes.chckbxCondiciones.isSelected()
-					if (true) {
+					if (vis.pCenter.pResumenRes.chckbxCondiciones.isSelected()) {
 						vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
 						cResumenPago.insertarDatos();
 						vis.pCenter.nextPanel();
