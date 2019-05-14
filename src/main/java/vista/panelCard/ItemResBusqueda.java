@@ -35,7 +35,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 
 	private void setParametros() {
 		setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		setPreferredSize(new Dimension(500, 111));
+		setPreferredSize(new Dimension(500, 150));
 		setLayout(null);
 	}
 
@@ -59,7 +59,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblPrecio = new JLabel("Precio");
 		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPrecio.setBounds(353, 64, 106, 36);
+		lblPrecio.setBounds(370, 95, 106, 36);
 		add(lblPrecio);
 
 		lblEstrellas = new JLabel("");
@@ -69,16 +69,22 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 
 		lblDisponible = new JLabel("");
 		lblDisponible.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblDisponible.setBounds(122, 80, 100, 20);
+		lblDisponible.setBounds(20, 111, 100, 20);
 		add(lblDisponible);
 
 		lblCamas = new JLabel("");
-		lblCamas.setBounds(118, 52, 39, 22);
+		lblCamas.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/noHotel/cama.png")));
+		lblCamas.setBounds(122, 52, 32, 22);
 		add(lblCamas);
 
 		lblNumCamas = new JLabel("");
 		lblNumCamas.setBounds(165, 52, 53, 22);
 		add(lblNumCamas);
+		
+		JLabel lblWifi = new JLabel("");
+		lblWifi.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/servicios/wifi.png")));
+		lblWifi.setBounds(122, 80, 24, 24);
+		add(lblWifi);
 	}
 
 	
