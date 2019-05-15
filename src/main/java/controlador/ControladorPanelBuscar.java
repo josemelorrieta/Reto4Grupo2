@@ -13,6 +13,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 import modelo.Casa;
+import modelo.Dormitorio;
 import modelo.Hotel;
 import modelo.Modelo;
 import vista.VentanaPpal;

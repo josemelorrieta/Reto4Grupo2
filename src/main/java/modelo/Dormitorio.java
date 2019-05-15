@@ -24,7 +24,7 @@ public class Dormitorio extends Habitacion {
 		this.disponible = disponible;
 	}
 
-	protected double calcularPrecio(double precioM2) {
+	public double calcularPrecio(double precioM2) {
 		super.calcularPrecio(precioM2);
 		for (Mobiliario mob : this.mobiliario) {
 			this.precio += mob.getPrecio();

@@ -14,30 +14,50 @@ import modelo.TipoMobiliario;
 
 public class TestDormitorio {
 
-	private Dormitorio dormitorioTest;
-	private int intTest = 1;
-	private int intTest1 = 10;
-	private TipoHabitacion tipoHabitacionTest = TipoHabitacion.DORMITORIO;
-	private boolean boolTest=true;
-	
-	@Test
-	public void testConstructor1() {
-		Mobiliario[] arrayMobiliarioTest= {new Cama(TipoCama.INDIVIDUAL),new Mobiliario(TipoMobiliario.ARMARIO)};
+	private Dormitorio dormitorioTest = new Dormitorio();
+	private Mobiliario[] arrayMobiliarioTest = { new Cama(TipoCama.INDIVIDUAL), new Mobiliario(TipoMobiliario.ARMARIO) };
+	private boolean boolTest = true;
 
-		dormitorioTest=new Dormitorio(intTest, intTest, arrayMobiliarioTest);
+//	@Test
+//	public void testConstructor1() {
+//		Mobiliario[] arrayMobiliarioTest = { new Cama(TipoCama.INDIVIDUAL), new Mobiliario(TipoMobiliario.ARMARIO) };
+//
+//		dormitorioTest = new Dormitorio(intTest, intTest, arrayMobiliarioTest);
+//		assertArrayEquals(dormitorioTest.getMobiliario(), arrayMobiliarioTest);
+//		assertEquals(dormitorioTest.getTipoHabitacion(), boolTest);
+//		assertEquals(dormitorioTest.isDisponible(), boolTest);
+//		assertEquals(dormitorioTest.getPrecio(),
+//				(dormitorioTest.getTipoHabitacion().getPreciom2() * dormitorioTest.getM2())
+//						+ arrayMobiliarioTest[0].getPrecio() + arrayMobiliarioTest[1].getPrecio(),
+//				0);
+//	}
+
+	/**
+	 * @Test public void testSetM2() { dormitorioTest=new Dormitorio(intTest,
+	 *       intTest, arrayMobiliarioTest); dormitorioTest.setM2(intTest1);
+	 *       assertEquals(dormitorioTest.getPrecio(),
+	 *       (dormitorioTest.getTipoHabitacion().getPreciom2()*dormitorioTest.getM2())+arrayMobiliarioTest[0].getPrecio()+arrayMobiliarioTest[1].getPrecio(),0);
+	 *       }
+	 **/
+	
+	@Test()
+	public void testSetMobiliario() {
+		dormitorioTest.setMobiliario(arrayMobiliarioTest);
+		
 		assertArrayEquals(dormitorioTest.getMobiliario(), arrayMobiliarioTest);
-		assertEquals(dormitorioTest.getTipoHabitacion(), boolTest);
-		assertEquals(dormitorioTest.isDisponible(), boolTest);
-		assertEquals(dormitorioTest.getPrecio(), (dormitorioTest.getTipoHabitacion().getPreciom2()*dormitorioTest.getM2())+arrayMobiliarioTest[0].getPrecio()+arrayMobiliarioTest[1].getPrecio(),0);
 	}
 	
-	/**
 	@Test
-	public void testSetM2() {
-		dormitorioTest=new Dormitorio(intTest, intTest, arrayMobiliarioTest);
-		dormitorioTest.setM2(intTest1);
-		assertEquals(dormitorioTest.getPrecio(), (dormitorioTest.getTipoHabitacion().getPreciom2()*dormitorioTest.getM2())+arrayMobiliarioTest[0].getPrecio()+arrayMobiliarioTest[1].getPrecio(),0);
+	public void testIsDisponible() {
+		dormitorioTest.setDisponible(true);
+		
+		assertEquals (dormitorioTest.isDisponible(), true);
 	}
-	**/
+	
+	@Test
+	public void testCalcularPrecio() {
+		double precioTest = arrayMobiliarioTest[0].getPrecio() + arrayMobiliarioTest[1].getPrecio();
+		assertEquals(dormitorioTest.calcularPrecio(0), precioTest, 0.01);
+	}
 
 }

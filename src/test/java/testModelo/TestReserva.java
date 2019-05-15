@@ -1,10 +1,14 @@
 package testModelo;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Date;
+
 import org.junit.Test;
+
 import modelo.Alojamiento;
 import modelo.Cliente;
+import modelo.DesglosePrecio;
 import modelo.Dormitorio;
 import modelo.Reserva;
 
@@ -17,12 +21,15 @@ public class TestReserva {
 	private double doubleTest = 20;
 	private Alojamiento alojTest = new Alojamiento();
 	private Dormitorio dormTest = new Dormitorio();
+	private DesglosePrecio desgloseTest = new DesglosePrecio();
+	private String codPromoTest = "AAAAA";
 	
 	@Test
 	public void testConstructorVacio() {
 		reservaTest=new Reserva();
+		reservaTest.setDesglose(desgloseTest);
 		assertEquals(reservaTest.getCliente(), null);
-		assertEquals(reservaTest.getPrecio(), 0,0);
+		assertEquals(reservaTest.getDesglose(), desgloseTest);
 		assertEquals(reservaTest.getFechaReserva(), null);
 		assertEquals(reservaTest.getFechaEntrada(), null);
 		assertEquals(reservaTest.getFechaSalida(), null);
@@ -32,9 +39,9 @@ public class TestReserva {
 	
 	@Test
 	public void testConstructorAlojamiento() {
-		reservaTest=new Reserva(clienteTest, doubleTest, fechaTest, fechaTest, fechaTest,alojTest);
+		reservaTest=new Reserva(clienteTest, desgloseTest, fechaTest, fechaTest, fechaTest,alojTest);
 		assertEquals(reservaTest.getCliente(), clienteTest);
-		assertEquals(reservaTest.getPrecio(), doubleTest,0);
+		assertEquals(reservaTest.getDesglose(), desgloseTest);
 		assertEquals(reservaTest.getFechaReserva(), fechaTest);
 		assertEquals(reservaTest.getFechaEntrada(), fechaTest);
 		assertEquals(reservaTest.getFechaSalida(), fechaTest);
@@ -43,9 +50,9 @@ public class TestReserva {
 	
 	@Test
 	public void testConstructorDormitorio() {
-		reservaTest=new Reserva(clienteTest, doubleTest, fechaTest, fechaTest, fechaTest,alojTest,dormTest);
+		reservaTest=new Reserva(clienteTest, desgloseTest, fechaTest, fechaTest, fechaTest,alojTest,dormTest);
 		assertEquals(reservaTest.getCliente(), clienteTest);
-		assertEquals(reservaTest.getPrecio(), doubleTest,0);
+		assertEquals(reservaTest.getDesglose(), desgloseTest);
 		assertEquals(reservaTest.getFechaReserva(), fechaTest);
 		assertEquals(reservaTest.getFechaEntrada(), fechaTest);
 		assertEquals(reservaTest.getFechaSalida(), fechaTest);
@@ -63,8 +70,8 @@ public class TestReserva {
 	@Test
 	public void testPrecio() {
 		reservaTest=new Reserva();
-		reservaTest.setPrecio(doubleTest);
-		assertEquals(reservaTest.getPrecio(), doubleTest,0);
+		reservaTest.setDesglose(desgloseTest);
+		assertEquals(reservaTest.getDesglose(), desgloseTest);
 	}
 	
 	@Test
@@ -98,4 +105,10 @@ public class TestReserva {
 		assertEquals(reservaTest.getDormitorioReservado(), dormTest);
 	}
 
+	@Test
+	public void testCodPromocional() {
+		reservaTest = new Reserva();
+		reservaTest.setCodPromocional(codPromoTest);
+		assertEquals(reservaTest.getCodPromocional(), codPromoTest);
+	}
 }

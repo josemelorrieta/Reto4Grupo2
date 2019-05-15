@@ -11,7 +11,7 @@ public class Habitacion {
 		this.tipoHabitacion = TipoHabitacion.DEFAULT;
 	}
 
-	protected double calcularPrecio(double precioM2) {
+	public double calcularPrecio(double precioM2) {
 		this.precio = precioM2 * m2;
 		return this.precio;
 	}
@@ -42,6 +42,10 @@ public class Habitacion {
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+	
+	public double getPrecio() {
+		return this.precio;
 	}
 	
 

@@ -41,7 +41,7 @@ public class Controlador {
 		cCondiciones = new ControladorPanelCondiciones(vis);
 		cResumenRes = new ControladorPanelResumenReserva(vis, mod);
 		cResumenPago = new ControladorPanelResumenPago(mod, vis.pCenter.pResumenPago);
-		cAcompaniante=new ControladorPanelAcompaniante(vis, this, mod);
+		cAcompaniante = new ControladorPanelAcompaniante(vis, this, mod);
 	}
 
 	private void initListeners() {
@@ -57,26 +57,30 @@ public class Controlador {
 			case "SIGUIENTE":
 				switch (vis.pCenter.currentIndex) {
 				case 2:
-					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty() && vis.pCenter.pResBusq.resultBusq.getSelectedValue().isDisponible()) {
-						
+					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty()
+							&& vis.pCenter.pResBusq.resultBusq.getSelectedValue().isDisponible()) {
+
 						mod.reserva.setAlojReservado(vis.pCenter.pResBusq.resultBusq.getSelectedValue());
-						if(mod.reserva.getAlojReservado() instanceof Hotel) {
-							vis.pCenter.pSelHab.setResultHab((Dormitorio[]) ((Hotel) mod.reserva.getAlojReservado()).getHabitaciones());
+						if (mod.reserva.getAlojReservado() instanceof Hotel) {
+							vis.pCenter.pSelHab.setResultHab(
+									(Dormitorio[]) ((Hotel) mod.reserva.getAlojReservado()).getHabitaciones());
 							vis.pCenter.pSelHab.resultHab.ensureIndexIsVisible(0);
 							vis.pCenter.nextPanel();
-						}else {
+						} else {
 							vis.pCenter.changePanel("4");
 						}
 					}
 					break;
-				case 3:	
-					if(!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
+				case 3:
+					if (!vis.pCenter.pSelHab.resultHab.isSelectionEmpty()
+							&& vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.nextPanel();
-						mod.reserva.setDormitorioReservado((Dormitorio)vis.pCenter.pSelHab.resultHab.getSelectedValue());
+						mod.reserva
+								.setDormitorioReservado((Dormitorio) vis.pCenter.pSelHab.resultHab.getSelectedValue());
 					}
 					break;
 				case 4:
-					//DESGLOSES Y DATOS DEL PAGO
+					// DESGLOSES Y DATOS DEL PAGO
 					calcularDesglosePrecio();
 					mod.reserva.setDesglose(mod.desglosePrecio);
 					cResumenRes.actualizarResumenReserva(mod);
@@ -90,32 +94,37 @@ public class Controlador {
 					if (mod.mRegiLog.comprobarDatos(mod.mRegiLog.comprobacionRegistro)) {
 						mod.clienteRegis = mod.mRegiLog.registro(vis.pCenter.pRegistro);
 						if (mod.clienteRegis != null) {
-							if(mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente")) {
+							if (mod.bd.insertGenerico(mod.clienteRegis.toArray(), "cliente")) {
 								vis.pCenter.nextPanel();
 								mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 								mod.reserva.setCliente(mod.clienteRegis);
 							} else {
-								JOptionPane.showMessageDialog(vis.pCenter, "Error al guardar el cliente en la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(vis.pCenter,
+										"Error al guardar el cliente en la base de datos", "¡Error!",
+										JOptionPane.ERROR_MESSAGE);
 							}
 						}
 					} else {
-						JOptionPane.showMessageDialog(vis.pCenter, "Debe rellenar todos los campos", "¡Atención!", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(vis.pCenter, "Debe rellenar todos los campos", "¡Atención!",
+								JOptionPane.WARNING_MESSAGE);
 					}
 					break;
 				case 6:
 					if (vis.pCenter.pResumenRes.chckbxCondiciones.isSelected()) {
-						vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
+						vis.pCenter.pPago.textAPagar
+								.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
 						cResumenPago.insertarDatos();
 						vis.pCenter.nextPanel();
 					} else {
-						JOptionPane.showMessageDialog(vis, "Debe aceptar las condiciones para proceder al pago", "INFO", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(vis, "Debe aceptar las condiciones para proceder al pago", "INFO",
+								JOptionPane.INFORMATION_MESSAGE);
 					}
 					vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
 					cResumenPago.insertarDatos();
 					vis.pCenter.changePanel("9");
 					break;
 				case 9:
-					//CONDICION PARA LIMITAR PERSONAS POR HACER
+					// CONDICION PARA LIMITAR PERSONAS POR HACER
 					vis.pCenter.changePanel("7");
 					break;
 				case 7:
@@ -143,12 +152,12 @@ public class Controlador {
 					break;
 				case 3:
 					vis.pCenter.prevPanel();
-					//mod.mRegiLog.limpiar(vis.pCenter.pLogin);
+					// mod.mRegiLog.limpiar(vis.pCenter.pLogin);
 					break;
 				case 4:
-					if(!(mod.reserva.getAlojReservado() instanceof Hotel)) {
+					if (!(mod.reserva.getAlojReservado() instanceof Hotel)) {
 						vis.pCenter.changePanel("2");
-					}else {
+					} else {
 						vis.pCenter.prevPanel();
 						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 					}
@@ -158,23 +167,25 @@ public class Controlador {
 					break;
 				case 6:
 					vis.pCenter.changePanel("4");
-					//mod.mPago.limpiar(vis.pCenter.pPago);
+					// mod.mPago.limpiar(vis.pCenter.pPago);
 					break;
 				case 9:
 					vis.pCenter.changePanel("6");
 					break;
 				case 7:
 					vis.pCenter.changePanel("9");
-					}
+				}
 				break;
 			}
 		}
 	}
-	
+
 	public void calcularDesglosePrecio() {
-		if (mod.reserva.getAlojReservado() instanceof Hotel )
-			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.reserva.getDormitorioReservado(), mod.festivos);
+		if (mod.reserva.getAlojReservado() instanceof Hotel)
+			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(),
+					mod.reserva.getFechaSalida(), mod.reserva.getDormitorioReservado(), mod.festivos);
 		else
-			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), null, mod.festivos);
+			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(),
+					mod.reserva.getFechaSalida(), null, mod.festivos);
 	}
 }

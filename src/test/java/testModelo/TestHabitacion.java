@@ -14,17 +14,10 @@ public class TestHabitacion {
 	private TipoHabitacion tipoHabitacionTest = TipoHabitacion.DEFAULT;
 
 	@Test
-	public void testConstructorVacio() {
+	public void testConstructor() {
 		habitacionTest = new Habitacion();
 		assertEquals(habitacionTest.getM2(), 0);
-	}
-
-	@Test
-	public void testConstructorParametros() {
-		habitacionTest = new Habitacion(intTest, intTest, tipoHabitacionTest);
-		assertEquals(habitacionTest.getIdHab(), intTest);
-		assertEquals(habitacionTest.getM2(), intTest);
-		assertEquals(habitacionTest.getTipoHabitacion(), tipoHabitacionTest);
+		assertEquals(habitacionTest.getTipoHabitacion(), TipoHabitacion.DEFAULT);
 	}
 
 	@Test
@@ -37,7 +30,7 @@ public class TestHabitacion {
 	@Test
 	public void testGetPrecio() {
 		habitacionTest = new Habitacion();
-		assertEquals(habitacionTest.getPrecio(), 0, 0);
+		assertEquals(habitacionTest.calcularPrecio(2), 0, 0);
 	}
 
 	@Test
@@ -45,7 +38,7 @@ public class TestHabitacion {
 		habitacionTest = new Habitacion();
 		habitacionTest.setM2(intTest);
 		assertEquals(habitacionTest.getM2(), intTest);
-		assertEquals(habitacionTest.getPrecio(), 0,0);
+		assertEquals(habitacionTest.calcularPrecio(2), 2,0);
 	}
 
 	@Test
@@ -53,6 +46,13 @@ public class TestHabitacion {
 		habitacionTest = new Habitacion();
 		habitacionTest.setTipoHabitacion(tipoHabitacionTest);
 		assertEquals(habitacionTest.getTipoHabitacion(), tipoHabitacionTest);
+	}
+	
+	@Test
+	public void testSetPrecio() {
+		habitacionTest = new Habitacion();
+		habitacionTest.setPrecio(10);
+		assertEquals(habitacionTest.getPrecio(), 10, 0);
 	}
 
 }
