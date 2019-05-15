@@ -1,7 +1,10 @@
 package modelo;
 
+import java.util.Vector;
+
 public class Hotel extends Alojamiento {
 	private int numEstrellas;
+	private Vector<Vector<Dormitorio>> matrix = new Vector<Vector<Dormitorio>>();
 
 	public int numCamas() {
 		int cont = 0;
