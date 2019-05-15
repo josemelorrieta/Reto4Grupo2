@@ -74,6 +74,7 @@ public class MetodosBuscar {
 			cargarHabitaciones(hotel);
 			setDisponibilidad(hotel);
 			hotel.setServicios(setServiciosHotel(hotel));
+			System.out.println("");
 		}
 	}
 
@@ -286,18 +287,50 @@ public class MetodosBuscar {
 		}
 		gson = new Gson();
 		Global[] srvBBDD = gson.fromJson(json, Global[].class);
-		Servicio[] servicios = new Servicio[11];
+		Servicio[] servicios = hotel.getServicios();
 		
 		for (Global servicio : srvBBDD) {
 			String nomSrv = servicio.getAuxiliar3().toString();
+			int posicion = 0;
 			switch (nomSrv) {
 				case "WiFi": 
-					if((Double)servicio.getAuxiliar2() == 0)
-						hotel.getServicios()[0] = Servicio.incluido;
-					else
-						hotel.getServicios()[0] = Servicio.noIncluido;
-				break;
+					posicion = 0;
+					break;
+				case "Piscina":
+					posicion = 1;
+					break;
+				case "Spa":
+					posicion = 2;
+					break;
+				case "Parking":
+					posicion = 3;
+					break;
+				case "Aire acondicionado":
+					posicion = 4;
+					break;
+				case "Restaurante":
+					posicion = 5;
+					break;
+				case "Bar":
+					posicion = 6;
+					break;
+				case "Gimnasio":
+					posicion = 7;
+					break;
+				case "Alojamiento y desayuno":
+					posicion = 8;
+					break;
+				case "Media Pension":
+					posicion = 9;
+					break;
+				case "Pension Completa":
+					posicion = 10;
+					break;
 			}
+			if((Double)servicio.getAuxiliar2() == 0)
+				servicios[posicion] = Servicio.incluido;
+			else
+				servicios[posicion] = Servicio.noIncluido;
 			
 		}
 		
