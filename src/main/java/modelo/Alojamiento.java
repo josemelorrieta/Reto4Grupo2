@@ -11,6 +11,7 @@ public class Alojamiento {
 	protected double pvpM2;
 	protected boolean disponible;
 	protected Habitacion[] habitaciones;
+	protected Servicio[] servicios = {Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible};
 	
 	public double precioNoDormitorios() {
 		double precio=0;
@@ -124,6 +125,14 @@ public class Alojamiento {
 
 	public void setPrecioTFest(double precioTFest) {
 		this.precioTFest = precioTFest;
+	}
+
+	public Servicio[] getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(Servicio[] servicios) {
+		this.servicios = servicios;
 	}
 	
 }

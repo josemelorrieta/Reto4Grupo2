@@ -73,6 +73,7 @@ public class MetodosBuscar {
 			cargarDireccion(hotel,"hotel","idHot");
 			cargarHabitaciones(hotel);
 			setDisponibilidad(hotel);
+			hotel.setServicios(setServiciosHotel(hotel));
 		}
 	}
 
@@ -276,5 +277,30 @@ public class MetodosBuscar {
 		}
 
 		return fechas;
+	}
+
+	public Servicio[] setServiciosHotel (Hotel hotel) {
+		String json = bd.consultarToGson("SELECT s.`idSrv` 'auxiliar', `precio` 'auxiliar2', `nombre` 'auxiliar3' FROM srvhot h, servicio s WHERE s.`idSrv`=h.`idSrv` AND `idHot` = " + hotel.getId());
+		if(json.equals("")) {
+			return null;
+		}
+		gson = new Gson();
+		Global[] srvBBDD = gson.fromJson(json, Global[].class);
+		Servicio[] servicios = new Servicio[11];
+		
+		for (Global servicio : srvBBDD) {
+			String nomSrv = servicio.getAuxiliar3().toString();
+			switch (nomSrv) {
+				case "WiFi": 
+					if((Double)servicio.getAuxiliar2() == 0)
+						hotel.getServicios()[0] = Servicio.incluido;
+					else
+						hotel.getServicios()[0] = Servicio.noIncluido;
+				break;
+			}
+			
+		}
+		
+		return servicios;
 	}
 }
