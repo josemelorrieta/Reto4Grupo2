@@ -77,7 +77,7 @@ public class MetodosBuscar {
 			cargarDireccion(hotel, "hotel", "idHot");
 			cargarHabitaciones(hotel);
 			setDisponibilidad(hotel);
-			hotel.setServicios(setServiciosHotel(hotel));
+			hotel.setServicios(setServicios(hotel));
 		}
 	}
 
@@ -88,7 +88,7 @@ public class MetodosBuscar {
 			cargarDireccion(casa, "casa", "idCasa");
 			cargarHabitaciones(casa);
 			setDisponibilidad(casa);
-			casa.setServicios(setServiciosCasa(casa));
+			casa.setServicios(setServicios(casa));
 		}
 	}
 
@@ -99,7 +99,7 @@ public class MetodosBuscar {
 			cargarDireccion(apart, "Apartamento", "idApart");
 			cargarHabitaciones(apart);
 			setDisponibilidad(apart);
-			apart.setServicios(setServiciosApart(apart));
+			apart.setServicios(setServicios(apart));
 		}
 	}
 
@@ -323,72 +323,21 @@ public class MetodosBuscar {
 		return fechas;
 	}
 
-	public Servicio[] setServiciosHotel(Hotel hotel) {
-		String json = bd.consultarToGson("SELECT s.`idSrv` 'auxiliar', `precio` 'auxiliar2', `nombre` 'auxiliar3' FROM srvhot h, servicio s WHERE s.`idSrv`=h.`idSrv` AND `idHot` = " + hotel.getId());
+	public Servicio[] setServicios(Alojamiento aloj) {
+		String tipo = "";
+		if (aloj instanceof Hotel) 
+			tipo = "Hot";
+		else if (aloj instanceof Casa)
+			tipo = "Casa";
+		else if (aloj instanceof Apartamento)
+			tipo = "Apart";
+		String json = bd.consultarToGson("SELECT s.`idSrv` 'auxiliar', `precio` 'auxiliar2', `nombre` 'auxiliar3' FROM srv" + tipo.toLowerCase() + " h, servicio s WHERE s.`idSrv`=h.`idSrv` AND `id" + tipo + "` = " + aloj.getId());
 		if (json.equals("")) {
 			return null;
 		}
 		gson = new Gson();
 		Global[] srvBBDD = gson.fromJson(json, Global[].class);
-		Servicio[] servicios = hotel.getServicios();
-		
-		for (Global servicio : srvBBDD) {
-			String nomSrv = servicio.getAuxiliar3().toString();
-			int posicion = 0;
-			switch (nomSrv) {
-
-				case "WiFi": 
-					posicion = 0;
-					break;
-				case "Piscina":
-					posicion = 1;
-					break;
-				case "Spa":
-					posicion = 2;
-					break;
-				case "Parking":
-					posicion = 3;
-					break;
-				case "Aire acondicionado":
-					posicion = 4;
-					break;
-				case "Restaurante":
-					posicion = 5;
-					break;
-				case "Bar":
-					posicion = 6;
-					break;
-				case "Gimnasio":
-					posicion = 7;
-					break;
-				case "Alojamiento y desayuno":
-					posicion = 8;
-					break;
-				case "Media Pension":
-					posicion = 9;
-					break;
-				case "Pension Completa":
-					posicion = 10;
-					break;
-			}
-			if((Double)servicio.getAuxiliar2() == 0)
-				servicios[posicion] = Servicio.incluido;
-			else
-				servicios[posicion] = Servicio.noIncluido;
-			
-		}
-		
-		return servicios;
-	}
-	
-	public Servicio[] setServiciosCasa (Casa casa) {
-		String json = bd.consultarToGson("SELECT s.`idSrv` 'auxiliar', `precio` 'auxiliar2', `nombre` 'auxiliar3' FROM srvcasa c, servicio s WHERE s.`idSrv`=c.`idSrv` AND `idCasa` = " + casa.getId());
-		if(json.equals("")) {
-			return null;
-		}
-		gson = new Gson();
-		Global[] srvBBDD = gson.fromJson(json, Global[].class);
-		Servicio[] servicios = casa.getServicios();
+		Servicio[] servicios = aloj.getServicios();
 		
 		for (Global servicio : srvBBDD) {
 			String nomSrv = servicio.getAuxiliar3().toString();
@@ -432,66 +381,8 @@ public class MetodosBuscar {
 				servicios[posicion] = Servicio.incluido;
 			else
 				servicios[posicion] = Servicio.noIncluido;
-			
 		}
 		
-		return servicios;
-	}
-	
-	public Servicio[] setServiciosApart (Apartamento apart) {
-		String json = bd.consultarToGson("SELECT s.`idSrv` 'auxiliar', `precio` 'auxiliar2', `nombre` 'auxiliar3' FROM srvapart a, servicio s WHERE s.`idSrv`=a.`idSrv` AND `idApart` = " + apart.getId());
-		if(json.equals("")) {
-			return null;
-		}
-		gson = new Gson();
-		Global[] srvBBDD = gson.fromJson(json, Global[].class);
-		Servicio[] servicios = apart.getServicios();
-		
-		for (Global servicio : srvBBDD) {
-			String nomSrv = servicio.getAuxiliar3().toString();
-			int posicion = 0;
-			switch (nomSrv) {
-				case "WiFi": 
-					posicion = 0;
-					break;
-				case "Piscina":
-					posicion = 1;
-					break;
-				case "Spa":
-					posicion = 2;
-					break;
-				case "Parking":
-					posicion = 3;
-					break;
-				case "Aire acondicionado":
-					posicion = 4;
-					break;
-				case "Restaurante":
-					posicion = 5;
-					break;
-				case "Bar":
-					posicion = 6;
-					break;
-				case "Gimnasio":
-					posicion = 7;
-					break;
-				case "Alojamiento y desayuno":
-					posicion = 8;
-					break;
-				case "Media Pension":
-					posicion = 9;
-					break;
-				case "Pension Completa":
-					posicion = 10;
-					break;
-			}
-			if((Double)servicio.getAuxiliar2() == 0)
-				servicios[posicion] = Servicio.incluido;
-			else
-				servicios[posicion] = Servicio.noIncluido;
-			
-		}
-
 		return servicios;
 	}
 }
