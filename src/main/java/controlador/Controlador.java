@@ -135,7 +135,10 @@ public class Controlador {
 						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 						mod.setPagoExitoso(false);
 						mod.mPago.imprimirBillete(mod.reserva);
-						mod.mPago.guardarReserva(mod.reserva);
+						if (mod.mPago.guardarReserva(mod.reserva))
+							JOptionPane.showMessageDialog(vis, "Reserva guardada correctamente", "INFO", JOptionPane.INFORMATION_MESSAGE);
+						else
+							JOptionPane.showMessageDialog(vis, "¡Error al guardar la reserva!", "¡ATENCIÓN!", JOptionPane.ERROR_MESSAGE);
 					}
 					break;
 				case 8:
