@@ -7,10 +7,8 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
-import com.google.gson.Gson;
-
 import BaseDatos.ConsultaBD;
-import modelo.Direccion;
+import modelo.Alojamiento;
 import modelo.Hotel;
 import modelo.MetodosBuscar;
 import modelo.Modelo;
@@ -57,7 +55,6 @@ public class TestMetodosBuscar {
 		when(bd.consultarToGson("SELECT DISTINCT `localidad` 'auxiliar' FROM `direccion`")).thenReturn("[{\"auxiliar\":\"Bilbao\"}]");
 		String[] localidades = {"Bilbao", "Zaragoza"};
 		String[] localidadesBBDD = metBuscar.buscarLocalidades();
-		System.out.println(localidadesBBDD[0]);
 		assertEquals(localidadesBBDD[0], localidades[0]);
 		
 		when(bd.consultarToGson("SELECT DISTINCT `localidad` 'auxiliar' FROM `direccion`")).thenReturn(null);
@@ -84,10 +81,14 @@ public class TestMetodosBuscar {
 	@Test
 	public void cargarHoteles() {
 		MetodosBuscar metBuscarMock = mock(MetodosBuscar.class);
-		//when(metBuscarMock.cargarDireccion(mod.hotelesBusqueda[0])).thenReturn(new Direccion("Plaza Moyua", 40002, "Bilbao"));
 		String localidad = "Bilbao";
-		when(bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')")).thenReturn("[{\"id\":1,\"nombre\":\"Hotel Meliá\",\"numEstrellas\":5,\"precioTAlta\":49.9,\"precioTBaja\":29.95,\"precioTFest\":8.95,\"imagen\":\"melia_bilbao\"}]");
-		//metBuscar.cargarHoteles(localidad);
+		String tabla = "hotel";
+		String id = "idHot";
+		Alojamiento aloj = new Hotel();
+		aloj.setId(1);
+		when(bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')")).thenReturn("[{\"id\":1,\"nombre\":\"Hotel Meliá\",\"numEstrellas\":5,\"precioTAlta\":49.9,\"precioTBaja\":29.95,\"precioTFest\":8.95,\"imagen\":\"melia_bilbao\"}]");
+		when(bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `" + tabla + "` WHERE `" + id + "` = " + aloj.getId() + ")")).thenReturn("[{\"calle\":\"Gran Via\",\"codPostal\":48001,\"localidad\":\"Bilbao\"}]");
+		metBuscar.cargarHoteles(localidad);
 		assertEquals(mod.hotelesBusqueda[0].getId(), 1);
 		
 	}

@@ -61,13 +61,23 @@ public class MetodosBuscar {
 
 	}
 
+	/**
+	 * Cargar los alojamientos segun la localidad seleccionada
+	 * 
+	 * @param localidad Valor seleccionado por el cliente en la pantalla inicial
+	 */
 	public void cargarAlojamientos(String localidad) {
 		cargarHoteles(localidad);
 		cargarCasas(localidad);
 		cargarApartamentos(localidad);
 	}
 
-	private void cargarHoteles(String localidad) {
+	/**
+	 * Carga los hoteles para la localidad seleccionada
+	 * 
+	 * @param localidad
+	 */
+	public void cargarHoteles(String localidad) {
 		String json = bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.hotelesBusqueda = gson.fromJson(json, Hotel[].class);
 		for (Hotel hotel : mod.hotelesBusqueda) {
@@ -78,6 +88,11 @@ public class MetodosBuscar {
 		}
 	}
 
+	/**
+	 * Carga las casas para la localidad seleccionada
+	 * 
+	 * @param localidad
+	 */
 	private void cargarCasas(String localidad) {
 		String json = bd.consultarToGson("SELECT `idCasa` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `imagen` FROM `casa` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.casasBusqueda = gson.fromJson(json, Casa[].class);
@@ -89,6 +104,11 @@ public class MetodosBuscar {
 		}
 	}
 
+	/**
+	 * Carga los apartamentos para la localidad seleccionada
+	 * 
+	 * @param localidad
+	 */
 	private void cargarApartamentos(String localidad) {
 		String json = bd.consultarToGson("SELECT `idApart` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `piso`, `imagen` FROM `apartamento` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.apartBusqueda = gson.fromJson(json, Apartamento[].class);
@@ -100,12 +120,24 @@ public class MetodosBuscar {
 		}
 	}
 
-	private void cargarDireccion(Alojamiento aloj, String tabla, String id) {
+	/**
+	 * Carga la direccion del alojamiento pasado como parametro para hoteles, casas y apartamentos
+	 * 
+	 * @param aloj Alojamiento al que se le quiere guardar su direccion
+	 * @param tabla Nombre de la tabla de la base de datos para distinguir entre alojamientos (hotel, casa, apartamento)
+	 * @param id Nombre del campo id en la base de datos segun el tipo de alojamiento (idHot, idCasa, idApart)
+	 */
+	public void cargarDireccion(Alojamiento aloj, String tabla, String id) {
 		String json = bd.consultarToGson("SELECT `calle`,`codPostal`,`localidad` FROM `direccion` WHERE `idDir` = (SELECT `idDir` FROM `" + tabla + "` WHERE `" + id + "` = " + aloj.getId() + ")");
 		Direccion[] dir = gson.fromJson(json, Direccion[].class);
 		aloj.setDireccion(dir[0]);
 	}
 
+	/**
+	 * Carga las habitaciones de un hotel
+	 * 
+	 * @param hotel hotel al que se le van a cargar las habitaciones
+	 */
 	private void cargarHabitaciones(Hotel hotel) {
 		String json = bd.consultarToGson("SELECT `idHab`, `metros` 'm2', 'DORMITORIO' AS `tipoHabitacion` FROM `dormitorio` d, `habhotel` h WHERE d.`idDorm` IN (SELECT `idDorm` FROM `habhotel` WHERE `idHot`=" + hotel.getId() + ") AND d.`idDorm`=h.`idDorm`");
 		Dormitorio[] dormitorios = gson.fromJson(json, Dormitorio[].class);
@@ -115,6 +147,11 @@ public class MetodosBuscar {
 		hotel.setHabitaciones(dormitorios);
 	}
 
+	/**
+	 * Carga las habitaciones de una casa
+	 * 
+	 * @param casa Casa a la que se le van a cargar las habitaciones 
+	 */
 	private void cargarHabitaciones(Casa casa) {
 		String tipo = (casa.getClass()).getSimpleName().toLowerCase();
 		String json = bd.consultarToGson("SELECT d.`idDorm` 'idHab', `metros` 'm2', 'DORMITORIO' AS `tipoHabitacion` FROM `dormitorio` d, `dorm" + tipo + "` c WHERE d.`idDorm` IN (SELECT `idDorm` FROM `dorm" + tipo + "` WHERE `id" + tipo.substring(0, 1).toUpperCase() + tipo.substring(1) + "`=" + casa.getId() + ") AND d.`idDorm`=c.`idDorm`");
@@ -216,6 +253,15 @@ public class MetodosBuscar {
 
 	}
 
+	/**
+	 * Comprueba la disponibilidad de un dormitorio de un hotel segun las reservas de la base de datos
+	 * 
+	 * @param dorm Dormitorio al que se le va a comprobar su disponibilidad
+	 * @param fechaIn Fecha de entrada de la reserva
+	 * @param fechaOut Fecha de salida de la reserva
+	 * @param sdf Variable tipo SimpleDateFormat usada de las funiones comunes del paquete util
+	 * @return array de fechas de las reservas encontradas en la base de datos para ese dormitorio
+	 */
 	private FechasReserva[] comprobarDisponibilidadDormitorio(Dormitorio dorm, Date fechaIn, Date fechaOut,SimpleDateFormat sdf) {
 		String json = bd.consultarToGson("SELECT r.`idRsv`, `idHab` 'id', `fechaIn`, `fechaOut` FROM `reserva` r, `rsvHab` h WHERE r.`idRsv`=h.`idRsv` AND `idHab`='" + dorm.getIdHab() + "' AND (CAST('" + sdf.format(fechaIn) + "' AS DATE) BETWEEN 'fechaIn' AND 'fechaOut') OR (CAST('" + sdf.format(fechaOut) + "' AS DATE) BETWEEN 'fechaIn' AND 'fechaOut')");
 		FechasReserva[] fechasReserva = gson.fromJson(json, FechasReserva[].class);
@@ -223,12 +269,21 @@ public class MetodosBuscar {
 		return fechasReserva;
 	}
 
+	/**
+	 * Selecciona el mobiliario del dormitorio sacado de la base de datos
+	 * @param dorm Dormitorio al que se le quiere buscar su mobiliario
+	 * @return array de muebles encontrados para ese dormitorio
+	 */
 	private Mobiliario[] mobiliarioDormitorio(Dormitorio dorm) {
 		String json = bd.consultarToGson("SELECT `tipoMob` 'nombre',`tipoMob` 'tipoMobiliario' FROM `mobiliario` WHERE `idMob` IN(SELECT `idMob` FROM `mobdorm` WHERE `idDorm`=" + dorm.getIdHab() + ")");
 		Mobiliario[] mobiliario = gson.fromJson(json, Mobiliario[].class);
 		return mobiliario;
 	}
 
+	/**
+	 * Selecciona el mobiliario del dormitorio de una casa sacado de la base de datos
+	 * @param dormitorio Dormitorio al que se le quiere buscar su mobiliario
+	 */
 	private void cargarMobiliarioDormitorioCasa(Dormitorio dormitorio) {
 		String json = bd.consultarToGson("SELECT 'Cama' AS `nombre`, `tipoCama`,'CAMA' AS `tipoMobiliario` FROM `cama` WHERE `idCama` IN(SELECT `idCama` FROM `camadorm` WHERE `idDorm`=" + dormitorio.getIdHab() + ")");
 		Cama[] camas = gson.fromJson(json, Cama[].class);
@@ -246,12 +301,23 @@ public class MetodosBuscar {
 		}
 	}
 
+	/**
+	 * Selecciona el mobiliario del dormitorio de un hotel sacado de la base de datos
+	 * 
+	 * @param dormitorioDormitorio al que se le quiere buscar su mobiliario
+	 */
 	private void cargarMobiliarioDormitorioHotel(Dormitorio dormitorio) {
 		String json = bd.consultarToGson("SELECT 'CAMATEST' AS `nombre`,`tipoCama` FROM `cama` WHERE `idCama` IN (SELECT `idCama` FROM `camadorm` WHERE `idDorm` IN (SELECT `idDorm` FROM `habhotel` WHERE `idHab`=" + dormitorio.getIdHab() + "))");
 		Cama[] camas = gson.fromJson(json, Cama[].class);
 		dormitorio.setMobiliario(camas);
 	}
 
+	/**
+	 * Fija si un hotel esta disponible para las fechas seleccionadas
+	 * 
+	 * @param hotel Hotel al que se le va a fijar su disponibilidad
+	 * @param sdf SimpleDateFormat cogido de la clase del paquete util comun a toto el codigo
+	 */
 	private void setDisponibilidad(Hotel hotel,SimpleDateFormat sdf) {
 		Date fechaEntrada = mod.reserva.getFechaEntrada();
 		Date fechaSalida = mod.reserva.getFechaSalida();
@@ -284,6 +350,12 @@ public class MetodosBuscar {
 		hotel.setDisponible(comprobarDisponibilidad(hotel));
 	}
 
+	/**
+	 * Fija si una casa esta disponible para las fechas seleccionadas
+	 * 
+	 * @param casa Casa a la que se le va a fijar su disponibilidad
+	 * @param sdf SimpleDateFormat cogido de la clase del paquete util comun a toto el codigo
+	 */
 	private void setDisponibilidad(Casa casa,SimpleDateFormat sdf) {
 		Date fechaEntrada = mod.reserva.getFechaEntrada();
 		Date fechaSalida = mod.reserva.getFechaSalida();
@@ -313,6 +385,11 @@ public class MetodosBuscar {
 		}
 	}
 
+	/**
+	 * Comprueba la disponibilidad de las habitaciones de un hotel
+	 * 
+	 * @param hotel Hotel al que se le comprueba la disponibilidad de sus habitaciones
+	 */
 	public static boolean comprobarDisponibilidad(Hotel hotel) {
 		int count = 0;
 		for (int i = 0; i < hotel.getHabitaciones().length; i++) {
@@ -324,7 +401,13 @@ public class MetodosBuscar {
 		} else
 			return true;
 	}
-
+	
+	/**
+	 * Devuelve las fechas en las que esta reservado un alojamiento
+	 * 
+	 * @param aloj Alojamiento a comprobar
+	 * @return Array de fechas en las que ese alojamiento esta reservado
+	 */
 	private FechasReserva[] buscarFechasReservas(Alojamiento aloj) {
 		String tipo = FuncionesGenerales.tipoAloj(aloj);
 
@@ -333,7 +416,13 @@ public class MetodosBuscar {
 
 		return fechasReserva;
 	}
-
+	
+	/**
+	 * Busca las fechas de los dias festivos que estan dados de alta en la base de datos
+	 * 
+	 * @param sdf SimpleDateFormat del paquete util
+	 * @return Array de fechas festivas
+	 */
 	public Calendar[] buscarFechasFestivos(SimpleDateFormat sdf) {
 		String json = bd.consultarToGson("SELECT `fecha` 'auxiliar' FROM `festivos`");
 		if (json.equals("")) {
@@ -358,6 +447,12 @@ public class MetodosBuscar {
 		return fechas;
 	}
 
+	/** 
+	 * Fija los servicios para un alojamiento sacados de la base de datos
+	 * 
+	 * @param aloj Alojamiento al que se le van a fijar los servicios
+	 * @return Array de servicios para un alojamiento
+	 */
 	public Servicio[] setServicios(Alojamiento aloj) {
 		String tipo = "";
 		if (aloj instanceof Hotel)
