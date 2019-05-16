@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,8 @@ import modelo.Hotel;
 
 public class FuncionesGenerales {
 
+	public final static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	
 	public static ImageIcon resizeIcono(int pixelsX, int pixelsY, File imagen) {
 		BufferedImage img = null;
 		try {

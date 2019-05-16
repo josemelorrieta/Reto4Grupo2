@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import BaseDatos.ConsultaBD;
+import util.FuncionesGenerales;
 
 public class Modelo {
 	
@@ -25,7 +26,7 @@ public class Modelo {
 		reserva = new Reserva();
 		bd = new ConsultaBD();
 		addMetodos();
-		festivos=mBuscar.buscarFechasFestivos();
+		festivos=mBuscar.buscarFechasFestivos(FuncionesGenerales.sdf);
 	}
 	
 	public void addMetodos() {

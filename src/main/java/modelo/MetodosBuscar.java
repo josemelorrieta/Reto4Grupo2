@@ -1,6 +1,5 @@
 package modelo;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -18,8 +17,6 @@ public class MetodosBuscar {
 	private Modelo mod;
 
 	private Gson gson = new Gson();
-
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public MetodosBuscar(Modelo mod, ConsultaBD bd) {
 		this.bd = bd;
@@ -76,7 +73,7 @@ public class MetodosBuscar {
 		for (Hotel hotel : mod.hotelesBusqueda) {
 			cargarDireccion(hotel, "hotel", "idHot");
 			cargarHabitaciones(hotel);
-			setDisponibilidad(hotel);
+			setDisponibilidad(hotel,FuncionesGenerales.sdf);
 			hotel.setServicios(setServicios(hotel));
 		}
 	}
@@ -87,7 +84,7 @@ public class MetodosBuscar {
 		for (Casa casa : mod.casasBusqueda) {
 			cargarDireccion(casa, "casa", "idCasa");
 			cargarHabitaciones(casa);
-			setDisponibilidad(casa);
+			setDisponibilidad(casa,FuncionesGenerales.sdf);
 			casa.setServicios(setServicios(casa));
 		}
 	}
@@ -98,7 +95,7 @@ public class MetodosBuscar {
 		for (Apartamento apart : mod.apartBusqueda) {
 			cargarDireccion(apart, "Apartamento", "idApart");
 			cargarHabitaciones(apart);
-			setDisponibilidad(apart);
+			setDisponibilidad(apart,FuncionesGenerales.sdf);
 			apart.setServicios(setServicios(apart));
 		}
 	}
@@ -123,7 +120,7 @@ public class MetodosBuscar {
 		String json = bd.consultarToGson("SELECT d.`idDorm` 'idHab', `metros` 'm2', 'DORMITORIO' AS `tipoHabitacion` FROM `dormitorio` d, `dorm" + tipo + "` c WHERE d.`idDorm` IN (SELECT `idDorm` FROM `dorm" + tipo + "` WHERE `id" + tipo.substring(0, 1).toUpperCase() + tipo.substring(1) + "`=" + casa.getId() + ") AND d.`idDorm`=c.`idDorm`");
 		Dormitorio[] dormitorios = gson.fromJson(json, Dormitorio[].class);
 		for (Dormitorio dorm : dormitorios)
-			cargarMobiliarioDormitorioCasa(dorm, tipo);
+			cargarMobiliarioDormitorioCasa(dorm);
 
 		json = bd.consultarToGson("SELECT d.`idNDorm` 'idHab', `metros` 'm2', `tipoHab` 'tipoHabitacion' FROM `noDormitorio` d, `nDorm" + tipo + "` c WHERE d.`idNDorm` IN (SELECT `idNDorm` FROM `nDorm" + tipo + "` WHERE `id" + tipo.substring(0, 1).toUpperCase() + tipo.substring(1) + "`=" + casa.getId() + ") AND d.`idNDorm`=c.`idNDorm`");
 		Habitacion[] noDormitorios = gson.fromJson(json, Habitacion[].class);
@@ -138,56 +135,101 @@ public class MetodosBuscar {
 		}
 	}
 
-
+	/**
+	 * Carga las habitaciones de un hotel en una matriz separados segun el tipo de
+	 * dormitorio
+	 * 
+	 * @param hotel hotel del cual se buscan las habitaciones
+	 * @return matrix de dormitorios
+	 */
 	private Vector<Vector<Dormitorio>> matrizHabitaciones(Hotel hotel) {
-		final String[] tiposDorm = { "INDI1", "INDI2", "MATRI1", "MATRI1INDI1", "MATRI1INFANT1" };
+		String json = bd.consultarToGson("SELECT DISTINCT `tipoDorm` as 'auxiliar' FROM `habhotel` ORDER BY ASC");
+		Global[] tiposDormGlobal = gson.fromJson(json, Global[].class);
+		String[] tiposDorm = new String[tiposDormGlobal.length];
+		int i = 0;
+		for (Global global : tiposDormGlobal) {
+			tiposDorm[i] = (String) global.getAuxiliar();
+			i++;
+		}
+
 		Vector<Vector<Dormitorio>> matrix = new Vector<Vector<Dormitorio>>();
 
 		for (String tipo : tiposDorm) {
-			String json = bd.consultarToGson("SELECT `idHab`, `metros` 'm2', 'DORMITORIO' AS `tipoHabitacion` FROM `dormitorio` d, `habhotel` h WHERE d.`idDorm` IN (SELECT `idDorm` FROM `habhotel` WHERE `idHot`=" + hotel.getId() + ") AND d.`idDorm`=h.`idDorm` AND tipoDorm='" + tipo + "'");
+			json = bd.consultarToGson("SELECT `idHab`, `metros` 'm2', 'DORMITORIO' AS `tipoHabitacion` FROM `dormitorio` d, `habhotel` h WHERE d.`idDorm` IN (SELECT `idDorm` FROM `habhotel` WHERE `idHot`=" + hotel.getId() + ") AND d.`idDorm`=h.`idDorm` AND tipoDorm='" + tipo + "'");
 			Dormitorio[] dormitorios = gson.fromJson(json, Dormitorio[].class);
 			matrix.add(new Vector<Dormitorio>(Arrays.asList(dormitorios)));
 		}
 		return matrix;
 	}
-	
-	private Vector<Vector<Dormitorio>> cargarMobiliarioDormitorio(Vector<Vector<Dormitorio>> dormitorios){
-		for(int i=0;i<dormitorios.size();i++) {
-			for(int f=0;f<dormitorios.get(i).size();f++) {
-				dormitorios.get(i).get(f).setMobiliario(mobiliarioHotel(dormitorios.get(i).get(f)));
+
+	/**
+	 * Carga el mobiliario en una matriz de dormitorios
+	 * 
+	 * @param dormitorios matriz (VectorXVector) de dormitorios
+	 * @return
+	 */
+	private Vector<Vector<Dormitorio>> cargarMobiliarioDormitorio(Vector<Vector<Dormitorio>> dormitorios) {
+		for (int i = 0; i < dormitorios.size(); i++) {
+			for (int f = 0; f < dormitorios.get(i).size(); f++) {
+				dormitorios.get(i).get(f).setMobiliario(mobiliarioDormitorio(dormitorios.get(i).get(f)));
 			}
 		}
 		return dormitorios;
 	}
-	
-	private void setDisponibilidad(int idHotel,Dormitorio dorm) {
-		Date fechaEntrada = mod.reserva.getFechaEntrada();
-		Date fechaSalida = mod.reserva.getFechaSalida();
+
+	/**
+	 * Comprueba si el dormitorio proporcionado por parametro esta reservado
+	 * 
+	 * @param dorm Dormitorio cual se quiere comprobar
+	 * @return el dormitorio enviado por parametro con la disponibilidad cambiada
+	 */
+	private Dormitorio setDisponibilidadDormitorio(Dormitorio dorm,Date fechaEntrada,Date fechaSalida,SimpleDateFormat sdf) {
+		if (dorm == null)
+			return null;
+		// fechaEntrada = mod.reserva.getFechaEntrada();
+		// fechaSalida = mod.reserva.getFechaSalida();
 		Date fechaIn = new Date();
 		Date fechaOut = new Date();
 		int idHab = 0;
-																	//QUITAR NEW DATES CUANDO ESTEN LAS FECHAS
-		FechasReserva[] fechasReserva = comprobarDisponibilidad(idHotel,dorm,new Date(), new Date());
+		FechasReserva[] fechasReserva = comprobarDisponibilidadDormitorio(dorm, fechaEntrada, fechaSalida,FuncionesGenerales.sdf);
 
-		
+		if (fechasReserva != null) {
+			for (int j = 0; j < fechasReserva.length; j++) {
+				try {
+					fechaIn = sdf.parse(fechasReserva[j].getFechaIn());
+					fechaOut = sdf.parse(fechasReserva[j].getFechaOut());
+					idHab = fechasReserva[j].getId();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				if (fechaIn.compareTo(fechaSalida) <= 0 && fechaOut.compareTo(fechaEntrada) >= 0 && idHab == dorm.getIdHab()) {
+					dorm.setDisponible(false);
+					return dorm;
+				} else
+					dorm.setDisponible(true);
+			}
+			return dorm;
+		} else {
+			dorm.setDisponible(true);
+			return dorm;
+		}
+
 	}
-	
-	private FechasReserva[] comprobarDisponibilidad(int id,Dormitorio dorm,Date fechaIn,Date fechaOut) {
 
-		String json = bd.consultarToGson("SELECT r.`idRsv`, `idHab` 'id', `fechaIn`, `fechaOut` FROM `reserva` r, `rsvHab` h WHERE r.`idRsv`=h.`idRsv` AND `idHab`='"+dorm.getIdHab()+"' AND (CAST('ENTRADA' AS DATE) BETWEEN 'fechaIn' AND 'fechaOut') OR (CAST('SALIDA' AS DATE) BETWEEN 'fechaIn' AND 'fechaOut' AND `fechaOut`)");
+	private FechasReserva[] comprobarDisponibilidadDormitorio(Dormitorio dorm, Date fechaIn, Date fechaOut,SimpleDateFormat sdf) {
+		String json = bd.consultarToGson("SELECT r.`idRsv`, `idHab` 'id', `fechaIn`, `fechaOut` FROM `reserva` r, `rsvHab` h WHERE r.`idRsv`=h.`idRsv` AND `idHab`='" + dorm.getIdHab() + "' AND (CAST('" + sdf.format(fechaIn) + "' AS DATE) BETWEEN 'fechaIn' AND 'fechaOut') OR (CAST('" + sdf.format(fechaOut) + "' AS DATE) BETWEEN 'fechaIn' AND 'fechaOut')");
 		FechasReserva[] fechasReserva = gson.fromJson(json, FechasReserva[].class);
 
 		return fechasReserva;
 	}
-	
-	
-	private Mobiliario[] mobiliarioHotel(Dormitorio dorm) {
+
+	private Mobiliario[] mobiliarioDormitorio(Dormitorio dorm) {
 		String json = bd.consultarToGson("SELECT `tipoMob` 'nombre',`tipoMob` 'tipoMobiliario' FROM `mobiliario` WHERE `idMob` IN(SELECT `idMob` FROM `mobdorm` WHERE `idDorm`=" + dorm.getIdHab() + ")");
 		Mobiliario[] mobiliario = gson.fromJson(json, Mobiliario[].class);
 		return mobiliario;
 	}
 
-	private void cargarMobiliarioDormitorioCasa(Dormitorio dormitorio, String tipo) {
+	private void cargarMobiliarioDormitorioCasa(Dormitorio dormitorio) {
 		String json = bd.consultarToGson("SELECT 'Cama' AS `nombre`, `tipoCama`,'CAMA' AS `tipoMobiliario` FROM `cama` WHERE `idCama` IN(SELECT `idCama` FROM `camadorm` WHERE `idDorm`=" + dormitorio.getIdHab() + ")");
 		Cama[] camas = gson.fromJson(json, Cama[].class);
 
@@ -210,7 +252,7 @@ public class MetodosBuscar {
 		dormitorio.setMobiliario(camas);
 	}
 
-	private void setDisponibilidad(Hotel hotel) {
+	private void setDisponibilidad(Hotel hotel,SimpleDateFormat sdf) {
 		Date fechaEntrada = mod.reserva.getFechaEntrada();
 		Date fechaSalida = mod.reserva.getFechaSalida();
 		Date fechaIn = new Date();
@@ -242,7 +284,7 @@ public class MetodosBuscar {
 		hotel.setDisponible(comprobarDisponibilidad(hotel));
 	}
 
-	private void setDisponibilidad(Casa casa) {
+	private void setDisponibilidad(Casa casa,SimpleDateFormat sdf) {
 		Date fechaEntrada = mod.reserva.getFechaEntrada();
 		Date fechaSalida = mod.reserva.getFechaSalida();
 		Date fechaIn = new Date();
@@ -284,14 +326,7 @@ public class MetodosBuscar {
 	}
 
 	private FechasReserva[] buscarFechasReservas(Alojamiento aloj) {
-		String tipo = "";
-		if (aloj instanceof Hotel) {
-			tipo = "Hab";
-		} else if (aloj instanceof Apartamento) {
-			tipo = "Apart";
-		} else if (aloj instanceof Casa) {
-			tipo = "Casa";
-		}
+		String tipo = FuncionesGenerales.tipoAloj(aloj);
 
 		String json = bd.consultarToGson("SELECT r.`idRsv`, `id" + tipo + "` 'id', `fechaIn`, `fechaOut` FROM `reserva` r, `rsv" + tipo.toLowerCase() + "` h WHERE r.`idRsv`=h.`idRsv`");
 		FechasReserva[] fechasReserva = gson.fromJson(json, FechasReserva[].class);
@@ -299,7 +334,7 @@ public class MetodosBuscar {
 		return fechasReserva;
 	}
 
-	public Calendar[] buscarFechasFestivos() {
+	public Calendar[] buscarFechasFestivos(SimpleDateFormat sdf) {
 		String json = bd.consultarToGson("SELECT `fecha` 'auxiliar' FROM `festivos`");
 		if (json.equals("")) {
 			return null;
@@ -325,7 +360,7 @@ public class MetodosBuscar {
 
 	public Servicio[] setServicios(Alojamiento aloj) {
 		String tipo = "";
-		if (aloj instanceof Hotel) 
+		if (aloj instanceof Hotel)
 			tipo = "Hot";
 		else if (aloj instanceof Casa)
 			tipo = "Casa";
@@ -338,51 +373,51 @@ public class MetodosBuscar {
 		gson = new Gson();
 		Global[] srvBBDD = gson.fromJson(json, Global[].class);
 		Servicio[] servicios = aloj.getServicios();
-		
+
 		for (Global servicio : srvBBDD) {
 			String nomSrv = servicio.getAuxiliar3().toString();
 			int posicion = 0;
 			switch (nomSrv) {
-				case "WiFi": 
-					posicion = 0;
-					break;
-				case "Piscina":
-					posicion = 1;
-					break;
-				case "Spa":
-					posicion = 2;
-					break;
-				case "Parking":
-					posicion = 3;
-					break;
-				case "Aire acondicionado":
-					posicion = 4;
-					break;
-				case "Restaurante":
-					posicion = 5;
-					break;
-				case "Bar":
-					posicion = 6;
-					break;
-				case "Gimnasio":
-					posicion = 7;
-					break;
-				case "Alojamiento y desayuno":
-					posicion = 8;
-					break;
-				case "Media Pension":
-					posicion = 9;
-					break;
-				case "Pension Completa":
-					posicion = 10;
-					break;
+			case "WiFi":
+				posicion = 0;
+				break;
+			case "Piscina":
+				posicion = 1;
+				break;
+			case "Spa":
+				posicion = 2;
+				break;
+			case "Parking":
+				posicion = 3;
+				break;
+			case "Aire acondicionado":
+				posicion = 4;
+				break;
+			case "Restaurante":
+				posicion = 5;
+				break;
+			case "Bar":
+				posicion = 6;
+				break;
+			case "Gimnasio":
+				posicion = 7;
+				break;
+			case "Alojamiento y desayuno":
+				posicion = 8;
+				break;
+			case "Media Pension":
+				posicion = 9;
+				break;
+			case "Pension Completa":
+				posicion = 10;
+				break;
 			}
-			if((Double)servicio.getAuxiliar2() == 0)
+			if ((Double) servicio.getAuxiliar2() == 0)
 				servicios[posicion] = Servicio.incluido;
 			else
 				servicios[posicion] = Servicio.noIncluido;
 		}
-		
+
 		return servicios;
 	}
 }
