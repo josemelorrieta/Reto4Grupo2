@@ -362,10 +362,10 @@ public class MetodosBuscar {
 		String tipo = "";
 		if (aloj instanceof Hotel)
 			tipo = "Hot";
-		else if (aloj instanceof Casa)
-			tipo = "Casa";
 		else if (aloj instanceof Apartamento)
 			tipo = "Apart";
+		else if (aloj instanceof Casa)
+			tipo = "Casa";
 		String json = bd.consultarToGson("SELECT s.`idSrv` 'auxiliar', `precio` 'auxiliar2', `nombre` 'auxiliar3' FROM srv" + tipo.toLowerCase() + " h, servicio s WHERE s.`idSrv`=h.`idSrv` AND `id" + tipo + "` = " + aloj.getId());
 		if (json.equals("")) {
 			return null;

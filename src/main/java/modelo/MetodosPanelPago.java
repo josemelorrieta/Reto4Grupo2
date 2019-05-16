@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import com.google.gson.Gson;
 
 import BaseDatos.ConsultaBD;
+import util.FuncionesGenerales;
 import vista.VentanaPpal;
 import vista.panelCard.PanelPago;
 
@@ -77,8 +78,6 @@ public class MetodosPanelPago {
 	public double stringADouble(String strg) {
 		return Double.parseDouble(strg);
 	}
-
-	
 
 	/**
 	 * Pasa de string a float
@@ -148,9 +147,6 @@ public class MetodosPanelPago {
 			for (String val : arrayCambios) {
 				panel.modeloCambio.addElement(val);
 			}
-			guardarReserva(mod.reserva);
-			// JOptionPane.showMessageDialog(panel, "Error al guardar la reserva en la base
-			// de datos", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			panel.textAPagar.setText(arrDinero[0]);
 			panel.textPagado.setText(arrDinero[1]);
@@ -235,19 +231,19 @@ public class MetodosPanelPago {
 
 		int id = 0;
 		Alojamiento alojamiento = reserva.getAlojReservado();
-		String tipo;
+		String tipo = "";
 
 		if (alojamiento instanceof Hotel) {
 			id = reserva.getDormitorioReservado().getIdHab();
-			tipo="hotel";
-		} else if(alojamiento instanceof Casa) {
+			tipo = "hotel";
+		} else {
 			id = alojamiento.getId();
-			tipo="casa";
-		}else {
-			id = alojamiento.getId();
-			tipo="apartamento";
+			if (alojamiento instanceof Apartamento) {
+				tipo = "apartamento";
+			} else {
+				tipo = "casa";
+			}
 		}
-		
 
 		return bd.guardarReserva(idRsv, dni, fechaRsv, fechaIn, fechaOut, precio, id, tipo);
 	}
