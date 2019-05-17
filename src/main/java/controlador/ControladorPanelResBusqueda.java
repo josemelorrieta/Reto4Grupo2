@@ -11,4 +11,6 @@ public class ControladorPanelResBusqueda {
 		this.vis=vis;
 		this.controlador=cont;
 	}
+	
+	
 }
