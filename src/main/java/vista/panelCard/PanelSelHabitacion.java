@@ -3,6 +3,7 @@ package vista.panelCard;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -54,10 +55,13 @@ public class PanelSelHabitacion extends JPanel {
 		add(scroll);
 	}
 	
-	public void setResultHab(Dormitorio[] dormitorios) {
+	public void setResultHab(Vector<Vector<Dormitorio>> dormitorios) {
 		modelResHab.clear();
-		for(Dormitorio dormitorio:dormitorios) {
-			modelResHab.addElement(dormitorio);
+		for(Vector<Dormitorio> columna:dormitorios) {
+			if(columna==null) continue;
+			for(Dormitorio dormi:columna) {
+				modelResHab.addElement(dormi);
+			}
 		}
 	}
 }

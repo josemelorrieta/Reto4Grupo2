@@ -73,11 +73,13 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 		lblNombre.setText(String.valueOf(dormitorio.getTipoHabitacion())+" "+dormitorio.getIdHab());
 		String camas = "";
 		
+		/**
 		for(Mobiliario mob:((Dormitorio) dormitorio).getMobiliario()) {
 			if(mob instanceof Cama) {
 				camas += ((Cama) mob).getTipoCama()+"\n";
 			}
-		}		
+		}	
+		**/	
 		lblCamas.setText(camas);
 		lblTamano.setText(String.valueOf(dormitorio.getM2())+"m2");
 		
