@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: e1faffb3e614e6c2fba74296962386b7
 
 Datos de la reserva:
-Nombre Alojamiento: Apartamento Pili
+Nombre Alojamiento: Hotel Meliá
 Fecha de la reserva: 17-05-2019
 Fecha de entrada   : 17-05-2019
 Fecha de salida    : 18-05-2019
 
-Precio total: 64.75
+Precio total: 50.50

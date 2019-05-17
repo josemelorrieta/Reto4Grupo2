@@ -6,8 +6,10 @@ public class Dormitorio extends Habitacion {
 	private boolean disponible;
 
 	public Dormitorio() {
+		disponible=false;
 	}
 
+	
 	public Mobiliario[] getMobiliario() {
 		return mobiliario;
 	}
