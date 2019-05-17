@@ -24,6 +24,7 @@ public class Controlador {
 	private ControladorPanelResumenPago cResumenPago;
 	private ControladorPanelResumenReserva cResumenRes;
 	private ControladorPanelAcompaniante cAcompaniante;
+	private ControladorPanelServicios cServicios;
 
 	public Controlador(VentanaPpal vista, Modelo modelo) {
 		this.vis = vista;
@@ -42,6 +43,7 @@ public class Controlador {
 		cResumenRes = new ControladorPanelResumenReserva(vis, mod);
 		cResumenPago = new ControladorPanelResumenPago(mod, vis.pCenter.pResumenPago);
 		cAcompaniante = new ControladorPanelAcompaniante(vis, this, mod);
+		cServicios = new ControladorPanelServicios(vis, mod);
 	}
 
 	private void initListeners() {
