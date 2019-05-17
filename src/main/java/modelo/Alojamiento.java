@@ -12,6 +12,7 @@ public class Alojamiento {
 	protected boolean disponible;
 	protected Habitacion[] habitaciones;
 	protected Servicio[] servicios = {Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible};
+	protected boolean mostrar = true;
 	
 	public double precioNoDormitorios() {
 		double precio=0;
@@ -133,6 +134,14 @@ public class Alojamiento {
 
 	public void setServicios(Servicio[] servicios) {
 		this.servicios = servicios;
+	}
+
+	public boolean isMostrar() {
+		return mostrar;
+	}
+
+	public void setMostrar(boolean mostrar) {
+		this.mostrar = mostrar;
 	}
 	
 }

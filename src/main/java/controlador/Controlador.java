@@ -61,7 +61,6 @@ public class Controlador {
 				switch (vis.pCenter.currentIndex) {
 				case 2:
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty() && vis.pCenter.pResBusq.resultBusq.getSelectedValue().isDisponible()) {
-
 						mod.reserva.setAlojReservado(vis.pCenter.pResBusq.resultBusq.getSelectedValue());
 						if (mod.reserva.getAlojReservado() instanceof Hotel) {
 							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.reserva.getAlojReservado()).getMatrix());
