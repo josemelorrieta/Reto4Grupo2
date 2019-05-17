@@ -37,7 +37,7 @@ public class Controlador {
 	private void addControladores() {
 		cBuscar = new ControladorPanelBuscar(vis, this, mod);
 		cPago = new ControladorPanelPago(vis, mod);
-		cResBusqueda = new ControladorPanelResBusqueda(vis, this);
+		cResBusqueda = new ControladorPanelResBusqueda(mod, vis.pCenter.pResBusq, this);
 		cRegistro = new ControladorPanelRegistro(vis, this, mod);
 		cLogin = new ControladorPanelLogin(vis, this, mod);
 		cCondiciones = new ControladorPanelCondiciones(vis);
