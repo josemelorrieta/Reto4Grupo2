@@ -69,14 +69,13 @@ public class Controlador {
 						} else {
 							vis.pCenter.changePanel("4");
 						}
+						cServicios.inicializarDatosAloj();
 					}
 					break;
 				case 3:
 					if (!vis.pCenter.pSelHab.resultHab.isSelectionEmpty() && vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.nextPanel();
 						mod.reserva.setDormitorioReservado((Dormitorio) vis.pCenter.pSelHab.resultHab.getSelectedValue());
-						cServicios.inicializarDatosAloj();
-						cServicios.inicializarServicios();
 					}
 					break;
 				case 4:

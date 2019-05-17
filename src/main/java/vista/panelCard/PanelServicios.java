@@ -14,7 +14,8 @@ public class PanelServicios extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public JLabel lblImagen, lblNombre, lblDireccion, lblEstrellas, lblWifi, lblWifitxt, lblPiscina, lblPiscinatxt, lblParking, lblParkingtxt, lblAC, lblACtxt, lblTitulo,
-		lblBar, lblBartxt, lblRestaurante, lblRestaurantetxt, lblSpa, lblSpatxt, lblGym, lblGymtxt, lblAd, lblAdtxt, lblMp, lblMptxt, lblPc, lblPctxt;
+		lblBar, lblBartxt, lblRestaurante, lblRestaurantetxt, lblSpa, lblSpatxt, lblGym, lblGymtxt, lblAd, lblAdtxt, lblMp, lblMptxt, lblPc, lblPctxt, lblWifiprec, lblPiscinaprec,
+		lblParkingprec, lblACprec, lblBarprec, lblRestauranteprec, lblSpaprec, lblGymprec, lblAdprec, lblMpprec, lblPcprec;
 	/**
 	 * Create the panel.
 	 */
@@ -60,7 +61,7 @@ public class PanelServicios extends JPanel {
 		
 		lblWifitxt = new JLabel("WiFi");
 		lblWifitxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblWifitxt.setBounds(361, 70, 200, 16);
+		lblWifitxt.setBounds(361, 68, 200, 18);
 		add(lblWifitxt);
 		
 		lblPiscina = new JLabel("New label");
@@ -71,7 +72,7 @@ public class PanelServicios extends JPanel {
 		
 		lblPiscinatxt = new JLabel("Piscina");
 		lblPiscinatxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPiscinatxt.setBounds(361, 100, 200, 16);
+		lblPiscinatxt.setBounds(361, 98, 200, 18);
 		add(lblPiscinatxt);
 		
 		lblTitulo = new JLabel("SELECCIONAR SERVICIOS");
@@ -88,7 +89,7 @@ public class PanelServicios extends JPanel {
 		
 		lblACtxt = new JLabel("Aire Acondicionado");
 		lblACtxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblACtxt.setBounds(361, 130, 200, 16);
+		lblACtxt.setBounds(361, 128, 200, 18);
 		add(lblACtxt);
 		
 		lblParking = new JLabel("New label");
@@ -99,7 +100,7 @@ public class PanelServicios extends JPanel {
 		
 		lblParkingtxt = new JLabel("Parking");
 		lblParkingtxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblParkingtxt.setBounds(361, 161, 200, 16);
+		lblParkingtxt.setBounds(361, 158, 200, 18);
 		add(lblParkingtxt);
 		
 		lblBar = new JLabel("New label");
@@ -111,7 +112,7 @@ public class PanelServicios extends JPanel {
 		lblBartxt = new JLabel("Bar / Cafetería");
 		lblBartxt.setIcon(null);
 		lblBartxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBartxt.setBounds(361, 190, 200, 16);
+		lblBartxt.setBounds(361, 188, 200, 18);
 		add(lblBartxt);
 		
 		lblRestaurante = new JLabel("New label");
@@ -122,7 +123,7 @@ public class PanelServicios extends JPanel {
 		
 		lblRestaurantetxt = new JLabel("Restaurante");
 		lblRestaurantetxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblRestaurantetxt.setBounds(361, 220, 200, 16);
+		lblRestaurantetxt.setBounds(361, 218, 200, 18);
 		add(lblRestaurantetxt);
 		
 		lblSpa = new JLabel("New label");
@@ -133,7 +134,7 @@ public class PanelServicios extends JPanel {
 		
 		lblSpatxt = new JLabel("Spa / Sauna");
 		lblSpatxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSpatxt.setBounds(361, 250, 200, 16);
+		lblSpatxt.setBounds(361, 248, 200, 18);
 		add(lblSpatxt);
 		
 		lblGym = new JLabel("New label");
@@ -142,9 +143,9 @@ public class PanelServicios extends JPanel {
 		lblGym.setBounds(327, 280, 16, 16);
 		add(lblGym);
 		
-		lblGymtxt = new JLabel("Spa / Sauna");
+		lblGymtxt = new JLabel("Gimnasio");
 		lblGymtxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblGymtxt.setBounds(361, 280, 200, 16);
+		lblGymtxt.setBounds(361, 278, 200, 18);
 		add(lblGymtxt);
 		
 		lblAd = new JLabel("AD");
@@ -156,7 +157,7 @@ public class PanelServicios extends JPanel {
 		
 		lblAdtxt = new JLabel("Alojamiento y desayuno");
 		lblAdtxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAdtxt.setBounds(361, 310, 200, 16);
+		lblAdtxt.setBounds(361, 308, 200, 18);
 		add(lblAdtxt);
 		
 		lblMp = new JLabel("MP");
@@ -168,12 +169,12 @@ public class PanelServicios extends JPanel {
 		
 		lblMptxt = new JLabel("Media pensión");
 		lblMptxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMptxt.setBounds(361, 340, 200, 16);
+		lblMptxt.setBounds(361, 338, 200, 18);
 		add(lblMptxt);
 		
 		lblPctxt = new JLabel("Pensión completa");
 		lblPctxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPctxt.setBounds(361, 370, 200, 16);
+		lblPctxt.setBounds(361, 368, 200, 18);
 		add(lblPctxt);
 		
 		lblPc = new JLabel("PC");
@@ -182,5 +183,71 @@ public class PanelServicios extends JPanel {
 		lblPc.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPc.setBounds(327, 370, 16, 16);
 		add(lblPc);
+		
+		lblWifiprec = new JLabel("Incluido");
+		lblWifiprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblWifiprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblWifiprec.setBounds(560, 68, 70, 18);
+		add(lblWifiprec);
+		
+		lblPiscinaprec = new JLabel("0");
+		lblPiscinaprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPiscinaprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPiscinaprec.setBounds(560, 98, 70, 18);
+		add(lblPiscinaprec);
+		
+		lblACprec = new JLabel("0");
+		lblACprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblACprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblACprec.setBounds(560, 128, 70, 18);
+		add(lblACprec);
+		
+		lblParkingprec = new JLabel("0");
+		lblParkingprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblParkingprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblParkingprec.setBounds(560, 158, 70, 18);
+		add(lblParkingprec);
+		
+		lblBarprec = new JLabel("0");
+		lblBarprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblBarprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblBarprec.setBounds(560, 188, 70, 18);
+		add(lblBarprec);
+		
+		lblRestauranteprec = new JLabel("0");
+		lblRestauranteprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRestauranteprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblRestauranteprec.setBounds(560, 218, 70, 18);
+		add(lblRestauranteprec);
+		
+		lblSpaprec = new JLabel("0");
+		lblSpaprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSpaprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSpaprec.setBounds(560, 248, 70, 18);
+		add(lblSpaprec);
+		
+		lblGymprec = new JLabel("0");
+		lblGymprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblGymprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblGymprec.setBounds(560, 278, 70, 18);
+		add(lblGymprec);
+		
+		lblAdprec = new JLabel("0");
+		lblAdprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAdprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAdprec.setBounds(560, 308, 70, 18);
+		add(lblAdprec);
+		
+		lblMpprec = new JLabel("0");
+		lblMpprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMpprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMpprec.setBounds(560, 338, 70, 18);
+		add(lblMpprec);
+		
+		lblPcprec = new JLabel("0");
+		lblPcprec.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPcprec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPcprec.setBounds(560, 368, 70, 18);
+		add(lblPcprec);
 	}
 }

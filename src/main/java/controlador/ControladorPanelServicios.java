@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -21,18 +22,20 @@ public class ControladorPanelServicios {
 	private Modelo mod;
 	private Controlador cont;
 	
-	private JLabel[] servicios = new JLabel[11]; 
+	private JLabel[] servicios = new JLabel[11];
 	private Servicio[] serviciosAloj;
+	
+	NumberFormat moneda = NumberFormat.getCurrencyInstance();
 	
 	public ControladorPanelServicios(VentanaPpal vis, Controlador cont, Modelo mod) {
 		this.vis = vis;
 		this.cont = cont;
 		this.mod = mod;
+		
 		inicializar();
-		initListeners();
 	}
 	
-	private void inicializar() {
+	public void inicializar() {
 		servicios[0] = vis.pCenter.pSelServ.lblWifi;
 		servicios[1] = vis.pCenter.pSelServ.lblPiscina;
 		servicios[2] = vis.pCenter.pSelServ.lblSpa;
@@ -45,13 +48,16 @@ public class ControladorPanelServicios {
 		servicios[9] = vis.pCenter.pSelServ.lblMp;
 		servicios[10] = vis.pCenter.pSelServ.lblPc;
 		
-//		serviciosAloj = mod.reserva.getAlojReservado().getServicios();
+		initListeners();
 	}
 	private void initListeners() {
-//		for (int i=0;) {
-//			if(mod.reserva.getAlojReservado().getServicios())
-//			servicio.addMouseListener(new ListenerMouse());
+//		for (int i=0;i<serviciosAloj.length;i++) {
+//			if (serviciosAloj[i].equals(Servicio.noIncluido))
+//				servicios[i].addMouseListener(new ListenerMouse());
+//			
 //		}
+		for(JLabel servicio : servicios)
+			servicio.addMouseListener(new ListenerMouse());
 	}
 	
 	private class ListenerMouse implements MouseListener {
@@ -67,25 +73,21 @@ public class ControladorPanelServicios {
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 		
@@ -133,12 +135,15 @@ public class ControladorPanelServicios {
 		}
 
 		vis.pCenter.pSelServ.lblImagen.setIcon(imagen);
+		inicializarServicios();
 	}
 	
 	public void inicializarServicios() {
 		
 		JLabel[] serviciostxt = {vis.pCenter.pSelServ.lblWifitxt, vis.pCenter.pSelServ.lblPiscinatxt, vis.pCenter.pSelServ.lblSpatxt, vis.pCenter.pSelServ.lblParkingtxt, vis.pCenter.pSelServ.lblACtxt,
 				vis.pCenter.pSelServ.lblRestaurantetxt, vis.pCenter.pSelServ.lblBartxt, vis.pCenter.pSelServ.lblGymtxt, vis.pCenter.pSelServ.lblAdtxt, vis.pCenter.pSelServ.lblMptxt, vis.pCenter.pSelServ.lblPctxt};
+		JLabel[] preciosServ = {vis.pCenter.pSelServ.lblWifiprec, vis.pCenter.pSelServ.lblPiscinaprec, vis.pCenter.pSelServ.lblSpaprec, vis.pCenter.pSelServ.lblParkingprec, vis.pCenter.pSelServ.lblACprec,
+				vis.pCenter.pSelServ.lblRestauranteprec, vis.pCenter.pSelServ.lblBarprec, vis.pCenter.pSelServ.lblGymprec, vis.pCenter.pSelServ.lblAdprec, vis.pCenter.pSelServ.lblMpprec, vis.pCenter.pSelServ.lblPcprec};
 		int posicion = 70;
 		for (int i = 0; i < mod.reserva.getAlojReservado().getServicios().length; i++) {
 			if (mod.reserva.getAlojReservado().getServicios()[i] == Servicio.incluido) {
@@ -146,19 +151,25 @@ public class ControladorPanelServicios {
 				servicios[i].setEnabled(true);
 				servicios[i].setBounds(327, posicion, 16, 16);
 				serviciostxt[i].setVisible(true);
-				serviciostxt[i].setBounds(361, posicion, 200, 16);
+				serviciostxt[i].setBounds(361, posicion - 2, 200, 18);
+				preciosServ[i].setText("Incluido");
+				preciosServ[i].setBounds(560, posicion - 2, 70, 18);
+				preciosServ[i].setVisible(true);
 				posicion += 30;
 			} else if (mod.reserva.getAlojReservado().getServicios()[i] == Servicio.noIncluido) {
 				servicios[i].setVisible(true);
 				servicios[i].setEnabled(false);
 				servicios[i].setBounds(327, posicion, 16, 16);
 				serviciostxt[i].setVisible(true);
-				serviciostxt[i].setBounds(361, posicion, 200, 16);
+				serviciostxt[i].setBounds(361, posicion, 200, 18);
+				preciosServ[i].setText(moneda.format(0));
+				preciosServ[i].setBounds(560, posicion - 2, 70, 18);
+				preciosServ[i].setVisible(true);
 				posicion += 30;
 			} else if (mod.reserva.getAlojReservado().getServicios()[i] == Servicio.noDisponible) {
 				servicios[i].setVisible(false);
 				serviciostxt[i].setVisible(false);
-				
+				preciosServ[i].setVisible(false);
 			}
 		}
 	}
