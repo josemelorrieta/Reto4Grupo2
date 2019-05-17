@@ -82,6 +82,9 @@ public class Controlador {
 					}
 					break;
 				case 4:
+					vis.pCenter.nextPanel();
+					break;
+				case 5:
 					// DESGLOSES Y DATOS DEL PAGO
 					calcularDesglosePrecio();
 					mod.reserva.setDesglose(mod.desglosePrecio);
@@ -89,10 +92,10 @@ public class Controlador {
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
 						mod.reserva.setCliente(mod.clienteRegis);
-						vis.pCenter.changePanel("6");
+						vis.pCenter.changePanel("7");
 					}
 					break;
-				case 5:
+				case 6:
 					if (mod.mRegiLog.comprobarDatos(mod.mRegiLog.comprobacionRegistro)) {
 						mod.clienteRegis = mod.mRegiLog.registro(vis.pCenter.pRegistro);
 						if (mod.clienteRegis != null) {
@@ -111,7 +114,7 @@ public class Controlador {
 								JOptionPane.WARNING_MESSAGE);
 					}
 					break;
-				case 6:
+				case 7:
 					if (vis.pCenter.pResumenRes.chckbxCondiciones.isSelected()) {
 						vis.pCenter.pPago.textAPagar
 								.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
@@ -123,13 +126,12 @@ public class Controlador {
 					}
 					vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
 					cResumenPago.insertarDatos();
+					break;
+				case 8:
+					// CONDICION PARA LIMITAR PERSONAS POR HACER
 					vis.pCenter.changePanel("9");
 					break;
 				case 9:
-					// CONDICION PARA LIMITAR PERSONAS POR HACER
-					vis.pCenter.changePanel("7");
-					break;
-				case 7:
 					if (mod.isPagoExitoso()) {
 						vis.pCenter.nextPanel();
 						mod.mPago.limpiar(vis.pCenter.pPago);
@@ -138,17 +140,20 @@ public class Controlador {
 						mod.setPagoExitoso(false);
 						mod.mPago.imprimirBillete(mod.reserva);
 						if (mod.mPago.guardarReserva(mod.reserva))
-							JOptionPane.showMessageDialog(vis, "Reserva guardada correctamente", "INFO", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(vis, "Reserva guardada correctamente", "INFO",
+									JOptionPane.INFORMATION_MESSAGE);
 						else
-							JOptionPane.showMessageDialog(vis, "¡Error al guardar la reserva!", "¡ATENCIÓN!", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(vis, "¡Error al guardar la reserva!", "¡ATENCIÓN!",
+									JOptionPane.ERROR_MESSAGE);
 					}
 					break;
-				case 8:
+				case 10:
 					vis.pBotones.setBotonesVisible(false);
 					vis.pCenter.firstPanel();
 					break;
 				}
 				break;
+
 			case "VOLVER":
 				switch (vis.pCenter.currentIndex) {
 				case 2:
@@ -171,16 +176,19 @@ public class Controlador {
 					vis.pCenter.prevPanel();
 					break;
 				case 6:
-					vis.pCenter.changePanel("4");
+					vis.pCenter.prevPanel();
 					// mod.mPago.limpiar(vis.pCenter.pPago);
 					break;
-				case 9:
-					vis.pCenter.changePanel("6");
-					break;
 				case 7:
-					vis.pCenter.changePanel("9");
+					vis.pCenter.changePanel("5");
+					break;
+				case 8:
+					vis.pCenter.prevPanel();
+					break;
+				case 9:
+					vis.pCenter.prevPanel();
+					break;
 				}
-				break;
 			}
 		}
 	}
