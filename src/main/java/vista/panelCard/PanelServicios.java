@@ -14,7 +14,7 @@ public class PanelServicios extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public JLabel lblImagen, lblNombre, lblDireccion, lblEstrellas, lblWifi, lblWifitxt, lblPiscina, lblPiscinatxt, lblParking, lblParkingtxt, lblAC, lblACtxt, lblTitulo,
-		lblBar, lblBartxt, lblRestaurante, lblRestaurantetxt, lblSpa, lblSpatxt, lblGym, lblGymtxt, lblAD, lblADtxt, lblMP, lblMPtxt, lblPC, lblPCtxt;
+		lblBar, lblBartxt, lblRestaurante, lblRestaurantetxt, lblSpa, lblSpatxt, lblGym, lblGymtxt, lblAd, lblAdtxt, lblMp, lblMptxt, lblPc, lblPctxt;
 	/**
 	 * Create the panel.
 	 */
@@ -147,40 +147,40 @@ public class PanelServicios extends JPanel {
 		lblGymtxt.setBounds(361, 280, 200, 16);
 		add(lblGymtxt);
 		
-		lblAD = new JLabel("AD");
-		lblAD.setEnabled(false);
-		lblAD.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAD.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblAD.setBounds(327, 310, 16, 16);
-		add(lblAD);
+		lblAd = new JLabel("AD");
+		lblAd.setEnabled(false);
+		lblAd.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAd.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblAd.setBounds(327, 310, 16, 16);
+		add(lblAd);
 		
-		lblADtxt = new JLabel("Alojamiento y desayuno");
-		lblADtxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblADtxt.setBounds(361, 310, 200, 16);
-		add(lblADtxt);
+		lblAdtxt = new JLabel("Alojamiento y desayuno");
+		lblAdtxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAdtxt.setBounds(361, 310, 200, 16);
+		add(lblAdtxt);
 		
-		lblMP = new JLabel("MP");
-		lblMP.setEnabled(false);
-		lblMP.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMP.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMP.setBounds(327, 340, 16, 16);
-		add(lblMP);
+		lblMp = new JLabel("MP");
+		lblMp.setEnabled(false);
+		lblMp.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMp.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblMp.setBounds(327, 340, 16, 16);
+		add(lblMp);
 		
-		lblMPtxt = new JLabel("Media pensión");
-		lblMPtxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMPtxt.setBounds(361, 340, 200, 16);
-		add(lblMPtxt);
+		lblMptxt = new JLabel("Media pensión");
+		lblMptxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMptxt.setBounds(361, 340, 200, 16);
+		add(lblMptxt);
 		
-		lblPCtxt = new JLabel("Pensión completa");
-		lblPCtxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPCtxt.setBounds(361, 370, 200, 16);
-		add(lblPCtxt);
+		lblPctxt = new JLabel("Pensión completa");
+		lblPctxt.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPctxt.setBounds(361, 370, 200, 16);
+		add(lblPctxt);
 		
-		lblPC = new JLabel("PC");
-		lblPC.setEnabled(false);
-		lblPC.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPC.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblPC.setBounds(327, 370, 16, 16);
-		add(lblPC);
+		lblPc = new JLabel("PC");
+		lblPc.setEnabled(false);
+		lblPc.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPc.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblPc.setBounds(327, 370, 16, 16);
+		add(lblPc);
 	}
 }

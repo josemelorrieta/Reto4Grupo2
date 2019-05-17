@@ -43,7 +43,7 @@ public class Controlador {
 		cResumenRes = new ControladorPanelResumenReserva(vis, mod);
 		cResumenPago = new ControladorPanelResumenPago(mod, vis.pCenter.pResumenPago);
 		cAcompaniante = new ControladorPanelAcompaniante(vis, this, mod);
-		cServicios = new ControladorPanelServicios(vis, mod);
+		cServicios = new ControladorPanelServicios(vis, this, mod);
 	}
 
 	private void initListeners() {
@@ -77,8 +77,9 @@ public class Controlador {
 					if (!vis.pCenter.pSelHab.resultHab.isSelectionEmpty()
 							&& vis.pCenter.pSelHab.resultHab.getSelectedValue().isDisponible()) {
 						vis.pCenter.nextPanel();
-						mod.reserva
-								.setDormitorioReservado((Dormitorio) vis.pCenter.pSelHab.resultHab.getSelectedValue());
+						mod.reserva.setDormitorioReservado((Dormitorio) vis.pCenter.pSelHab.resultHab.getSelectedValue());
+						cServicios.inicializarDatosAloj();
+						cServicios.inicializarServicios();
 					}
 					break;
 				case 4:
