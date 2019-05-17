@@ -21,6 +21,7 @@ public class Modelo {
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;
+	public MetodosFiltros mFiltros;
 	private boolean pagoExitoso=false;
 	public DesglosePrecio desglosePrecio;
 	
@@ -37,6 +38,7 @@ public class Modelo {
 		mBuscar=new MetodosBuscar(this, bd);
 		mPago=new MetodosPanelPago(bd);
 		mRegiLog=new MetodosPanelRegistroYLogin(this, bd);
+		mFiltros=new MetodosFiltros(this);
 	}
 
 	public Hotel[] getHotelesBusqueda() {

@@ -14,6 +14,7 @@ import vista.panelCard.PanelResBusqueda;
 import vista.panelCard.PanelResumenPago;
 import vista.panelCard.PanelResumenReserva;
 import vista.panelCard.PanelSelHabitacion;
+import vista.panelCard.PanelServicios;
 
 public class PanelCenter extends JPanel {
 
@@ -28,7 +29,7 @@ public class PanelCenter extends JPanel {
 	public PanelBuscar pBuscar;
 	public PanelResBusqueda pResBusq;
 	public PanelSelHabitacion pSelHab;
-	public JPanel pSelServ;
+	public PanelServicios pSelServ;
 	public PanelResumenReserva pResumenRes;
 	public PanelRegistro pRegistro;
 	public PanelPago pPago;
@@ -59,7 +60,7 @@ public class PanelCenter extends JPanel {
 		pSelHab = new PanelSelHabitacion();
 		add(pSelHab, "3");
 
-		pSelServ = new JPanel();
+		pSelServ = new PanelServicios();
 		add(pSelServ, "4");
 		
 		pLogin= new PanelLogin();
