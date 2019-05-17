@@ -28,6 +28,7 @@ public class PanelCenter extends JPanel {
 	public PanelBuscar pBuscar;
 	public PanelResBusqueda pResBusq;
 	public PanelSelHabitacion pSelHab;
+	public JPanel pSelServ;
 	public PanelResumenReserva pResumenRes;
 	public PanelRegistro pRegistro;
 	public PanelPago pPago;
@@ -57,26 +58,27 @@ public class PanelCenter extends JPanel {
 		
 		pSelHab = new PanelSelHabitacion();
 		add(pSelHab, "3");
-	
+
+		pSelServ = new JPanel();
+		add(pSelServ, "4");
+		
 		pLogin= new PanelLogin();
-		add(pLogin,"4");
+		add(pLogin,"5");
 		
 		pRegistro=new PanelRegistro();
-		add(pRegistro,"5");
+		add(pRegistro,"6");
 	
 		pResumenRes = new PanelResumenReserva();
-		add(pResumenRes, "6");
+		add(pResumenRes, "7");
 		
 		pAcompaniante= new PanelAcompaniante();
-		add(pAcompaniante,"9");
+		add(pAcompaniante,"8");
 		
 		pPago = new PanelPago();
-		add(pPago,"7");
+		add(pPago,"9");
 		
 		pResumenPago = new PanelResumenPago();
-		add(pResumenPago, "8");
-		
-		
+		add(pResumenPago, "10");		
 	}
 	
 	public void prevPanel() {
