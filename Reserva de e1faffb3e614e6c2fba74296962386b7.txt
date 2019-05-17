@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: e1faffb3e614e6c2fba74296962386b7
 
 Datos de la reserva:
-Nombre Alojamiento: Apartamento Pepe
-Fecha de la reserva: 16-05-2019
-Fecha de entrada   : 16-05-2019
-Fecha de salida    : 17-05-2019
+Nombre Alojamiento: Apartamento Pili
+Fecha de la reserva: 17-05-2019
+Fecha de entrada   : 17-05-2019
+Fecha de salida    : 18-05-2019
 
-Precio total: 118.85
+Precio total: 64.75
