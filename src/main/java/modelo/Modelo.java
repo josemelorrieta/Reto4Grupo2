@@ -16,6 +16,8 @@ public class Modelo {
 	public Casa[] casasBusqueda;
 	public Apartamento[] apartBusqueda;
 	public Calendar[] festivos;
+	public Dormitorio[] tiposDorm;
+	public String[] tiposDormString;
 	public MetodosBuscar mBuscar;
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;
@@ -27,6 +29,8 @@ public class Modelo {
 		bd = new ConsultaBD();
 		addMetodos();
 		festivos=mBuscar.buscarFechasFestivos(FuncionesGenerales.sdf);
+		tiposDormString=mBuscar.tiposDormitorio();
+		tiposDorm=mBuscar.crearModeloDormitorios(mBuscar.crearCamasModelo(tiposDormString));
 	}
 	
 	public void addMetodos() {

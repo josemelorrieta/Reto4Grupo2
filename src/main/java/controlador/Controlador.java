@@ -64,7 +64,7 @@ public class Controlador {
 
 						mod.reserva.setAlojReservado(vis.pCenter.pResBusq.resultBusq.getSelectedValue());
 						if (mod.reserva.getAlojReservado() instanceof Hotel) {
-							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.reserva.getAlojReservado()).getMatrix());
+							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.reserva.getAlojReservado()).getMatrix(),mod.tiposDorm);
 							vis.pCenter.pSelHab.resultHab.ensureIndexIsVisible(0);
 							vis.pCenter.nextPanel();
 						} else {

@@ -70,7 +70,7 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 	public Component getListCellRendererComponent(JList<? extends Dormitorio> lista, Dormitorio dormitorio, int index, boolean isSelected, boolean cellHasFocus) {
 		
 		//lblFoto.setIcon(dormitorio.getImagen());
-		lblNombre.setText(String.valueOf(dormitorio.getTipoHabitacion())+" "+dormitorio.getIdHab());
+		//lblNombre.setText(String.valueOf(dormitorio.getTipoHabitacion())+" "+dormitorio.getIdHab());
 		String camas = "";
 		
 		/**
@@ -81,7 +81,7 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 		}	
 		**/	
 		lblCamas.setText(camas);
-		lblTamano.setText(String.valueOf(dormitorio.getM2())+"m2");
+		//lblTamano.setText(String.valueOf(dormitorio.getM2())+"m2");
 		
 		if (dormitorio.isDisponible()) {
 			lblDisponible.setText("Disponible");
