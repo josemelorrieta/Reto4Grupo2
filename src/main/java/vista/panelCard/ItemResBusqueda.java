@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -26,7 +22,7 @@ import modelo.Apartamento;
 import modelo.Casa;
 import modelo.Hotel;
 import modelo.Servicio;
-import javax.swing.JButton;
+import modelo.TipoServicio;
 
 public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamiento> {
 
@@ -252,17 +248,17 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		JLabel[] servicios = {lblWifi, lblPiscina, lblSpa, lblParking, lblAC, lblRestaurante, lblBar, lblGym, lblAd, lblMp, lblPc};
 		int posicion = 122;
 		for (int i = 0; i < aloj.getServicios().length; i++) {
-			if (aloj.getServicios()[i] == Servicio.incluido) {
+			if (aloj.getServicios()[i].getTipo() == TipoServicio.incluido) {
 				servicios[i].setVisible(true);
 				servicios[i].setEnabled(true);
 				servicios[i].setBounds(posicion, 80, 16, 16);
 				posicion += 26;
-			} else if (aloj.getServicios()[i] == Servicio.noIncluido) {
+			} else if (aloj.getServicios()[i].getTipo() == TipoServicio.noIncluido) {
 				servicios[i].setVisible(true);
 				servicios[i].setEnabled(false);
 				servicios[i].setBounds(posicion, 80, 16, 16);
 				posicion += 26;
-			} else if (aloj.getServicios()[i] == Servicio.noDisponible) {
+			} else if (aloj.getServicios()[i].getTipo() == TipoServicio.noDisponible) {
 				servicios[i].setVisible(false);
 			}
 		}

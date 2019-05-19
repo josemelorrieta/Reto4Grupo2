@@ -14,22 +14,24 @@ import modelo.Alojamiento;
 import modelo.Hotel;
 import modelo.Modelo;
 import modelo.Servicio;
+import modelo.TipoServicio;
 import vista.VentanaPpal;
 
 public class ControladorPanelServicios {
 	
 	private VentanaPpal vis;
 	private Modelo mod;
-	private Controlador cont;
 	
 	private JLabel[] servicios = new JLabel[11];
+	private JLabel[] preciosSrv = new JLabel[11];
 	private Servicio[] serviciosAloj;
+	
+	private ListenerMouse lm = new ListenerMouse();
 	
 	NumberFormat moneda = NumberFormat.getCurrencyInstance();
 	
-	public ControladorPanelServicios(VentanaPpal vis, Controlador cont, Modelo mod) {
+	public ControladorPanelServicios(VentanaPpal vis, Modelo mod) {
 		this.vis = vis;
-		this.cont = cont;
 		this.mod = mod;
 		
 		inicializar();
@@ -48,15 +50,22 @@ public class ControladorPanelServicios {
 		servicios[9] = vis.pCenter.pSelServ.lblMp;
 		servicios[10] = vis.pCenter.pSelServ.lblPc;
 		
-		initListeners();
+		preciosSrv[0] = vis.pCenter.pSelServ.lblWifiprec;
+		preciosSrv[1] = vis.pCenter.pSelServ.lblPiscinaprec;
+		preciosSrv[2] = vis.pCenter.pSelServ.lblSpaprec;
+		preciosSrv[3] = vis.pCenter.pSelServ.lblParkingprec;
+		preciosSrv[4] = vis.pCenter.pSelServ.lblACprec;
+		preciosSrv[5] = vis.pCenter.pSelServ.lblRestauranteprec;
+		preciosSrv[6] = vis.pCenter.pSelServ.lblBarprec;
+		preciosSrv[7] = vis.pCenter.pSelServ.lblGymprec;
+		preciosSrv[8] = vis.pCenter.pSelServ.lblAdprec;
+		preciosSrv[9] = vis.pCenter.pSelServ.lblMpprec;
+		preciosSrv[10] = vis.pCenter.pSelServ.lblPcprec;
+
 	}
-	private void initListeners() {
-//		for (int i=0;i<serviciosAloj.length;i++) {
-//			if (serviciosAloj[i].equals(Servicio.noIncluido))
-//				servicios[i].addMouseListener(new ListenerMouse());
-//			
-//		}
-		for(JLabel servicio : servicios)
+	
+	private void initListeners() {		
+		for(JLabel servicio : servicios) 
 			servicio.addMouseListener(new ListenerMouse());
 	}
 	
@@ -64,11 +73,26 @@ public class ControladorPanelServicios {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			serviciosAloj = mod.reserva.getAlojReservado().getServicios();
 			JLabel trigger = (JLabel) e.getSource();
-			if (trigger.isEnabled())
-				trigger.setEnabled(false);
-			else
-				trigger.setEnabled(true);
+			int posicion = buscarPosicionSrv(trigger);
+			if (!preciosSrv[posicion].getText().equals("Incluido")) {
+				if (trigger.isEnabled()) {
+					trigger.setEnabled(false);
+					preciosSrv[posicion].setText(moneda.format(0));
+				} else {
+					trigger.setEnabled(true);
+					preciosSrv[posicion].setText(moneda.format(serviciosAloj[posicion].getPrecio()));
+					if(servicios[posicion].getText().equals("MP")) {
+						servicios[posicion + 1].setEnabled(false);
+						preciosSrv[posicion + 1].setText(moneda.format(0));
+					}
+					if(servicios[posicion].getText().equals("PC")) {
+						servicios[posicion - 1].setEnabled(false);
+						preciosSrv[posicion - 1].setText(moneda.format(0));
+					}
+				}
+			}
 		}
 
 		@Override
@@ -135,42 +159,51 @@ public class ControladorPanelServicios {
 		}
 
 		vis.pCenter.pSelServ.lblImagen.setIcon(imagen);
-		inicializarServicios();
+		inicializarServicios();		
+		initListeners();
 	}
 	
 	public void inicializarServicios() {
 		
 		JLabel[] serviciostxt = {vis.pCenter.pSelServ.lblWifitxt, vis.pCenter.pSelServ.lblPiscinatxt, vis.pCenter.pSelServ.lblSpatxt, vis.pCenter.pSelServ.lblParkingtxt, vis.pCenter.pSelServ.lblACtxt,
 				vis.pCenter.pSelServ.lblRestaurantetxt, vis.pCenter.pSelServ.lblBartxt, vis.pCenter.pSelServ.lblGymtxt, vis.pCenter.pSelServ.lblAdtxt, vis.pCenter.pSelServ.lblMptxt, vis.pCenter.pSelServ.lblPctxt};
-		JLabel[] preciosServ = {vis.pCenter.pSelServ.lblWifiprec, vis.pCenter.pSelServ.lblPiscinaprec, vis.pCenter.pSelServ.lblSpaprec, vis.pCenter.pSelServ.lblParkingprec, vis.pCenter.pSelServ.lblACprec,
-				vis.pCenter.pSelServ.lblRestauranteprec, vis.pCenter.pSelServ.lblBarprec, vis.pCenter.pSelServ.lblGymprec, vis.pCenter.pSelServ.lblAdprec, vis.pCenter.pSelServ.lblMpprec, vis.pCenter.pSelServ.lblPcprec};
+		
 		int posicion = 70;
 		for (int i = 0; i < mod.reserva.getAlojReservado().getServicios().length; i++) {
-			if (mod.reserva.getAlojReservado().getServicios()[i] == Servicio.incluido) {
+			if (mod.reserva.getAlojReservado().getServicios()[i].getTipo() == TipoServicio.incluido) {
 				servicios[i].setVisible(true);
 				servicios[i].setEnabled(true);
 				servicios[i].setBounds(327, posicion, 16, 16);
 				serviciostxt[i].setVisible(true);
 				serviciostxt[i].setBounds(361, posicion - 2, 200, 18);
-				preciosServ[i].setText("Incluido");
-				preciosServ[i].setBounds(560, posicion - 2, 70, 18);
-				preciosServ[i].setVisible(true);
+				preciosSrv[i].setText("Incluido");
+				preciosSrv[i].setBounds(560, posicion - 2, 70, 18);
+				preciosSrv[i].setVisible(true);
 				posicion += 30;
-			} else if (mod.reserva.getAlojReservado().getServicios()[i] == Servicio.noIncluido) {
+			} else if (mod.reserva.getAlojReservado().getServicios()[i].getTipo() == TipoServicio.noIncluido) {
 				servicios[i].setVisible(true);
 				servicios[i].setEnabled(false);
 				servicios[i].setBounds(327, posicion, 16, 16);
 				serviciostxt[i].setVisible(true);
 				serviciostxt[i].setBounds(361, posicion, 200, 18);
-				preciosServ[i].setText(moneda.format(0));
-				preciosServ[i].setBounds(560, posicion - 2, 70, 18);
-				preciosServ[i].setVisible(true);
+				preciosSrv[i].setText(moneda.format(0));
+				preciosSrv[i].setBounds(560, posicion - 2, 70, 18);
+				preciosSrv[i].setVisible(true);
 				posicion += 30;
-			} else if (mod.reserva.getAlojReservado().getServicios()[i] == Servicio.noDisponible) {
+			} else if (mod.reserva.getAlojReservado().getServicios()[i].getTipo() == TipoServicio.noDisponible) {
 				servicios[i].setVisible(false);
 				serviciostxt[i].setVisible(false);
-				preciosServ[i].setVisible(false);
+				preciosSrv[i].setVisible(false);
 			}
 		}
+	}
+	
+	public int buscarPosicionSrv(JLabel label) {
+		for (int i=0;i<servicios.length;i++) {
+			if (label == servicios[i])
+				return i;
+		}
+		
+		return -1;
 	}
 }

@@ -500,52 +500,93 @@ public class MetodosBuscar {
 		}
 		gson = new Gson();
 		Global[] srvBBDD = gson.fromJson(json, Global[].class);
-		Servicio[] servicios = aloj.getServicios();
 
-		for (Global servicio : srvBBDD) {
-			String nomSrv = servicio.getAuxiliar3().toString();
-			int posicion = 0;
-			switch (nomSrv) {
-			case "WiFi":
-				posicion = 0;
-				break;
-			case "Piscina":
-				posicion = 1;
-				break;
-			case "Spa":
-				posicion = 2;
-				break;
-			case "Parking":
-				posicion = 3;
-				break;
-			case "Aire acondicionado":
-				posicion = 4;
-				break;
-			case "Restaurante":
-				posicion = 5;
-				break;
-			case "Bar":
-				posicion = 6;
-				break;
-			case "Gimnasio":
-				posicion = 7;
-				break;
-			case "Alojamiento y desayuno":
-				posicion = 8;
-				break;
-			case "Media Pension":
-				posicion = 9;
-				break;
-			case "Pension Completa":
-				posicion = 10;
-				break;
-			}
-			if ((Double) servicio.getAuxiliar2() == 0)
-				servicios[posicion] = Servicio.incluido;
-			else
-				servicios[posicion] = Servicio.noIncluido;
+		String[] nombreSrv = buscarNombresSrv();	
+		aloj.setServicios(inicializarSrvAloj(nombreSrv));
+		Servicio[] servicios = aloj.getServicios();
+		
+		for (int i=0;i<srvBBDD.length;i++) {
+			int posicion = buscarPosSrv((String)srvBBDD[i].getAuxiliar3(), nombreSrv);
+			servicios[posicion].setPrecio((double)srvBBDD[i].getAuxiliar2());
 		}
+		
+//		for (int i=0;i<aloj.getServicios().length;i++) {
+//			String nomSrv = srvBBDD[i].getAuxiliar3().toString();
+//			switch (nomSrv) {
+//			case "WiFi":
+//				posicion = 0;
+//				break;
+//			case "Piscina":
+//				posicion = 1;
+//				break;
+//			case "Spa":
+//				posicion = 2;
+//				break;
+//			case "Parking":
+//				posicion = 3;
+//				break;
+//			case "Aire acondicionado":
+//				posicion = 4;
+//				break;
+//			case "Restaurante":
+//				posicion = 5;
+//				break;
+//			case "Bar":
+//				posicion = 6;
+//				break;
+//			case "Gimnasio":
+//				posicion = 7;
+//				break;
+//			case "Alojamiento y desayuno":
+//				posicion = 8;
+//				break;
+//			case "Media Pension":
+//				posicion = 9;
+//				break;
+//			case "Pension Completa":
+//				posicion = 10;
+//				break;
+//			}
+//			if (posicion != i) {
+//				for (int j=i;j<posicion;j++) {
+//					servicios[j] = new Servicio (nombreSrv[j], -1);
+//				}
+//			}
+//			servicios[posicion] = new Servicio(nomSrv, (double)srvBBDD[i].getAuxiliar2());
+//			ultimaPos = posicion;
+//			i = posicion;
+//		}
 
 		return servicios;
+	}
+	
+	public String[] buscarNombresSrv() {
+		String json = bd.consultarToGson("SELECT `nombre` 'auxiliar' FROM servicio");
+		if (json.equals("")) {
+			return null;
+		}
+		gson = new Gson();
+		Global[] nombresSrvBBDD = gson.fromJson(json, Global[].class);
+		String[] nombresSrv = new String[nombresSrvBBDD.length];
+		for (int i=0;i<nombresSrv.length;i++)
+			nombresSrv[i] = (String)nombresSrvBBDD[i].getAuxiliar();
+			
+		return nombresSrv;		
+	}
+	
+	public Servicio[] inicializarSrvAloj(String[] nombreSrv) {
+		Servicio[] servicios = new Servicio[nombreSrv.length];
+		for (int i=0; i<nombreSrv.length;i++)
+			servicios[i] = new Servicio(nombreSrv[i], -1);
+		
+		return servicios;
+	}
+	
+	public int buscarPosSrv(String nombre, String[] nombreSrv) {
+		for (int i=0;i<nombreSrv.length;i++) {
+			if (nombreSrv[i].equals(nombre))
+				return i;
+		}
+		return -1;
 	}
 }

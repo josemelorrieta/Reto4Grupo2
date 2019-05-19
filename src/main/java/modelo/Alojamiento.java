@@ -11,7 +11,7 @@ public class Alojamiento {
 	protected double pvpM2;
 	protected boolean disponible;
 	protected Habitacion[] habitaciones;
-	protected Servicio[] servicios = {Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible, Servicio.noDisponible};
+	protected Servicio[] servicios;
 	protected boolean mostrar = true;
 	
 	public double precioNoDormitorios() {
