@@ -127,7 +127,7 @@ public class ControladorPanelBuscar {
 		for (Casa casa : casas) {
 			panel.modelResBusq.addElement(casa);
 		}
-		panel.lblLocBusq.setText("Resultados para " + casas[0].getDireccion().getLocalidad());
+		panel.lblLocBusq.setText("Destino: " + casas[0].getDireccion().getLocalidad() + "      Entrada: " + formato.format(mod.reserva.getFechaEntrada())  + "      Salida: " + formato.format(mod.reserva.getFechaSalida()));
 	}
 
 }

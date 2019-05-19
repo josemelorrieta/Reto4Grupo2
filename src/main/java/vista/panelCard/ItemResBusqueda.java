@@ -23,6 +23,8 @@ import modelo.Casa;
 import modelo.Hotel;
 import modelo.Servicio;
 import modelo.TipoServicio;
+import javax.swing.border.LineBorder;
+import java.awt.SystemColor;
 
 public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamiento> {
 
@@ -31,20 +33,28 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 	private JLabel lblFoto, lblNombre, lblLocalidad, lblPrecio, lblEstrellas, lblDisponible, lblCamas, lblNumCamas,
 			lblBar, lblGym, lblWifi, lblPiscina, lblParking, lblAC, lblRestaurante, lblSpa, lblAd, lblMp, lblPc;
 	private DecimalFormat df = new DecimalFormat("#.00 €");
+	private JLabel lblFondo;
 
 
 	public ItemResBusqueda() {
+		setBackground(Color.WHITE);
 		setParametros();
 		instanciarObjetos();
 	}
 
 	private void setParametros() {
-		setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		setPreferredSize(new Dimension(500, 150));
+		setBorder(null);
+		setPreferredSize(new Dimension(570, 155));
 		setLayout(null);
 	}
 
 	private void instanciarObjetos() {
+		
+		lblFondo = new JLabel("");
+		lblFondo.setBackground(Color.WHITE);
+		lblFondo.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+		lblFondo.setBounds(0, 0, 570, 150);
+		add(lblFondo);
 		lblFoto = new JLabel("New label");
 		lblFoto.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/noimage.png")));
 		lblFoto.setBounds(10, 10, 90, 90);
@@ -54,6 +64,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblNombre = new JLabel("Nombre Hotel");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombre.setBounds(122, 7, 366, 30);
+		lblNombre.setForeground(new Color(0,103,219));
 		add(lblNombre);
 
 		lblLocalidad = new JLabel("Localidad");
@@ -64,16 +75,17 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblPrecio = new JLabel("Precio");
 		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPrecio.setBounds(370, 95, 106, 36);
+		lblPrecio.setBounds(442, 100, 106, 36);
 		add(lblPrecio);
 
 		lblEstrellas = new JLabel("");
 		lblEstrellas.setIcon(
 				new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/hotel/estrellas1.png")));
-		lblEstrellas.setBounds(376, 10, 100, 22);
+		lblEstrellas.setBounds(454, 10, 100, 22);
 		add(lblEstrellas);
 
-		lblDisponible = new JLabel("");
+		lblDisponible = new JLabel("Disponible");
+		lblDisponible.setForeground(new Color(0, 128, 0));
 		lblDisponible.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblDisponible.setBounds(20, 111, 100, 20);
 		add(lblDisponible);
@@ -201,7 +213,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 
 		if (aloj.isDisponible()) {
 			lblDisponible.setText("Disponible");
-			lblDisponible.setForeground(new Color(50, 205, 50));
+			lblDisponible.setForeground(new Color(0, 128, 0));
 			aloj.setDisponible(true);
 		} else {
 			lblDisponible.setText("No disponible");

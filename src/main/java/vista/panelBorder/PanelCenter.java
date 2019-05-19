@@ -47,7 +47,7 @@ public class PanelCenter extends JPanel {
 	private void setParametros() {
 		card = new CardLayout();
 		setLayout(card);
-		setPreferredSize(new Dimension(800,400));
+		setPreferredSize(new Dimension(1024,588));
 	}
 
 	private void instanciarObjetos() {

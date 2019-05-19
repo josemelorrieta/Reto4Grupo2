@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -30,6 +31,7 @@ public class ControladorPanelServicios {
 	private ListenerMouse lm = new ListenerMouse();
 	
 	NumberFormat moneda = NumberFormat.getCurrencyInstance();
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-YYYY");
 	
 	public ControladorPanelServicios(VentanaPpal vis, Modelo mod) {
 		this.vis = vis;
@@ -93,6 +95,7 @@ public class ControladorPanelServicios {
 						preciosSrv[posicion - 1].setText(moneda.format(0));
 					}
 				}
+				vis.pCenter.pSelServ.lblTotal.setText(moneda.format(calcularPrecioExtras()));
 			}
 		}
 
@@ -123,6 +126,8 @@ public class ControladorPanelServicios {
 		
 		vis.pCenter.pSelServ.lblNombre.setText(aloj.getNombre());
 		vis.pCenter.pSelServ.lblDireccion.setText(aloj.getDireccion().getCalle() + " " + aloj.getDireccion().getLocalidad());
+		vis.pCenter.pSelServ.lblFechaEntrada.setText(sdf.format(mod.reserva.getFechaEntrada()));
+		vis.pCenter.pSelServ.lblFechaSalida.setText(sdf.format(mod.reserva.getFechaSalida()));
 		
 		if (aloj instanceof Hotel) {
 			ImageIcon estrellas = null;
@@ -146,10 +151,10 @@ public class ControladorPanelServicios {
 		File archImagen;
 		if (!foto.equals("")) {
 			if (aloj instanceof Hotel) {
-				archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/" + foto + ".jpg").getPath());
+				archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/" + foto + "_srv.jpg").getPath());
 			} else
 				archImagen = new File(
-						getClass().getResource("/imagenes/alojamiento/noHotel/" + foto + ".jpg").getPath());
+						getClass().getResource("/imagenes/alojamiento/noHotel/" + foto + "_srv.jpg").getPath());
 		} else
 			archImagen = new File(getClass().getResource("/imagenes/alojamiento/noimage.png").getPath());
 
@@ -169,26 +174,26 @@ public class ControladorPanelServicios {
 		JLabel[] serviciostxt = {vis.pCenter.pSelServ.lblWifitxt, vis.pCenter.pSelServ.lblPiscinatxt, vis.pCenter.pSelServ.lblSpatxt, vis.pCenter.pSelServ.lblParkingtxt, vis.pCenter.pSelServ.lblACtxt,
 				vis.pCenter.pSelServ.lblRestaurantetxt, vis.pCenter.pSelServ.lblBartxt, vis.pCenter.pSelServ.lblGymtxt, vis.pCenter.pSelServ.lblAdtxt, vis.pCenter.pSelServ.lblMptxt, vis.pCenter.pSelServ.lblPctxt};
 		
-		int posicion = 70;
+		int posicion = 140;
 		for (int i = 0; i < mod.reserva.getAlojReservado().getServicios().length; i++) {
 			if (mod.reserva.getAlojReservado().getServicios()[i].getTipo() == TipoServicio.incluido) {
 				servicios[i].setVisible(true);
 				servicios[i].setEnabled(true);
-				servicios[i].setBounds(327, posicion, 16, 16);
+				servicios[i].setBounds(566, posicion, 16, 16);
 				serviciostxt[i].setVisible(true);
-				serviciostxt[i].setBounds(361, posicion - 2, 200, 18);
+				serviciostxt[i].setBounds(600, posicion - 2, 200, 18);
 				preciosSrv[i].setText("Incluido");
-				preciosSrv[i].setBounds(560, posicion - 2, 70, 18);
+				preciosSrv[i].setBounds(799, posicion - 2, 70, 18);
 				preciosSrv[i].setVisible(true);
 				posicion += 30;
 			} else if (mod.reserva.getAlojReservado().getServicios()[i].getTipo() == TipoServicio.noIncluido) {
 				servicios[i].setVisible(true);
 				servicios[i].setEnabled(false);
-				servicios[i].setBounds(327, posicion, 16, 16);
+				servicios[i].setBounds(566, posicion, 16, 16);
 				serviciostxt[i].setVisible(true);
-				serviciostxt[i].setBounds(361, posicion, 200, 18);
+				serviciostxt[i].setBounds(600, posicion, 200, 18);
 				preciosSrv[i].setText(moneda.format(0));
-				preciosSrv[i].setBounds(560, posicion - 2, 70, 18);
+				preciosSrv[i].setBounds(799, posicion - 2, 70, 18);
 				preciosSrv[i].setVisible(true);
 				posicion += 30;
 			} else if (mod.reserva.getAlojReservado().getServicios()[i].getTipo() == TipoServicio.noDisponible) {
@@ -197,6 +202,7 @@ public class ControladorPanelServicios {
 				preciosSrv[i].setVisible(false);
 			}
 		}
+		vis.pCenter.pSelServ.lblTotal.setText(moneda.format(0));
 	}
 	
 	public int buscarPosicionSrv(JLabel label) {
