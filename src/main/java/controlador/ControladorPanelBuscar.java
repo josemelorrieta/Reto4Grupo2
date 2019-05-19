@@ -16,11 +16,11 @@ import modelo.Casa;
 import modelo.Dormitorio;
 import modelo.Hotel;
 import modelo.Modelo;
+import util.FuncionesGenerales;
 import vista.VentanaPpal;
 import vista.panelCard.PanelResBusqueda;
 
-
-public class ControladorPanelBuscar{
+public class ControladorPanelBuscar {
 
 	private VentanaPpal vis;
 	private Controlador controlador;
@@ -29,9 +29,9 @@ public class ControladorPanelBuscar{
 	Calendar calendar = Calendar.getInstance();
 	Date hoy = calendar.getTime();
 
-	public ControladorPanelBuscar(VentanaPpal vis,Controlador cont,Modelo mod){
-		this.vis=vis;
-		this.controlador=cont;
+	public ControladorPanelBuscar(VentanaPpal vis, Controlador cont, Modelo mod) {
+		this.vis = vis;
+		this.controlador = cont;
 		this.mod = mod;
 		cargarLocalidades();
 		fechaHoy();
@@ -39,7 +39,7 @@ public class ControladorPanelBuscar{
 		vis.pBotones.setBotonesVisible(false);
 		initListeners();
 	}
-	
+
 	private void initListeners() {
 		vis.pCenter.pBuscar.btnBuscar.addActionListener(new ListenerBotones());
 		vis.pCenter.pBuscar.calenEntrada.addPropertyChangeListener(new ListenerFechaEnt());
@@ -47,15 +47,15 @@ public class ControladorPanelBuscar{
 
 	public void cargarLocalidades() {
 		String[] localidades = mod.mBuscar.buscarLocalidades();
-		if(localidades!=null) {
-			for(String localidad : localidades)
+		if (localidades != null) {
+			for (String localidad : localidades)
 				vis.pCenter.pBuscar.cbxBuscar.addItem(localidad);
 		} else {
 			JOptionPane.showMessageDialog(vis, "Error en la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
 			vis.dispose();
 		}
 	}
-	
+
 	public void fechaHoy() {
 		mod.reserva.setFechaReserva(hoy);
 		calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -69,14 +69,14 @@ public class ControladorPanelBuscar{
 		vis.pCenter.pBuscar.calenEntrada.setDate(hoy);
 		vis.pCenter.pBuscar.calenSalida.setDate(manana);
 	}
-	
+
 	public void cambioFechaEnt(Date fechaEntrada) {
 		calendar.setTime(fechaEntrada);
 		calendar.add(Calendar.DAY_OF_MONTH, 1);
 		Date manana = calendar.getTime();
-		
+
 		if (fechaEntrada.compareTo(vis.pCenter.pBuscar.calenSalida.getDate()) >= 0) {
-			vis.pCenter.pBuscar.calenSalida.setDate(manana);		
+			vis.pCenter.pBuscar.calenSalida.setDate(manana);
 		}
 		try {
 			vis.pCenter.pBuscar.calenSalida.setSelectableDateRange(manana, formato.parse("01-01-2100"));
@@ -85,21 +85,21 @@ public class ControladorPanelBuscar{
 		}
 	}
 
-	private class ListenerBotones implements ActionListener{
+	private class ListenerBotones implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			mod.reserva.setFechaEntrada(vis.pCenter.pBuscar.calenEntrada.getDate());
 			mod.reserva.setFechaSalida(vis.pCenter.pBuscar.calenSalida.getDate());
 			mod.mBuscar.cargarAlojamientos(vis.pCenter.pBuscar.cbxBuscar.getSelectedItem().toString());
-			setResultBusqueda(mod.hotelesBusqueda,vis.pCenter.pResBusq);
-			setResultBusqueda(mod.casasBusqueda,vis.pCenter.pResBusq);
-			setResultBusqueda(mod.apartBusqueda,vis.pCenter.pResBusq);
+			setResultBusqueda(mod.hotelesBusqueda, vis.pCenter.pResBusq, mod.tiposDorm);
+			setResultBusqueda(mod.casasBusqueda, vis.pCenter.pResBusq);
+			setResultBusqueda(mod.apartBusqueda, vis.pCenter.pResBusq);
 			vis.pCenter.pResBusq.resultBusq.ensureIndexIsVisible(0);
 			vis.pBotones.setBotonesVisible(true);
 			vis.pCenter.nextPanel();
 		}
 	}
-	
+
 	private class ListenerFechaEnt implements PropertyChangeListener {
 		@Override
 		public void propertyChange(PropertyChangeEvent e) {
@@ -108,18 +108,23 @@ public class ControladorPanelBuscar{
 		}
 
 	}
-	
-	
-	public void setResultBusqueda(Hotel[] hoteles,PanelResBusqueda panel) {
+
+	public void setResultBusqueda(Hotel[] hoteles, PanelResBusqueda panel, Dormitorio[] tiposDorm) {
 		panel.modelResBusq.clear();
-		for(Hotel hotel:hoteles) {
+		for (Hotel hotel : hoteles) {
+			for (int i = 0; i < hotel.getMatrix().size(); i++) {
+				if(hotel.getMatrix().get(i)==null) continue;
+				for (int f = 0; f < hotel.getMatrix().get(i).size(); f++) {
+					hotel.getMatrix().get(i).get(f).setMobiliario(FuncionesGenerales.concatenate(hotel.getMatrix().get(i).get(f).getMobiliario(), tiposDorm[i].getMobiliario()));
+				}
+			}
 			panel.modelResBusq.addElement(hotel);
 		}
 		panel.lblLocBusq.setText("Resultados para " + hoteles[0].getDireccion().getLocalidad());
 	}
-	
-	public void setResultBusqueda(Casa[] casas,PanelResBusqueda panel) {
-		for(Casa casa:casas) {
+
+	public void setResultBusqueda(Casa[] casas, PanelResBusqueda panel) {
+		for (Casa casa : casas) {
 			panel.modelResBusq.addElement(casa);
 		}
 		panel.lblLocBusq.setText("Resultados para " + casas[0].getDireccion().getLocalidad());

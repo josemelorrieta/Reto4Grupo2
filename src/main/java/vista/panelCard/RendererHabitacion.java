@@ -10,12 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
 import modelo.Cama;
 import modelo.Dormitorio;
 import modelo.Mobiliario;
+import modelo.TipoCama;
 
 public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormitorio>{
 
@@ -23,7 +23,7 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JLabel lblFoto,lblNombre,lblCamas,lblTamano, lblDisponible;
+	public JLabel lblFoto,lblNombre,lblCamas, lblDisponible,lblImgInfant,lblImgMatri,lblImgIndi, lblMatri,lblIndi,lblInfant;
 	
 	
 	public RendererHabitacion() {
@@ -48,41 +48,50 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 		lblNombre.setBounds(122, 7, 368, 30);
 		add(lblNombre);
 		
-		lblCamas = new JLabel("Camas");
+		lblCamas = new JLabel("Camas:");
 		lblCamas.setFont(new Font("Tahoma", Font.ITALIC, 14));
 		lblCamas.setBounds(122, 32, 366, 20);
 		add(lblCamas);
-
-		lblTamano = new JLabel("Tamaño");
-		lblTamano.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblTamano.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTamano.setBounds(353, 64, 106, 36);
-		add(lblTamano);
 		
 		lblDisponible = new JLabel("Disponible");
 		lblDisponible.setForeground(new Color(50, 205, 50));
 		lblDisponible.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblDisponible.setBounds(122, 80, 100, 20);
 		add(lblDisponible);
+		
+		lblImgMatri = new JLabel("");
+		lblImgMatri.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/camas/camaDoble32x24.png")));
+		lblImgMatri.setBounds(216, 48, 55, 37);
+		add(lblImgMatri);
+		
+		lblImgIndi = new JLabel("");
+		lblImgIndi.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/camas/camaIndi32x25.png")));
+		lblImgIndi.setBounds(297, 48, 46, 37);
+		add(lblImgIndi);
+		
+		lblImgInfant = new JLabel("");
+		lblImgInfant.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/camas/camaInfant32x32.png")));
+		lblImgInfant.setBounds(383, 48, 39, 37);
+		add(lblImgInfant);
+		
+		lblMatri = new JLabel("0");
+		lblMatri.setFont(new Font("Tahoma", Font.ITALIC, 14));
+		lblMatri.setBounds(260, 57, 27, 14);
+		add(lblMatri);
+		
+		lblIndi = new JLabel("0");
+		lblIndi.setFont(new Font("Tahoma", Font.ITALIC, 14));
+		lblIndi.setBounds(346, 57, 27, 14);
+		add(lblIndi);
+		
+		lblInfant = new JLabel("0");
+		lblInfant.setFont(new Font("Tahoma", Font.ITALIC, 14));
+		lblInfant.setBounds(432, 57, 27, 14);
+		add(lblInfant);
 	}
 
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Dormitorio> lista, Dormitorio dormitorio, int index, boolean isSelected, boolean cellHasFocus) {
-		
-		//lblFoto.setIcon(dormitorio.getImagen());
-		//lblNombre.setText(String.valueOf(dormitorio.getTipoHabitacion())+" "+dormitorio.getIdHab());
-		String camas = "";
-		
-		/**
-		for(Mobiliario mob:((Dormitorio) dormitorio).getMobiliario()) {
-			if(mob instanceof Cama) {
-				camas += ((Cama) mob).getTipoCama()+"\n";
-			}
-		}	
-		**/	
-		lblCamas.setText(camas);
-		//lblTamano.setText(String.valueOf(dormitorio.getM2())+"m2");
-		
 		if (dormitorio.isDisponible()) {
 			lblDisponible.setText("Disponible");
 			lblDisponible.setForeground(new Color(50, 205, 50));
@@ -98,7 +107,42 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 		    setBackground(lista.getBackground());
 		    setForeground(lista.getForeground());
 		}
+		
+		lblImgMatri.setVisible(false);
+		lblImgIndi.setVisible(false);
+		lblImgInfant.setVisible(false);
+		
+		lblMatri.setText("0");
+		lblIndi.setText("0");
+		lblInfant.setText("0");
+		
+		lblMatri.setVisible(false);
+		lblIndi.setVisible(false);
+		lblInfant.setVisible(false);
+		
+		int contadores[] = {0,0,0};
+		for(Mobiliario mob:dormitorio.getMobiliario()) {
+			if(mob instanceof Cama) {
+				if(((Cama) mob).getTipoCama() == TipoCama.MATRIMONIO) {
+					lblImgMatri.setVisible(true);
+					lblMatri.setVisible(true);
+					contadores[0]+=1;
+				}else if(((Cama) mob).getTipoCama() == TipoCama.INDIVIDUAL) {
+					lblImgIndi.setVisible(true);
+					lblIndi.setVisible(true);
+					contadores[1]+=1;
+				}else if(((Cama) mob).getTipoCama() == TipoCama.INFANTIL) {
+					lblImgInfant.setVisible(true);
+					lblInfant.setVisible(true);
+					contadores[2]+=1;
+				}
+			}
+		}
+		
+		lblMatri.setText(String.valueOf(contadores[0]));
+		lblIndi.setText(String.valueOf(contadores[1]));
+		lblInfant.setText(String.valueOf(contadores[2]));
+		
 		return this;
 	}
-	
 }
