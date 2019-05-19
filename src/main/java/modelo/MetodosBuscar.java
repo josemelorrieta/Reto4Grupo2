@@ -92,42 +92,6 @@ public class MetodosBuscar {
 			hotel.setMatrix(cargarMobiliarioDormitorios(hotel.getMatrix()));
 		}
 	}
-
-	public Vector<Cama[]> crearCamasModelo(String[] tiposCama) {
-		Vector<Cama[]> modeloCamas = new Vector<Cama[]>();
-		for (String tipo : tiposCama) {
-			int numCamasMatri = Integer.parseInt(tipo.substring(0, 1));
-			int numCamasIndi = Integer.parseInt(tipo.substring(1, 2));
-			int numCamasInfant = Integer.parseInt(tipo.substring(2, 3));
-			int[] arrayNumeros = { numCamasMatri, numCamasIndi, numCamasInfant };
-			Cama[] camas = new Cama[numCamasMatri + numCamasIndi + numCamasInfant];
-			TipoCama[] tiposCamaEnum = { TipoCama.MATRIMONIO, TipoCama.INDIVIDUAL, TipoCama.INFANTIL };
-			int i = 0;
-			int f = 0;
-			for (TipoCama tipoDeCama : tiposCamaEnum) {
-				int contadorCama=0;
-				while (contadorCama < arrayNumeros[i]) {
-					camas[f] = new Cama(tipoDeCama);
-					contadorCama++;
-					f++;
-				}
-				i++;
-			}
-			modeloCamas.add(camas);
-		}
-		return modeloCamas;
-	}
-	
-	
-	public Dormitorio[] crearModeloDormitorios(Vector<Cama[]> camas){
-		Dormitorio[] modeloDormitorios=new Dormitorio[camas.size()];
-		for(int i=0;i<modeloDormitorios.length;i++) {
-			modeloDormitorios[i]=new Dormitorio();
-			modeloDormitorios[i].setMobiliario(camas.get(i));
-		}
-		return modeloDormitorios;
-	}
-	
 	
 	
 	/**
@@ -192,6 +156,41 @@ public class MetodosBuscar {
 			i++;
 		}
 		return tiposDorm;
+	}
+	
+	public Vector<Cama[]> crearModeloCamas(String[] tiposCama) {
+		Vector<Cama[]> modeloCamas = new Vector<Cama[]>();
+		for (String tipo : tiposCama) {
+			int numCamasMatri = Integer.parseInt(tipo.substring(0, 1));
+			int numCamasIndi = Integer.parseInt(tipo.substring(1, 2));
+			int numCamasInfant = Integer.parseInt(tipo.substring(2, 3));
+			int[] arrayNumeros = { numCamasMatri, numCamasIndi, numCamasInfant };
+			Cama[] camas = new Cama[numCamasMatri + numCamasIndi + numCamasInfant];
+			TipoCama[] tiposCamaEnum = { TipoCama.MATRIMONIO, TipoCama.INDIVIDUAL, TipoCama.INFANTIL };
+			int i = 0;
+			int f = 0;
+			for (TipoCama tipoDeCama : tiposCamaEnum) {
+				int contadorCama=0;
+				while (contadorCama < arrayNumeros[i]) {
+					camas[f] = new Cama(tipoDeCama);
+					contadorCama++;
+					f++;
+				}
+				i++;
+			}
+			modeloCamas.add(camas);
+		}
+		return modeloCamas;
+	}
+	
+	
+	public Dormitorio[] crearModeloDormitorios(Vector<Cama[]> camas){
+		Dormitorio[] modeloDormitorios=new Dormitorio[camas.size()];
+		for(int i=0;i<modeloDormitorios.length;i++) {
+			modeloDormitorios[i]=new Dormitorio();
+			modeloDormitorios[i].setMobiliario(camas.get(i));
+		}
+		return modeloDormitorios;
 	}
 	
 	/**

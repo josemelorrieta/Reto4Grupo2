@@ -31,7 +31,7 @@ public class Modelo {
 		addMetodos();
 		festivos = mBuscar.buscarFechasFestivos(FuncionesGenerales.sdf);
 		tiposDormString = mBuscar.tiposDormitorio();
-		tiposDorm = mBuscar.crearModeloDormitorios(mBuscar.crearCamasModelo(tiposDormString));
+		tiposDorm = mBuscar.crearModeloDormitorios(mBuscar.crearModeloCamas(tiposDormString));
 	}
 
 	public void addMetodos() {
