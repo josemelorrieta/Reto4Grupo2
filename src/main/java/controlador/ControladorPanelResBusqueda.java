@@ -28,8 +28,8 @@ public class ControladorPanelResBusqueda {
 	private void initListeners() {
 		for(JCheckBox chk:vis.chkTipoAlojamiento)
 			chk.addItemListener(new FiltroAlojamientoListener());
-		for(JCheckBox chk:vis.chkServicios)
-			chk.addItemListener(new FiltroServiciosListener());
+//		for(JCheckBox chk:vis.chkServicios)
+//			chk.addItemListener(new FiltroServiciosListener());
 	}
 	
 	private class FiltroAlojamientoListener implements ItemListener {
