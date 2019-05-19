@@ -129,6 +129,7 @@ public class MetodosBuscar {
 	}
 	
 	
+	
 	/**
 	 * Carga las casas para la localidad seleccionada
 	 * 

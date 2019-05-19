@@ -74,6 +74,9 @@ public class FuncionesGenerales {
 	 * @return
 	 */
 	public static <T> T[] concatenate(T[] a, T[] b) {
+		if (a==null && b==null) return null;
+		else if(a==null) return b;
+		else if(b==null) return a;
 		int aLen = a.length;
 		int bLen = b.length;
 

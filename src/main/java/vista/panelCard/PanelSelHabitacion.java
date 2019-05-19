@@ -55,18 +55,20 @@ public class PanelSelHabitacion extends JPanel {
 		add(scroll);
 	}
 
-	public void setResultHab(Vector<Vector<Dormitorio>> dormitorios,Dormitorio[] dormitoriosModelo) {
+	public void setResultHab(Vector<Vector<Dormitorio>> dormitorios, Dormitorio[] dormitoriosModelo) {
 		modelResHab.clear();
 		int i = 0;
 		for (Vector<Dormitorio> columna : dormitorios) {
 			if (columna == null) {
 				modelResHab.addElement(dormitoriosModelo[i]);
+				i++;
 				continue;
 			}
 			for (Dormitorio dormi : columna) {
-				if (dormi.isDisponible())
+				if (dormi.isDisponible()) {
 					modelResHab.addElement(dormi);
-				else
+					break;
+				} else
 					continue;
 			}
 			i++;
