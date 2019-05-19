@@ -7,11 +7,11 @@ import BaseDatos.ConsultaBD;
 import util.FuncionesGenerales;
 
 public class Modelo {
-	
+
 	public ConsultaBD bd;
 	public Reserva reserva;
 	public Cliente clienteRegis;
-	public ArrayList<Cliente> acompaniantes=new ArrayList<Cliente>();
+	public ArrayList<Cliente> acompaniantes = new ArrayList<Cliente>();
 	public Hotel[] hotelesBusqueda;
 	public Casa[] casasBusqueda;
 	public Apartamento[] apartBusqueda;
@@ -22,23 +22,23 @@ public class Modelo {
 	public MetodosPanelPago mPago;
 	public MetodosPanelRegistroYLogin mRegiLog;
 	public MetodosFiltros mFiltros;
-	private boolean pagoExitoso=false;
+	private boolean pagoExitoso = false;
 	public DesglosePrecio desglosePrecio;
-	
+
 	public Modelo() {
 		reserva = new Reserva();
 		bd = new ConsultaBD();
 		addMetodos();
-		festivos=mBuscar.buscarFechasFestivos(FuncionesGenerales.sdf);
-		tiposDormString=mBuscar.tiposDormitorio();
-		tiposDorm=mBuscar.crearModeloDormitorios(mBuscar.crearCamasModelo(tiposDormString));
+		festivos = mBuscar.buscarFechasFestivos(FuncionesGenerales.sdf);
+		tiposDormString = mBuscar.tiposDormitorio();
+		tiposDorm = mBuscar.crearModeloDormitorios(mBuscar.crearCamasModelo(tiposDormString));
 	}
-	
+
 	public void addMetodos() {
-		mBuscar=new MetodosBuscar(this, bd);
-		mPago=new MetodosPanelPago(bd);
-		mRegiLog=new MetodosPanelRegistroYLogin(this, bd);
-		mFiltros=new MetodosFiltros(this);
+		mBuscar = new MetodosBuscar(this, bd);
+		mPago = new MetodosPanelPago(bd);
+		mRegiLog = new MetodosPanelRegistroYLogin(this, bd);
+		mFiltros = new MetodosFiltros(this);
 	}
 
 	public Hotel[] getHotelesBusqueda() {
@@ -56,13 +56,12 @@ public class Modelo {
 	public void setPagoExitoso(boolean pagoExitoso) {
 		this.pagoExitoso = pagoExitoso;
 	}
-	
+
 	public void limpiar() {
-		reserva=new Reserva();
-		clienteRegis=null;
+		reserva = new Reserva();
+		clienteRegis = null;
 		acompaniantes.clear();
-		desglosePrecio=null;
-		pagoExitoso=false;
+		desglosePrecio = null;
+		pagoExitoso = false;
 	}
 }
-

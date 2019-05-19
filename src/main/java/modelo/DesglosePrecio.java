@@ -29,7 +29,7 @@ public class DesglosePrecio {
 
 	}
 
-	public DesglosePrecio(Alojamiento aloj, Date fechanEnt, Date fechaSal, Dormitorio dormHotel, Calendar[] festivos) {
+	public DesglosePrecio(Alojamiento aloj, Date fechanEnt, Date fechaSal, Dormitorio dormHotel, Calendar[] festivos, double extras) {
 		Calendar fechaEntrada = Calendar.getInstance();
 		Calendar fechaSalida = Calendar.getInstance();
 
@@ -58,7 +58,7 @@ public class DesglosePrecio {
 		this.numFestivos = NumFestivosEntreFechas(fechaEntrada, fechaSalida, festivos);
 		this.totalExtraFestivos = pBaseFestivos * numFestivos;
 
-		this.precioExtras = 0;
+		this.precioExtras = extras;
 
 		calcularTotal();
 		

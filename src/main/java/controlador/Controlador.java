@@ -187,8 +187,8 @@ public class Controlador {
 
 	public void calcularDesglosePrecio() {
 		if (mod.reserva.getAlojReservado() instanceof Hotel)
-			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.reserva.getDormitorioReservado(), mod.festivos);
+			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.reserva.getDormitorioReservado(), mod.festivos, cServicios.calcularPrecioExtras());
 		else
-			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), null, mod.festivos);
+			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), null, mod.festivos, cServicios.calcularPrecioExtras());
 	}
 }

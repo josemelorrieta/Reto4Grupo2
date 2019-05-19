@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.text.ParseException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -205,5 +206,22 @@ public class ControladorPanelServicios {
 		}
 		
 		return -1;
+	}
+	
+	public double calcularPrecioExtras() {
+		double precioExtras = 0;
+		double precio = 0;
+		for (JLabel precioSrv : preciosSrv) {
+			if (!precioSrv.getText().equals("Incluido")) {
+				try {
+					precio = (moneda.parse(precioSrv.getText())).doubleValue();
+				} catch (ParseException e) {
+					precio = 0;
+				}
+				if (precio > 0)
+					precioExtras = precioExtras + precio;
+			}
+		}
+		return precioExtras;
 	}
 }
