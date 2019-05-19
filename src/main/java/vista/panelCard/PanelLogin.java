@@ -3,6 +3,7 @@ package vista.panelCard;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -17,6 +18,7 @@ import javax.swing.SwingConstants;
 import util.FuncionesGenerales;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class PanelLogin extends JPanel {
 
@@ -32,6 +34,7 @@ public class PanelLogin extends JPanel {
 	private Font tahomaFuente;
 	public ImageIcon iconoOn, iconoOff;
 	private JLabel lblLogin;
+	private JLabel lblSiNoTiene;
 
 	/**
 	 * Create the panel.
@@ -64,6 +67,7 @@ public class PanelLogin extends JPanel {
 		pwdContra = new JPasswordField();
 		pwdContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		pwdContra.setBounds(387, 303, 218, 27);
+		pwdContra.setBorder (new CompoundBorder(new LineBorder(new Color(128,128,128), 1), new EmptyBorder(0, 5, 0, 0)));
 		add(pwdContra);
 
 		lblContrasenia = new JLabel("Contraseña");
@@ -84,11 +88,21 @@ public class PanelLogin extends JPanel {
 		txtDni.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtDni.setBounds(387, 157, 250, 27);
 		txtDni.setColumns(10);
+		txtDni.setBorder (new CompoundBorder(new LineBorder(new Color(128,128,128), 1), new EmptyBorder(0, 5, 0, 0)));
 		add(txtDni);
 		
-		btnRegistro = new JButton("Registro");
+		btnRegistro = new JButton("REGISTRO");
+		btnRegistro.setIcon(new ImageIcon(PanelLogin.class.getResource("/imagenes/general/boton140.png")));
+		btnRegistro.setForeground(Color.WHITE);
 		btnRegistro.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnRegistro.setBounds(388, 501, 89, 23);
+		btnRegistro.setBounds(441, 453, 140, 40);
+		btnRegistro.setFocusPainted(false);
+		btnRegistro.setMargin(new Insets(0, 0, 0, 0));
+		btnRegistro.setContentAreaFilled(false);
+		btnRegistro.setBorderPainted(false);
+		btnRegistro.setOpaque(false);
+		btnRegistro.setHorizontalTextPosition(JButton.CENTER);
+		btnRegistro.setVerticalTextPosition(JButton.CENTER);
 		add(btnRegistro);
 		
 		lblValiDni = new JLabel("* El DNI esta compuesto por 8 numeros y una letra");
@@ -98,10 +112,16 @@ public class PanelLogin extends JPanel {
 		
 		lblLogin = new JLabel("Login");
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblLogin.setBounds(10, 23, 1004, 27);
+		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblLogin.setBounds(10, 23, 1004, 40);
 		lblLogin.setForeground(new Color(0,103,219));
 		add(lblLogin);
+		
+		lblSiNoTiene = new JLabel("Si no tiene un usuario debe registrarse");
+		lblSiNoTiene.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSiNoTiene.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSiNoTiene.setBounds(362, 403, 300, 39);
+		add(lblSiNoTiene);
 		
 		lblValiDni.setVisible(false);
 

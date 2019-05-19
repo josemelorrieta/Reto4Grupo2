@@ -43,6 +43,7 @@ public class PanelRegistro extends JPanel {
 	private Font tahomaFuente;
 	public ImageIcon iconoOn, iconoOff;
 	private Color colorRojo=new Color(240, 128, 128);
+	private JLabel lblRegistro;
 
 	/**
 	 * Create the panel.
@@ -53,7 +54,7 @@ public class PanelRegistro extends JPanel {
 	}
 
 	private void setParametros() {
-		setPreferredSize(new Dimension(853, 647));
+		setPreferredSize(new Dimension(1024, 588));
 		setLayout(null);
 	}
 
@@ -61,13 +62,13 @@ public class PanelRegistro extends JPanel {
 		tahomaFuente = new Font("Tahoma", Font.PLAIN, 18);
 
 		contraOn0 = new JButton("");
-		contraOn0.setBounds(450, 237, 32, 27);
+		contraOn0.setBounds(583, 350, 32, 27);
 		contraOn0.setVisible(true);
 		setLayout(null);
 		add(contraOn0);
 
 		contraOn1 = new JButton("");
-		contraOn1.setBounds(450, 291, 32, 27);
+		contraOn1.setBounds(583, 398, 32, 27);
 		contraOn1.setVisible(true);
 		add(contraOn1);
 
@@ -78,101 +79,123 @@ public class PanelRegistro extends JPanel {
 		contraOn1.setIcon(iconoOn);
 
 		pwdContra = new JPasswordField();
-		pwdContra.setBounds(275, 237, 176, 27);
+		pwdContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		pwdContra.setBounds(408, 350, 176, 27);
 		add(pwdContra);
 
 		lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(55, 14, 123, 20);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNombre.setBounds(188, 126, 123, 20);
 		add(lblNombre);
 
 		pwdRepContra = new JPasswordField();
-		pwdRepContra.setBounds(275, 291, 176, 27);
+		pwdRepContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		pwdRepContra.setBounds(408, 398, 176, 27);
 		add(pwdRepContra);
 
 		txtNombre = new JTextField();
-		txtNombre.setBounds(275, 11, 207, 27);
+		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtNombre.setBounds(408, 123, 207, 27);
 		add(txtNombre);
 		txtNombre.setColumns(10);
 
 		txtApellido = new JTextField();
-		txtApellido.setBounds(275, 49, 207, 27);
+		txtApellido.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtApellido.setBounds(408, 168, 207, 27);
 		add(txtApellido);
 		txtApellido.setColumns(10);
 
 		spnDateEditorNacimiento = new JSpinnerDateEditor();
+		spnDateEditorNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		((JSpinner.DefaultEditor) spnDateEditorNacimiento.getEditor()).getTextField().setEditable(false);
 
 		calenNacimiento = new JDateChooser(null, null, null, spnDateEditorNacimiento);
-		calenNacimiento.setBounds(275, 147, 207, 27);
+		calenNacimiento.setBounds(408, 260, 207, 27);
 		calenNacimiento.setDateFormatString("dd-MM-yyyy");
 		add(calenNacimiento);
 
 		modeloSexo = new DefaultComboBoxModel<>(Sexo.values());
 
 		comboBoxSexo = new JComboBox<Sexo>();
+		comboBoxSexo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBoxSexo.setModel(modeloSexo);
-		comboBoxSexo.setBounds(275, 199, 207, 27);
+		comboBoxSexo.setBounds(408, 308, 207, 27);
 		add(comboBoxSexo);
 
 		lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(55, 57, 123, 20);
+		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblApellido.setBounds(188, 171, 123, 20);
 		add(lblApellido);
 
 		lblFechaNacimiento = new JLabel("Fecha nacimiento:");
-		lblFechaNacimiento.setBounds(55, 147, 210, 20);
+		lblFechaNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFechaNacimiento.setBounds(188, 266, 210, 20);
 		add(lblFechaNacimiento);
 
 		lblSexo = new JLabel("Sexo:");
-		lblSexo.setBounds(55, 192, 123, 20);
+		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSexo.setBounds(188, 311, 123, 20);
 		add(lblSexo);
 
 		lblContrasenia = new JLabel("Contraseña:");
-		lblContrasenia.setBounds(55, 236, 123, 20);
+		lblContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblContrasenia.setBounds(188, 356, 123, 20);
 		add(lblContrasenia);
 
 		lblRepetirContrasenia = new JLabel("Repetir contraseña:");
-		lblRepetirContrasenia.setBounds(55, 294, 210, 20);
+		lblRepetirContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblRepetirContrasenia.setBounds(188, 401, 210, 20);
 		add(lblRepetirContrasenia);
 
 		lblDni = new JLabel("Dni:");
-		lblDni.setBounds(55, 101, 123, 20);
+		lblDni.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDni.setBounds(188, 221, 123, 20);
 		add(lblDni);
 
 		txtDni = new JTextField();
-		txtDni.setBounds(275, 98, 207, 27);
+		txtDni.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDni.setBounds(408, 218, 207, 27);
 		txtDni.setColumns(10);
 		add(txtDni);
 		
 		lblValiNombre = new JLabel("* Este campo solo admite letras");
-		lblValiNombre.setBounds(503, 14, 215, 14);
+		lblValiNombre.setBounds(636, 131, 215, 14);
 		add(lblValiNombre);
 		
 		lblValiApellido = new JLabel("* Este campo solo admite letras");
-		lblValiApellido.setBounds(503, 52, 215, 14);
+		lblValiApellido.setBounds(636, 176, 215, 14);
 		add(lblValiApellido);
 		
 		lblValiDni = new JLabel("* El DNI esta compuesto por 8 numeros y una letra");
-		lblValiDni.setBounds(503, 101, 270, 14);
+		lblValiDni.setBounds(636, 226, 270, 14);
 		add(lblValiDni);
 		
 		lblValiContra = new JLabel("<html>* La contraseña debe tener 8 caracteres de longuitud</br> con minimo una letra mayuscula, minuscula y un numero</html>");
-		lblValiContra.setBounds(503, 225, 310, 59);
+		lblValiContra.setBounds(636, 348, 310, 48);
 		add(lblValiContra);
 		
 		lblValiContraCoinciden = new JLabel("* Las contraseñas no coinciden");
-		lblValiContraCoinciden.setBounds(503, 295, 249, 20);
+		lblValiContraCoinciden.setBounds(636, 403, 249, 20);
 		add(lblValiContraCoinciden);
 		
 		chckbxCondiciones = new JCheckBox("  Acepto las");
-		chckbxCondiciones.setBounds(275, 340, 91, 23);
+		chckbxCondiciones.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chckbxCondiciones.setBounds(408, 469, 100, 23);
 		add(chckbxCondiciones);
 		
 		lblCondiciones = new JLabel("Condiciones Legales");
-		lblCondiciones.setForeground(SystemColor.textHighlight);
-		lblCondiciones.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		lblCondiciones.setForeground(new Color(0,103,219));
+		lblCondiciones.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblCondiciones.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCondiciones.setBounds(368, 341, 150, 23);
+		lblCondiciones.setBounds(507, 469, 150, 23);
 		add(lblCondiciones);
+		
+		lblRegistro = new JLabel("Registro");
+		lblRegistro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegistro.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblRegistro.setBounds(10, 24, 1004, 48);
+		lblRegistro.setForeground(new Color(0,103,219));
+		add(lblRegistro);
 
 		JLabel[] arrayLabel = { lblNombre, lblApellido, lblFechaNacimiento, lblSexo, lblContrasenia, lblRepetirContrasenia, lblDni };
 		JLabel[] arrayLabelVali= {lblValiNombre,lblValiApellido,lblValiDni,lblValiContra,lblValiContraCoinciden};

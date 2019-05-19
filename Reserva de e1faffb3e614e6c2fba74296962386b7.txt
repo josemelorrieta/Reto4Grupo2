@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: e1faffb3e614e6c2fba74296962386b7
 
 Datos de la reserva:
-Nombre Alojamiento: Hotel Meliá
-Fecha de la reserva: 17-05-2019
-Fecha de entrada   : 17-05-2019
-Fecha de salida    : 18-05-2019
+Nombre Alojamiento: Casa Julia
+Fecha de la reserva: 19-05-2019
+Fecha de entrada   : 19-05-2019
+Fecha de salida    : 20-05-2019
 
-Precio total: 50.50
+Precio total: 82.05
