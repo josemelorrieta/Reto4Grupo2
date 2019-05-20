@@ -38,29 +38,6 @@ public class TestReserva {
 	}
 	
 	@Test
-	public void testConstructorAlojamiento() {
-		reservaTest=new Reserva(clienteTest, desgloseTest, fechaTest, fechaTest, fechaTest,alojTest);
-		assertEquals(reservaTest.getCliente(), clienteTest);
-		assertEquals(reservaTest.getDesglose(), desgloseTest);
-		assertEquals(reservaTest.getFechaReserva(), fechaTest);
-		assertEquals(reservaTest.getFechaEntrada(), fechaTest);
-		assertEquals(reservaTest.getFechaSalida(), fechaTest);
-		assertEquals(reservaTest.getAlojReservado(), alojTest);
-	}
-	
-	@Test
-	public void testConstructorDormitorio() {
-		reservaTest=new Reserva(clienteTest, desgloseTest, fechaTest, fechaTest, fechaTest,alojTest,dormTest);
-		assertEquals(reservaTest.getCliente(), clienteTest);
-		assertEquals(reservaTest.getDesglose(), desgloseTest);
-		assertEquals(reservaTest.getFechaReserva(), fechaTest);
-		assertEquals(reservaTest.getFechaEntrada(), fechaTest);
-		assertEquals(reservaTest.getFechaSalida(), fechaTest);
-		assertEquals(reservaTest.getAlojReservado(), alojTest);
-		assertEquals(reservaTest.getDormitorioReservado(), dormTest);
-	}
-	
-	@Test
 	public void testCliente() {
 		reservaTest=new Reserva();
 		reservaTest.setCliente(clienteTest);

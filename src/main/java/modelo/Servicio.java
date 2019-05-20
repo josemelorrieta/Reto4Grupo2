@@ -1,10 +1,19 @@
 package modelo;
 
+/**
+ * Clase Servicio
+ * Modelo general de un servicio
+ */
 public class Servicio {
 	public String nombre;
 	public double precio;
 	public TipoServicio tipo;
 	
+	/**
+	 * Constructor - Crea un nuevo servicio
+	 * @param nombre
+	 * @param precio
+	 */
 	public Servicio(String nombre, double precio) {
 		this.nombre = nombre;
 		this.precio = precio;
@@ -36,6 +45,11 @@ public class Servicio {
 		this.tipo = tipo;
 	}
 	
+	/**
+	 * Calcula el tipo segun el precio que tenga
+	 * @param precio
+	 * @return
+	 */
 	private TipoServicio calcularTipo(double precio) {
 		if (precio == 0)
 			return TipoServicio.incluido;

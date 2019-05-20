@@ -164,7 +164,7 @@ public class MetodosPanelRegistroYLogin {
 	/**
 	 * Crea un objeto cliente a partid de los datos en el panel
 	 * 
-	 * @param panel Donde estan los daots
+	 * @param panel Donde estan los datos
 	 * @return objeto cliente
 	 */
 	public Cliente crearCliente(PanelRegistro panel) {
@@ -199,6 +199,11 @@ public class MetodosPanelRegistroYLogin {
 		return null;
 	}
 
+	/**
+	 * Registra un cliente si no esta registrado en la base de datos
+	 * @param panel panel donde se encuentra la informacion del cliente
+	 * @return Cliente
+	 */
 	public Cliente registro(PanelRegistro panel) {
 		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + encriptar(panel.txtDni.getText().toCharArray()) + "'");
 		if (json.equals("")) {
@@ -233,6 +238,10 @@ public class MetodosPanelRegistroYLogin {
 		return null;
 	}
 
+	/**
+	 * Pone limite a la fecha de nacimiento
+	 * @param calen
+	 */
 	public void limitarFechaNacimiento(JDateChooser calen) {
 		Date fechaLimite = new Date();
 		calen.setDate(fechaLimite);

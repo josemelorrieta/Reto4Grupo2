@@ -17,10 +17,18 @@ import modelo.Apartamento;
 import modelo.Casa;
 import modelo.Hotel;
 
+/**
+ * Clase Funciones Generales
+ * Metodos de uso general
+ *
+ */
 public class FuncionesGenerales {
 
 	public final static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	
+	/**
+	 * Cambia el tamaño de un icono
+	 */
 	public static ImageIcon resizeIcono(int pixelsX, int pixelsY, File imagen) {
 		BufferedImage img = null;
 		try {

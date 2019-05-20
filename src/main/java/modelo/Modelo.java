@@ -6,6 +6,10 @@ import java.util.Calendar;
 import BaseDatos.ConsultaBD;
 import util.FuncionesGenerales;
 
+/**
+ * Clase model, guarda toda la informacion necesaria para ejecucion del programa
+ *
+ */
 public class Modelo {
 
 	public ConsultaBD bd;
@@ -25,6 +29,9 @@ public class Modelo {
 	private boolean pagoExitoso = false;
 	public DesglosePrecio desglosePrecio;
 
+	/**
+	 * Constructor - Crea un nuevo modelo
+	 */
 	public Modelo() {
 		reserva = new Reserva();
 		bd = new ConsultaBD();
@@ -34,6 +41,9 @@ public class Modelo {
 		tiposDorm = mBuscar.crearModeloDormitorios(mBuscar.crearModeloCamas(tiposDormString));
 	}
 
+	/**
+	 * Inicializa los metodos en el modelo
+	 */
 	public void addMetodos() {
 		mBuscar = new MetodosBuscar(this, bd);
 		mPago = new MetodosPanelPago(bd);
@@ -57,6 +67,9 @@ public class Modelo {
 		this.pagoExitoso = pagoExitoso;
 	}
 
+	/**
+	 * Limpia la reserva
+	 */
 	public void limpiar() {
 		reserva = new Reserva();
 		clienteRegis = null;
