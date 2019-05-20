@@ -2,6 +2,10 @@ package modelo;
 
 import java.util.Date;
 
+/**
+ * Clase reserva, guarda el alojamiento elegido, fechas, precio etc
+ *
+ */
 public class Reserva {
 	private Cliente cliente;
 	private DesglosePrecio desglose;
@@ -12,28 +16,11 @@ public class Reserva {
 	private Dormitorio dormitorioReservado;
 	private String codPromocional; 
 	
+	/**
+	 * Crea una reserva nueva
+	 */
 	public Reserva() {
 		// Constructor por defecto
-	}
-
-	public Reserva(Cliente cliente, DesglosePrecio desglose, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado) {
-		this.cliente = cliente;
-		this.desglose = desglose;
-		this.fechaReserva = fechaReserva;
-		this.fechaEntrada = fechaEntrada;
-		this.fechaSalida = fechaSalida;
-		this.alojReservado = alojReservado;
-		this.dormitorioReservado = null;
-	}
-
-	public Reserva(Cliente cliente, DesglosePrecio desglose, Date fechaReserva, Date fechaEntrada, Date fechaSalida, Alojamiento alojReservado, Dormitorio dormitorioReservado) {
-		this.cliente = cliente;
-		this.desglose = desglose;
-		this.fechaReserva = fechaReserva;
-		this.fechaEntrada = fechaEntrada;
-		this.fechaSalida = fechaSalida;
-		this.alojReservado = alojReservado;
-		this.dormitorioReservado = dormitorioReservado;
 	}
 
 	public Cliente getCliente() {
