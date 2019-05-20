@@ -1,12 +1,21 @@
 package modelo;
 
 import java.awt.Color;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +24,7 @@ import javax.swing.JTextField;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import com.toedter.calendar.JDateChooser;
 
 import BaseDatos.ConsultaBD;
@@ -27,6 +37,7 @@ public class MetodosPanelRegistroYLogin {
 	private GsonBuilder gson;
 	private Gson gson1;
 	private Modelo mod;
+	private final static String keyBuffer = "bidaion4";
 
 	/**
 	 * Array de booleanos que se utiliza para validar la informacion introducida por
@@ -168,7 +179,19 @@ public class MetodosPanelRegistroYLogin {
 	 * @return objeto cliente
 	 */
 	public Cliente crearCliente(PanelRegistro panel) {
-		return new Cliente(encriptar(panel.txtDni.getText().toCharArray()), encriptar(panel.txtNombre.getText().toCharArray()), encriptar(panel.txtApellido.getText().toCharArray()), panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), encriptar(panel.pwdContra.getPassword()));
+		String pass = "";
+		String dni = "";
+		String nombre = "";
+		String apellido = "";
+		try {
+			pass = encripta(panel.pwdContra.getPassword().toString());
+			nombre = encripta(panel.txtNombre.getText());
+			dni = encripta(panel.txtDni.getText());
+			apellido = encripta(panel.txtApellido.getText());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new Cliente(dni, nombre, apellido, panel.calenNacimiento.getDate(), (Sexo) panel.comboBoxSexo.getSelectedItem(), pass);
 	}
 
 	/**
@@ -179,8 +202,15 @@ public class MetodosPanelRegistroYLogin {
 	 *         contraseña es correcta o si no hay ningun usuario con ese dni
 	 */
 	public Cliente login(PanelLogin panel) {
-		String dni = encriptar(panel.txtDni.getText().toCharArray());
-		String contraIntroducida = encriptar(panel.pwdContra.getPassword());
+		String dni = "";
+		String contraIntroducida = "";
+		try {
+			dni = encripta(panel.txtDni.getText());
+			contraIntroducida = encripta(new String(panel.pwdContra.getPassword()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 
 
 		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
 		gson = new GsonBuilder();
@@ -205,7 +235,13 @@ public class MetodosPanelRegistroYLogin {
 	 * @return Cliente
 	 */
 	public Cliente registro(PanelRegistro panel) {
-		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + encriptar(panel.txtDni.getText().toCharArray()) + "'");
+		String dni = "";
+		try {
+			dni = encripta(panel.txtDni.getText());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String json = bd.consultarToGson("select `dni` from cliente where `dni`='" + dni + "'");
 		if (json.equals("")) {
 			return crearCliente(panel);
 		} else {
@@ -214,30 +250,116 @@ public class MetodosPanelRegistroYLogin {
 		}
 	}
 
-	/**
-	 * Encriptacion de datos en MD5
-	 * 
-	 * @param cadena Cadena de datos que se quiere encriptar
-	 * @return String de los datos encriptados
-	 */
-	public String encriptar(char[] cadena) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			String contraEnc = new String(cadena);
-			byte[] hashInBytes = md.digest(contraEnc.getBytes(StandardCharsets.UTF_8));
+//	/**
+//	 * Encriptacion de datos en MD5
+//	 * 
+//	 * @param cadena Cadena de datos que se quiere encriptar
+//	 * @return String de los datos encriptados
+//	 */
+//	public String encriptar(char[] cadena) {
+//		try {
+//			MessageDigest md = MessageDigest.getInstance("MD5");
+//			String contraEnc = new String(cadena);
+//			byte[] hashInBytes = md.digest(contraEnc.getBytes(StandardCharsets.UTF_8));
+//
+//			StringBuilder sb = new StringBuilder();
+//			for (byte b : hashInBytes) {
+//				sb.append(String.format("%02x", b));
+//			}
+//
+//			return sb.toString();
+//		} catch (NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 
-			StringBuilder sb = new StringBuilder();
-			for (byte b : hashInBytes) {
-				sb.append(String.format("%02x", b));
-			}
-
-			return sb.toString();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public static byte[] encode(byte[] b) throws Exception {
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		OutputStream b64os = MimeUtility.encode(baos, "base64");
+		
+		b64os.write(b);
+		
+		b64os.close();
+		
+		return baos.toByteArray();
+	
 	}
-
+	
+	public static byte[] decode(byte[] b) throws Exception {
+	
+		ByteArrayInputStream bais = new ByteArrayInputStream(b);
+		
+		InputStream b64is = MimeUtility.decode(bais, "base64");
+		
+		byte[] tmp = new byte[b.length];
+		
+		int n = b64is.read(tmp);
+		
+		byte[] res = new byte[n];
+		
+		System.arraycopy(tmp, 0, res, 0, n);
+		
+		return res;
+	
+	}
+	
+	private static SecretKeySpec getKey() {
+	
+		// keyBuffer = keyBuffer.substring(0, 8);
+		
+		SecretKeySpec key = new SecretKeySpec(keyBuffer.getBytes(), "DES");
+		
+		return key;
+	
+	}
+	
+	public static String desencripta(String s) throws Exception {
+	
+		String s1 = null;
+		
+		if (s.indexOf("{DES}") != -1) {
+		
+			String s2 = s.substring("{DES}".length());
+			
+			Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+			
+			cipher.init(2, getKey());
+			
+			byte abyte0[] = cipher.doFinal(decode(s2.getBytes()));
+			
+			s1 = new String(abyte0);
+		
+		} else {
+		
+			s1 = s;
+		
+		}
+		
+		return s1;
+	
+	}
+	
+	public static String encripta(String s) throws Exception {
+	
+		byte abyte0[];
+		
+		SecureRandom securerandom = new SecureRandom();
+		
+		securerandom.nextBytes(keyBuffer.getBytes());
+		
+		Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+		
+		cipher.init(1, getKey());
+		
+		abyte0 = encode(cipher.doFinal(s.getBytes())); // antes
+		
+		return "{DES}" + new String(abyte0);
+	
+	}
+	
 	/**
 	 * Pone limite a la fecha de nacimiento
 	 * @param calen
