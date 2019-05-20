@@ -131,11 +131,11 @@ public class Controlador {
 						vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
 						cResumenPago.insertarDatos();
 						vis.pCenter.nextPanel();
+						vis.pCenter.pResumenRes.chckbxCondiciones.setSelected(false);
 					} else {
 						JOptionPane.showMessageDialog(vis, "Debe aceptar las condiciones para proceder al pago", "INFO", JOptionPane.INFORMATION_MESSAGE);
 					}
 					vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
-					cResumenPago.insertarDatos();
 					break;
 				case 8:
 					// CONDICION PARA LIMITAR PERSONAS POR HACER
@@ -149,6 +149,7 @@ public class Controlador {
 						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 						mod.setPagoExitoso(false);
 						mod.mPago.imprimirBillete(mod.reserva);
+						cResumenPago.insertarDatos();
 						if (mod.mPago.guardarReserva(mod.reserva))
 							JOptionPane.showMessageDialog(vis, "Reserva guardada correctamente", "INFO",
 									JOptionPane.INFORMATION_MESSAGE);

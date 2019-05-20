@@ -48,8 +48,20 @@ public class ControladorPanelResumenPago {
 		vis.txtFecSalida.setText(sdf.format(mod.reserva.getFechaSalida()));
 		vis.txtPrecio.setText(df.format(mod.reserva.getDesglose().getTotal()));
 		
-		vis.txtDni.setText(mod.clienteRegis.getDni());
-		vis.txtNombre.setText(mod.clienteRegis.getNombre());
-		vis.txtApellidos.setText(mod.clienteRegis.getApellidos());
+		String dni="";
+		String nombre = "";
+		String apellidos = "";
+		
+		try {
+			dni = mod.mRegiLog.desencripta(mod.clienteRegis.getDni());
+			nombre = mod.mRegiLog.desencripta(mod.clienteRegis.getNombre());
+			apellidos = mod.mRegiLog.desencripta(mod.clienteRegis.getApellidos());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		vis.txtDni.setText(dni);
+		vis.txtNombre.setText(nombre);
+		vis.txtApellidos.setText(apellidos);
 	}
 }

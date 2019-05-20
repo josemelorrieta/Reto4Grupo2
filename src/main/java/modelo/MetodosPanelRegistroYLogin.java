@@ -250,114 +250,84 @@ public class MetodosPanelRegistroYLogin {
 		}
 	}
 
-//	/**
-//	 * Encriptacion de datos en MD5
-//	 * 
-//	 * @param cadena Cadena de datos que se quiere encriptar
-//	 * @return String de los datos encriptados
-//	 */
-//	public String encriptar(char[] cadena) {
-//		try {
-//			MessageDigest md = MessageDigest.getInstance("MD5");
-//			String contraEnc = new String(cadena);
-//			byte[] hashInBytes = md.digest(contraEnc.getBytes(StandardCharsets.UTF_8));
-//
-//			StringBuilder sb = new StringBuilder();
-//			for (byte b : hashInBytes) {
-//				sb.append(String.format("%02x", b));
-//			}
-//
-//			return sb.toString();
-//		} catch (NoSuchAlgorithmException e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-
-	public static byte[] encode(byte[] b) throws Exception {
-		
+	/**
+	 * Codifica un array de bytes en base64
+	 * @param b array de bytes a codificar
+	 * @return array de bytes en base64
+	 * @throws Exception
+	 */
+	public byte[] encode(byte[] b) throws Exception {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
 		OutputStream b64os = MimeUtility.encode(baos, "base64");
-		
 		b64os.write(b);
-		
 		b64os.close();
 		
 		return baos.toByteArray();
-	
 	}
 	
-	public static byte[] decode(byte[] b) throws Exception {
-	
+	/**
+	 * Decodifica un array desde base64
+	 * @param b array de bytes a decodificar
+	 * @return array de bytes decodificado
+	 * @throws Exception
+	 */
+	public byte[] decode(byte[] b) throws Exception {
 		ByteArrayInputStream bais = new ByteArrayInputStream(b);
-		
 		InputStream b64is = MimeUtility.decode(bais, "base64");
-		
 		byte[] tmp = new byte[b.length];
-		
 		int n = b64is.read(tmp);
-		
 		byte[] res = new byte[n];
-		
 		System.arraycopy(tmp, 0, res, 0, n);
 		
 		return res;
-	
 	}
 	
-	private static SecretKeySpec getKey() {
-	
-		// keyBuffer = keyBuffer.substring(0, 8);
-		
+	/**
+	 * Pasa la semilla para encriptar los datos como clave secreta
+	 * @return la semilla convertida en clave secreta
+	 */
+	private SecretKeySpec getKey() {
 		SecretKeySpec key = new SecretKeySpec(keyBuffer.getBytes(), "DES");
 		
 		return key;
-	
 	}
 	
-	public static String desencripta(String s) throws Exception {
-	
+	/**
+	 * Desencripta una cadena por medio de una semilla
+	 * @param s Cadena a desencriptar
+	 * @return Cadena desencriptada
+	 * @throws Exception
+	 */
+	public String desencripta(String s) throws Exception {
 		String s1 = null;
-		
 		if (s.indexOf("{DES}") != -1) {
-		
 			String s2 = s.substring("{DES}".length());
-			
 			Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-			
 			cipher.init(2, getKey());
-			
 			byte abyte0[] = cipher.doFinal(decode(s2.getBytes()));
-			
 			s1 = new String(abyte0);
-		
 		} else {
-		
 			s1 = s;
-		
 		}
 		
 		return s1;
-	
 	}
 	
-	public static String encripta(String s) throws Exception {
-	
+	/**
+	 * Encripta una cadena por medio de una semilla
+	 * @param s Cadena a encriptar
+	 * @return Cadena encriptada
+	 * @throws Exception
+	 */
+	public String encripta(String s) throws Exception {
 		byte abyte0[];
-		
 		SecureRandom securerandom = new SecureRandom();
-		
 		securerandom.nextBytes(keyBuffer.getBytes());
-		
 		Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-		
 		cipher.init(1, getKey());
-		
 		abyte0 = encode(cipher.doFinal(s.getBytes())); // antes
 		
 		return "{DES}" + new String(abyte0);
-	
 	}
 	
 	/**
