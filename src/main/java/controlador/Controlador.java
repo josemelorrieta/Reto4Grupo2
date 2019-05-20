@@ -21,7 +21,7 @@ public class Controlador {
 	private Modelo mod;
 	private ControladorPanelBuscar cBuscar;
 	private ControladorPanelPago cPago;
-	private ControladorPanelResBusqueda cResBusqueda;
+	private ControladorPanelFiltros cResBusqueda;
 	private ControladorPanelRegistro cRegistro;
 	private ControladorPanelLogin cLogin;
 	private ControladorPanelCondiciones cCondiciones;
@@ -48,7 +48,7 @@ public class Controlador {
 	private void addControladores() {
 		cBuscar = new ControladorPanelBuscar(vis, this, mod);
 		cPago = new ControladorPanelPago(vis, mod);
-		cResBusqueda = new ControladorPanelResBusqueda(mod, vis.pCenter.pResBusq, this);
+		cResBusqueda = new ControladorPanelFiltros(mod, vis.pCenter.pResBusq);
 		cRegistro = new ControladorPanelRegistro(vis, this, mod);
 		cLogin = new ControladorPanelLogin(vis, this, mod);
 		cCondiciones = new ControladorPanelCondiciones(vis);

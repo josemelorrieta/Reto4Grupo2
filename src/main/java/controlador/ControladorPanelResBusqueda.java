@@ -1,13 +1,6 @@
 package controlador;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-
-import javax.swing.JCheckBox;
-
-import modelo.Apartamento;
-import modelo.Casa;
-import modelo.Hotel;
+import modelo.Alojamiento;
 import modelo.Modelo;
 import vista.panelCard.PanelResBusqueda;
 
@@ -18,9 +11,8 @@ import vista.panelCard.PanelResBusqueda;
  */
 public class ControladorPanelResBusqueda {
 	
-	private Modelo mod;
-	private PanelResBusqueda vis;
-	private Controlador cont;
+	protected Modelo mod;
+	protected PanelResBusqueda vis;
 	
 	/**
 	 * Constructor para el controlador
@@ -28,63 +20,61 @@ public class ControladorPanelResBusqueda {
 	 * @param vis Vista la cual edita
 	 * @param cont Controlador principal en caso de que necesite acceder a algun otro metodo
 	 */
-	public ControladorPanelResBusqueda(Modelo mod, PanelResBusqueda vis,Controlador cont) {
+	public ControladorPanelResBusqueda(Modelo mod, PanelResBusqueda vis) {
 		this.mod = mod;
 		this.vis=vis;
-		this.cont = cont;
-		//initListeners();
 	}
 	
-	/**
-	 * Inicializador para los listeners
-	 */
-	private void initListeners() {
-		for(JCheckBox chk:vis.chkTipoAlojamiento)
-			chk.addItemListener(new FiltroAlojamientoListener());
-//		for(JCheckBox chk:vis.chkServicios)
-//			chk.addItemListener(new FiltroServiciosListener());
-	}
-
-	
-	private class FiltroAlojamientoListener implements ItemListener {
-
-		@Override
-		public void itemStateChanged(ItemEvent e) {
-			//setResultadosFiltrados();			
-		}
-	}
-	
-	private class FiltroServiciosListener implements ItemListener{
-
-		@Override
-		public void itemStateChanged(ItemEvent e) {
-			
-		}
-		
-	}
-	
-	/**
-	 * Mete los resultados filtrados en el modelo del panel
-	 */
-	private void setResultadosFiltrados() {
+	protected void setDatosPanel(boolean[] estados) {
 		vis.modelResBusq.clear();
-		if(vis.chkHotel.isSelected()) {
-			for(Hotel hotel:mod.hotelesBusqueda) {
-				if(hotel.isMostrar())
-					vis.modelResBusq.addElement(hotel);
-			}
-		}
-		if(vis.chkCasa.isSelected()) {
-			for(Casa casa:mod.casasBusqueda) {
-				if(casa.isMostrar())
-					vis.modelResBusq.addElement(casa);
-			}
-		}
-		if(vis.chkApartamento.isSelected()) {
-			for(Apartamento apart:mod.apartBusqueda) {
-				if(apart.isMostrar())
-					vis.modelResBusq.addElement(apart);
-			}
-		}
+		setAlojamientos(mod.hotelesBusqueda, estados[0]);
+		setAlojamientos(mod.casasBusqueda, estados[1]);
+		setAlojamientos(mod.apartBusqueda, estados[2]);
+	}
+	
+	protected void setDatosPanel(boolean estado) {
+		vis.modelResBusq.clear();
+		setAlojamientos(mod.hotelesBusqueda, estado);
+		setAlojamientos(mod.casasBusqueda, estado);
+		setAlojamientos(mod.apartBusqueda, estado);
+	}
+	
+	protected void setDatosPanel(boolean[] estados, String localidad) {
+		setLblLocalidad(localidad);
+		vis.modelResBusq.clear();
+		setAlojamientos(mod.hotelesBusqueda, estados[0]);
+		setAlojamientos(mod.casasBusqueda, estados[1]);
+		setAlojamientos(mod.apartBusqueda, estados[2]);
+	}
+	
+	protected void setDatosPanel(boolean estado, String localidad) {
+		setLblLocalidad(localidad);
+		vis.modelResBusq.clear();
+		setAlojamientos(mod.hotelesBusqueda, estado);
+		setAlojamientos(mod.casasBusqueda, estado);
+		setAlojamientos(mod.apartBusqueda, estado);
+	}
+	
+	private void setLblLocalidad(String localidad) {
+		vis.lblLocBusq.setText("Resultados para " + localidad);
+		//vis.resultBusq.ensureIndexIsVisible(0);
+	}
+	
+	private void setAlojamientos(Alojamiento[] alojamientos, boolean estado) {
+		if(estado)
+			for(Alojamiento aloj : alojamientos)
+				if(aloj.isMostrar())
+					vis.modelResBusq.addElement(aloj);
+	}
+		
+	public Alojamiento getAlojamiento() {
+		return vis.resultBusq.getSelectedValue();
+	}
+	
+	public boolean isValid() {
+		if(!vis.resultBusq.isSelectionEmpty() && vis.resultBusq.getSelectedValue().isDisponible())
+			return true;
+		else
+			return false;
 	}
 }

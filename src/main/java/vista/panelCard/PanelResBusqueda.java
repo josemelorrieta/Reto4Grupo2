@@ -2,15 +2,12 @@ package vista.panelCard;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.SystemColor;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-
 import modelo.Alojamiento;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
@@ -30,18 +27,20 @@ public class PanelResBusqueda extends JPanel {
 	public JPanel panelFiltros;
 	public JLabel lblFiltros,lblTipoDeAlojamiento,lblServicios;
 	public JCheckBox chkHotel,chkCasa,chkApartamento;
-	public JCheckBox[] chkTipoAlojamiento = {chkHotel,chkCasa,chkApartamento};
+	public JCheckBox[] chkTipoAlojamiento;
 	public JLabel chkWifi,chkPiscina,chkSpa,chkParking,chkAc,chkRestaurante,chkBar,chkGimnasio, lblWifi, lblPiscina, lblSpa, lblParking, lblAc, lblRestaurante, lblBar, lblGimnasio;
-	public JLabel[] chkServicios = {lblWifi,lblPiscina, lblSpa,lblParking,lblAc,lblRestaurante,lblBar,lblGimnasio};
-	public JCheckBox[] chkTipoPension;
+	public JLabel[] lblArrayServicios;
 	public JCheckBox chkAD,chkMP,chkPC;
+	public JCheckBox[] chkTipoPension;
 	public JLabel lblTipoDePensin;
 	public JLabel lblNmeroDeEstrellas,lblMin, lblMax;
 	public JSpinner spinnerMin, spinnerMax;
+	public JPanel panelFiltrosHotel;
 	
 	public PanelResBusqueda() {
 		setParametros();
 		instanciarObjetos();
+		panelFiltrosHotel.setVisible(false);
 	}
 	
 	private void setParametros() {
@@ -69,8 +68,8 @@ public class PanelResBusqueda extends JPanel {
 		panelFiltros = new JPanel();
 		panelFiltros.setBackground(Color.WHITE);
 		panelFiltros.setBounds(670, 80, 314, 480);
-		add(panelFiltros);
 		panelFiltros.setLayout(null);
+		add(panelFiltros);
 		
 		lblTipoDeAlojamiento = new JLabel("Tipo de alojamiento");
 		lblTipoDeAlojamiento.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -82,18 +81,21 @@ public class PanelResBusqueda extends JPanel {
 		chkHotel.setBackground(Color.WHITE);
 		chkHotel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chkHotel.setBounds(53, 73, 155, 23);
+		chkHotel.setSelected(true);
 		panelFiltros.add(chkHotel);
 		
 		chkCasa = new JCheckBox("  Casa");
 		chkCasa.setBackground(Color.WHITE);
 		chkCasa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chkCasa.setBounds(53, 99, 155, 23);
+		chkCasa.setSelected(true);
 		panelFiltros.add(chkCasa);
 		
 		chkApartamento = new JCheckBox("  Apartamento");
 		chkApartamento.setBackground(Color.WHITE);
 		chkApartamento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chkApartamento.setBounds(53, 125, 155, 23);
+		chkApartamento.setSelected(true);
 		panelFiltros.add(chkApartamento);
 		
 		lblServicios = new JLabel("Servicios");
@@ -149,58 +151,6 @@ public class PanelResBusqueda extends JPanel {
 		chkGimnasio.setBackground(Color.WHITE);
 		chkGimnasio.setBounds(90, 275, 94, 23);
 		panelFiltros.add(chkGimnasio);
-		
-		chkAD = new JCheckBox("  AD");
-		chkAD.setBackground(Color.WHITE);
-		chkAD.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		chkAD.setBounds(53, 351, 51, 23);
-		panelFiltros.add(chkAD);
-		
-		lblTipoDePensin = new JLabel("Tipo de pensión");
-		lblTipoDePensin.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTipoDePensin.setBounds(27, 318, 192, 26);
-		lblTipoDePensin.setForeground(new Color(0,103,219));
-		panelFiltros.add(lblTipoDePensin);
-		
-		chkMP = new JCheckBox("  MP");
-		chkMP.setBackground(Color.WHITE);
-		chkMP.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		chkMP.setBounds(131, 351, 51, 23);
-		panelFiltros.add(chkMP);
-		
-		chkPC = new JCheckBox("  PC");
-		chkPC.setBackground(Color.WHITE);
-		chkPC.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		chkPC.setBounds(211, 351, 51, 23);
-		panelFiltros.add(chkPC);
-		
-		lblNmeroDeEstrellas = new JLabel("Número de estrellas");
-		lblNmeroDeEstrellas.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNmeroDeEstrellas.setBounds(27, 391, 235, 26);
-		lblNmeroDeEstrellas.setForeground(new Color(0,103,219));
-		panelFiltros.add(lblNmeroDeEstrellas);
-		
-		lblMin = new JLabel("Mínimo");
-		lblMin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMin.setBounds(37, 428, 51, 26);
-		panelFiltros.add(lblMin);
-		
-		spinnerMin = new JSpinner();
-		spinnerMin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		spinnerMin.setBounds(87, 428, 46, 26);
-		panelFiltros.add(spinnerMin);
-		spinnerMin.setModel(new SpinnerNumberModel(1, 1, 5, 1));
-		
-		lblMax = new JLabel("Máximo");
-		lblMax.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMax.setBounds(159, 428, 60, 26);
-		panelFiltros.add(lblMax);
-		
-		spinnerMax = new JSpinner();
-		spinnerMax.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		spinnerMax.setBounds(220, 430, 46, 26);
-		panelFiltros.add(spinnerMax);
-		spinnerMax.setModel(new SpinnerNumberModel(5, 1, 5, 1));
 		
 		lblFiltros = new JLabel("  Filtros");
 		lblFiltros.setIcon(new ImageIcon(PanelResBusqueda.class.getResource("/imagenes/general/filtro.png")));
@@ -264,5 +214,84 @@ public class PanelResBusqueda extends JPanel {
 		lblSpa.setEnabled(false);
 		lblSpa.setBounds(190, 272, 26, 26);
 		panelFiltros.add(lblSpa);
+	
+		panelFiltrosHotel = new JPanel();
+		panelFiltrosHotel.setOpaque(false);
+		//panelFiltrosHotel.setBackground(Color.WHITE);
+		panelFiltrosHotel.setBounds(10, 310, 294, 159);
+		panelFiltrosHotel.setLayout(null);
+		panelFiltros.add(panelFiltrosHotel);
+		
+		lblTipoDePensin = new JLabel("Tipo de pensión");
+		lblTipoDePensin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblTipoDePensin.setBounds(6, 0, 192, 26);
+		lblTipoDePensin.setForeground(new Color(0,103,219));
+		panelFiltrosHotel.add(lblTipoDePensin);
+		
+		chkAD = new JCheckBox("  AD");
+		chkAD.setBackground(Color.WHITE);
+		chkAD.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chkAD.setBounds(6,30,51,23);
+		panelFiltrosHotel.add(chkAD);
+		
+		chkMP = new JCheckBox("  MP");
+		chkMP.setBackground(Color.WHITE);
+		chkMP.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chkMP.setBounds(84, 30, 51, 23);
+		panelFiltrosHotel.add(chkMP);
+		
+		chkPC = new JCheckBox("  PC");
+		chkPC.setBackground(Color.WHITE);
+		chkPC.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chkPC.setBounds(168, 30, 51, 23);
+		panelFiltrosHotel.add(chkPC);
+		
+		lblNmeroDeEstrellas = new JLabel("Número de estrellas");
+		lblNmeroDeEstrellas.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNmeroDeEstrellas.setBounds(6, 60, 235, 26);
+		lblNmeroDeEstrellas.setForeground(new Color(0,103,219));
+		panelFiltrosHotel.add(lblNmeroDeEstrellas);
+		
+		lblMin = new JLabel("Mínimo");
+		lblMin.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMin.setBounds(6, 86, 51, 26);
+		panelFiltrosHotel.add(lblMin);
+		
+		lblMax = new JLabel("Máximo");
+		lblMax.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMax.setBounds(125, 86, 60, 26);
+		panelFiltrosHotel.add(lblMax);
+		
+		spinnerMin = new JSpinner();
+		spinnerMin.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		spinnerMin.setBounds(62, 87, 46, 26);
+		spinnerMin.setModel(new SpinnerNumberModel(1, 1, 5, 1));
+		panelFiltrosHotel.add(spinnerMin);
+		
+		spinnerMax = new JSpinner();
+		spinnerMax.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		spinnerMax.setBounds(184, 87, 46, 26);
+		spinnerMax.setModel(new SpinnerNumberModel(5, 1, 5, 1));
+		panelFiltrosHotel.add(spinnerMax);
+		
+		chkTipoAlojamiento = new JCheckBox[3];
+		chkTipoAlojamiento[0] = chkHotel;
+		chkTipoAlojamiento[1] = chkCasa;
+		chkTipoAlojamiento[2] = chkApartamento;
+		
+		lblArrayServicios = new JLabel[8];
+		lblArrayServicios[0] = lblWifi;
+		lblArrayServicios[1] = lblPiscina;
+		lblArrayServicios[2] = lblSpa;
+		lblArrayServicios[3] = lblParking;
+		lblArrayServicios[4] = lblAc;
+		lblArrayServicios[5] = lblRestaurante;
+		lblArrayServicios[6] = lblBar;
+		lblArrayServicios[7] = lblGimnasio;
+		
+		chkTipoPension = new JCheckBox[3];
+		chkTipoPension[0] = chkAD;
+		chkTipoPension[1] = chkMP;
+		chkTipoPension[2] = chkPC;
 	}
 }

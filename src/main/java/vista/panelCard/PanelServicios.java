@@ -33,9 +33,7 @@ public class PanelServicios extends JPanel {
 
 	private void setPanelParametros() {
 		setPreferredSize(new Dimension(1024,588));
-		setLayout(null);
-		
-		
+		setLayout(null);		
 	}
 	
 	public void instanciarObjetos() {
