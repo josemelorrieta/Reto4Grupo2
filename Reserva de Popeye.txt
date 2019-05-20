@@ -1,0 +1,12 @@
+INFORMACIÓN DE LA RESERVA
+
+Datos del cliente:
+Nombre: Popeye
+
+Datos de la reserva:
+Nombre Alojamiento: Hotel Meliá
+Fecha de la reserva: 20-05-2019
+Fecha de entrada   : 20-05-2019
+Fecha de salida    : 21-05-2019
+
+Precio total: 52.75

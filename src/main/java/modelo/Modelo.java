@@ -46,7 +46,7 @@ public class Modelo {
 	 */
 	public void addMetodos() {
 		mBuscar = new MetodosBuscar(this, bd);
-		mPago = new MetodosPanelPago(bd);
+		mPago = new MetodosPanelPago(bd, this);
 		mRegiLog = new MetodosPanelRegistroYLogin(this, bd);
 		mFiltros = new MetodosFiltros(this);
 	}

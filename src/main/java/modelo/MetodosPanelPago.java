@@ -25,10 +25,12 @@ public class MetodosPanelPago {
 	private DecimalFormatSymbols simbolos = new DecimalFormatSymbols(Locale.getDefault());
 	public DecimalFormat dosDec;
 	private ConsultaBD bd;
+	private Modelo mod;
 
-	public MetodosPanelPago(ConsultaBD bd) {
+	public MetodosPanelPago(ConsultaBD bd, Modelo mod) {
 		dosDecFormato();
 		this.bd = bd;
+		this.mod = mod;
 	}
 
 	/**
@@ -195,10 +197,10 @@ public class MetodosPanelPago {
 		PrintWriter writer;
 		SimpleDateFormat formFecha = new SimpleDateFormat("dd-MM-yyyy");
 		try {
-			writer = new PrintWriter("Reserva de " + res.getCliente().getNombre() + ".txt", "UTF-8");
+			writer = new PrintWriter("Reserva de " + mod.mRegiLog.desencripta(res.getCliente().getNombre()) + ".txt", "UTF-8");
 			writer.println("INFORMACIÓN DE LA RESERVA");
 			writer.println("\nDatos del cliente:");
-			writer.println("Nombre: " + res.getCliente().getNombre());
+			writer.println("Nombre: " + mod.mRegiLog.desencripta(res.getCliente().getNombre()));
 			writer.println("\nDatos de la reserva:");
 			writer.println("Nombre Alojamiento: " + res.getAlojReservado().getNombre());
 			writer.println("Fecha de la reserva: " + formFecha.format(res.getFechaReserva()));
@@ -207,6 +209,8 @@ public class MetodosPanelPago {
 			writer.println("\nPrecio total: " + doubleAString(res.getDesglose().getTotal()));
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

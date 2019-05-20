@@ -5,20 +5,19 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 import org.junit.Test;
 
 import BaseDatos.ConsultaBD;
-import modelo.Cliente;
-import modelo.Hotel;
 import modelo.MetodosPanelPago;
+import modelo.Modelo;
 import modelo.Reserva;
 
 public class TestMetodosPanelPago {
-	private ConsultaBD bd = new ConsultaBD(); 
+	private ConsultaBD bd = new ConsultaBD();
+	private Modelo mod = new Modelo();
 
-	private MetodosPanelPago metPago=new MetodosPanelPago(bd);
+	private MetodosPanelPago metPago=new MetodosPanelPago(bd, mod);
 	private double doubleTest=24.5673;
 	private int intTest=2;
 	private String stringNum1Test="50";
