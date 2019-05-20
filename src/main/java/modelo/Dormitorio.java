@@ -13,9 +13,9 @@ public class Dormitorio extends Habitacion {
 	 * Constructor vacio para inicializar la disponibilidad en false
 	 */
 	public Dormitorio() {
-		disponible=false;
+		disponible = false;
 	}
-	
+
 	/**
 	 * Calcula el precio del dormitorio teniendo en cuenta el mobiliario
 	 */
@@ -27,7 +27,27 @@ public class Dormitorio extends Habitacion {
 		return this.precio;
 	}
 
-	
+	/**
+	 * Cuenta el numero de camas entre todos los dormitorios del array de
+	 * habitaciones
+	 * 
+	 * @return int numero de camas
+	 */
+	public int capacidad() {
+		int cont = 0;
+		for (Mobiliario mobi : this.mobiliario) {
+			if (mobi instanceof Cama) {
+				TipoCama tipo=((Cama) mobi).getTipoCama();
+				if(tipo==TipoCama.INDIVIDUAL || tipo==TipoCama.INFANTIL) {
+					cont++;
+				}else if(tipo==TipoCama.MATRIMONIO) {
+					cont+=2;
+				}
+			}
+		}
+		return cont;
+	}
+
 	public Mobiliario[] getMobiliario() {
 		return mobiliario;
 	}
@@ -43,6 +63,5 @@ public class Dormitorio extends Habitacion {
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
-
 
 }
