@@ -19,6 +19,10 @@ import modelo.Servicio;
 import modelo.TipoServicio;
 import vista.VentanaPpal;
 
+/**
+ * Controlador para el panel de servicios
+ *
+ */
 public class ControladorPanelServicios {
 	
 	private VentanaPpal vis;
@@ -33,13 +37,20 @@ public class ControladorPanelServicios {
 	NumberFormat moneda = NumberFormat.getCurrencyInstance();
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-YYYY");
 	
+	/**
+	 * Constructor para el controlador
+	 * @param mod Modelo donde se guarda la informacion
+	 * @param vis Vista la cual edita
+	 */
 	public ControladorPanelServicios(VentanaPpal vis, Modelo mod) {
 		this.vis = vis;
 		this.mod = mod;
-		
 		inicializar();
 	}
 	
+	/**
+	 * Inicializa un array de labels
+	 */
 	public void inicializar() {
 		servicios[0] = vis.pCenter.pSelServ.lblWifi;
 		servicios[1] = vis.pCenter.pSelServ.lblPiscina;
@@ -67,11 +78,18 @@ public class ControladorPanelServicios {
 
 	}
 	
+	/**
+	 * Aniade listeners a los JLabels
+	 */
 	private void initListeners() {		
 		for(JLabel servicio : servicios) 
 			servicio.addMouseListener(new ListenerMouse());
 	}
 	
+	/**
+	 * Listener para los labels de servicios
+	 *
+	 */
 	private class ListenerMouse implements MouseListener {
 
 		@Override
@@ -121,6 +139,9 @@ public class ControladorPanelServicios {
 		
 	}
 	
+	/**
+	 * Inicializa los datos del alojamiento
+	 */
 	public void inicializarDatosAloj() {
 		Alojamiento aloj = mod.reserva.getAlojReservado();
 		
@@ -169,6 +190,9 @@ public class ControladorPanelServicios {
 		initListeners();
 	}
 	
+	/**
+	 * Comprueba las disponibilidades de los servicios
+	 */
 	public void inicializarServicios() {
 		
 		JLabel[] serviciostxt = {vis.pCenter.pSelServ.lblWifitxt, vis.pCenter.pSelServ.lblPiscinatxt, vis.pCenter.pSelServ.lblSpatxt, vis.pCenter.pSelServ.lblParkingtxt, vis.pCenter.pSelServ.lblACtxt,
@@ -205,15 +229,23 @@ public class ControladorPanelServicios {
 		vis.pCenter.pSelServ.lblTotal.setText(moneda.format(0));
 	}
 	
+	/**
+	 * Devuelve el indice del servicio seleccionado
+	 * @param label servicio elegido
+	 * @return el indice del servicio elegido, -1 en caso de no encontrar el servicio especificado
+	 */
 	public int buscarPosicionSrv(JLabel label) {
 		for (int i=0;i<servicios.length;i++) {
 			if (label == servicios[i])
 				return i;
 		}
-		
 		return -1;
 	}
 	
+	/**
+	 * Calcula el precio de todos los servicios seleccionado
+	 * @return precio de los servicios
+	 */
 	public double calcularPrecioExtras() {
 		double precioExtras = 0;
 		double precio = 0;

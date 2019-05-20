@@ -1,5 +1,10 @@
 package modelo;
 
+/**
+ * Clase Global
+ * Clase auxiliar para recoger uno o mas (hasta 3) datos de la base de datos con los Json
+ *
+ */
 public class Global {
 	private Object auxiliar;
 	private Object auxiliar2;

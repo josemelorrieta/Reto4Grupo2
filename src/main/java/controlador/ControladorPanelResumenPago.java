@@ -7,6 +7,10 @@ import modelo.Hotel;
 import modelo.Modelo;
 import vista.panelCard.PanelResumenPago;
 
+/**
+ * Controlador del panel resumen pago
+ *
+ */
 public class ControladorPanelResumenPago {
 
 	private Modelo mod;
@@ -14,6 +18,11 @@ public class ControladorPanelResumenPago {
 	private SimpleDateFormat sdf;
 	private DecimalFormat df;
 	
+	/**
+	 * Constructor para el controlador
+	 * @param mod Modelo donde se guarda la informacion
+	 * @param vis Vista la cual edita
+	 */
 	public ControladorPanelResumenPago(Modelo mod, PanelResumenPago vis) {
 		this.mod = mod;
 		this.vis = vis;
@@ -21,6 +30,9 @@ public class ControladorPanelResumenPago {
 		df = new DecimalFormat("#.00 €");
 	}
 	
+	/**
+	 * Mete los datos del desglose del modelo a varios textField de la vista
+	 */
 	public void insertarDatos() {		
 		vis.txtAlojamiento.setText(mod.reserva.getAlojReservado().getNombre());
 		if(mod.reserva.getAlojReservado() instanceof Hotel) {

@@ -4,24 +4,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import modelo.Cliente;
 import modelo.Modelo;
 import vista.VentanaPpal;
 
+/**
+ * Controlador para el panel de acompaniante
+ *
+ */
 public class ControladorPanelAcompaniante {
 
 	private VentanaPpal vis;
 	private Modelo mod;
 	private Controlador controlador;
 
+	/**
+	 * Constructor para el controlador
+	 * @param vis Vista la cual edita
+	 * @param cont Controlador principal en caso de que necesite acceder a algun otro metodo
+	 * @param mod Modelo donde se guarda la informacion
+	 */
 	public ControladorPanelAcompaniante(VentanaPpal vis, Controlador cont, Modelo mod) {
 		this.vis = vis;
 		this.controlador = cont;
@@ -29,6 +34,9 @@ public class ControladorPanelAcompaniante {
 		initListeners();
 	}
 
+	/**
+	 * Inicializa los listeners requeridos para el panel
+	 */
 	private void initListeners() {
 		vis.pCenter.pAcompaniante.txtNombre.addFocusListener(new ListenerValidacion());
 		vis.pCenter.pAcompaniante.txtApellido.addFocusListener(new ListenerValidacion());
@@ -36,6 +44,10 @@ public class ControladorPanelAcompaniante {
 		vis.pCenter.pAcompaniante.btnAniadir.addActionListener(new ListenerBoton());
 	}
 
+	/**
+	 * Listeners para validacion de informacion
+	 *
+	 */
 	private class ListenerValidacion implements FocusListener {
 
 		@Override
@@ -55,6 +67,10 @@ public class ControladorPanelAcompaniante {
 			}
 		}
 	}
+	/**
+	 * Listeners para el boton de aniadir cliente
+	 *
+	 */
 	private class ListenerBoton implements ActionListener {
 
 		@Override

@@ -1,5 +1,9 @@
 package modelo;
 
+/**
+ * Clase Alojamiento abstracta con informacion generica
+ *
+ */
 public class Alojamiento {
 	protected int id;
 	protected String nombre;
@@ -14,6 +18,10 @@ public class Alojamiento {
 	protected Servicio[] servicios;
 	protected boolean mostrar = true;
 	
+	/**
+	 * Calcula el precio de las habitaciones que no sean dormitorios
+	 * @return precio
+	 */
 	public double precioNoDormitorios() {
 		double precio=0;
 		for (Habitacion hab : this.habitaciones) {
@@ -24,6 +32,10 @@ public class Alojamiento {
 		return precio;
 	}
 	
+	/**
+	 * Calcula el precio de las habitaciones que sean dormitorios
+	 * @return precio
+	 */
 	public double precioDormitorios() {
 		double precio=0;
 		for (Habitacion hab : this.habitaciones) {

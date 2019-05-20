@@ -1,5 +1,9 @@
 package modelo;
 
+/**
+ * Clase con metodos para filtrar servicios
+ *
+ */
 public class MetodosFiltros {
 
 	private Modelo mod;
@@ -12,6 +16,10 @@ public class MetodosFiltros {
 		
 	}
 	
+	/**
+	 * Actualiza la vista con la informacion del modelo para mostrar la disponibilidad de servicio
+	 * @param estados array de booleanos que indican disponibilidad
+	 */
 	public void filtrarServicios(boolean[] estados) {
 		for(Hotel hot:mod.hotelesBusqueda) {
 			hot.setMostrar(true);

@@ -2,6 +2,10 @@ package modelo;
 
 import java.util.Date;
 
+/**
+ * Clase Cliente donde se guarda toda la informacion del cliente
+ *
+ */
 public class Cliente {
 	private String dni;
 	private String nombre;
@@ -10,13 +14,26 @@ public class Cliente {
 	private Sexo sexo;
 	private String password;
 
+	/**
+	 * Constructor vacio
+	 */
 	public Cliente() {
 	}
 
+	/**
+	 * Crea un cliente vacio solo con el nombre
+	 * @param nombre string
+	 */
 	public Cliente(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * Cliente con los parametros basico de dni nombre y apellidos
+	 * @param dni string
+	 * @param nombre string 
+	 * @param apellidos string
+	 */
 	public Cliente(String dni, String nombre, String apellidos) {
 		super();
 		this.dni = dni;
@@ -24,6 +41,15 @@ public class Cliente {
 		this.apellidos = apellidos;
 	}
 
+	/**
+	 * Cliente con todos los parametros
+	 * @param dni string
+	 * @param nombre string
+	 * @param apellidos string
+	 * @param fechaNac string
+	 * @param sexo string
+	 * @param password string
+	 */
 	public Cliente(String dni, String nombre, String apellidos, Date fechaNac, Sexo sexo, String password) {
 		this.dni = dni;
 		this.nombre = nombre;
@@ -33,6 +59,16 @@ public class Cliente {
 		this.password = password;
 	}
 
+
+	/**
+	 * Mete todos los datos del cliente en un array de objetos
+	 * @return array de Object
+	 */
+	public Object[] toArray() {
+		Object[] objetos = { dni, nombre, apellidos, fechaNac, new Date(), sexo.toString(), password };
+		return objetos;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -71,11 +107,6 @@ public class Cliente {
 
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
-	}
-
-	public Object[] toArray() {
-		Object[] objetos = { dni, nombre, apellidos, fechaNac, new Date(), sexo.toString(), password };
-		return objetos;
 	}
 
 	public String getPassword() {

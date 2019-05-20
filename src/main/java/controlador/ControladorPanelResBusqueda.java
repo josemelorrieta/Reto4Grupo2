@@ -12,12 +12,22 @@ import modelo.Modelo;
 import vista.panelCard.PanelResBusqueda;
 
 
+/**
+ * Controlador para el panel resultado busqueda
+ *
+ */
 public class ControladorPanelResBusqueda {
 	
 	private Modelo mod;
 	private PanelResBusqueda vis;
 	private Controlador cont;
 	
+	/**
+	 * Constructor para el controlador
+	 * @param mod Modelo donde se guarda la informacion
+	 * @param vis Vista la cual edita
+	 * @param cont Controlador principal en caso de que necesite acceder a algun otro metodo
+	 */
 	public ControladorPanelResBusqueda(Modelo mod, PanelResBusqueda vis,Controlador cont) {
 		this.mod = mod;
 		this.vis=vis;
@@ -25,12 +35,16 @@ public class ControladorPanelResBusqueda {
 		//initListeners();
 	}
 	
+	/**
+	 * Inicializador para los listeners
+	 */
 	private void initListeners() {
 		for(JCheckBox chk:vis.chkTipoAlojamiento)
 			chk.addItemListener(new FiltroAlojamientoListener());
 //		for(JCheckBox chk:vis.chkServicios)
 //			chk.addItemListener(new FiltroServiciosListener());
 	}
+
 	
 	private class FiltroAlojamientoListener implements ItemListener {
 
@@ -48,6 +62,10 @@ public class ControladorPanelResBusqueda {
 		}
 		
 	}
+	
+	/**
+	 * Mete los resultados filtrados en el modelo del panel
+	 */
 	private void setResultadosFiltrados() {
 		vis.modelResBusq.clear();
 		if(vis.chkHotel.isSelected()) {

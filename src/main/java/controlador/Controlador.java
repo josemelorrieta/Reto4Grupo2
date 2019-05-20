@@ -2,7 +2,6 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
@@ -12,6 +11,10 @@ import modelo.Hotel;
 import modelo.Modelo;
 import vista.VentanaPpal;
 
+/**
+ * Controlador principal del programa, con modelo, vista y otros controladores menores
+ *
+ */
 public class Controlador {
 
 	private VentanaPpal vis;
@@ -27,6 +30,11 @@ public class Controlador {
 	private ControladorPanelAcompaniante cAcompaniante;
 	private ControladorPanelServicios cServicios;
 
+	/**
+	 * Constructor del controlador
+	 * @param vista Vista la cual controla
+	 * @param modelo Modelo del cual recoge datos y los procesa
+	 */
 	public Controlador(VentanaPpal vista, Modelo modelo) {
 		this.vis = vista;
 		this.mod = modelo;
@@ -34,6 +42,9 @@ public class Controlador {
 		initListeners();
 	}
 
+	/**
+	 * Inicializacion de controladores menores
+	 */
 	private void addControladores() {
 		cBuscar = new ControladorPanelBuscar(vis, this, mod);
 		cPago = new ControladorPanelPago(vis, mod);
@@ -47,11 +58,18 @@ public class Controlador {
 		cServicios = new ControladorPanelServicios(vis, mod);
 	}
 
+	/**
+	 * Inicializacion de listeners para los botones de siguente/volver
+	 */
 	private void initListeners() {
 		vis.pBotones.btnSiguiente.addActionListener(new ListenerBotonesInferiores());
 		vis.pBotones.btnVolver.addActionListener(new ListenerBotonesInferiores());
 	}
 
+	/**
+	 * Listeners para los botones de siguente/volver
+	 *
+	 */
 	private class ListenerBotonesInferiores implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -85,7 +103,7 @@ public class Controlador {
 					// DESGLOSES Y DATOS DEL PAGO
 					calcularDesglosePrecio();
 					mod.reserva.setDesglose(mod.desglosePrecio);
-					cResumenRes.actualizarResumenReserva(mod);
+					cResumenRes.actualizarResumenReserva();
 					mod.clienteRegis = mod.mRegiLog.login(vis.pCenter.pLogin);
 					if (mod.clienteRegis != null) {
 						mod.reserva.setCliente(mod.clienteRegis);
@@ -185,6 +203,9 @@ public class Controlador {
 		}
 	}
 
+	/**
+	 * Crea un nuevo objeto DesglosePrecio para guardar informacion relevante con las elecciones del cliente
+	 */
 	public void calcularDesglosePrecio() {
 		if (mod.reserva.getAlojReservado() instanceof Hotel)
 			mod.desglosePrecio = new DesglosePrecio(mod.reserva.getAlojReservado(), mod.reserva.getFechaEntrada(), mod.reserva.getFechaSalida(), mod.reserva.getDormitorioReservado(), mod.festivos, cServicios.calcularPrecioExtras());

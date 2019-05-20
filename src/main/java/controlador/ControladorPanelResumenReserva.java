@@ -2,8 +2,6 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.NumberFormat;
@@ -14,6 +12,10 @@ import javax.swing.JOptionPane;
 import modelo.Modelo;
 import vista.VentanaPpal;
 
+/**
+ * Controlador para el panel Reserva
+ *
+ */
 public class ControladorPanelResumenReserva {
 
 	private VentanaPpal vis;
@@ -21,18 +23,29 @@ public class ControladorPanelResumenReserva {
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
 	NumberFormat moneda = NumberFormat.getCurrencyInstance();
 	
+	/**
+	 * Constructor para el controlador
+	 * @param mod Modelo donde se guarda la informacion
+	 * @param vis Vista la cual edita
+	 */
 	public ControladorPanelResumenReserva (VentanaPpal vis, Modelo mod) {
 		this.vis = vis;
 		this.mod = mod;
 		initListeners();
 	}
 
+	/**
+	 * Inicializador para listeners
+	 */
 	private void initListeners() {
 		vis.pCenter.pResumenRes.btnCodProm.addActionListener(new ListenerCodProm());
 		vis.pCenter.pResumenRes.lblCondiciones.addMouseListener(new ListenerMouse());
 	}
 	
-	public void actualizarResumenReserva (Modelo mod) {
+	/**
+	 * Actualiza el panel de resumen de la reserva con la informacion del modelo
+	 */
+	public void actualizarResumenReserva () {
 		vis.pCenter.pResumenRes.txtAlojamiento.setText(mod.reserva.getAlojReservado().getNombre() + " (" + mod.reserva.getAlojReservado().getDireccion().getLocalidad() + ")");
 		if(mod.reserva.getDormitorioReservado() != null)
 			vis.pCenter.pResumenRes.txtNHab.setText(String.valueOf(mod.reserva.getDormitorioReservado().getIdHab()));
@@ -51,6 +64,10 @@ public class ControladorPanelResumenReserva {
 		vis.pCenter.pResumenRes.txtCodProm.setText("");
 	}
 	
+	/**
+	 * Listener para los elementos relacionados con el codigo promocional
+	 *
+	 */
 	private class ListenerCodProm implements ActionListener {
 
 		@Override
@@ -75,6 +92,10 @@ public class ControladorPanelResumenReserva {
 		}		
 	}
 	
+	/**
+	 * Listener para las condiciones de servicio
+	 *
+	 */
 	private class ListenerMouse implements MouseListener {
 
 		@Override

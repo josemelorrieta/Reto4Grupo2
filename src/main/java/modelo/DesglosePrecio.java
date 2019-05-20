@@ -6,6 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 import util.FuncionesGenerales;
 
+/**
+ * Clase DesglosePrecio para guardar informacion relacionada con el pago/precio de la reserva
+ *
+ */
 public class DesglosePrecio {
 	private double pBaseAloj;
 	private double pEquipamiento;
@@ -22,13 +26,22 @@ public class DesglosePrecio {
 	private double precioExtras;
 
 	private double total;
-
-	// public double
-
+	/**
+	 * Constructor vacio para inicializar un objeto DesglosePrecio
+	 */
 	public DesglosePrecio() {
 
 	}
 
+	/**
+	 * Constructor para calcular el precio hasta el momento de todos los elementos elegidos por el cliente
+	 * @param aloj Alojamiento seleccionado
+	 * @param fechanEnt fecha de entrada de la reserva
+	 * @param fechaSal fecha de salida de la reserva
+	 * @param dormHotel dormitorio elegido en caso de que alojamiento sea Hotel
+	 * @param festivos array con fechas de festivos
+	 * @param extras precio total de los extra elegidos
+	 */
 	public DesglosePrecio(Alojamiento aloj, Date fechanEnt, Date fechaSal, Dormitorio dormHotel, Calendar[] festivos, double extras) {
 		Calendar fechaEntrada = Calendar.getInstance();
 		Calendar fechaSalida = Calendar.getInstance();
@@ -65,6 +78,13 @@ public class DesglosePrecio {
 		this.setCodPromocional(false);
 	}
 
+	/**
+	 * Calcula el numero de festivos que hay entre las 2 fechas proporcionadas por parametro
+	 * @param fecha1 Calendar con fecha entrada
+	 * @param fecha2 Calendar con fecha salida
+	 * @param festivos array Calendar con fechas de festivos
+	 * @return int numero de festivos entre las fechas
+	 */
 	public int NumFestivosEntreFechas(Calendar fecha1, Calendar fecha2, Calendar[] festivos) {
 		int num = 0;
 		if (festivos==null) {
@@ -76,6 +96,26 @@ public class DesglosePrecio {
 			}
 		}
 		return num;
+	}
+	
+	/**
+	 * Aplica un descuento en caso de que llegue true como parametro y lo quita en caso contrario
+	 * @param codPromocional boolean
+	 */
+	public void setCodPromocional(boolean codPromocional) {
+		this.codPromocional = codPromocional;
+		calcularTotal();
+	}
+	
+	/**
+	 * Calcula el precio si hay un codigo promocional
+	 */
+	private void calcularTotal() {
+		if (codPromocional) {
+			this.total = ((this.pBaseAloj + this.pEquipamiento + this.precioExtras) * this.noches + this.totalExtraFestivos) * 0.8;
+		} else {
+			this.total = ((this.pBaseAloj + this.pEquipamiento + this.precioExtras) * this.noches + this.totalExtraFestivos);
+		}
 	}
 
 	public double getpBaseAloj() {
@@ -152,19 +192,6 @@ public class DesglosePrecio {
 
 	public boolean isCodPromocional() {
 		return codPromocional;
-	}
-
-	public void setCodPromocional(boolean codPromocional) {
-		this.codPromocional = codPromocional;
-		calcularTotal();
-	}
-	
-	private void calcularTotal() {
-		if (codPromocional) {
-			this.total = ((this.pBaseAloj + this.pEquipamiento + this.precioExtras) * this.noches + this.totalExtraFestivos) * 0.8;
-		} else {
-			this.total = ((this.pBaseAloj + this.pEquipamiento + this.precioExtras) * this.noches + this.totalExtraFestivos);
-		}
 	}
 
 }

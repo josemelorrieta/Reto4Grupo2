@@ -1,10 +1,21 @@
 package modelo;
 
+/**
+ * Clase Direccion para guardar informacion relativa a la ubicacion del alojamiento
+ * @author IN1DM3B_08
+ *
+ */
 public class Direccion {
 	private String calle;
 	private int codPostal;
 	private String localidad;
 	
+	/**
+	 * Constructor con informacion de la direccion
+	 * @param calle string 
+	 * @param codPostal string 
+	 * @param localidad string
+	 */
 	public Direccion(String calle, int codPostal, String localidad) {
 		this.calle = calle;
 		this.codPostal = codPostal;

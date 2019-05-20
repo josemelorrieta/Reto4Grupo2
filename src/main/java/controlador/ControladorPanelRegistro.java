@@ -15,11 +15,21 @@ import javax.swing.JTextField;
 import modelo.Modelo;
 import vista.VentanaPpal;
 
+/**
+ * Controlador para el panel de registro
+ *
+ */
 public class ControladorPanelRegistro {
 	private VentanaPpal vis;
 	private Modelo mod;
 	private Controlador controlador;
 
+	/**
+	 * Constructor para el controlador
+	 * @param vis Vista la cual edita
+	 * @param cont Controlador principal en caso de que necesite acceder a algun otro metodo
+	 * @param mod Modelo donde se guarda la informacion
+	 */
 	public ControladorPanelRegistro(VentanaPpal vis, Controlador cont, Modelo mod) {
 		this.vis = vis;
 		this.controlador = cont;
@@ -28,6 +38,9 @@ public class ControladorPanelRegistro {
 		mod.mRegiLog.limitarFechaNacimiento(vis.pCenter.pRegistro.calenNacimiento);
 	}
 
+	/**
+	 * Inicializador para los listeners
+	 */
 	private void initListeners() {
 		vis.pCenter.pRegistro.txtNombre.addFocusListener(new ListenerValidacion());
 		vis.pCenter.pRegistro.txtApellido.addFocusListener(new ListenerValidacion());
@@ -40,6 +53,10 @@ public class ControladorPanelRegistro {
 		vis.pCenter.pRegistro.chckbxCondiciones.addItemListener(new ListenerCheckBox());
 	}
 
+	/**
+	 * Listeners para las validaciones
+	 *
+	 */
 	private class ListenerValidacion implements FocusListener {
 
 		@Override
@@ -64,6 +81,10 @@ public class ControladorPanelRegistro {
 		}
 	}
 
+	/**
+	 * Listeners para los botones de la visibilidad de contrasenia
+	 *
+	 */
 	private class ListenerBoton implements ActionListener {
 
 		@Override
@@ -76,6 +97,10 @@ public class ControladorPanelRegistro {
 
 	}
 	
+	/**
+	 * Listeners para el checkbox de las condiciones
+	 *
+	 */
 	private class ListenerRaton implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -103,6 +128,10 @@ public class ControladorPanelRegistro {
 		}
 	}
 	
+	/**
+	 * Listener para la comprobacion de la aceptacion de las condiciones legales
+	 *
+	 */
 	private class ListenerCheckBox implements ItemListener {
 
 		@Override

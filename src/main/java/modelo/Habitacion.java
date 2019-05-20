@@ -1,5 +1,9 @@
 package modelo;
 
+/**
+ * Clase Habitacion modelo de las habitaciones en el programa
+ *
+ */
 public class Habitacion {
 
 	protected int idHab;
@@ -11,6 +15,11 @@ public class Habitacion {
 		this.tipoHabitacion = TipoHabitacion.DEFAULT;
 	}
 
+	/**
+	 * Calcula el precio de la habitacion
+	 * @param precioM2 double precio por metro cuadrado
+	 * @return double precio de habitacion
+	 */
 	public double calcularPrecio(double precioM2) {
 		this.precio = precioM2 * m2;
 		return this.precio;

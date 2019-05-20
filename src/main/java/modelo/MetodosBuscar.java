@@ -12,6 +12,11 @@ import com.google.gson.Gson;
 import BaseDatos.ConsultaBD;
 import util.FuncionesGenerales;
 
+/**
+ * Clase Metodos Buscar con funciones para la busqueda de informacion en la base
+ * de datos
+ *
+ */
 public class MetodosBuscar {
 	private ConsultaBD bd;
 	private Modelo mod;
@@ -39,11 +44,10 @@ public class MetodosBuscar {
 		this.mod = mod;
 	}
 
-	//CARGAR LOCALIDADES
-	
+	// CARGAR LOCALIDADES
+
 	/**
-	 * Funcion para buscar las localidades en que hay alojamientos en la Base de
-	 * Datos
+	 * Funcion para buscar las localidades en que haya en la Base de Datos
 	 * 
 	 * @return array de localidades
 	 */
@@ -62,12 +66,12 @@ public class MetodosBuscar {
 
 	}
 
-	//CARGAR ALOJAMIENTOS
-	
+	// CARGAR ALOJAMIENTOS
+
 	/**
 	 * Cargar los alojamientos segun la localidad seleccionada
 	 * 
-	 * @param localidad Valor seleccionado por el cliente en la pantalla inicial
+	 * @param localidad string valor seleccionado por el cliente en la pantalla inicial
 	 */
 	public void cargarAlojamientos(String localidad) {
 		cargarHoteles(localidad);
@@ -78,26 +82,25 @@ public class MetodosBuscar {
 	/**
 	 * Carga los hoteles para la localidad seleccionada
 	 * 
-	 * @param localidad
+	 * @param localidad string
 	 */
 	public void cargarHoteles(String localidad) {
 		String json = bd.consultarToGson("SELECT `idHot` 'id',`nombre`,`numEstrellas`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `imagen` FROM `hotel` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
 		mod.hotelesBusqueda = gson.fromJson(json, Hotel[].class);
 		for (Hotel hotel : mod.hotelesBusqueda) {
 			cargarDireccion(hotel, "hotel", "idHot");
-			hotel.setMatrix(matrizHabitaciones(hotel,mod.tiposDormString));
+			hotel.setMatrix(matrizHabitaciones(hotel, mod.tiposDormString));
 			hotel.setMatrix(actualizarDisponibilidadDormitorios(hotel.getMatrix()));
 			hotel.setDisponible(actualizarDisponibilidadHotel(hotel));
 			hotel.setServicios(setServicios(hotel));
 			hotel.setMatrix(cargarMobiliarioDormitorios(hotel.getMatrix()));
 		}
 	}
-	
-	
+
 	/**
 	 * Carga las casas para la localidad seleccionada
 	 * 
-	 * @param localidad
+	 * @param localidad string
 	 */
 	private void cargarCasas(String localidad) {
 		String json = bd.consultarToGson("SELECT `idCasa` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `imagen` FROM `casa` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
@@ -113,7 +116,7 @@ public class MetodosBuscar {
 	/**
 	 * Carga los apartamentos para la localidad seleccionada
 	 * 
-	 * @param localidad
+	 * @param localidad string
 	 */
 	private void cargarApartamentos(String localidad) {
 		String json = bd.consultarToGson("SELECT `idApart` 'id',`nombre`,`pvpTAlta` 'precioTAlta',`pvpTBaja` 'precioTBaja',`pvpRecFestivo` 'precioTFest', `pvpM2`, `piso`, `imagen` FROM `apartamento` WHERE `idDir` IN (SELECT `idDir` FROM `direccion` WHERE `localidad`='" + localidad + "')");
@@ -126,8 +129,8 @@ public class MetodosBuscar {
 		}
 	}
 
-	//CARGAR DIRECCION
-	
+	// CARGAR DIRECCION
+
 	/**
 	 * Carga la direccion del alojamiento pasado como parametro para hoteles, casas
 	 * y apartamentos
@@ -144,8 +147,12 @@ public class MetodosBuscar {
 		aloj.setDireccion(dir[0]);
 	}
 
-	//HOTEL
+	// HOTEL
 
+	/**
+	 * Busca los distintos tipos de dormitorios que hay en la base de dato
+	 * @return string array con valores como "010" que indican el numero de camas de cada tipo
+	 */
 	public String[] tiposDormitorio() {
 		String json = bd.consultarToGson("SELECT DISTINCT `tipoDorm` as 'auxiliar' FROM `habhotel` ORDER BY `tipoDorm` ASC");
 		Global[] tiposDormGlobal = gson.fromJson(json, Global[].class);
@@ -157,7 +164,12 @@ public class MetodosBuscar {
 		}
 		return tiposDorm;
 	}
-	
+
+	/**
+	 * Crear camas modelo con la informacion del array de strings
+	 * @param tiposCama string array, utilizar tiposDormitorio en el parametro
+	 * @return vector de arrays de camas
+	 */
 	public Vector<Cama[]> crearModeloCamas(String[] tiposCama) {
 		Vector<Cama[]> modeloCamas = new Vector<Cama[]>();
 		for (String tipo : tiposCama) {
@@ -170,7 +182,7 @@ public class MetodosBuscar {
 			int i = 0;
 			int f = 0;
 			for (TipoCama tipoDeCama : tiposCamaEnum) {
-				int contadorCama=0;
+				int contadorCama = 0;
 				while (contadorCama < arrayNumeros[i]) {
 					camas[f] = new Cama(tipoDeCama);
 					contadorCama++;
@@ -182,25 +194,29 @@ public class MetodosBuscar {
 		}
 		return modeloCamas;
 	}
-	
-	
-	public Dormitorio[] crearModeloDormitorios(Vector<Cama[]> camas){
-		Dormitorio[] modeloDormitorios=new Dormitorio[camas.size()];
-		for(int i=0;i<modeloDormitorios.length;i++) {
-			modeloDormitorios[i]=new Dormitorio();
+
+	/**
+	 * Crea un modelo con el vector de arrays de camas de la funcion crearModeloCamas
+	 * @param camas
+	 * @return
+	 */
+	public Dormitorio[] crearModeloDormitorios(Vector<Cama[]> camas) {
+		Dormitorio[] modeloDormitorios = new Dormitorio[camas.size()];
+		for (int i = 0; i < modeloDormitorios.length; i++) {
+			modeloDormitorios[i] = new Dormitorio();
 			modeloDormitorios[i].setMobiliario(camas.get(i));
 		}
 		return modeloDormitorios;
 	}
-	
+
 	/**
 	 * Carga las habitaciones de un hotel en una matriz separados segun el tipo de
 	 * dormitorio
 	 * 
 	 * @param hotel hotel del cual se buscan las habitaciones
-	 * @return matrix de dormitorios
+	 * @return matriz de dormitorios
 	 */
-	private Vector<Vector<Dormitorio>> matrizHabitaciones(Hotel hotel,String[] tiposDorm) {
+	private Vector<Vector<Dormitorio>> matrizHabitaciones(Hotel hotel, String[] tiposDorm) {
 		Vector<Vector<Dormitorio>> matrix = new Vector<Vector<Dormitorio>>();
 
 		for (String tipo : tiposDorm) {
@@ -218,20 +234,22 @@ public class MetodosBuscar {
 	/**
 	 * Carga el mobiliario en una matriz de dormitorios
 	 * 
-	 * @param dormitorios matriz (VectorXVector) de dormitorios
-	 * @return
+	 * @param dormitorios matriz (VectorXVector)
+	 * @return dormitorios matriz (VectorXVector) con el mobiliario cargado
 	 */
 	private Vector<Vector<Dormitorio>> cargarMobiliarioDormitorios(Vector<Vector<Dormitorio>> dormitorios) {
 		for (int i = 0; i < dormitorios.size(); i++) {
-			if(dormitorios.get(i)==null) continue;
+			if (dormitorios.get(i) == null)
+				continue;
 			for (int f = 0; f < dormitorios.get(i).size(); f++) {
-				if(dormitorios.get(i).get(f)==null) continue;
+				if (dormitorios.get(i).get(f) == null)
+					continue;
 				dormitorios.get(i).get(f).setMobiliario(mobiliarioDormitorio(dormitorios.get(i).get(f)));
 			}
 		}
 		return dormitorios;
 	}
-	
+
 	/**
 	 * Selecciona el mobiliario del dormitorio sacado de la base de datos
 	 * 
@@ -243,23 +261,35 @@ public class MetodosBuscar {
 		Mobiliario[] mobiliario = gson.fromJson(json, Mobiliario[].class);
 		return mobiliario;
 	}
-	
-	private Vector<Vector<Dormitorio>> actualizarDisponibilidadDormitorios(Vector<Vector<Dormitorio>> dormitorios){
-		for(Vector<Dormitorio> columna:dormitorios) {
-			if(columna==null) continue;
-			for(Dormitorio dormi:columna) {
-				dormi=setDisponibilidadDormitorio(dormi,FuncionesGenerales.sdf);
+
+	/**
+	 * Comprueba y actualiza la disponibilidad de los dormitorios de la matrix que llega por parametro
+	 * @param dormitorios matriz (VectorXVector)
+	 * @return
+	 */
+	private Vector<Vector<Dormitorio>> actualizarDisponibilidadDormitorios(Vector<Vector<Dormitorio>> dormitorios) {
+		for (Vector<Dormitorio> columna : dormitorios) {
+			if (columna == null)
+				continue;
+			for (Dormitorio dormi : columna) {
+				dormi = setDisponibilidadDormitorio(dormi, FuncionesGenerales.sdf);
 			}
 		}
 		return dormitorios;
 	}
-	
+
+	/**
+	 * Actualiza la disponibilidad del hotel segun los dormitorios de su matriz
+	 * @param hotel Hotel
+	 * @return booleano que indica la disponibilidad
+	 */
 	private boolean actualizarDisponibilidadHotel(Hotel hotel) {
-		Vector<Vector<Dormitorio>> dormitorios=hotel.getMatrix();
-		for(Vector<Dormitorio> columna:dormitorios) {
-			if(columna==null) continue;
-			for(Dormitorio dormi:columna) {
-				if(dormi.isDisponible()) {
+		Vector<Vector<Dormitorio>> dormitorios = hotel.getMatrix();
+		for (Vector<Dormitorio> columna : dormitorios) {
+			if (columna == null)
+				continue;
+			for (Dormitorio dormi : columna) {
+				if (dormi.isDisponible()) {
 					return true;
 				}
 			}
@@ -319,35 +349,15 @@ public class MetodosBuscar {
 	 *         ese dormitorio
 	 */
 	private FechasReserva[] comprobarDisponibilidadDormitorio(Dormitorio dorm, Date fechaIn, Date fechaOut, SimpleDateFormat sdf) {
-		String query="SELECT r.`idRsv`, `idHab` 'id', `fechaIn`, `fechaOut` FROM `reserva` r, `rsvHab` h WHERE r.`idRsv`=h.`idRsv` AND `idHab`='" + dorm.getIdHab() + "' AND (CAST('" + sdf.format(fechaIn) + "' AS DATE) BETWEEN `fechaIn` AND `fechaOut`) OR (CAST('" + sdf.format(fechaOut) + "' AS DATE) BETWEEN `fechaIn` AND `fechaOut`)";
+		String query = "SELECT r.`idRsv`, `idHab` 'id', `fechaIn`, `fechaOut` FROM `reserva` r, `rsvHab` h WHERE r.`idRsv`=h.`idRsv` AND `idHab`='" + dorm.getIdHab() + "' AND (CAST('" + sdf.format(fechaIn) + "' AS DATE) BETWEEN `fechaIn` AND `fechaOut`) OR (CAST('" + sdf.format(fechaOut) + "' AS DATE) BETWEEN `fechaIn` AND `fechaOut`)";
 		String json = bd.consultarToGson(query);
 		FechasReserva[] fechasReserva = gson.fromJson(json, FechasReserva[].class);
 
 		return fechasReserva;
 	}
 
-	/**
-	 * Comprueba la disponibilidad de las habitaciones de un hotel
-	 * 
-	 * @param hotel Hotel al que se le comprueba la disponibilidad de sus
-	 *              habitaciones
-	 */
-	public boolean comprobarDisponibilidad(Hotel hotel) {
-		int count = 0;
-		for (int i = 0; i < hotel.getHabitaciones().length; i++) {
-			if (((Dormitorio) hotel.getHabitaciones()[i]).isDisponible() == false)
-				count++;
-		}
-		if (count == hotel.getHabitaciones().length) {
-			return false;
-		} else
-			return true;
-	}
+	// CASA
 
-
-	
-	//CASA
-	
 	/**
 	 * Carga las habitaciones de una casa
 	 * 
@@ -372,7 +382,7 @@ public class MetodosBuscar {
 			casa.setHabitaciones(null);
 		}
 	}
-	
+
 	/**
 	 * Selecciona el mobiliario del dormitorio de una casa sacado de la base de
 	 * datos
@@ -432,7 +442,7 @@ public class MetodosBuscar {
 		}
 	}
 
-	//GENERAL
+	// GENERAL
 
 	/**
 	 * Devuelve las fechas en las que esta reservado un alojamiento
@@ -501,65 +511,21 @@ public class MetodosBuscar {
 		gson = new Gson();
 		Global[] srvBBDD = gson.fromJson(json, Global[].class);
 
-		String[] nombreSrv = buscarNombresSrv();	
+		String[] nombreSrv = buscarNombresSrv();
 		aloj.setServicios(inicializarSrvAloj(nombreSrv));
 		Servicio[] servicios = aloj.getServicios();
-		
-		for (int i=0;i<srvBBDD.length;i++) {
-			int posicion = buscarPosSrv((String)srvBBDD[i].getAuxiliar3(), nombreSrv);
-			servicios[posicion].setPrecio((double)srvBBDD[i].getAuxiliar2());
-		}
-		
-//		for (int i=0;i<aloj.getServicios().length;i++) {
-//			String nomSrv = srvBBDD[i].getAuxiliar3().toString();
-//			switch (nomSrv) {
-//			case "WiFi":
-//				posicion = 0;
-//				break;
-//			case "Piscina":
-//				posicion = 1;
-//				break;
-//			case "Spa":
-//				posicion = 2;
-//				break;
-//			case "Parking":
-//				posicion = 3;
-//				break;
-//			case "Aire acondicionado":
-//				posicion = 4;
-//				break;
-//			case "Restaurante":
-//				posicion = 5;
-//				break;
-//			case "Bar":
-//				posicion = 6;
-//				break;
-//			case "Gimnasio":
-//				posicion = 7;
-//				break;
-//			case "Alojamiento y desayuno":
-//				posicion = 8;
-//				break;
-//			case "Media Pension":
-//				posicion = 9;
-//				break;
-//			case "Pension Completa":
-//				posicion = 10;
-//				break;
-//			}
-//			if (posicion != i) {
-//				for (int j=i;j<posicion;j++) {
-//					servicios[j] = new Servicio (nombreSrv[j], -1);
-//				}
-//			}
-//			servicios[posicion] = new Servicio(nomSrv, (double)srvBBDD[i].getAuxiliar2());
-//			ultimaPos = posicion;
-//			i = posicion;
-//		}
 
+		for (int i = 0; i < srvBBDD.length; i++) {
+			int posicion = buscarPosSrv((String) srvBBDD[i].getAuxiliar3(), nombreSrv);
+			servicios[posicion].setPrecio((double) srvBBDD[i].getAuxiliar2());
+		}
 		return servicios;
 	}
-	
+
+	/**
+	 * Busca los tipos de servicios en la base de datos y los mete en un string array
+	 * @return
+	 */
 	public String[] buscarNombresSrv() {
 		String json = bd.consultarToGson("SELECT `nombre` 'auxiliar' FROM servicio");
 		if (json.equals("")) {
@@ -568,22 +534,33 @@ public class MetodosBuscar {
 		gson = new Gson();
 		Global[] nombresSrvBBDD = gson.fromJson(json, Global[].class);
 		String[] nombresSrv = new String[nombresSrvBBDD.length];
-		for (int i=0;i<nombresSrv.length;i++)
-			nombresSrv[i] = (String)nombresSrvBBDD[i].getAuxiliar();
-			
-		return nombresSrv;		
+		for (int i = 0; i < nombresSrv.length; i++)
+			nombresSrv[i] = (String) nombresSrvBBDD[i].getAuxiliar();
+
+		return nombresSrv;
 	}
-	
+
+	/**
+	 * Crea un array de servicios con los nombres de buscarNombreSrv
+	 * @param nombreSrv string array
+	 * @return servicio array
+	 */
 	public Servicio[] inicializarSrvAloj(String[] nombreSrv) {
 		Servicio[] servicios = new Servicio[nombreSrv.length];
-		for (int i=0; i<nombreSrv.length;i++)
+		for (int i = 0; i < nombreSrv.length; i++)
 			servicios[i] = new Servicio(nombreSrv[i], -1);
-		
+
 		return servicios;
 	}
-	
+
+	/**
+	 * Devuelve la posicion de del servicio en el string array de nombreSrv
+	 * @param nombre string servicio que se quiere encontrar
+	 * @param nombreSrv array con nombres de servicios
+	 * @return index del array con la coincidencia, devuelve -1 en caso de no encontrar nada
+	 */
 	public int buscarPosSrv(String nombre, String[] nombreSrv) {
-		for (int i=0;i<nombreSrv.length;i++) {
+		for (int i = 0; i < nombreSrv.length; i++) {
 			if (nombreSrv[i].equals(nombre))
 				return i;
 		}

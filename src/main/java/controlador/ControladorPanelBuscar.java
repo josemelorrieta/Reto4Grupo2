@@ -20,6 +20,10 @@ import util.FuncionesGenerales;
 import vista.VentanaPpal;
 import vista.panelCard.PanelResBusqueda;
 
+/**
+ * Controlador para el panel buscar
+ *
+ */
 public class ControladorPanelBuscar {
 
 	private VentanaPpal vis;
@@ -29,6 +33,12 @@ public class ControladorPanelBuscar {
 	Calendar calendar = Calendar.getInstance();
 	Date hoy = calendar.getTime();
 
+	/**
+	 * Constructor para el controlador
+	 * @param vis Vista la cual edita
+	 * @param cont Controlador principal en caso de que necesite acceder a algun otro metodo
+	 * @param mod Modelo donde se guarda la informacion
+	 */
 	public ControladorPanelBuscar(VentanaPpal vis, Controlador cont, Modelo mod) {
 		this.vis = vis;
 		this.controlador = cont;
@@ -40,11 +50,17 @@ public class ControladorPanelBuscar {
 		initListeners();
 	}
 
+	/**
+	 * Inicializador para los listeners del panel
+	 */
 	private void initListeners() {
 		vis.pCenter.pBuscar.btnBuscar.addActionListener(new ListenerBotones());
 		vis.pCenter.pBuscar.calenEntrada.addPropertyChangeListener(new ListenerFechaEnt());
 	}
 
+	/**
+	 * Carga las localidades desde la base de datos en un checkbox
+	 */
 	public void cargarLocalidades() {
 		String[] localidades = mod.mBuscar.buscarLocalidades();
 		if (localidades != null) {
@@ -56,6 +72,9 @@ public class ControladorPanelBuscar {
 		}
 	}
 
+	/**
+	 * Limita las fechas del calendario al dia de hoy para el calendario de entrada y maniana para el calendario de salida
+	 */
 	public void fechaHoy() {
 		mod.reserva.setFechaReserva(hoy);
 		calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -70,6 +89,10 @@ public class ControladorPanelBuscar {
 		vis.pCenter.pBuscar.calenSalida.setDate(manana);
 	}
 
+	/**
+	 * Actualiza el limite de fechas del segundo calendario en funcion de la fecha por parametro
+	 * @param fechaEntrada fecha desde la cual se limita el rango del calendario
+	 */
 	public void cambioFechaEnt(Date fechaEntrada) {
 		calendar.setTime(fechaEntrada);
 		calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -85,6 +108,10 @@ public class ControladorPanelBuscar {
 		}
 	}
 
+	/**
+	 * Listeners para los botones del panel
+	 *
+	 */
 	private class ListenerBotones implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -100,6 +127,10 @@ public class ControladorPanelBuscar {
 		}
 	}
 
+	/**
+	 * Listeners para el calendario
+	 *
+	 */
 	private class ListenerFechaEnt implements PropertyChangeListener {
 		@Override
 		public void propertyChange(PropertyChangeEvent e) {
@@ -109,6 +140,12 @@ public class ControladorPanelBuscar {
 
 	}
 
+	/**
+	 * Carga los hoteles en el modelo del Jlist y aniade las camas a su array de mobiliario
+	 * @param hoteles array de hoteles que carga
+	 * @param panel panel en cual carga los hoteles
+	 * @param tiposDorm array de dormitorios modelo para cargar las camas en los dormitorios de los hoteles 
+	 */
 	public void setResultBusqueda(Hotel[] hoteles, PanelResBusqueda panel, Dormitorio[] tiposDorm) {
 		panel.modelResBusq.clear();
 		for (Hotel hotel : hoteles) {
@@ -123,6 +160,11 @@ public class ControladorPanelBuscar {
 		panel.lblLocBusq.setText("Resultados para " + hoteles[0].getDireccion().getLocalidad());
 	}
 
+	/**
+	 * Carga las casas/apartamentos en el modelo del Jlist 
+	 * @param casas array de alojamientos que carga en model
+	 * @param panel panel en el cual carga la informacion
+	 */
 	public void setResultBusqueda(Casa[] casas, PanelResBusqueda panel) {
 		for (Casa casa : casas) {
 			panel.modelResBusq.addElement(casa);

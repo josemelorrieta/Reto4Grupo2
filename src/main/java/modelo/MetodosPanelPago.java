@@ -9,18 +9,17 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
-
-import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 
 import BaseDatos.ConsultaBD;
-import util.FuncionesGenerales;
-import vista.VentanaPpal;
 import vista.panelCard.PanelPago;
 
+/**
+ * Clase MetodosPanelPago con metodos relacionados con el pago
+ *
+ */
 public class MetodosPanelPago {
 
 	private DecimalFormatSymbols simbolos = new DecimalFormatSymbols(Locale.getDefault());
