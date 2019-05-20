@@ -28,11 +28,14 @@ public class ControladorPanelServicios {
 	private VentanaPpal vis;
 	private Modelo mod;
 	
-	private JLabel[] servicios = new JLabel[11];
-	private JLabel[] preciosSrv = new JLabel[11];
+	private JLabel[] servicios;
+	private JLabel[] serviciostxt;
+	private JLabel[] preciosSrv;
 	private Servicio[] serviciosAloj;
 	
-	private ListenerMouse lm = new ListenerMouse();
+//	private ListenerMouse lm = new ListenerMouse();
+	
+	double precioExtras;
 	
 	NumberFormat moneda = NumberFormat.getCurrencyInstance();
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-YYYY");
@@ -45,39 +48,14 @@ public class ControladorPanelServicios {
 	public ControladorPanelServicios(VentanaPpal vis, Modelo mod) {
 		this.vis = vis;
 		this.mod = mod;
-		inicializar();
-	}
-	
-	/**
-	 * Inicializa un array de labels
-	 */
-	public void inicializar() {
-		servicios[0] = vis.pCenter.pSelServ.lblWifi;
-		servicios[1] = vis.pCenter.pSelServ.lblPiscina;
-		servicios[2] = vis.pCenter.pSelServ.lblSpa;
-		servicios[3] = vis.pCenter.pSelServ.lblParking;
-		servicios[4] = vis.pCenter.pSelServ.lblAC;
-		servicios[5] = vis.pCenter.pSelServ.lblRestaurante;
-		servicios[6] = vis.pCenter.pSelServ.lblBar;
-		servicios[7] = vis.pCenter.pSelServ.lblGym;
-		servicios[8] = vis.pCenter.pSelServ.lblAd;
-		servicios[9] = vis.pCenter.pSelServ.lblMp;
-		servicios[10] = vis.pCenter.pSelServ.lblPc;
 		
-		preciosSrv[0] = vis.pCenter.pSelServ.lblWifiprec;
-		preciosSrv[1] = vis.pCenter.pSelServ.lblPiscinaprec;
-		preciosSrv[2] = vis.pCenter.pSelServ.lblSpaprec;
-		preciosSrv[3] = vis.pCenter.pSelServ.lblParkingprec;
-		preciosSrv[4] = vis.pCenter.pSelServ.lblACprec;
-		preciosSrv[5] = vis.pCenter.pSelServ.lblRestauranteprec;
-		preciosSrv[6] = vis.pCenter.pSelServ.lblBarprec;
-		preciosSrv[7] = vis.pCenter.pSelServ.lblGymprec;
-		preciosSrv[8] = vis.pCenter.pSelServ.lblAdprec;
-		preciosSrv[9] = vis.pCenter.pSelServ.lblMpprec;
-		preciosSrv[10] = vis.pCenter.pSelServ.lblPcprec;
-
+		this.servicios = vis.pCenter.pSelServ.servicios;
+		this.serviciostxt = vis.pCenter.pSelServ.serviciostxt;
+		this.preciosSrv = vis.pCenter.pSelServ.preciosSrv;
+			
+		initListeners();
 	}
-	
+
 	/**
 	 * Aniade listeners a los JLabels
 	 */
@@ -186,18 +164,14 @@ public class ControladorPanelServicios {
 		}
 
 		vis.pCenter.pSelServ.lblImagen.setIcon(imagen);
-		inicializarServicios();		
-		initListeners();
+		inicializarServicios();
 	}
 	
 	/**
 	 * Comprueba las disponibilidades de los servicios
 	 */
 	public void inicializarServicios() {
-		
-		JLabel[] serviciostxt = {vis.pCenter.pSelServ.lblWifitxt, vis.pCenter.pSelServ.lblPiscinatxt, vis.pCenter.pSelServ.lblSpatxt, vis.pCenter.pSelServ.lblParkingtxt, vis.pCenter.pSelServ.lblACtxt,
-				vis.pCenter.pSelServ.lblRestaurantetxt, vis.pCenter.pSelServ.lblBartxt, vis.pCenter.pSelServ.lblGymtxt, vis.pCenter.pSelServ.lblAdtxt, vis.pCenter.pSelServ.lblMptxt, vis.pCenter.pSelServ.lblPctxt};
-		
+			
 		int posicion = 140;
 		for (int i = 0; i < mod.reserva.getAlojReservado().getServicios().length; i++) {
 			if (mod.reserva.getAlojReservado().getServicios()[i].getTipo() == TipoServicio.incluido) {
@@ -224,9 +198,11 @@ public class ControladorPanelServicios {
 				servicios[i].setVisible(false);
 				serviciostxt[i].setVisible(false);
 				preciosSrv[i].setVisible(false);
+				preciosSrv[i].setText(moneda.format(0));
 			}
 		}
-		vis.pCenter.pSelServ.lblTotal.setText(moneda.format(0));
+		precioExtras = 0;
+		vis.pCenter.pSelServ.lblTotal.setText(moneda.format(precioExtras));
 	}
 	
 	/**
@@ -247,7 +223,7 @@ public class ControladorPanelServicios {
 	 * @return precio de los servicios
 	 */
 	public double calcularPrecioExtras() {
-		double precioExtras = 0;
+		precioExtras = 0;
 		double precio = 0;
 		for (JLabel precioSrv : preciosSrv) {
 			if (!precioSrv.getText().equals("Incluido")) {

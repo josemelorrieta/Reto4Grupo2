@@ -18,6 +18,10 @@ public class PanelServicios extends JPanel {
 		lblBar, lblBartxt, lblRestaurante, lblRestaurantetxt, lblSpa, lblSpatxt, lblGym, lblGymtxt, lblAd, lblAdtxt, lblMp, lblMptxt, lblPc, lblPctxt, lblWifiprec, lblPiscinaprec,
 		lblParkingprec, lblACprec, lblBarprec, lblRestauranteprec, lblSpaprec, lblGymprec, lblAdprec, lblMpprec, lblPcprec, lblFechaEntrada, lblFechaSalida, lblTotal, lblEntradatxt, lblSalidatxt, lblTotaltxt;
 	
+	public JLabel[] servicios = new JLabel[11];
+	public JLabel[] serviciostxt = new JLabel[11];
+	public JLabel[] preciosSrv = new JLabel[11];
+	
 	/**
 	 * Create the panel.
 	 */
@@ -286,5 +290,41 @@ public class PanelServicios extends JPanel {
 		lblTotal.setBounds(776, 427, 92, 26);
 		lblTotal.setForeground(new Color(0,103,219));
 		add(lblTotal);
+		
+		servicios[0] = lblWifi;
+		servicios[1] = lblPiscina;
+		servicios[2] = lblSpa;
+		servicios[3] = lblParking;
+		servicios[4] = lblAC;
+		servicios[5] = lblRestaurante;
+		servicios[6] = lblBar;
+		servicios[7] = lblGym;
+		servicios[8] = lblAd;
+		servicios[9] = lblMp;
+		servicios[10] = lblPc;
+		
+		serviciostxt[0] = lblWifitxt;
+		serviciostxt[1] = lblPiscinatxt;
+		serviciostxt[2] = lblSpatxt;
+		serviciostxt[3] = lblParkingtxt;
+		serviciostxt[4] = lblACtxt;
+		serviciostxt[5] = lblRestaurantetxt;
+		serviciostxt[6] = lblBartxt;
+		serviciostxt[7] = lblGymtxt;
+		serviciostxt[8] = lblAdtxt;
+		serviciostxt[9] = lblMptxt;
+		serviciostxt[10] = lblPctxt;
+		
+		preciosSrv[0] = lblWifiprec;
+		preciosSrv[1] = lblPiscinaprec;
+		preciosSrv[2] = lblSpaprec;
+		preciosSrv[3] = lblParkingprec;
+		preciosSrv[4] = lblACprec;
+		preciosSrv[5] = lblRestauranteprec;
+		preciosSrv[6] = lblBarprec;
+		preciosSrv[7] = lblGymprec;
+		preciosSrv[8] = lblAdprec;
+		preciosSrv[9] = lblMpprec;
+		preciosSrv[10] = lblPcprec;
 	}
 }
