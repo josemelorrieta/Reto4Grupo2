@@ -16,15 +16,20 @@ public class ControladorPanelResBusqueda {
 	
 	/**
 	 * Constructor para el controlador
+	 * 
 	 * @param mod Modelo donde se guarda la informacion
 	 * @param vis Vista la cual edita
-	 * @param cont Controlador principal en caso de que necesite acceder a algun otro metodo
 	 */
 	public ControladorPanelResBusqueda(Modelo mod, PanelResBusqueda vis) {
 		this.mod = mod;
 		this.vis=vis;
 	}
 	
+	/**
+	 * Metodo que carga en la vista los alojamientos
+	 * 
+	 * @param estados Array con el filtro de tipoAlojamiento
+	 */
 	protected void setDatosPanel(boolean[] estados) {
 		vis.modelResBusq.clear();
 		setAlojamientos(mod.hotelesBusqueda, estados[0]);
@@ -32,45 +37,33 @@ public class ControladorPanelResBusqueda {
 		setAlojamientos(mod.apartBusqueda, estados[2]);
 	}
 	
-	protected void setDatosPanel(boolean estado) {
-		vis.modelResBusq.clear();
-		setAlojamientos(mod.hotelesBusqueda, estado);
-		setAlojamientos(mod.casasBusqueda, estado);
-		setAlojamientos(mod.apartBusqueda, estado);
-	}
-	
-	protected void setDatosPanel(boolean[] estados, String localidad) {
-		setLblLocalidad(localidad);
-		vis.modelResBusq.clear();
-		setAlojamientos(mod.hotelesBusqueda, estados[0]);
-		setAlojamientos(mod.casasBusqueda, estados[1]);
-		setAlojamientos(mod.apartBusqueda, estados[2]);
-	}
-	
-	protected void setDatosPanel(boolean estado, String localidad) {
-		setLblLocalidad(localidad);
-		vis.modelResBusq.clear();
-		setAlojamientos(mod.hotelesBusqueda, estado);
-		setAlojamientos(mod.casasBusqueda, estado);
-		setAlojamientos(mod.apartBusqueda, estado);
-	}
-	
-	private void setLblLocalidad(String localidad) {
-		vis.lblLocBusq.setText("Resultados para " + localidad);
-		//vis.resultBusq.ensureIndexIsVisible(0);
-	}
-	
+	/**
+	 * Metodo que carga un array de alojamientos en la vista
+	 * 
+	 * @param alojamientos Array de alojamientos
+	 * @param estado Si estado es true carga el array en la vista
+	 */
 	private void setAlojamientos(Alojamiento[] alojamientos, boolean estado) {
 		if(estado)
 			for(Alojamiento aloj : alojamientos)
 				if(aloj.isMostrar())
 					vis.modelResBusq.addElement(aloj);
 	}
-		
+	
+	/**
+	 * Metodo que devuelve el alojamiento seleccionado en la vista
+	 * 
+	 * @return Alojamiento seleccionado
+	 */
 	public Alojamiento getAlojamiento() {
 		return vis.resultBusq.getSelectedValue();
 	}
 	
+	/**
+	 * Metodo que comprueba si hay un alojamiento seleccionado y esta disponible
+	 * 
+	 * @return true - Si la comprobacion es cierta
+	 */
 	public boolean isValid() {
 		if(!vis.resultBusq.isSelectionEmpty() && vis.resultBusq.getSelectedValue().isDisponible())
 			return true;
