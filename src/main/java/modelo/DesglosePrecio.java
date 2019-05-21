@@ -11,21 +11,18 @@ import util.FuncionesGenerales;
  *
  */
 public class DesglosePrecio {
+	
 	private double pBaseAloj;
 	private double pEquipamiento;
-
 	private int noches;
-
 	private double pBaseFestivos;
 	private int numFestivos;
 	private double totalExtraFestivos;
 	private String temporada;
 	private boolean codPromocional;
-
-	// wifi etc
 	private double precioExtras;
-
 	private double total;
+	
 	/**
 	 * Constructor vacio para inicializar un objeto DesglosePrecio
 	 */
@@ -118,78 +115,154 @@ public class DesglosePrecio {
 		}
 	}
 
+	/**
+	 * Metodo que devuelve el precio base del alojamiento
+	 * @return pBaseAloj
+	 */
 	public double getpBaseAloj() {
 		return pBaseAloj;
 	}
 
+	/**
+	 * Metodo que cambia el precio base del alojamiento
+	 * @param pBaseAloj
+	 */
 	public void setpBaseAloj(double pBaseAloj) {
 		this.pBaseAloj = pBaseAloj;
 	}
 
+	/**
+	 * Metodo que devuelve el precio del equipamiento
+	 * @return pEquipamiento
+	 */
 	public double getpEquipamiento() {
 		return pEquipamiento;
 	}
 
+	/**
+	 * Metodo que cambia el precio del equipamiento
+	 * @param pEquipamiento
+	 */
 	public void setpEquipamiento(double pEquipamiento) {
 		this.pEquipamiento = pEquipamiento;
 	}
 
+	/**
+	 * Metodo que devuelve el numero de noches
+	 * @return noches
+	 */
 	public int getNoches() {
 		return noches;
 	}
 
+	/**
+	 * Metodo que cambia el numero de noches
+	 * @param noches
+	 */
 	public void setNoches(int noches) {
 		this.noches = noches;
 	}
 
+	/**
+	 * Metodo que devuelve el precio base de los dias festivos
+	 * @return pBaseFestivos
+	 */
 	public double getpBaseFestivos() {
 		return pBaseFestivos;
 	}
 
+	/**
+	 * Metodo que cambia el precio base de los dias festivos
+	 * @param pBaseFestivos
+	 */
 	public void setpBaseFestivos(double pBaseFestivos) {
 		this.pBaseFestivos = pBaseFestivos;
 	}
 
+	/**
+	 * Metodo que devuelve el numero de dias festivos
+	 * @return numFestivos
+	 */
 	public int getNumFestivos() {
 		return numFestivos;
 	}
 
+	/**
+	 * Metodo que cambia el numero de dias festivos
+	 * @param numFestivos
+	 */
 	public void setNumFestivos(int numFestivos) {
 		this.numFestivos = numFestivos;
 	}
 
+	/**
+	 * Metodo que devuelve el precio de los dias festivos
+	 * @return totalExtraFestivos
+	 */
 	public double getTotalExtraFestivos() {
 		return totalExtraFestivos;
 	}
 
+	/**
+	 * Metodo que cambia el precio de los dias festivos
+	 * @param totalExtraFestivos
+	 */
 	public void setTotalExtraFestivos(double totalExtraFestivos) {
 		this.totalExtraFestivos = totalExtraFestivos;
 	}
 
+	/**
+	 * Metodo que devuelve la temporada (alta o baja)
+	 * @return temporada
+	 */
 	public String getTemporada() {
 		return temporada;
 	}
 
+	/**
+	 * Metodo que cambia la temporada (alta o baja)
+	 * @param temporada
+	 */
 	public void setTemporada(String temporada) {
 		this.temporada = temporada;
 	}
 
+	/**
+	 * Metodo que devuelve el precio de los servicios seleccionados
+	 * @return precioExtras
+	 */
 	public double getPrecioExtras() {
 		return precioExtras;
 	}
 
+	/**
+	 * Metodo que cambia el precio de los servicios seleccionados
+	 * @param precioExtras
+	 */
 	public void setPrecioExtras(double precioExtras) {
 		this.precioExtras = precioExtras;
 	}
 
+	/**
+	 * Metodo que devuelve el precio total de la reserva
+	 * @return total
+	 */
 	public double getTotal() {
 		return total;
 	}
 
+	/**
+	 * Metodo que cambia el precio total de la reserva
+	 * @param total
+	 */
 	public void setTotal(double total) {
 		this.total = total;
 	}
 
+	/**
+	 * Metodo que devuelve si se ha insertado un codigo promocional
+	 * @return true si se ha insertado un codigo promocional
+	 */
 	public boolean isCodPromocional() {
 		return codPromocional;
 	}

@@ -48,18 +48,34 @@ public class Dormitorio extends Habitacion {
 		return cont;
 	}
 
+	/**
+	 * Metodo que devuelve el mobiliario del dormitorio
+	 * @return mobiliario
+	 */
 	public Mobiliario[] getMobiliario() {
 		return mobiliario;
 	}
 
+	/**
+	 * Metodo que cambia el mobiliario del dormitorio
+	 * @param mobiliario
+	 */
 	public void setMobiliario(Mobiliario[] mobiliario) {
 		this.mobiliario = mobiliario;
 	}
 
+	/**
+	 * Metodo que devuelve si el dormitorio esta disponible
+	 * @return true si el dormitorio esta disponible
+	 */
 	public boolean isDisponible() {
 		return disponible;
 	}
 
+	/**
+	 * Metodo que cambia la disponibilidad del dormitorio
+	 * @param disponible
+	 */
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}

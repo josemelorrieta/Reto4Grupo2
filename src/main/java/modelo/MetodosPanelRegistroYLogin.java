@@ -21,7 +21,6 @@ import com.google.gson.GsonBuilder;
 import com.toedter.calendar.JDateChooser;
 import BaseDatos.ConsultaBD;
 import util.FuncionesGenerales;
-import vista.panelCard.PanelAcompaniante;
 import vista.panelCard.PanelLogin;
 import vista.panelCard.PanelRegistro;
 

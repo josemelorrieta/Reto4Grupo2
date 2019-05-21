@@ -24,34 +24,66 @@ public class FechasReserva {
 		this.fechaOut = fechaOut;
 	}
 
+	/**
+	 * Metodo que devuelve el ID de la reserva
+	 * @return idRsv
+	 */
 	public int getIdRsv() {
 		return idRsv;
 	}
 
+	/**
+	 * Metodo que cambia el ID de la reserva
+	 * @param idRsv
+	 */
 	public void setIdRsv(int idRsv) {
 		this.idRsv = idRsv;
 	}
 
+	/**
+	 * Metodo que devuelve el ID de la habitacion reservada
+	 * @return id
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Metodo que cambia el ID de la habitacion reservada
+	 * @param idHab
+	 */
 	public void setId(int idHab) {
 		this.id = idHab;
 	}
 
+	/**
+	 * Metodo que devuelve la fecha de entrada
+	 * @return fechaIn
+	 */
 	public String getFechaIn() {
 		return fechaIn;
 	}
 
+	/**
+	 * Metodo que cambia la fecha de entrada
+	 * @param fechaIn
+	 */
 	public void setFechaIn(String fechaIn) {
 		this.fechaIn = fechaIn;
 	}
 
+	/**
+	 * Metodo que devuelve la fecha de salida
+	 * @return fechaOut
+	 */
 	public String getFechaOut() {
 		return fechaOut;
 	}
 
+	/**
+	 * Metodo que cambia la fecha de salida
+	 * @param fechaOut
+	 */
 	public void setFechaOut(String fechaOut) {
 		this.fechaOut = fechaOut;
 	}

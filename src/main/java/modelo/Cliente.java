@@ -78,50 +78,98 @@ public class Cliente {
 		return objetos;
 	}
 	
+	/**
+	 * Metodo que devuelve el nombre del cliente
+	 * @return nombre
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Metodo que cambia el nombre del cliente
+	 * @param nombre
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * Metodo que devuelve el DNI del cliente
+	 * @return dni
+	 */
 	public String getDni() {
 		return dni;
 	}
 
+	/**
+	 * Metodo que cambia el DNI del cliente
+	 * @param dni
+	 */
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
+	/**
+	 * Metodo que devuelve los apellidos del cliente
+	 * @return apellidos
+	 */
 	public String getApellidos() {
 		return apellidos;
 	}
 
+	/**
+	 * Metodo que cambia los apellidos del cliente
+	 * @param apellidos
+	 */
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
 
+	/**
+	 * Metodo que devuelve la fecha de nacimiento del cliente
+	 * @return fechaNac
+	 */
 	public Date getFechaNac() {
 		return fechaNac;
 	}
 
+	/**
+	 * Metodo que cambia la fecha de nacimiento del cliente
+	 * @param fechaNac
+	 */
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
+	/**
+	 * Metodo que devuelve el sexo del cliente
+	 * @return sexo
+	 */
 	public Sexo getSexo() {
 		return sexo;
 	}
 
+	/**
+	 * Metodo que cambia el sexo del cliente
+	 * @param sexo
+	 */
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 
+	/**
+	 * Metodo que devuelve la contrasenia del cliente
+	 * @return password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Metodo que cambia la contrasenia del cliente
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}

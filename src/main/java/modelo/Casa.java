@@ -8,6 +8,10 @@ public class Casa extends Alojamiento {
 	protected int numBanios=0;
 	protected int m2;
 	
+	/**
+	 * Metodo que devuelve el numero de banios de la casa
+	 * @return numBanios
+	 */
 	public int getNumBanios() {
 		return numBanios;
 	}
@@ -22,6 +26,10 @@ public class Casa extends Alojamiento {
 		}
 	}
 
+	/**
+	 * Metodo que devuelve los metros cuadrados de la casa
+	 * @return m2
+	 */
 	public int getM2() {
 		return m2;
 	}
