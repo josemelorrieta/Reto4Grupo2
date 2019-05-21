@@ -11,7 +11,7 @@ public class Launcher {
 
 	/**
 	 * Main del programa
-	 * @param args
+	 * @param args parametros de la aplicacion
 	 */
 	public static void main(String[] args) {
 		VentanaPpal vista = new VentanaPpal();

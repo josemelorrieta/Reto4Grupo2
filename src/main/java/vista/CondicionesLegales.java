@@ -46,7 +46,7 @@ public class CondicionesLegales extends JFrame {
 			"\r\n" + 
 			" \r\n" + 
 			"\r\n" + 
-			"6. EXCLUSIÓN DE GARANTÍAS Y RESPONSABILIDAD\r\n" + 
+			"6. EXCLUSION DE GARANTIAS Y RESPONSABILIDAD\r\n" + 
 			"NNNNN no se hace responsable, en ningún caso, de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar, a título enunciativo: errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de virus o programas maliciosos o lesivos en los contenidos, a pesar de haber adoptado todas las medidas tecnológicas necesarias para evitarlo.\r\n" + 
 			"\r\n" + 
 			" \r\n" + 

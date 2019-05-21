@@ -201,8 +201,8 @@ public class MetodosBuscar {
 	 * Crea un modelo con el vector de arrays de camas de la funcion
 	 * crearModeloCamas
 	 * 
-	 * @param camas
-	 * @return
+	 * @param camas vector de arrays de camas
+	 * @return array de dormitorios con las camas
 	 */
 	public Dormitorio[] crearModeloDormitorios(Vector<Cama[]> camas) {
 		Dormitorio[] modeloDormitorios = new Dormitorio[camas.size()];
@@ -218,6 +218,7 @@ public class MetodosBuscar {
 	 * dormitorio
 	 * 
 	 * @param hotel hotel del cual se buscan las habitaciones
+	 * @param tiposDorm array con nel nombre de los tipos de dormitorios
 	 * @return matriz de dormitorios
 	 */
 	private Vector<Vector<Dormitorio>> matrizHabitaciones(Hotel hotel, String[] tiposDorm) {
@@ -271,7 +272,7 @@ public class MetodosBuscar {
 	 * llega por parametro
 	 * 
 	 * @param dormitorios matriz (VectorXVector)
-	 * @return
+	 * @return matriz de dormitorios
 	 */
 	private Vector<Vector<Dormitorio>> actualizarDisponibilidadDormitorios(Vector<Vector<Dormitorio>> dormitorios) {
 		for (Vector<Dormitorio> columna : dormitorios) {
@@ -308,6 +309,7 @@ public class MetodosBuscar {
 	 * Comprueba si el dormitorio proporcionado por parametro esta reservado
 	 * 
 	 * @param dorm Dormitorio cual se quiere comprobar
+	 * @param sdf formato para fecha
 	 * @return el dormitorio enviado por parametro con la disponibilidad cambiada
 	 */
 	private Dormitorio setDisponibilidadDormitorio(Dormitorio dorm, SimpleDateFormat sdf) {
@@ -533,7 +535,7 @@ public class MetodosBuscar {
 	 * Busca los tipos de servicios en la base de datos y los mete en un string
 	 * array
 	 * 
-	 * @return
+	 * @return Array de strings con los nombres de los servicios
 	 */
 	public String[] buscarNombresSrv() {
 		String json = bd.consultarToGson("SELECT `nombre` 'auxiliar' FROM servicio");
@@ -583,8 +585,8 @@ public class MetodosBuscar {
 	 * Devuelve un array paralelo al indicado por parametro de integers con el
 	 * numero de reservas de dicho alojamiento
 	 * 
-	 * @param alojs
-	 * @return int[]
+	 * @param alojs array de alojamientos para buscar sus reservas
+	 * @return int[] array con los numeros de rervas
 	 */
 	public int[] arrayNumeroReservas(Alojamiento[] alojs) {
 		int[] numReservas = new int[alojs.length];
@@ -606,9 +608,9 @@ public class MetodosBuscar {
 
 	/**
 	 * Ordena los alojamientos por popularidad y despues alfabeticamente en caso de tener las misma popularidad
-	 * @param alojs
-	 * @param popularidad
-	 * @return
+	 * @param alojs array de alojamientos a ordenar
+	 * @param popularidad array con el numero de reservas por alojamiento
+	 * @return array de alojamientos ordenados por reservas
 	 */
 	public Alojamiento[] ordenarPorPopularidadYAlfabeticamente(Alojamiento[] alojs, int[] popularidad) {
 		// Ordenacion por popularidad

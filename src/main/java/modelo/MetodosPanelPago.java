@@ -36,7 +36,6 @@ public class MetodosPanelPago {
 	/**
 	 * Indica al decimal format como se quiere formatear los numeros
 	 * 
-	 * @param dosDec DecimalFormat para modificar su pattern
 	 */
 	private void dosDecFormato() {
 		this.simbolos.setDecimalSeparator('.');
@@ -132,8 +131,8 @@ public class MetodosPanelPago {
 	 * Metodo para sumar dinero con un boton
 	 * 
 	 * @param panel donde se encuentra los textfielda editar y los botones
-	 * @param btn   boton del cual se mira el texto y pasa a string para sumar esa
-	 *              cantidad
+	 * @param valor cantida a sumar
+	 * @param mod instancia del modelo de la aplicacion
 	 */
 	public void sumarDinero(PanelPago panel, String valor, Modelo mod) {
 		String[] arrDinero = operarDinero(panel.textAPagar.getText(), panel.textPagado.getText(), valor);
@@ -174,7 +173,6 @@ public class MetodosPanelPago {
 	 * @param aPagar    dinero a pagar
 	 * @param pagado    dinero ya pagado
 	 * @param valorBtn  el valor monetario del boton
-	 * @param operacion solo acepta las strings "+" y "-"
 	 * @return array biposicional de strings con el dinero a pagar (pos 0) y el
 	 *         dinero pagado (pos 1) formateado como numero con 2 decimales
 	 */
