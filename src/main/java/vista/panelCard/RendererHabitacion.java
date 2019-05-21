@@ -117,7 +117,6 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 		int contadores[] = {0,0,0};
 		int adultos = 0;
 		int ninos = 0;
-		int posicion = 122;
 		for(Mobiliario mob:dormitorio.getMobiliario()) {
 			if(mob instanceof Cama) {
 				if(((Cama) mob).getTipoCama() == TipoCama.MATRIMONIO) {
@@ -132,8 +131,19 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 				}
 			}
 		}
+
+		int posicion = 122;
+		for (int i=0;i<adultos;i++) {
+			personas[i].setVisible(true);
+			personas[i].setBounds(posicion, 65, 24, 24);
+			posicion += 20;
+		}
 		
-		
+		if (ninos == 1) {
+			posicion += 5;
+			lblNino.setVisible(true);
+			lblNino.setBounds(posicion, 65, 24, 24);
+		}
 
 		
 		if (contadores[0] == 1 && contadores[1] == 0 && contadores[2] == 0 )
