@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 import java.io.File;
-
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import util.FuncionesGenerales;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;

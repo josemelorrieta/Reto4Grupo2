@@ -70,7 +70,7 @@ public class Controlador {
 		vis.pBotones.btnSiguiente.addActionListener(new ListenerBotonesInferiores());
 		vis.pBotones.btnVolver.addActionListener(new ListenerBotonesInferiores());
 	}
-
+	
 	/**
 	 * Listeners para los botones de siguente/volver
 	 *

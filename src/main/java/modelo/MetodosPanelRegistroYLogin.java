@@ -5,28 +5,20 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import com.toedter.calendar.JDateChooser;
-
 import BaseDatos.ConsultaBD;
 import util.FuncionesGenerales;
 import vista.panelCard.PanelLogin;

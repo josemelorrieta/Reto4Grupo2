@@ -1,15 +1,12 @@
 package vista.panelBorder;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 public class PanelTitulo extends JPanel {
 
@@ -18,7 +15,7 @@ public class PanelTitulo extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	public JLabel lblTitulo, lblSubtitulo;
-	private JLabel lblLinea;
+	private JLabel lblLinea, lblIcon;
 	
 	public PanelTitulo() {
 		setParametros();
@@ -46,7 +43,7 @@ public class PanelTitulo extends JPanel {
 		lblSubtitulo.setFont(new Font("Corbel", Font.PLAIN, 23));
 		add(lblSubtitulo);
 		
-		JLabel lblIcon = new JLabel("");
+		lblIcon = new JLabel("");
 		lblIcon.setIcon(new ImageIcon(PanelTitulo.class.getResource("/imagenes/general/logo_texto.png")));
 		lblIcon.setBounds(39, 24, 30, 40);
 		add(lblIcon);

@@ -2,23 +2,17 @@ package vista.panelCard;
 
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JSpinnerDateEditor;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Insets;
-
 import javax.swing.JComboBox;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.SwingConstants;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Cursor;
 
 public class PanelBuscar extends JPanel {
@@ -28,16 +22,13 @@ public class PanelBuscar extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public JLabel lblTitulo, lblSubtitulo,lblElejirLoc, lblFechaEnt, lblFechaSal;
+	public JLabel lblTitulo, lblSubtitulo,lblElejirLoc, lblFechaEnt, lblFechaSal, lblFondo;
 	public JComboBox<String> cbxBuscar;
 	public JButton btnBuscar;
 	
 	public JDateChooser calenEntrada, calenSalida;
-	JSpinnerDateEditor spnDateEditorFechaEnt, spnDateEditorFechaSal;
-	private JLabel lblFondoElegir;
-	private JLabel lblFondoFent;
-	private JLabel lblFondoFSal;
-	
+	public JSpinnerDateEditor spnDateEditorFechaEnt, spnDateEditorFechaSal;
+
 	/**
 	 * Constructor del panel
 	 */
@@ -118,24 +109,16 @@ public class PanelBuscar extends JPanel {
 		spnDateEditorFechaSal = new JSpinnerDateEditor();
 		spnDateEditorFechaSal.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		((JSpinner.DefaultEditor) spnDateEditorFechaSal.getEditor()).getTextField().setEditable(false);
-		
-//		lblFondoFSal = new JLabel("Fecha de salida:");
-//		lblFondoFSal.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblFondoFSal.setForeground(Color.BLACK);
-//		lblFondoFSal.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		lblFondoFSal.setBounds(547, 336, 185, 39);
-//		add(lblFondoFSal);
-		
+
 		calenSalida = new JDateChooser(null, null, null, spnDateEditorFechaSal);
 		calenSalida.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		calenSalida.setBounds(546, 369, 185, 32);
 		calenSalida.setDateFormatString("dd-MM-yyyy");
 		add(calenSalida);
 		
-		JLabel lblFondo = new JLabel("");
+		lblFondo = new JLabel("");
 		lblFondo.setIcon(new ImageIcon(PanelBuscar.class.getResource("/imagenes/general/inicio.jpg")));
 		lblFondo.setBounds(0, 0, 1024, 460);
-		add(lblFondo);
-		
+		add(lblFondo);		
 	}	
 }

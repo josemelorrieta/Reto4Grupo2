@@ -3,11 +3,9 @@ package testUtil;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
 import modelo.Alojamiento;
 import modelo.Apartamento;
 import modelo.Casa;
-import modelo.Dormitorio;
 import modelo.Hotel;
 import util.FuncionesGenerales;
 

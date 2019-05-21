@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.File;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,15 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
-
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JSpinnerDateEditor;
-
 import modelo.Sexo;
 import util.FuncionesGenerales;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
-import java.awt.SystemColor;
 
 public class PanelRegistro extends JPanel {
 

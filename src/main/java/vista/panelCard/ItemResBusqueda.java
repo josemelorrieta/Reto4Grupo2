@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -15,16 +14,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-
 import modelo.Alojamiento;
 import modelo.Apartamento;
 import modelo.Casa;
 import modelo.Hotel;
-import modelo.Servicio;
 import modelo.TipoServicio;
 import javax.swing.border.LineBorder;
-import java.awt.SystemColor;
 
 public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamiento> {
 

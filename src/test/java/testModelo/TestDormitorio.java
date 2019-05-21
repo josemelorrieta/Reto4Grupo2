@@ -6,10 +6,8 @@ import org.junit.Test;
 
 import modelo.Cama;
 import modelo.Dormitorio;
-import modelo.Habitacion;
 import modelo.Mobiliario;
 import modelo.TipoCama;
-import modelo.TipoHabitacion;
 import modelo.TipoMobiliario;
 
 public class TestDormitorio {

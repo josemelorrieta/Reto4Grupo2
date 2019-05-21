@@ -3,15 +3,11 @@ package vista.panelBorder;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import vista.panelCard.PanelBuscar;
 import java.awt.Color;
 import java.awt.Cursor;
-
 
 public class PanelBotones extends JPanel {
 

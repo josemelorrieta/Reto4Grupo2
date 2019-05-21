@@ -13,7 +13,7 @@ import modelo.Dormitorio;
 import modelo.Reserva;
 
 public class TestReserva {
-	
+
 	private Reserva reservaTest;
 	private String stringTest = "Test1";
 	private Cliente clienteTest = new Cliente(stringTest);

@@ -1,21 +1,14 @@
 package vista.panelCard;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.ListSelectionModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 
 import modelo.Dormitorio;
 
@@ -54,9 +47,6 @@ public class PanelSelHabitacion extends JPanel {
 		scroll.setLocation(40, 80);
 		scroll.setSize(590, 480);
 		scroll.getVerticalScrollBar().setUnitIncrement(8);
-		add(scroll);
-		
-		
+		add(scroll);	
 	}
-
 }

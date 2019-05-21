@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import modelo.Cama;
-import modelo.Mobiliario;
 import modelo.TipoCama;
 import modelo.TipoMobiliario;
 

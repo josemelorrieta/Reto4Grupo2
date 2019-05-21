@@ -2,15 +2,11 @@ package modelo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
-
 import com.google.gson.Gson;
-import com.sun.org.apache.bcel.internal.generic.ALOAD;
-
 import BaseDatos.ConsultaBD;
 import util.FuncionesGenerales;
 
