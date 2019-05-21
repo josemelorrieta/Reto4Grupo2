@@ -55,6 +55,7 @@ public class PanelBuscar extends JPanel {
 		setLayout(null);
 		
 		cbxBuscar = new JComboBox<String>();
+		cbxBuscar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbxBuscar.setBounds(292, 181, 440, 50);
 		cbxBuscar.setPreferredSize(new Dimension(440, 50));
 		add(cbxBuscar);
@@ -76,35 +77,41 @@ public class PanelBuscar extends JPanel {
 		add(btnBuscar);
 		
 		lblElejirLoc = new JLabel("Seleccionar localidad:");
+		lblElejirLoc.setOpaque(true);
+		lblElejirLoc.setBackground(new Color(0,103,219));
 		lblElejirLoc.setHorizontalAlignment(SwingConstants.CENTER);
 		lblElejirLoc.setForeground(Color.WHITE);
 		lblElejirLoc.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblElejirLoc.setBounds(292, 144, 440, 39);
+		lblElejirLoc.setBounds(292, 147, 440, 35);
 		add(lblElejirLoc);	
 		
-		lblFondoElegir = new JLabel("Seleccionar localidad:");
-		lblFondoElegir.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondoElegir.setForeground(Color.BLACK);
-		lblFondoElegir.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblFondoElegir.setBounds(293, 145, 440, 39);
-		add(lblFondoElegir);
+//		lblFondoElegir = new JLabel("Seleccionar localidad:");
+//		lblFondoElegir.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblFondoElegir.setForeground(Color.BLACK);
+//		lblFondoElegir.setFont(new Font("Tahoma", Font.PLAIN, 20));
+//		lblFondoElegir.setBounds(293, 145, 440, 39);
+//		add(lblFondoElegir);
 		
 		lblFechaEnt = new JLabel("Fecha de entrada:");
 		lblFechaEnt.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFechaEnt.setOpaque(true);
+		lblFechaEnt.setBackground(new Color(0,103,219));
 		lblFechaEnt.setForeground(Color.WHITE);
 		lblFechaEnt.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblFechaEnt.setBounds(292, 335, 185, 39);
+		lblFechaEnt.setBounds(292, 334, 185, 35);
 		add(lblFechaEnt);
 		
 		spnDateEditorFechaEnt = new JSpinnerDateEditor();
+		spnDateEditorFechaEnt.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		spnDateEditorFechaEnt.setToolTipText("");
 		((JSpinner.DefaultEditor) spnDateEditorFechaEnt.getEditor()).getTextField().setEditable(false);
 		
-		lblFondoFent = new JLabel("Fecha de entrada:");
-		lblFondoFent.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondoFent.setForeground(Color.BLACK);
-		lblFondoFent.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblFondoFent.setBounds(293, 336, 185, 39);
-		add(lblFondoFent);
+//		lblFondoFent = new JLabel("Fecha de entrada:");
+//		lblFondoFent.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblFondoFent.setForeground(Color.BLACK);
+//		lblFondoFent.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		lblFondoFent.setBounds(293, 336, 185, 39);
+//		add(lblFondoFent);
 		
 		calenEntrada = new JDateChooser(null, null, null, spnDateEditorFechaEnt);
 		calenEntrada.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -114,20 +121,23 @@ public class PanelBuscar extends JPanel {
 		
 		lblFechaSal = new JLabel("Fecha de salida:");
 		lblFechaSal.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFechaSal.setOpaque(true);
+		lblFechaSal.setBackground(new Color(0,103,219));
 		lblFechaSal.setForeground(Color.WHITE);
 		lblFechaSal.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblFechaSal.setBounds(546, 335, 185, 39);
+		lblFechaSal.setBounds(546, 334, 185, 35);
 		add(lblFechaSal);
 		
 		spnDateEditorFechaSal = new JSpinnerDateEditor();
+		spnDateEditorFechaSal.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		((JSpinner.DefaultEditor) spnDateEditorFechaSal.getEditor()).getTextField().setEditable(false);
 		
-		lblFondoFSal = new JLabel("Fecha de salida:");
-		lblFondoFSal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondoFSal.setForeground(Color.BLACK);
-		lblFondoFSal.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblFondoFSal.setBounds(547, 336, 185, 39);
-		add(lblFondoFSal);
+//		lblFondoFSal = new JLabel("Fecha de salida:");
+//		lblFondoFSal.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblFondoFSal.setForeground(Color.BLACK);
+//		lblFondoFSal.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		lblFondoFSal.setBounds(547, 336, 185, 39);
+//		add(lblFondoFSal);
 		
 		calenSalida = new JDateChooser(null, null, null, spnDateEditorFechaSal);
 		calenSalida.setFont(new Font("Tahoma", Font.PLAIN, 18));

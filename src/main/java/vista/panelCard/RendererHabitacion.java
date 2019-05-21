@@ -11,6 +11,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 
 import modelo.Cama;
 import modelo.Dormitorio;
@@ -19,25 +20,28 @@ import modelo.TipoCama;
 
 public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormitorio>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	public JLabel lblFoto,lblNombre,lblCamas, lblDisponible,lblImgInfant,lblImgMatri,lblImgIndi, lblMatri,lblIndi,lblInfant;
+	public JLabel lblFondo, lblFoto,lblNombre,lblCamas, lblDisponible;
+	private JLabel lblPersona1;
+	private JLabel lblPersona2;
+	private JLabel lblPersona3;
+	private JLabel lblNino;
 	
 	
 	public RendererHabitacion() {
+		setBackground(Color.WHITE);
 		setParametros();
 		instanciarObjetos();
 	}
 
 	private void setParametros() {
-		setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		setPreferredSize(new Dimension(500,111));
-		setLayout(null);
+		setBorder(null);
+		setPreferredSize(new Dimension(570, 155));
+		setLayout(null);;
 	}
 
 	private void instanciarObjetos() {
+		
 		lblFoto = new JLabel("New label");
 		lblFoto.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/noimage.png")));
 		lblFoto.setBounds(10, 10, 90, 90);
@@ -50,44 +54,39 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 		
 		lblCamas = new JLabel("Camas:");
 		lblCamas.setFont(new Font("Tahoma", Font.ITALIC, 14));
-		lblCamas.setBounds(122, 32, 366, 20);
+		lblCamas.setBounds(122, 38, 366, 20);
 		add(lblCamas);
 		
 		lblDisponible = new JLabel("Disponible");
 		lblDisponible.setForeground(new Color(50, 205, 50));
 		lblDisponible.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblDisponible.setBounds(122, 80, 100, 20);
+		lblDisponible.setBounds(122, 108, 100, 20);
 		add(lblDisponible);
 		
-		lblImgMatri = new JLabel("");
-		lblImgMatri.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/camas/camaDoble32x24.png")));
-		lblImgMatri.setBounds(216, 48, 55, 37);
-		add(lblImgMatri);
+		lblPersona1 = new JLabel("");
+		lblPersona1.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/hotel/persona.png")));
+		lblPersona1.setBounds(122, 65, 24, 24);
+		add(lblPersona1);
 		
-		lblImgIndi = new JLabel("");
-		lblImgIndi.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/camas/camaIndi32x25.png")));
-		lblImgIndi.setBounds(297, 48, 46, 37);
-		add(lblImgIndi);
+		lblPersona2 = new JLabel("");
+		lblPersona2.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/hotel/persona.png")));
+		lblPersona2.setBounds(142, 65, 24, 24);
+		add(lblPersona2);
 		
-		lblImgInfant = new JLabel("");
-		lblImgInfant.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/camas/camaInfant32x32.png")));
-		lblImgInfant.setBounds(383, 48, 39, 37);
-		add(lblImgInfant);
+		lblPersona3 = new JLabel("");
+		lblPersona3.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/hotel/persona.png")));
+		lblPersona3.setBounds(162, 65, 24, 24);
+		add(lblPersona3);
 		
-		lblMatri = new JLabel("0");
-		lblMatri.setFont(new Font("Tahoma", Font.ITALIC, 14));
-		lblMatri.setBounds(260, 57, 27, 14);
-		add(lblMatri);
-		
-		lblIndi = new JLabel("0");
-		lblIndi.setFont(new Font("Tahoma", Font.ITALIC, 14));
-		lblIndi.setBounds(346, 57, 27, 14);
-		add(lblIndi);
-		
-		lblInfant = new JLabel("0");
-		lblInfant.setFont(new Font("Tahoma", Font.ITALIC, 14));
-		lblInfant.setBounds(432, 57, 27, 14);
-		add(lblInfant);
+		lblNino = new JLabel("");
+		lblNino.setIcon(new ImageIcon(RendererHabitacion.class.getResource("/imagenes/alojamiento/hotel/nino.png")));
+		lblNino.setBounds(187, 65, 24, 24);
+		add(lblNino);
+		lblFondo = new JLabel("");
+		lblFondo.setBackground(Color.WHITE);
+		lblFondo.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+		lblFondo.setBounds(0, 0, 570, 150);
+		add(lblFondo);
 	}
 
 	@Override
@@ -108,40 +107,49 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 		    setForeground(lista.getForeground());
 		}
 		
-		lblImgMatri.setVisible(false);
-		lblImgIndi.setVisible(false);
-		lblImgInfant.setVisible(false);
+		JLabel[] personas = {lblPersona1, lblPersona2, lblPersona3};
 		
-		lblMatri.setText("0");
-		lblIndi.setText("0");
-		lblInfant.setText("0");
-		
-		lblMatri.setVisible(false);
-		lblIndi.setVisible(false);
-		lblInfant.setVisible(false);
+		lblPersona1.setVisible(false);
+		lblPersona2.setVisible(false);
+		lblPersona3.setVisible(false);
+		lblNino.setVisible(false);
 		
 		int contadores[] = {0,0,0};
+		int adultos = 0;
+		int ninos = 0;
+		int posicion = 122;
 		for(Mobiliario mob:dormitorio.getMobiliario()) {
 			if(mob instanceof Cama) {
 				if(((Cama) mob).getTipoCama() == TipoCama.MATRIMONIO) {
-					lblImgMatri.setVisible(true);
-					lblMatri.setVisible(true);
-					contadores[0]+=1;
+					adultos += 2;
+					contadores[0] += 1;
 				}else if(((Cama) mob).getTipoCama() == TipoCama.INDIVIDUAL) {
-					lblImgIndi.setVisible(true);
-					lblIndi.setVisible(true);
+					adultos += 1;
 					contadores[1]+=1;
 				}else if(((Cama) mob).getTipoCama() == TipoCama.INFANTIL) {
-					lblImgInfant.setVisible(true);
-					lblInfant.setVisible(true);
+					ninos += 1;
 					contadores[2]+=1;
 				}
 			}
 		}
 		
-		lblMatri.setText(String.valueOf(contadores[0]));
-		lblIndi.setText(String.valueOf(contadores[1]));
-		lblInfant.setText(String.valueOf(contadores[2]));
+		
+
+		
+		if (contadores[0] == 1 && contadores[1] == 0 && contadores[2] == 0 )
+			lblNombre.setText("Habitación Matrimonio");
+		if (contadores[0] == 0 && contadores[1] == 1 && contadores[2] == 0 )
+			lblNombre.setText("Habitación Individual");
+		if (contadores[0] == 0 && contadores[1] == 2 && contadores[2] == 0 )
+			lblNombre.setText("Habitación Doble");
+		if (contadores[0] == 1 && contadores[1] == 1 && contadores[2] == 0 )
+			lblNombre.setText("Habitación Triple");
+		if (contadores[0] == 1 && contadores[1] == 0 && contadores[2] == 1 )
+			lblNombre.setText("Habitación Triple Infantil");
+		
+		int camas = contadores[0] + contadores[1] + contadores[2];
+		lblCamas.setText("Camas:  " + camas);
+			
 		
 		return this;
 	}
