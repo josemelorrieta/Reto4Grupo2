@@ -2,12 +2,14 @@ package modelo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
 import com.google.gson.Gson;
+import com.sun.org.apache.bcel.internal.generic.ALOAD;
 
 import BaseDatos.ConsultaBD;
 import util.FuncionesGenerales;
@@ -71,7 +73,8 @@ public class MetodosBuscar {
 	/**
 	 * Cargar los alojamientos segun la localidad seleccionada
 	 * 
-	 * @param localidad string valor seleccionado por el cliente en la pantalla inicial
+	 * @param localidad string valor seleccionado por el cliente en la pantalla
+	 *                  inicial
 	 */
 	public void cargarAlojamientos(String localidad) {
 		cargarHoteles(localidad);
@@ -151,7 +154,9 @@ public class MetodosBuscar {
 
 	/**
 	 * Busca los distintos tipos de dormitorios que hay en la base de dato
-	 * @return string array con valores como "010" que indican el numero de camas de cada tipo
+	 * 
+	 * @return string array con valores como "010" que indican el numero de camas de
+	 *         cada tipo
 	 */
 	public String[] tiposDormitorio() {
 		String json = bd.consultarToGson("SELECT DISTINCT `tipoDorm` as 'auxiliar' FROM `habhotel` ORDER BY `tipoDorm` ASC");
@@ -167,6 +172,7 @@ public class MetodosBuscar {
 
 	/**
 	 * Crear camas modelo con la informacion del array de strings
+	 * 
 	 * @param tiposCama string array, utilizar tiposDormitorio en el parametro
 	 * @return vector de arrays de camas
 	 */
@@ -196,7 +202,9 @@ public class MetodosBuscar {
 	}
 
 	/**
-	 * Crea un modelo con el vector de arrays de camas de la funcion crearModeloCamas
+	 * Crea un modelo con el vector de arrays de camas de la funcion
+	 * crearModeloCamas
+	 * 
 	 * @param camas
 	 * @return
 	 */
@@ -263,7 +271,9 @@ public class MetodosBuscar {
 	}
 
 	/**
-	 * Comprueba y actualiza la disponibilidad de los dormitorios de la matrix que llega por parametro
+	 * Comprueba y actualiza la disponibilidad de los dormitorios de la matrix que
+	 * llega por parametro
+	 * 
 	 * @param dormitorios matriz (VectorXVector)
 	 * @return
 	 */
@@ -280,6 +290,7 @@ public class MetodosBuscar {
 
 	/**
 	 * Actualiza la disponibilidad del hotel segun los dormitorios de su matriz
+	 * 
 	 * @param hotel Hotel
 	 * @return booleano que indica la disponibilidad
 	 */
@@ -523,7 +534,9 @@ public class MetodosBuscar {
 	}
 
 	/**
-	 * Busca los tipos de servicios en la base de datos y los mete en un string array
+	 * Busca los tipos de servicios en la base de datos y los mete en un string
+	 * array
+	 * 
 	 * @return
 	 */
 	public String[] buscarNombresSrv() {
@@ -542,6 +555,7 @@ public class MetodosBuscar {
 
 	/**
 	 * Crea un array de servicios con los nombres de buscarNombreSrv
+	 * 
 	 * @param nombreSrv string array
 	 * @return servicio array
 	 */
@@ -555,9 +569,11 @@ public class MetodosBuscar {
 
 	/**
 	 * Devuelve la posicion de del servicio en el string array de nombreSrv
-	 * @param nombre string servicio que se quiere encontrar
+	 * 
+	 * @param nombre    string servicio que se quiere encontrar
 	 * @param nombreSrv array con nombres de servicios
-	 * @return index del array con la coincidencia, devuelve -1 en caso de no encontrar nada
+	 * @return index del array con la coincidencia, devuelve -1 en caso de no
+	 *         encontrar nada
 	 */
 	public int buscarPosSrv(String nombre, String[] nombreSrv) {
 		for (int i = 0; i < nombreSrv.length; i++) {
@@ -565,5 +581,76 @@ public class MetodosBuscar {
 				return i;
 		}
 		return -1;
+	}
+
+	/**
+	 * Devuelve un array paralelo al indicado por parametro de integers con el
+	 * numero de reservas de dicho alojamiento
+	 * 
+	 * @param alojs
+	 * @return int[]
+	 */
+	public int[] arrayNumeroReservas(Alojamiento[] alojs) {
+		int[] numReservas = new int[alojs.length];
+
+		int i = 0;
+		for (Alojamiento aloj : alojs) {
+			String tipo = FuncionesGenerales.tipoAloj(aloj);
+			String json = bd.consultarToGson("SELECT COUNT(*) 'auxiliar' FROM `reserva` WHERE `idRsv` IN (SELECT `idRsv` FROM `rsv" + tipo.toLowerCase() + "` WHERE `id" + tipo + "`='" + aloj.getId() + "')");
+			if (json.equals("")) {
+				numReservas[i] = 0;
+			} else {
+				Global[] numReservasGlobal = gson.fromJson(json, Global[].class);
+				numReservas[i] =  ((Double) numReservasGlobal[0].getAuxiliar()).intValue();
+			}
+			i++;
+		}
+		return numReservas;
+	}
+
+	/**
+	 * Ordena los alojamientos por popularidad y despues alfabeticamente en caso de tener las misma popularidad
+	 * @param alojs
+	 * @param popularidad
+	 * @return
+	 */
+	public Alojamiento[] ordenarPorPopularidadYAlfabeticamente(Alojamiento[] alojs, int[] popularidad) {
+		// Ordenacion por popularidad
+		int swapper = 0;
+		Alojamiento alojSwapper = null;
+		for (int f = 1; f < popularidad.length; f++) {
+			boolean ordenado = true;
+			for (int i = 0; i < popularidad.length - f; i++) {
+				if (popularidad[i] < popularidad[i + 1]) {
+					alojSwapper = alojs[i];
+					swapper = popularidad[i];
+					alojs[i] = alojs[i + 1];
+					popularidad[i] = popularidad[i + 1];
+					alojs[i + 1] = alojSwapper;
+					popularidad[i + 1] = swapper;
+					ordenado = false;
+				}
+			}
+			if (ordenado)
+				break;
+		}
+		
+		// Ordenacion Alfabetica
+		for (int f = 1; f < popularidad.length; f++) {
+			boolean ordenado = true;
+			for (int i = 0; i < popularidad.length - f; i++) {
+				if (popularidad[i] == popularidad[i + 1]) {
+					if (alojs[i].getNombre().compareTo(alojs[i + 1].getNombre()) > 0) {
+						alojSwapper = alojs[i];
+						alojs[i] = alojs[i + 1];
+						alojs[i + 1] = alojSwapper;
+						ordenado = false;
+					}
+				}
+			}
+			if (ordenado)
+				break;
+		}
+		return alojs;
 	}
 }
