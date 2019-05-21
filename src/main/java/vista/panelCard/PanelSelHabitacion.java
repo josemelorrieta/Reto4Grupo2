@@ -16,9 +16,6 @@ import modelo.Dormitorio;
 
 public class PanelSelHabitacion extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public JLabel lblTitulo;

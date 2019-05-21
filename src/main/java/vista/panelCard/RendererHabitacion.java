@@ -19,9 +19,6 @@ import modelo.TipoCama;
 
 public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormitorio>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public JLabel lblFoto,lblNombre,lblCamas, lblDisponible,lblImgInfant,lblImgMatri,lblImgIndi, lblMatri,lblIndi,lblInfant;
 	
