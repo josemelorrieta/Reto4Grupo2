@@ -30,7 +30,7 @@ public class TestDormitorio {
 //				0);
 //	}
 
-	/**
+	/*
 	 * @Test public void testSetM2() { dormitorioTest=new Dormitorio(intTest,
 	 *       intTest, arrayMobiliarioTest); dormitorioTest.setM2(intTest1);
 	 *       assertEquals(dormitorioTest.getPrecio(),
