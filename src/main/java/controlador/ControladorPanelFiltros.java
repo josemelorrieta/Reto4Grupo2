@@ -30,12 +30,15 @@ public class ControladorPanelFiltros extends ControladorPanelResBusqueda {
 	}
 	
 	private void initArraysBoolean() {
-		for(boolean b:estadosTipoAloj)
-			b = true;
-		for(boolean b:estadosServ)
-			b = false;
-		for(boolean b:estadosTipoPension)
-			b = false;
+		for(int i=0;i<estadosTipoAloj.length;i++) {
+			estadosTipoAloj[i] = true;
+		}
+		for(int i=0;i<estadosServ.length;i++) {
+			estadosServ[i] = false;
+		}
+		for(int i=0;i<estadosTipoPension.length;i++) {
+			estadosTipoPension[i] = false;
+		}
 	}
 	
 	private void initListeners() {
