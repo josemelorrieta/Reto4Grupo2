@@ -19,6 +19,7 @@ import util.FuncionesGenerales;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import java.awt.Cursor;
 
 public class PanelLogin extends JPanel {
 
@@ -92,6 +93,7 @@ public class PanelLogin extends JPanel {
 		add(txtDni);
 		
 		btnRegistro = new JButton("REGISTRO");
+		btnRegistro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistro.setIcon(new ImageIcon(PanelLogin.class.getResource("/imagenes/general/boton140.png")));
 		btnRegistro.setForeground(Color.WHITE);
 		btnRegistro.setFont(new Font("Tahoma", Font.PLAIN, 14));

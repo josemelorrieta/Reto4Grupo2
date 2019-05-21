@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import java.awt.Cursor;
 
 public class PanelAcompaniante extends JPanel {
 	/**
@@ -94,6 +95,7 @@ public class PanelAcompaniante extends JPanel {
 		add(lblValiDni);
 		
 		btnAniadir = new JButton("AÑADIR");
+		btnAniadir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAniadir.setForeground(Color.WHITE);
 		btnAniadir.setIcon(new ImageIcon(PanelAcompaniante.class.getResource("/imagenes/general/boton140.png")));
 		btnAniadir.setFont(new Font("Tahoma", Font.PLAIN, 14));

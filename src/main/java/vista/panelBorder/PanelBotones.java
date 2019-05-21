@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import vista.panelCard.PanelBuscar;
 import java.awt.Color;
+import java.awt.Cursor;
 
 
 public class PanelBotones extends JPanel {
@@ -33,6 +34,7 @@ public class PanelBotones extends JPanel {
 	private void instanciarObjetos() {
 		
 		btnVolver = new JButton("VOLVER");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setForeground(Color.WHITE);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setMargin(new Insets(0, 0, 0, 0));
@@ -47,6 +49,7 @@ public class PanelBotones extends JPanel {
 		add(btnVolver);
 	
 		btnSiguiente = new JButton("SIGUIENTE");
+		btnSiguiente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSiguiente.setForeground(Color.WHITE);
 		btnSiguiente.setFocusPainted(false);
 		btnSiguiente.setMargin(new Insets(0, 0, 0, 0));

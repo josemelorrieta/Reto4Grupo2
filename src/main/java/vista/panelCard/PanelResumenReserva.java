@@ -14,6 +14,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import java.awt.Cursor;
 
 
 public class PanelResumenReserva extends JPanel {
@@ -240,6 +241,7 @@ public class PanelResumenReserva extends JPanel {
 		txtCodProm.setColumns(10);
 		
 		btnCodProm = new JButton("Ok");
+		btnCodProm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCodProm.setIcon(new ImageIcon(PanelResumenReserva.class.getResource("/imagenes/general/boton50.png")));
 		btnCodProm.setForeground(Color.WHITE);
 		btnCodProm.setFont(new Font("Tahoma", Font.PLAIN, 14));

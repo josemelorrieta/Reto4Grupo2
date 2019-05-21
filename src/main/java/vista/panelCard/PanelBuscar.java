@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import java.awt.Cursor;
 
 public class PanelBuscar extends JPanel {
 
@@ -61,6 +62,7 @@ public class PanelBuscar extends JPanel {
 		add(cbxBuscar);
 		
 		btnBuscar = new JButton("BUSCAR");
+		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFocusPainted(false);
 		btnBuscar.setMargin(new Insets(0, 0, 0, 0));
@@ -85,13 +87,6 @@ public class PanelBuscar extends JPanel {
 		lblElejirLoc.setBounds(292, 147, 440, 35);
 		add(lblElejirLoc);	
 		
-//		lblFondoElegir = new JLabel("Seleccionar localidad:");
-//		lblFondoElegir.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblFondoElegir.setForeground(Color.BLACK);
-//		lblFondoElegir.setFont(new Font("Tahoma", Font.PLAIN, 20));
-//		lblFondoElegir.setBounds(293, 145, 440, 39);
-//		add(lblFondoElegir);
-		
 		lblFechaEnt = new JLabel("Fecha de entrada:");
 		lblFechaEnt.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFechaEnt.setOpaque(true);
@@ -103,19 +98,11 @@ public class PanelBuscar extends JPanel {
 		
 		spnDateEditorFechaEnt = new JSpinnerDateEditor();
 		spnDateEditorFechaEnt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		spnDateEditorFechaEnt.setToolTipText("");
 		((JSpinner.DefaultEditor) spnDateEditorFechaEnt.getEditor()).getTextField().setEditable(false);
 		
-//		lblFondoFent = new JLabel("Fecha de entrada:");
-//		lblFondoFent.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblFondoFent.setForeground(Color.BLACK);
-//		lblFondoFent.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		lblFondoFent.setBounds(293, 336, 185, 39);
-//		add(lblFondoFent);
-		
 		calenEntrada = new JDateChooser(null, null, null, spnDateEditorFechaEnt);
-		calenEntrada.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		calenEntrada.setBounds(292, 369, 185, 27);
+		calenEntrada.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		calenEntrada.setBounds(292, 369, 185, 32);
 		calenEntrada.setDateFormatString("dd-MM-yyyy");
 		add(calenEntrada);
 		
@@ -140,8 +127,8 @@ public class PanelBuscar extends JPanel {
 //		add(lblFondoFSal);
 		
 		calenSalida = new JDateChooser(null, null, null, spnDateEditorFechaSal);
-		calenSalida.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		calenSalida.setBounds(546, 369, 185, 27);
+		calenSalida.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		calenSalida.setBounds(546, 369, 185, 32);
 		calenSalida.setDateFormatString("dd-MM-yyyy");
 		add(calenSalida);
 		
