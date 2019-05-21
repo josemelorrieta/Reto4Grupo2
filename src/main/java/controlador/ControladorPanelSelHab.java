@@ -3,7 +3,6 @@ package controlador;
 import java.util.Vector;
 
 import modelo.Dormitorio;
-import modelo.Modelo;
 import vista.VentanaPpal;
 
 public class ControladorPanelSelHab {
@@ -22,13 +21,16 @@ public class ControladorPanelSelHab {
 				i++;
 				continue;
 			}
+			boolean metido=false;
 			for (Dormitorio dormi : columna) {
 				if (dormi.isDisponible()) {
 					vis.pCenter.pSelHab.modelResHab.addElement(dormi);
+					metido=true;
 					break;
 				} else
 					continue;
 			}
+			if(!metido) vis.pCenter.pSelHab.modelResHab.addElement(dormitoriosModelo[i]);
 			i++;
 		}
 	}
