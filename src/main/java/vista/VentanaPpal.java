@@ -52,6 +52,9 @@ public class VentanaPpal extends JFrame {
 		getContentPane().add(pTitulo, BorderLayout.NORTH);
 		
 		pCenter = new PanelCenter();
+		pCenter.pSelHab.lblTitulo.setSize(590, 26);
+		pCenter.pSelHab.lblTitulo.setLocation(217, 26);
+		pCenter.pSelHab.scroll.setLocation(217, 80);
 		pCenter.pResumenPago.setBackground(Color.WHITE);
 		pCenter.pPago.setBackground(Color.WHITE);
 		pCenter.pAcompaniante.setBackground(Color.WHITE);

@@ -106,6 +106,7 @@ public class PanelRegistro extends JPanel {
 		txtApellido.setColumns(10);
 
 		spnDateEditorNacimiento = new JSpinnerDateEditor();
+		spnDateEditorNacimiento.setBackground(Color.WHITE);
 		spnDateEditorNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		((JSpinner.DefaultEditor) spnDateEditorNacimiento.getEditor()).getTextField().setEditable(false);
 
@@ -117,6 +118,8 @@ public class PanelRegistro extends JPanel {
 		modeloSexo = new DefaultComboBoxModel<>(Sexo.values());
 
 		comboBoxSexo = new JComboBox<Sexo>();
+		comboBoxSexo.setBackground(Color.WHITE);
+		comboBoxSexo.getEditor().getEditorComponent().setBackground(Color.WHITE);
 		comboBoxSexo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBoxSexo.setModel(modeloSexo);
 		comboBoxSexo.setBounds(408, 308, 207, 27);

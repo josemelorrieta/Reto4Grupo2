@@ -48,7 +48,12 @@ public class Casa extends Alojamiento {
 					}
 					for (Mobiliario mobi : ((Dormitorio) hab).getMobiliario()) {
 						if (mobi instanceof Cama) {
-							cont += 1;
+							TipoCama tipo=((Cama) mobi).getTipoCama();
+							if(tipo==TipoCama.INDIVIDUAL || tipo==TipoCama.INFANTIL) {
+								cont++;
+							}else if(tipo==TipoCama.MATRIMONIO) {
+								cont+=2;
+							}
 						}
 					}
 				}
