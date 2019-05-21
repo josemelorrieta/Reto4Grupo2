@@ -45,7 +45,7 @@ public class FuncionesGenerales {
 	
 	/**
 	 * Devuelve el string correspondiente a cada tipo de objeto alojamiento, usar en
-	 * inserts y selects
+	 * inserts y selects. Posibles returns "Hab", "Apart", "Casa", ""
 	 * 
 	 * @param aloj
 	 * @return

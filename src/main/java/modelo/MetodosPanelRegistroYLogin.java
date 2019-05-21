@@ -70,9 +70,8 @@ public class MetodosPanelRegistroYLogin {
 	 * Devuelve el array de booleanos y el booleano del login a su estado original
 	 */
 	public void resetComprobacion() {
-		for (boolean estado : comprobacionRegistro) {
-			estado = false;
-		}
+		for (int i=0;i<comprobacionRegistro.length;i++) 
+			comprobacionRegistro[i] = false;	
 		comprobacionLogin = false;
 	}
 
