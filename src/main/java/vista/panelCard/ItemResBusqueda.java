@@ -55,6 +55,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblFondo.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
 		lblFondo.setBounds(0, 0, 570, 150);
 		add(lblFondo);
+		
 		lblFoto = new JLabel("New label");
 		lblFoto.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/noimage.png")));
 		lblFoto.setBounds(10, 10, 90, 90);

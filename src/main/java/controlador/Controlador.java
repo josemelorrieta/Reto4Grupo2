@@ -31,6 +31,7 @@ public class Controlador {
 	private ControladorPanelResumenReserva cResumenRes;
 	private ControladorPanelAcompaniante cAcompaniante;
 	private ControladorPanelServicios cServicios;
+	private ControladorPanelSelHab cSelHabitacion;
 
 	/**
 	 * Constructor del controlador
@@ -59,6 +60,7 @@ public class Controlador {
 		cResumenPago = new ControladorPanelResumenPago(mod, vis.pCenter.pResumenPago);
 		cAcompaniante = new ControladorPanelAcompaniante(vis, this, mod);
 		cServicios = new ControladorPanelServicios(vis, mod);
+		cSelHabitacion = new ControladorPanelSelHab(vis);
 	}
 
 	/**
@@ -84,7 +86,7 @@ public class Controlador {
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty() && vis.pCenter.pResBusq.resultBusq.getSelectedValue().isDisponible()) {
 						mod.reserva.setAlojReservado(vis.pCenter.pResBusq.resultBusq.getSelectedValue());
 						if (mod.reserva.getAlojReservado() instanceof Hotel) {
-							vis.pCenter.pSelHab.setResultHab(((Hotel) mod.reserva.getAlojReservado()).getMatrix(), mod.tiposDorm);
+							cSelHabitacion.setResultHab(((Hotel) mod.reserva.getAlojReservado()).getMatrix(),mod.tiposDorm);
 							vis.pCenter.pSelHab.resultHab.ensureIndexIsVisible(0);
 							vis.pCenter.nextPanel();
 						} else {

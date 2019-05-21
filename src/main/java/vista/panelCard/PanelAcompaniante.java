@@ -90,7 +90,7 @@ public class PanelAcompaniante extends JPanel {
 		add(lblValiApellido);
 
 		lblValiDni = new JLabel("* El DNI esta compuesto por 8 numeros y una letra");
-		lblValiDni.setBounds(625, 196, 270, 14);
+		lblValiDni.setBounds(625, 196, 299, 14);
 		add(lblValiDni);
 		
 		btnAniadir = new JButton("AÑADIR");
@@ -124,6 +124,11 @@ public class PanelAcompaniante extends JPanel {
 		lblListadoDeAcompaantes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblListadoDeAcompaantes.setBounds(267, 324, 299, 27);
 		add(lblListadoDeAcompaantes);
+		
+		JLabel lblNewLabel = new JLabel("Doble click para quitar un acompañante de la lista");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel.setBounds(267, 534, 444, 27);
+		add(lblNewLabel);
 
 		JLabel[] arrayLabel = { lblNombre, lblApellido, lblDni };
 		JLabel[] arrayLabelVali = { lblValiNombre, lblValiApellido, lblValiDni };

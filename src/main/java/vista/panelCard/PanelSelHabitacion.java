@@ -1,74 +1,62 @@
 package vista.panelCard;
 
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.SystemColor;
-import java.util.Vector;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 
 import modelo.Dormitorio;
 
 public class PanelSelHabitacion extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	public JLabel lblTitulo;
-	public DefaultListModel<Dormitorio> modelResHab;
+	public DefaultListModel<Dormitorio> modelResHab = new DefaultListModel<Dormitorio>();
 	public JList<Dormitorio> resultHab;
 	public JScrollPane scroll;
 
+	
 	public PanelSelHabitacion() {
-		setPanelParametros();
+		setParametros();
 		instanciarObjetos();
 	}
-
-	private void setPanelParametros() {
-		setPreferredSize(new Dimension(800, 400));
+	
+	private void setParametros() {
+		setPreferredSize(new Dimension(1024,588));
 		setLayout(null);
 	}
-
-	private void instanciarObjetos() {
-		lblTitulo = new JLabel("Datos del alojamiento");
+	
+	private void instanciarObjetos() {	
+		lblTitulo = new JLabel("Seleccionarel tipo de habitación");
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTitulo.setBounds(43, 32, 116, 14);
+		lblTitulo.setBounds(40, 26, 869, 26);
 		add(lblTitulo);
-
-		modelResHab = new DefaultListModel<Dormitorio>();
-
+		
 		resultHab = new JList<Dormitorio>(modelResHab);
-		resultHab.setBackground(SystemColor.control);
+		resultHab.setBackground(Color.WHITE);
 		resultHab.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultHab.setCellRenderer(new RendererHabitacion());
-
+		
 		scroll = new JScrollPane(resultHab);
-		scroll.setLocation(100, 60);
-		scroll.setSize(520, 320);
+		scroll.setLocation(40, 80);
+		scroll.setSize(590, 480);
+		scroll.getVerticalScrollBar().setUnitIncrement(8);
 		add(scroll);
+		
+		
 	}
 
-	public void setResultHab(Vector<Vector<Dormitorio>> dormitorios, Dormitorio[] dormitoriosModelo) {
-		modelResHab.clear();
-		int i = 0;
-		for (Vector<Dormitorio> columna : dormitorios) {
-			if (columna == null) {
-				modelResHab.addElement(dormitoriosModelo[i]);
-				i++;
-				continue;
-			}
-			for (Dormitorio dormi : columna) {
-				if (dormi.isDisponible()) {
-					modelResHab.addElement(dormi);
-					break;
-				} else
-					continue;
-			}
-			i++;
-		}
-	}
 }
