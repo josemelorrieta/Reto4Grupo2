@@ -10,8 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
+import modelo.Alojamiento;
 import modelo.Casa;
 import modelo.Dormitorio;
 import modelo.Hotel;
@@ -35,9 +37,11 @@ public class ControladorPanelBuscar {
 
 	/**
 	 * Constructor para el controlador
-	 * @param vis Vista la cual edita
-	 * @param cont Controlador principal en caso de que necesite acceder a algun otro metodo
-	 * @param mod Modelo donde se guarda la informacion
+	 * 
+	 * @param vis  Vista la cual edita
+	 * @param cont Controlador principal en caso de que necesite acceder a algun
+	 *             otro metodo
+	 * @param mod  Modelo donde se guarda la informacion
 	 */
 	public ControladorPanelBuscar(VentanaPpal vis, Controlador cont, Modelo mod) {
 		this.vis = vis;
@@ -73,7 +77,8 @@ public class ControladorPanelBuscar {
 	}
 
 	/**
-	 * Limita las fechas del calendario al dia de hoy para el calendario de entrada y maniana para el calendario de salida
+	 * Limita las fechas del calendario al dia de hoy para el calendario de entrada
+	 * y maniana para el calendario de salida
 	 */
 	public void fechaHoy() {
 		mod.reserva.setFechaReserva(hoy);
@@ -90,7 +95,9 @@ public class ControladorPanelBuscar {
 	}
 
 	/**
-	 * Actualiza el limite de fechas del segundo calendario en funcion de la fecha por parametro
+	 * Actualiza el limite de fechas del segundo calendario en funcion de la fecha
+	 * por parametro
+	 * 
 	 * @param fechaEntrada fecha desde la cual se limita el rango del calendario
 	 */
 	public void cambioFechaEnt(Date fechaEntrada) {
@@ -121,6 +128,7 @@ public class ControladorPanelBuscar {
 			setResultBusqueda(mod.hotelesBusqueda, vis.pCenter.pResBusq, mod.tiposDorm);
 			setResultBusqueda(mod.casasBusqueda, vis.pCenter.pResBusq);
 			setResultBusqueda(mod.apartBusqueda, vis.pCenter.pResBusq);
+			ordenarAlojamientos();
 			vis.pCenter.pResBusq.resultBusq.ensureIndexIsVisible(0);
 			vis.pBotones.setBotonesVisible(true);
 			vis.pCenter.nextPanel();
@@ -141,16 +149,20 @@ public class ControladorPanelBuscar {
 	}
 
 	/**
-	 * Carga los hoteles en el modelo del Jlist y aniade las camas a su array de mobiliario
-	 * @param hoteles array de hoteles que carga
-	 * @param panel panel en cual carga los hoteles
-	 * @param tiposDorm array de dormitorios modelo para cargar las camas en los dormitorios de los hoteles 
+	 * Carga los hoteles en el modelo del Jlist y aniade las camas a su array de
+	 * mobiliario
+	 * 
+	 * @param hoteles   array de hoteles que carga
+	 * @param panel     panel en cual carga los hoteles
+	 * @param tiposDorm array de dormitorios modelo para cargar las camas en los
+	 *                  dormitorios de los hoteles
 	 */
 	public void setResultBusqueda(Hotel[] hoteles, PanelResBusqueda panel, Dormitorio[] tiposDorm) {
 		panel.modelResBusq.clear();
 		for (Hotel hotel : hoteles) {
 			for (int i = 0; i < hotel.getMatrix().size(); i++) {
-				if(hotel.getMatrix().get(i)==null) continue;
+				if (hotel.getMatrix().get(i) == null)
+					continue;
 				for (int f = 0; f < hotel.getMatrix().get(i).size(); f++) {
 					hotel.getMatrix().get(i).get(f).setMobiliario(FuncionesGenerales.concatenate(hotel.getMatrix().get(i).get(f).getMobiliario(), tiposDorm[i].getMobiliario()));
 				}
@@ -161,7 +173,8 @@ public class ControladorPanelBuscar {
 	}
 
 	/**
-	 * Carga las casas/apartamentos en el modelo del Jlist 
+	 * Carga las casas/apartamentos en el modelo del Jlist
+	 * 
 	 * @param casas array de alojamientos que carga en model
 	 * @param panel panel en el cual carga la informacion
 	 */
@@ -169,7 +182,34 @@ public class ControladorPanelBuscar {
 		for (Casa casa : casas) {
 			panel.modelResBusq.addElement(casa);
 		}
-		panel.lblLocBusq.setText("Destino: " + casas[0].getDireccion().getLocalidad() + "      Entrada: " + formato.format(mod.reserva.getFechaEntrada())  + "      Salida: " + formato.format(mod.reserva.getFechaSalida()));
+		panel.lblLocBusq.setText("Destino: " + casas[0].getDireccion().getLocalidad() + "      Entrada: " + formato.format(mod.reserva.getFechaEntrada()) + "      Salida: " + formato.format(mod.reserva.getFechaSalida()));
 	}
 
+	/**
+	 * Recoge informacion del modelo de la jlist y lo carga en un array
+	 * @param modelResBusq
+	 * @return alojamientos[]
+	 */
+	public Alojamiento[] cargarArrayConAlojamientos(DefaultListModel<Alojamiento> modelResBusq) {
+		// Cargar jlist en array
+		int tam = modelResBusq.size();
+		Alojamiento[] aloj = new Alojamiento[tam];
+		for (int i = 0; i < tam; i++) {
+			aloj[i] = modelResBusq.get(i);
+		}
+		return aloj;
+	}
+	
+	/**
+	 * Ordena los alojamientos y los mete al modelo
+	 */
+	public void ordenarAlojamientos() {
+		Alojamiento[] arrayAloj = cargarArrayConAlojamientos(vis.pCenter.pResBusq.modelResBusq);
+		int[] popularidad = mod.mBuscar.arrayNumeroReservas(arrayAloj);
+		arrayAloj = mod.mBuscar.ordenarPorPopularidadYAlfabeticamente(arrayAloj, popularidad);
+		vis.pCenter.pResBusq.modelResBusq.clear();
+		for (Alojamiento aloj : arrayAloj) {
+			vis.pCenter.pResBusq.modelResBusq.add(vis.pCenter.pResBusq.modelResBusq.size(), aloj);
+		}
+	}
 }
