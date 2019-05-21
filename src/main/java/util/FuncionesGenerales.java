@@ -27,7 +27,11 @@ public class FuncionesGenerales {
 	public final static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	
 	/**
-	 * Cambia el tamaño de un icono
+	 * Cambia el tamanio de un icono
+	 * @param pixelsX numero de pixels horizontales
+	 * @param pixelsY numero de pixels verticales
+	 * @param imagen imagen que se quiere resizear
+	 * @return icono con nuevo tamanio
 	 */
 	public static ImageIcon resizeIcono(int pixelsX, int pixelsY, File imagen) {
 		BufferedImage img = null;
@@ -47,8 +51,8 @@ public class FuncionesGenerales {
 	 * Devuelve el string correspondiente a cada tipo de objeto alojamiento, usar en
 	 * inserts y selects. Posibles returns "Hab", "Apart", "Casa", ""
 	 * 
-	 * @param aloj
-	 * @return
+	 * @param aloj alojamiento el cual determina que string vendra en el return
+	 * @return String 4 posibles resultados "Hab", "Apart", "Casa" y ""
 	 */
 	public static String tipoAloj(Alojamiento aloj) {
 		String tipo = "";
@@ -64,10 +68,10 @@ public class FuncionesGenerales {
 	
 	/**
 	 * Calcula la diferencia de tiempo entre dos fechas
-	 * @param fecha1
-	 * @param fecha2
+	 * @param fecha1 primera fecha del periodo
+	 * @param fecha2 segunda fecha del periodo
 	 * @param unidadTiempo utilizar TimeUnit.DAYS etc, devuelve ese tiempo en long(milisegundos)
-	 * @return
+	 * @return cantidad de tiempo en la unidad de tiempo especificada
 	 */
 	public static long diferenciaEntreFechas(Date fecha1, Date fecha2, TimeUnit unidadTiempo) {
 	    long diffInMillies = fecha1.getTime() - fecha2.getTime();
@@ -77,9 +81,10 @@ public class FuncionesGenerales {
 	
 	/**
 	 * Concatena dos arrays
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param <T> clase abstracta
+	 * @param a array uno, debe ser padre o estar al mismo nivel jerarquico de a
+	 * @param b array dos, debe ser hijo o estar al mismo nivel jerarquico de b
+	 * @return un array formado por a y b
 	 */
 	public static <T> T[] concatenate(T[] a, T[] b) {
 		if (a==null && b==null) return null;

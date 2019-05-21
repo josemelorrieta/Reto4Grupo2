@@ -290,6 +290,7 @@ public class MetodosPanelPago {
 	/**
 	 * Limpia el panel reseteando todos los elementos a valores por defecto
 	 * seleccionados por el programador
+	 * @param panel panel pago
 	 */
 	public void limpiar(PanelPago panel) {
 		panel.textPagado.setText("0.00");
@@ -302,8 +303,8 @@ public class MetodosPanelPago {
 	/**
 	 * Activa o desactiva su array de botones al estado que se le pasa por
 	 * parametros
-	 * 
-	 * @param estado El estado "enables" que se quiere tener para los botones
+	 * @param panel panel pago
+	 * @param estado que se quiere poner en los botones
 	 */
 	public void actDesBotones(PanelPago panel, boolean estado) {
 		for (int i = 0; i < panel.arrayBtn.length; i++) {

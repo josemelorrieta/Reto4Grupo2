@@ -187,7 +187,7 @@ public class ControladorPanelBuscar {
 
 	/**
 	 * Recoge informacion del modelo de la jlist y lo carga en un array
-	 * @param modelResBusq
+	 * @param modelResBusq modelo de un jlist con la informacion de los alojamientos
 	 * @return alojamientos[]
 	 */
 	public Alojamiento[] cargarArrayConAlojamientos(DefaultListModel<Alojamiento> modelResBusq) {

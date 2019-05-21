@@ -437,9 +437,9 @@ public class MetodosPanelRegistroYLogin {
 	/**
 	 * Comprueba que has introducido la contraseña segun los criterios requeridos
 	 * (letra mayus,letra minus, numero y almenos 8 caracteres)
-	 * 
-	 * @param contrasenia que se valida
-	 * @return
+	 * @param pass jpasswordfield de contrasenia
+	 * @param aviso label que muestra mensaje de error
+	 * @return true si la contrasenia es valida, false en caso contrario
 	 */
 	public boolean seguridadContrasenia(JPasswordField pass, JLabel aviso) {
 		// Regex para validar contraseña, por orden: Una letra minuscula, una letra
@@ -479,9 +479,9 @@ public class MetodosPanelRegistroYLogin {
 
 	/**
 	 * Comprueba que has metido letras en el campo de texto
-	 * 
-	 * @param vis
-	 * @return
+	 * @param campoTexto campo de texto
+	 * @param aviso jlabel con mensaje
+	 * @return true si el texto cumple los requisitos, false en caso contrario
 	 */
 	public boolean validarSoloLetras(JTextField campoTexto, JLabel aviso) {
 		if (!(campoTexto.getText().matches("^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+$"))) {
