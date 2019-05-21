@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import modelo.Casa;
 import modelo.DesglosePrecio;
 import modelo.Dormitorio;
 import modelo.Hotel;
@@ -12,7 +13,8 @@ import modelo.Modelo;
 import vista.VentanaPpal;
 
 /**
- * Controlador principal del programa, con modelo, vista y otros controladores menores
+ * Controlador principal del programa, con modelo, vista y otros controladores
+ * menores
  *
  */
 public class Controlador {
@@ -33,7 +35,8 @@ public class Controlador {
 
 	/**
 	 * Constructor del controlador
-	 * @param vista Vista la cual controla
+	 * 
+	 * @param vista  Vista la cual controla
 	 * @param modelo Modelo del cual recoge datos y los procesa
 	 */
 	public Controlador(VentanaPpal vista, Modelo modelo) {
@@ -132,7 +135,19 @@ public class Controlador {
 					if (vis.pCenter.pResumenRes.chckbxCondiciones.isSelected()) {
 						vis.pCenter.pPago.textAPagar.setText(mod.mPago.dosDec.format(mod.reserva.getDesglose().getTotal()));
 						cResumenPago.insertarDatos();
-						vis.pCenter.nextPanel();
+						if (mod.reserva.getAlojReservado() instanceof Hotel) {
+							if (mod.reserva.getDormitorioReservado().capacidad() == 1) {
+								vis.pCenter.changePanel("9");
+							} else {
+								vis.pCenter.nextPanel();
+							}
+						}else {
+							if (((Casa) mod.reserva.getAlojReservado()).numCamas() == 1) {
+								vis.pCenter.changePanel("9");
+							} else {
+								vis.pCenter.nextPanel();
+							}
+						}
 						vis.pCenter.pResumenRes.chckbxCondiciones.setSelected(false);
 					} else {
 						JOptionPane.showMessageDialog(vis, "Debe aceptar las condiciones para proceder al pago", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -153,11 +168,9 @@ public class Controlador {
 						mod.mPago.imprimirBillete(mod.reserva);
 						cResumenPago.insertarDatos();
 						if (mod.mPago.guardarReserva(mod.reserva))
-							JOptionPane.showMessageDialog(vis, "Reserva guardada correctamente", "INFO",
-									JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(vis, "Reserva guardada correctamente", "INFO", JOptionPane.INFORMATION_MESSAGE);
 						else
-							JOptionPane.showMessageDialog(vis, "¡Error al guardar la reserva!", "¡ATENCIÓN!",
-									JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(vis, "¡Error al guardar la reserva!", "¡ATENCIÓN!", JOptionPane.ERROR_MESSAGE);
 					}
 					break;
 				case 10:
@@ -207,7 +220,8 @@ public class Controlador {
 	}
 
 	/**
-	 * Crea un nuevo objeto DesglosePrecio para guardar informacion relevante con las elecciones del cliente
+	 * Crea un nuevo objeto DesglosePrecio para guardar informacion relevante con
+	 * las elecciones del cliente
 	 */
 	public void calcularDesglosePrecio() {
 		if (mod.reserva.getAlojReservado() instanceof Hotel)
