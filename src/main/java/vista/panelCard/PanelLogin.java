@@ -57,8 +57,8 @@ public class PanelLogin extends JPanel {
 		setLayout(null);
 		add(contraOn0);
 
-		iconoOn = FuncionesGenerales.resizeIcono(contraOn0.getWidth(), contraOn0.getHeight(), new File(PanelPago.class.getResource("/imagenes/registro/contraOn.png").getPath()));
-		iconoOff = FuncionesGenerales.resizeIcono(contraOn0.getWidth(), contraOn0.getHeight(), new File(PanelPago.class.getResource("/imagenes/registro/contraOff.png").getPath()));
+		iconoOn = new ImageIcon(getClass().getResource("/imagenes/registro/contraOn.png"));
+		iconoOff = new ImageIcon(getClass().getResource("/imagenes/registro/contraOff.png"));
 
 		contraOn0.setIcon(iconoOn);
 

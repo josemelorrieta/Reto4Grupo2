@@ -45,6 +45,7 @@ public class PanelRegistro extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelRegistro() {
+		setBackground(Color.WHITE);
 		setParametros();
 		instanciarObjetos();
 	}
@@ -68,8 +69,8 @@ public class PanelRegistro extends JPanel {
 		contraOn1.setVisible(true);
 		add(contraOn1);
 
-		iconoOn = FuncionesGenerales.resizeIcono(contraOn0.getWidth(), contraOn0.getHeight(), new File(PanelPago.class.getResource("/imagenes/registro/contraOn.png").getPath()));
-		iconoOff = FuncionesGenerales.resizeIcono(contraOn0.getWidth(), contraOn0.getHeight(), new File(PanelPago.class.getResource("/imagenes/registro/contraOff.png").getPath()));
+		iconoOn = new ImageIcon(getClass().getResource("/imagenes/registro/contraOn.png"));
+		iconoOff = new ImageIcon(getClass().getResource("/imagenes/registro/contraOff.png"));
 
 		contraOn0.setIcon(iconoOn);
 		contraOn1.setIcon(iconoOn);
@@ -178,6 +179,7 @@ public class PanelRegistro extends JPanel {
 		add(lblValiContraCoinciden);
 		
 		chckbxCondiciones = new JCheckBox("  Acepto las");
+		chckbxCondiciones.setBackground(Color.WHITE);
 		chckbxCondiciones.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxCondiciones.setBounds(408, 469, 100, 23);
 		add(chckbxCondiciones);

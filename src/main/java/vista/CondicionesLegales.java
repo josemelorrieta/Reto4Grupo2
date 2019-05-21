@@ -1,12 +1,17 @@
 package vista;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Insets;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 
 public class CondicionesLegales extends JFrame {
 
@@ -88,6 +93,7 @@ public class CondicionesLegales extends JFrame {
 	 * Create the panel.
 	 */
 	public CondicionesLegales() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CondicionesLegales.class.getResource("/imagenes/general/logo.png")));
 		getContentPane().setLayout(null);
 		setSize(695,587);
 		setLocationRelativeTo(null);
@@ -97,6 +103,7 @@ public class CondicionesLegales extends JFrame {
 		JLabel lblTitulo = new JLabel("Condiciones Legales");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblTitulo.setBounds(23, 11, 402, 47);
+		lblTitulo.setForeground(new Color(0,109,214));
 		getContentPane().add(lblTitulo);
 		
 		JTextArea txtAreaCondiciones = new JTextArea();
@@ -111,11 +118,21 @@ public class CondicionesLegales extends JFrame {
 		scroll = new JScrollPane(txtAreaCondiciones);
 		scroll.setLocation(23, 53);
 		scroll.setSize(644, 420);
-		add(scroll);
+		getContentPane().add(scroll);
 		
-		btnCerrar = new JButton("Cerrar");
-		btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnCerrar.setBounds(290, 504, 101, 31);
+		btnCerrar = new JButton("CERRAR");
+		btnCerrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCerrar.setIcon(new ImageIcon(CondicionesLegales.class.getResource("/imagenes/general/boton140.png")));
+		btnCerrar.setForeground(Color.WHITE);
+		btnCerrar.setFocusPainted(false);
+		btnCerrar.setMargin(new Insets(0, 0, 0, 0));
+		btnCerrar.setContentAreaFilled(false);
+		btnCerrar.setBorderPainted(false);
+		btnCerrar.setOpaque(false);
+		btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCerrar.setBounds(290, 500, 140, 40);
+		btnCerrar.setHorizontalTextPosition(JButton.CENTER);
+		btnCerrar.setVerticalTextPosition(JButton.CENTER);
 		getContentPane().add(btnCerrar);
 
 	}

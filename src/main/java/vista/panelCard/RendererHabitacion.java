@@ -4,15 +4,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.LineBorder;
+
 import modelo.Cama;
 import modelo.Dormitorio;
 import modelo.Mobiliario;
@@ -26,9 +26,6 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 	private JLabel lblPersona2;
 	private JLabel lblPersona3;
 	private JLabel lblNino;
-	
-	private File archImagen; 
-	
 	
 	public RendererHabitacion() {
 		setBackground(Color.WHITE);
@@ -147,33 +144,32 @@ public class RendererHabitacion extends JPanel implements ListCellRenderer<Dormi
 			lblNino.setBounds(posicion, 65, 24, 24);
 		}
 
+		java.net.URL url = null;
 		
 		if (contadores[0] == 1 && contadores[1] == 0 && contadores[2] == 0 ) {
 			lblNombre.setText("Habitación Matrimonio");
-			archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/hab_matrimonio.jpg").getPath());
+			url = getClass().getResource("/imagenes/alojamiento/hotel/hab_matrimonio.jpg");
 		}
 		if (contadores[0] == 0 && contadores[1] == 1 && contadores[2] == 0 ) {
 			lblNombre.setText("Habitación Individual");
-			archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/hab_individual.jpg").getPath());
+			url = getClass().getResource("/imagenes/alojamiento/hotel/hab_individual.jpg");
 		}
 		if (contadores[0] == 0 && contadores[1] == 2 && contadores[2] == 0 ) {
 			lblNombre.setText("Habitación Doble");
-			archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/hab_doble.jpg").getPath());
+			url = getClass().getResource("/imagenes/alojamiento/hotel/hab_doble.jpg");
 		}
 		if (contadores[0] == 1 && contadores[1] == 1 && contadores[2] == 0 ) {
 			lblNombre.setText("Habitación Triple");
-			archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/hab_triple.jpg").getPath());
+			url = getClass().getResource("/imagenes/alojamiento/hotel/hab_triple.jpg");
 		}
 		if (contadores[0] == 1 && contadores[1] == 0 && contadores[2] == 1 ) {
 			lblNombre.setText("Habitación Triple Infantil");
-			archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/hab_cuna.jpg").getPath());
+			url = getClass().getResource("/imagenes/alojamiento/hotel/hab_cuna.jpg");
 		}
 		
-		try {
-			lblFoto.setIcon(new ImageIcon(ImageIO.read(archImagen)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Icon imagen = new ImageIcon(url);
+		lblFoto.setIcon(imagen);
+		
 		int camas = contadores[0] + contadores[1] + contadores[2];
 		lblCamas.setText("Camas:  " + camas);
 

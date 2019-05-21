@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -128,17 +129,12 @@ public class ControladorPanelServicios {
 		vis.pCenter.pSelServ.lblFechaEntrada.setText(sdf.format(mod.reserva.getFechaEntrada()));
 		vis.pCenter.pSelServ.lblFechaSalida.setText(sdf.format(mod.reserva.getFechaSalida()));
 		
+		java.net.URL url = null;
+		Icon imagen = null;
 		if (aloj instanceof Hotel) {
-			ImageIcon estrellas = null;
-			try {
-				estrellas = new ImageIcon(ImageIO.read(new File(getClass()
-						.getResource(
-								"/imagenes/alojamiento/hotel/estrellas" + ((Hotel) aloj).getNumEstrellas() + ".png")
-						.getPath())));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			vis.pCenter.pSelServ.lblEstrellas.setIcon(estrellas);
+			url = getClass().getResource("/imagenes/alojamiento/hotel/estrellas" + ((Hotel) aloj).getNumEstrellas() + ".png");
+			imagen = new ImageIcon(url);
+			vis.pCenter.pSelServ.lblEstrellas.setIcon(imagen);
 			vis.pCenter.pSelServ.lblEstrellas.setVisible(true);
 		} else {
 			vis.pCenter.pSelServ.lblEstrellas.setVisible(false);
@@ -146,23 +142,15 @@ public class ControladorPanelServicios {
 		
 		String foto = aloj.getImagen();
 
-		ImageIcon imagen = null;
-		File archImagen;
 		if (!foto.equals("")) {
 			if (aloj instanceof Hotel) {
-				archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/" + foto + "_srv.jpg").getPath());
+				url = getClass().getResource("/imagenes/alojamiento/hotel/" + foto + "_srv.jpg");
 			} else
-				archImagen = new File(
-						getClass().getResource("/imagenes/alojamiento/noHotel/" + foto + "_srv.jpg").getPath());
+				url = getClass().getResource("/imagenes/alojamiento/noHotel/" + foto + "_srv.jpg");
 		} else
-			archImagen = new File(getClass().getResource("/imagenes/alojamiento/noimage.png").getPath());
+			url = getClass().getResource("/imagenes/alojamiento/noimage.png");
 
-		try {
-			imagen = new ImageIcon(ImageIO.read(archImagen));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		imagen = new ImageIcon(url);
 		vis.pCenter.pSelServ.lblImagen.setIcon(imagen);
 		inicializarServicios();
 	}

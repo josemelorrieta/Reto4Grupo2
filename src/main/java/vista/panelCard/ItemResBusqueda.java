@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -177,23 +178,16 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 			boolean isSelected, boolean cellHasFocus) {
 		String foto = aloj.getImagen();
 
-		ImageIcon imagen = null;
-		File archImagen;
+		java.net.URL url = null;
 		if (!foto.equals("")) {
-			if (aloj instanceof Hotel) {
-				archImagen = new File(getClass().getResource("/imagenes/alojamiento/hotel/" + foto + ".jpg").getPath());
-			} else
-				archImagen = new File(
-						getClass().getResource("/imagenes/alojamiento/noHotel/" + foto + ".jpg").getPath());
+			if (aloj instanceof Hotel) 
+				url = getClass().getResource("/imagenes/alojamiento/hotel/" + foto + ".jpg");
+			else 
+				url = getClass().getResource("/imagenes/alojamiento/noHotel/" + foto + ".jpg");
 		} else
-			archImagen = new File(getClass().getResource("/imagenes/alojamiento/noimage.png").getPath());
+			url = getClass().getResource("/imagenes/alojamiento/noimage.png");
 
-		try {
-			imagen = new ImageIcon(ImageIO.read(archImagen));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		Icon imagen = new ImageIcon(url);
 		lblFoto.setIcon(imagen);
 		lblNombre.setText(aloj.getNombre());
 		lblLocalidad.setText(aloj.getDireccion().getCalle() + " (" + aloj.getDireccion().getLocalidad() + ")");
@@ -218,28 +212,18 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		}
 
 		if (aloj instanceof Hotel) {
-			ImageIcon estrellas = null;
-			try {
-				estrellas = new ImageIcon(ImageIO.read(new File(getClass()
-						.getResource(
-								"/imagenes/alojamiento/hotel/estrellas" + ((Hotel) aloj).getNumEstrellas() + ".png")
-						.getPath())));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			lblEstrellas.setIcon(estrellas);
+			url = getClass().getResource("/imagenes/alojamiento/hotel/estrellas" + ((Hotel) aloj).getNumEstrellas() + ".png");
+			
+			imagen = new ImageIcon(url);
+			lblEstrellas.setIcon(imagen);
 			lblEstrellas.setVisible(true);
 			lblCamas.setVisible(false);
 			lblNumCamas.setVisible(false);
 		} else {
-			ImageIcon cama = null;
-			try {
-				cama = new ImageIcon(ImageIO
-						.read(new File(getClass().getResource("/imagenes/alojamiento/noHotel/cama.png").getPath())));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			lblCamas.setIcon(cama);
+			url = getClass().getResource("/imagenes/alojamiento/noHotel/cama.png");
+			
+			imagen = new ImageIcon(url);
+			lblCamas.setIcon(imagen);
 			lblEstrellas.setVisible(false);
 			lblCamas.setVisible(true);
 			lblNumCamas.setVisible(true);
