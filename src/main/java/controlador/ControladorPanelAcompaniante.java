@@ -89,9 +89,7 @@ public class ControladorPanelAcompaniante {
 					JOptionPane.showMessageDialog(vis.pCenter, "Capacidad insuficiente", "¡Atención!", JOptionPane.WARNING_MESSAGE);
 				} else {
 					if (trigger == vis.pCenter.pAcompaniante.btnAniadir && mod.mRegiLog.comprobarDatos(mod.mRegiLog.comprobarAcompaniante)) {
-						Cliente acompaniante = new Cliente(vis.pCenter.pAcompaniante.txtDni.getText(), vis.pCenter.pAcompaniante.txtNombre.getText(), vis.pCenter.pAcompaniante.txtApellido.getText());
-						vis.pCenter.pAcompaniante.modeloAcompaniante.addElement(acompaniante.getNombre() + " " + acompaniante.getApellidos());
-						mod.acompaniantes.add(acompaniante);
+						meterClientes();
 					}
 				}
 			} else {
@@ -99,15 +97,45 @@ public class ControladorPanelAcompaniante {
 					JOptionPane.showMessageDialog(vis.pCenter, "Capacidad insuficiente", "¡Atención!", JOptionPane.WARNING_MESSAGE);
 				} else {
 					if (trigger == vis.pCenter.pAcompaniante.btnAniadir && mod.mRegiLog.comprobarDatos(mod.mRegiLog.comprobarAcompaniante)) {
-						Cliente acompaniante = new Cliente(vis.pCenter.pAcompaniante.txtDni.getText(), vis.pCenter.pAcompaniante.txtNombre.getText(), vis.pCenter.pAcompaniante.txtApellido.getText());
-						vis.pCenter.pAcompaniante.modeloAcompaniante.addElement(acompaniante.getNombre() + " " + acompaniante.getApellidos());
-						mod.acompaniantes.add(acompaniante);
+						meterClientes();
 					}
 				}
 			}
 		}
 	}
 
+	/**
+	 * Mete el usuario en la base de datos
+	 */
+	public void meterClientes() {
+		Cliente acompaniante;
+		try {
+			acompaniante = new Cliente(mod.mRegiLog.encripta(vis.pCenter.pAcompaniante.txtDni.getText()), mod.mRegiLog.encripta(vis.pCenter.pAcompaniante.txtNombre.getText()), mod.mRegiLog.encripta(vis.pCenter.pAcompaniante.txtApellido.getText()));
+		} catch (Exception e1) {
+			acompaniante=null;
+		}
+		boolean repetido = false;
+		for (Cliente cli : mod.acompaniantes) {
+			if (cli.getDni().equals(acompaniante.getDni())) {
+				repetido = true;
+			}
+		}
+		if (!repetido) {
+			try {
+				vis.pCenter.pAcompaniante.modeloAcompaniante.addElement(mod.mRegiLog.desencripta(acompaniante.getNombre()) + " " + mod.mRegiLog.desencripta(acompaniante.getApellidos()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mod.mRegiLog.registrarClienteExtra(acompaniante);
+			mod.acompaniantes.add(acompaniante);
+		} else {
+			JOptionPane.showMessageDialog(vis.pCenter, "Usuario ya añadido", "¡Atención!", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	/**
+	 * Listener para borra cliente de la lista
+	 */
 	private class ListenerLista implements MouseListener {
 
 		@Override
@@ -115,8 +143,9 @@ public class ControladorPanelAcompaniante {
 			JList<String> list = (JList<String>) e.getSource();
 			if (list == vis.pCenter.pAcompaniante.listAcompaniante) {
 				int index = list.locationToIndex(e.getPoint());
-				if (e.getClickCount() == 2 && vis.pCenter.pAcompaniante.modeloAcompaniante.size()>0) {
+				if (e.getClickCount() == 2 && vis.pCenter.pAcompaniante.modeloAcompaniante.size() > 0) {
 					vis.pCenter.pAcompaniante.modeloAcompaniante.remove(index);
+					mod.mRegiLog.borrarClienteExtra(mod.acompaniantes.get(index).getDni());
 					mod.acompaniantes.remove(index);
 				}
 			}

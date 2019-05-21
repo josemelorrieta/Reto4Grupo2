@@ -4,9 +4,9 @@ Datos del cliente:
 Nombre: Popeye
 
 Datos de la reserva:
-Nombre Alojamiento: Hotel Meliá
+Nombre Alojamiento: Hotel Carlton
 Fecha de la reserva: 21-05-2019
 Fecha de entrada   : 21-05-2019
 Fecha de salida    : 22-05-2019
 
-Precio total: 62.70
+Precio total: 53.65

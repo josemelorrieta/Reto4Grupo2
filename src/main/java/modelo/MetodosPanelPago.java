@@ -27,6 +27,11 @@ public class MetodosPanelPago {
 	private ConsultaBD bd;
 	private Modelo mod;
 
+	/**
+	 * Constructor de metodos panel pago
+	 * @param bd conexion con el proyecto de la base de datos
+	 * @param mod modelo
+	 */
 	public MetodosPanelPago(ConsultaBD bd, Modelo mod) {
 		dosDecFormato();
 		this.bd = bd;
@@ -247,6 +252,20 @@ public class MetodosPanelPago {
 		}
 
 		return bd.guardarReserva(idRsv, dni, fechaRsv, fechaIn, fechaOut, precio, id, tipo);
+	}
+	
+	/**
+	 * Guarda todos los clientes en la tabla de clientes extra
+	 * @param idRes id de la reserva
+	 * @param clientes array de clientes
+	 * @return true
+	 */
+	public boolean guardarClientesExtra(int idRes,ArrayList<Cliente> clientes) {
+		for(Cliente cli:clientes) {
+			Object[] arrayInsert= {idRes, cli.getDni()};
+			bd.insertGenerico(arrayInsert, "rsvcliextra");
+		}
+		return true;
 	}
 
 	/**

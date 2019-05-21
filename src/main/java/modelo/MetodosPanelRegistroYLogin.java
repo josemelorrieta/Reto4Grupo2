@@ -21,6 +21,7 @@ import com.google.gson.GsonBuilder;
 import com.toedter.calendar.JDateChooser;
 import BaseDatos.ConsultaBD;
 import util.FuncionesGenerales;
+import vista.panelCard.PanelAcompaniante;
 import vista.panelCard.PanelLogin;
 import vista.panelCard.PanelRegistro;
 
@@ -37,7 +38,7 @@ public class MetodosPanelRegistroYLogin {
 	 * designados
 	 */
 	public boolean[] comprobacionRegistro = { false, false, false, false, false, false };
-	public boolean[] comprobarAcompaniante= {false,false,false};
+	public boolean[] comprobarAcompaniante = { false, false, false };
 	public boolean comprobacionLogin = false;
 
 	public MetodosPanelRegistroYLogin(Modelo mod, ConsultaBD bd) {
@@ -62,8 +63,8 @@ public class MetodosPanelRegistroYLogin {
 	 * Devuelve el array de booleanos y el booleano del login a su estado original
 	 */
 	public void resetComprobacion() {
-		for (int i=0;i<comprobacionRegistro.length;i++) 
-			comprobacionRegistro[i] = false;	
+		for (int i = 0; i < comprobacionRegistro.length; i++)
+			comprobacionRegistro[i] = false;
 		comprobacionLogin = false;
 	}
 
@@ -101,7 +102,7 @@ public class MetodosPanelRegistroYLogin {
 		panel.lblValiDni.setVisible(false);
 		panel.lblValiContra.setVisible(false);
 		panel.lblValiContraCoinciden.setVisible(false);
-		
+
 		panel.chckbxCondiciones.setSelected(false);
 	}
 
@@ -201,7 +202,6 @@ public class MetodosPanelRegistroYLogin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		 
 
 		String json = bd.consultarToGson("select `dni`,`nombre`,`apellidos` 'apellidos',`fechaNac`,`sexo`,`password` from cliente where `dni`='" + dni + "'");
 		gson = new GsonBuilder();
@@ -222,6 +222,7 @@ public class MetodosPanelRegistroYLogin {
 
 	/**
 	 * Registra un cliente si no esta registrado en la base de datos
+	 * 
 	 * @param panel panel donde se encuentra la informacion del cliente
 	 * @return Cliente
 	 */
@@ -242,7 +243,72 @@ public class MetodosPanelRegistroYLogin {
 	}
 
 	/**
+	 * Funcion para comprobar si el dni indicado por parametro esta en la base de
+	 * datos
+	 * 
+	 * @param dni dni de usuario
+	 * @return false si el usuario NO esta registrado, true si ya esta registrado
+	 */
+	public boolean comprobarRegistradoClienteExtra(String dni) {
+		String json = bd.consultarToGson("select `dni` from clienteextra where `dni`='" + dni + "'");
+		if (json.equals("")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Funcion para registrar a un cliente extra en la base de datos
+	 * @param cliente que se quiere registrar
+	 * @return true si ha sido registrado correctamente, false si no ha hecho nada
+	 */
+	public boolean registrarClienteExtra(Cliente cliente) {
+		if (!comprobarRegistradoClienteExtra(cliente.getDni())) {
+			bd.insertGenerico(cliente.toArrayClienteExtra(), "clienteextra");
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Funcion para borrar un cliente extra de la base de datos
+	 * @param dni del cliente que se quiere borrar
+	 * @return true si ha sido borrado correctamente, false si no ha hecho nada
+	 */
+	public boolean borrarClienteExtra(String dni) {
+		if (comprobarRegistradoClienteExtra(dni)) {
+			if (!comprobarReservasPrevias(dni)) {
+				String[] condicion = {"`dni` = '"+dni+"'"};
+				bd.deleteGenerico("clienteextra", condicion);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Funcion para comprobar si el dni del cliente introducido ha sido cliente extra alguna vez
+	 * @param dni de cliente
+	 * @return true si ha sido cliente extra anteriormente, false en caso contrario
+	 */
+	public boolean comprobarReservasPrevias(String dni) {
+		try {
+			dni = encripta(dni);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String json = bd.consultarToGson("select `dni` from rsvcliextra where `dni`='" + dni + "'");
+		if (json.equals("")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
 	 * Codifica un array de bytes en base64
+	 * 
 	 * @param b array de bytes a codificar
 	 * @return array de bytes en base64
 	 * @throws Exception
@@ -252,12 +318,13 @@ public class MetodosPanelRegistroYLogin {
 		OutputStream b64os = MimeUtility.encode(baos, "base64");
 		b64os.write(b);
 		b64os.close();
-		
+
 		return baos.toByteArray();
 	}
-	
+
 	/**
 	 * Decodifica un array desde base64
+	 * 
 	 * @param b array de bytes a decodificar
 	 * @return array de bytes decodificado
 	 * @throws Exception
@@ -269,22 +336,24 @@ public class MetodosPanelRegistroYLogin {
 		int n = b64is.read(tmp);
 		byte[] res = new byte[n];
 		System.arraycopy(tmp, 0, res, 0, n);
-		
+
 		return res;
 	}
-	
+
 	/**
 	 * Pasa la semilla para encriptar los datos como clave secreta
+	 * 
 	 * @return la semilla convertida en clave secreta
 	 */
 	private SecretKeySpec getKey() {
 		SecretKeySpec key = new SecretKeySpec(keyBuffer.getBytes(), "DES");
-		
+
 		return key;
 	}
-	
+
 	/**
 	 * Desencripta una cadena por medio de una semilla
+	 * 
 	 * @param s Cadena a desencriptar
 	 * @return Cadena desencriptada
 	 * @throws Exception
@@ -300,12 +369,13 @@ public class MetodosPanelRegistroYLogin {
 		} else {
 			s1 = s;
 		}
-		
+
 		return s1;
 	}
-	
+
 	/**
 	 * Encripta una cadena por medio de una semilla
+	 * 
 	 * @param s Cadena a encriptar
 	 * @return Cadena encriptada
 	 * @throws Exception
@@ -317,12 +387,13 @@ public class MetodosPanelRegistroYLogin {
 		Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
 		cipher.init(1, getKey());
 		abyte0 = encode(cipher.doFinal(s.getBytes())); // antes
-		
+
 		return "{DES}" + new String(abyte0);
 	}
-	
+
 	/**
 	 * Pone limite a la fecha de nacimiento
+	 * 
 	 * @param calen
 	 */
 	public void limitarFechaNacimiento(JDateChooser calen) {
@@ -372,7 +443,7 @@ public class MetodosPanelRegistroYLogin {
 	 */
 	public boolean seguridadContrasenia(JPasswordField pass, JLabel aviso) {
 		// Regex para validar contraseña, por orden: Una letra minuscula, una letra
-		// mayuscula, un numero y minimo 8 caracteres de longitud	
+		// mayuscula, un numero y minimo 8 caracteres de longitud
 		Pattern p = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");
 		String contraString = new String(pass.getPassword());
 		Matcher m = p.matcher(contraString);
@@ -446,8 +517,7 @@ public class MetodosPanelRegistroYLogin {
 				Global[] codigoBD = gson.fromJson(json, Global[].class);
 				if (json.equals("")) {
 					return false;
-				}
-				else if (((String) codigoBD[0].getAuxiliar()).equals(codigo)) {
+				} else if (((String) codigoBD[0].getAuxiliar()).equals(codigo)) {
 					return true;
 				} else
 					return false;

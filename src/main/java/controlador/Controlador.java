@@ -70,7 +70,7 @@ public class Controlador {
 		vis.pBotones.btnSiguiente.addActionListener(new ListenerBotonesInferiores());
 		vis.pBotones.btnVolver.addActionListener(new ListenerBotonesInferiores());
 	}
-	
+
 	/**
 	 * Listeners para los botones de siguente/volver
 	 *
@@ -86,7 +86,7 @@ public class Controlador {
 					if (!vis.pCenter.pResBusq.resultBusq.isSelectionEmpty() && vis.pCenter.pResBusq.resultBusq.getSelectedValue().isDisponible()) {
 						mod.reserva.setAlojReservado(vis.pCenter.pResBusq.resultBusq.getSelectedValue());
 						if (mod.reserva.getAlojReservado() instanceof Hotel) {
-							cSelHabitacion.setResultHab(((Hotel) mod.reserva.getAlojReservado()).getMatrix(),mod.tiposDorm);
+							cSelHabitacion.setResultHab(((Hotel) mod.reserva.getAlojReservado()).getMatrix(), mod.tiposDorm);
 							vis.pCenter.pSelHab.resultHab.ensureIndexIsVisible(0);
 							vis.pCenter.nextPanel();
 						} else {
@@ -141,7 +141,7 @@ public class Controlador {
 							} else {
 								vis.pCenter.nextPanel();
 							}
-						}else {
+						} else {
 							if (((Casa) mod.reserva.getAlojReservado()).numCamas() == 1) {
 								vis.pCenter.changePanel("9");
 							} else {
@@ -167,9 +167,10 @@ public class Controlador {
 						mod.setPagoExitoso(false);
 						mod.mPago.imprimirBillete(mod.reserva);
 						cResumenPago.insertarDatos();
-						if (mod.mPago.guardarReserva(mod.reserva))
+						if (mod.mPago.guardarReserva(mod.reserva)) {
+							mod.mPago.guardarClientesExtra(mod.mPago.ultimoNumReserva(), mod.acompaniantes);
 							JOptionPane.showMessageDialog(vis, "Reserva guardada correctamente", "INFO", JOptionPane.INFORMATION_MESSAGE);
-						else
+						} else
 							JOptionPane.showMessageDialog(vis, "¡Error al guardar la reserva!", "¡ATENCIÓN!", JOptionPane.ERROR_MESSAGE);
 					}
 					break;

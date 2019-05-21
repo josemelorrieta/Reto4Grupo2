@@ -69,6 +69,15 @@ public class Cliente {
 		return objetos;
 	}
 	
+	/**
+	 * Mete los datos basico necesarios para el cliente extra en un array de objetos, usar en el parametro del insert generico
+	 * @return array de Object
+	 */
+	public Object[] toArrayClienteExtra() {
+		Object[] objetos = { dni, nombre, apellidos};
+		return objetos;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
