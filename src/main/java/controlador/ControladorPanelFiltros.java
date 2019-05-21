@@ -39,6 +39,26 @@ public class ControladorPanelFiltros extends ControladorPanelResBusqueda {
 		initListeners();
 	}
 	
+	public boolean[] getEstadosTipoAloj() {
+		return estadosTipoAloj;
+	}
+
+	public boolean[] getEstadosServ() {
+		return estadosServ;
+	}
+
+	public boolean[] getEstadosTipoPension() {
+		return estadosTipoPension;
+	}
+
+	public int getMin() {
+		return min;
+	}
+
+	public int getMax() {
+		return max;
+	}
+
 	/**
 	 * Metodo para inicializar o resetear los atributos
 	 */

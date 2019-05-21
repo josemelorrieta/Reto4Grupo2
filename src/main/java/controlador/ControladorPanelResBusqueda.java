@@ -25,6 +25,13 @@ public class ControladorPanelResBusqueda {
 		this.vis=vis;
 	}
 	
+	public Modelo getModelo() {
+		return mod;
+	}
+	
+	public PanelResBusqueda getVista() {
+		return vis;
+	}
 	/**
 	 * Metodo que carga en la vista los alojamientos
 	 * 
