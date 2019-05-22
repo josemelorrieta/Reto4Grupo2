@@ -167,7 +167,7 @@ public class PanelRegistro extends JPanel {
 		add(lblValiApellido);
 		
 		lblValiDni = new JLabel("* El DNI esta compuesto por 8 numeros y una letra");
-		lblValiDni.setBounds(636, 226, 270, 14);
+		lblValiDni.setBounds(636, 226, 325, 14);
 		add(lblValiDni);
 		
 		lblValiContra = new JLabel("<html>* La contraseña debe tener 8 caracteres de longuitud</br> con minimo una letra mayuscula, minuscula y un numero</html>");

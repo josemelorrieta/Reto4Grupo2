@@ -1,0 +1,14 @@
+INFORMACIÓN DE LA RESERVA
+
+Datos del cliente:
+Nombre: Jose Manuel Muñoz
+
+Datos de la reserva:
+Nombre Alojamiento: Casa Pepe
+Fecha de la reserva: 22-05-2019
+Fecha de entrada   : 23-05-2019
+Fecha de salida    : 27-05-2019
+
+Precio total: 83.95
+
+Se ha generado un codigo promocional para este alojamiento: J4PLH
