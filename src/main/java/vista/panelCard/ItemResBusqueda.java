@@ -46,12 +46,6 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 
 	private void instanciarObjetos() {
 		
-		lblFondo = new JLabel("");
-		lblFondo.setBackground(Color.WHITE);
-		lblFondo.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
-		lblFondo.setBounds(0, 0, 570, 150);
-		add(lblFondo);
-		
 		lblFoto = new JLabel("New label");
 		lblFoto.setIcon(new ImageIcon(ItemResBusqueda.class.getResource("/imagenes/alojamiento/noimage.png")));
 		lblFoto.setBounds(10, 10, 90, 90);
@@ -72,7 +66,7 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblPrecio = new JLabel("Precio");
 		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPrecio.setBounds(442, 100, 106, 36);
+		lblPrecio.setBounds(442, 88, 106, 36);
 		add(lblPrecio);
 
 		lblEstrellas = new JLabel("");
@@ -170,6 +164,17 @@ public class ItemResBusqueda extends JPanel implements ListCellRenderer<Alojamie
 		lblPc.setEnabled(false);
 		lblPc.setBounds(382, 80, 16, 16);
 		add(lblPc);
+		
+		JLabel lblDesdeda = new JLabel("desde €/día");
+		lblDesdeda.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDesdeda.setBounds(479, 124, 70, 15);
+		add(lblDesdeda);
+		
+		lblFondo = new JLabel("");
+		lblFondo.setBackground(Color.WHITE);
+		lblFondo.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+		lblFondo.setBounds(0, 0, 570, 150);
+		add(lblFondo);
 
 	}
 	
