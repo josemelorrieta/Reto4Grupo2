@@ -15,6 +15,7 @@ public class Reserva {
 	private Alojamiento alojReservado;
 	private Dormitorio dormitorioReservado;
 	private String codPromocional; 
+	private String codPromocionalGenerado;
 	
 	/**
 	 * Crea una reserva nueva
@@ -84,6 +85,14 @@ public class Reserva {
 	}
 	public void setCodPromocional(String codPromocional) {
 		this.codPromocional = codPromocional;
+	}
+
+	public String getCodPromocionalGenerado() {
+		return codPromocionalGenerado;
+	}
+
+	public void setCodPromocionalGenerado(String codPromocionalGenerado) {
+		this.codPromocionalGenerado = codPromocionalGenerado;
 	}
 		
 }

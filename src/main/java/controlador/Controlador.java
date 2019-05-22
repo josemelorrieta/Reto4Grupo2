@@ -169,6 +169,7 @@ public class Controlador {
 						cResumenPago.insertarDatos();
 						if (mod.mPago.guardarReserva(mod.reserva)) {
 							mod.mPago.guardarClientesExtra(mod.mPago.ultimoNumReserva(), mod.acompaniantes);
+							mod.reserva.setCodPromocionalGenerado(mod.mRegiLog.generarCodigoPromocional(mod.reserva.getAlojReservado(), mod.clienteRegis.getDni()));
 							JOptionPane.showMessageDialog(vis, "Reserva guardada correctamente", "INFO", JOptionPane.INFORMATION_MESSAGE);
 						} else
 							JOptionPane.showMessageDialog(vis, "¡Error al guardar la reserva!", "¡ATENCIÓN!", JOptionPane.ERROR_MESSAGE);

@@ -504,7 +504,7 @@ public class MetodosPanelRegistroYLogin {
 	 * @param aloj   (objeto hijo de aloj)
 	 * @return
 	 */
-	public boolean comprobarCodigoPromocional(String codigo, String dni, Alojamiento aloj) {
+	public boolean comprobarCodigoPromocional(String codigo, String dni, Alojamiento aloj, String tablaAux) {
 		if (codigo.length() == 5) {
 			Gson gson = new Gson();
 			String json;
@@ -521,7 +521,7 @@ public class MetodosPanelRegistroYLogin {
 				} else
 					return false;
 			} else {
-				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tabla.toLowerCase() + "` WHERE `idCod` ='" + codigo + "'");
+				json = bd.consultarToGson("SELECT `idCod` 'auxiliar' FROM `cod" + tablaAux.toLowerCase() + "` WHERE `idCod` ='" + codigo + "'");
 				if (json.equals(""))
 					return true;
 				else
@@ -558,14 +558,18 @@ public class MetodosPanelRegistroYLogin {
 	 */
 	public String generarCodigoPromocional(Alojamiento aloj, String dni) {
 		while (true) {
-			String codigoProm = generarCodigoAleatorio(5).toString();
+			String codigoProm = String.copyValueOf(generarCodigoAleatorio(5));
 			String tipoAloj = FuncionesGenerales.tipoAloj(aloj);
-
-			if (comprobarCodigoPromocional(codigoProm, null, null)) {
+			if(tipoAloj.equals("Hab"))
+				tipoAloj = "hot";
+			if (comprobarCodigoPromocional(codigoProm, null, null, tipoAloj)) {
 				Object[] preparedItems = { codigoProm, aloj.getId(), dni };
 				bd.insertGenerico(preparedItems, "cod" + tipoAloj.toLowerCase());
 				return codigoProm;
-			}
+			}/*else {
+				JOptionPane.showMessageDialog(null, "Error al insertar codigo en la BD", "Error", JOptionPane.ERROR_MESSAGE);
+				return null;
+			}*/
 		}
 	}
 

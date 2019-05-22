@@ -18,6 +18,7 @@ import modelo.Hotel;
 import modelo.Modelo;
 import modelo.Servicio;
 import modelo.TipoServicio;
+import util.FuncionesGenerales;
 import vista.VentanaPpal;
 
 /**
@@ -39,7 +40,7 @@ public class ControladorPanelServicios {
 	double precioExtras;
 	
 	NumberFormat moneda = NumberFormat.getCurrencyInstance();
-	SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-YYYY");
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	
 	/**
 	 * Constructor para el controlador

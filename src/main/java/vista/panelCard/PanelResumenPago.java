@@ -64,6 +64,20 @@ public class PanelResumenPago extends JPanel {
 		lblTitulo.setForeground(new Color(0,103,219));
 		add(lblTitulo);
 		
+		lblDatosReserva = new JLabel("DATOS DE LA RESERVA");
+		lblDatosReserva.setBounds(85, 115, 478, 26);
+		lblDatosReserva.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDatosReserva.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDatosReserva.setForeground(new Color(0,103,219));
+		add(lblDatosReserva);
+		
+		lblDatosCliente = new JLabel("DATOS DEL CLIENTE");
+		lblDatosCliente.setForeground(new Color(0,103,219));
+		lblDatosCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDatosCliente.setBounds(641, 117, 283, 26);
+		add(lblDatosCliente);
+		lblDatosCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		panelDatosCliente = new JPanel();
 		panelDatosCliente.setBorder(new LineBorder(new Color(0,103,219), 2));
 		panelDatosCliente.setBackground(Color.WHITE);
@@ -106,13 +120,6 @@ public class PanelResumenPago extends JPanel {
 		txtApellidos.setBounds(48, 191, 185, 26);
 		panelDatosCliente.add(txtApellidos);
 		txtApellidos.setColumns(10);
-		
-		lblDatosReserva = new JLabel("DATOS DE LA RESERVA");
-		lblDatosReserva.setBounds(85, 115, 478, 26);
-		lblDatosReserva.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDatosReserva.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDatosReserva.setForeground(new Color(0,103,219));
-		add(lblDatosReserva);
 		
 		panelDatosReserva = new JPanel();
 		panelDatosReserva.setBorder(new LineBorder(new Color(0, 103, 219), 2, true));
@@ -212,11 +219,5 @@ public class PanelResumenPago extends JPanel {
 		txtPrecio.setForeground(new Color(0,103,219));
 		panelDatosReserva.add(txtPrecio);
 		txtPrecio.setColumns(10);
-		
-		lblDatosCliente = new JLabel("DATOS DEL CLIENTE");
-		lblDatosCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDatosCliente.setBounds(641, 117, 283, 26);
-		add(lblDatosCliente);
-		lblDatosCliente.setHorizontalAlignment(SwingConstants.CENTER);
 	}
 }
