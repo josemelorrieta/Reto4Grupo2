@@ -200,10 +200,10 @@ public class MetodosPanelPago {
 		PrintWriter writer;
 		SimpleDateFormat formFecha = new SimpleDateFormat("dd-MM-yyyy");
 		try {
-			writer = new PrintWriter("Reserva de " + mod.mRegiLog.desencripta(res.getCliente().getNombre()) + ".txt", "UTF-8");
+			writer = new PrintWriter("Reserva de " + mod.mRegiLog.desencripta(res.getCliente().getNombre()) +" - Nº"+res.getNumReserva() +".txt", "UTF-8");
 			writer.println("INFORMACIÓN DE LA RESERVA");
 			writer.println("\nDatos del cliente:");
-			writer.println("Nombre: " + mod.mRegiLog.desencripta(res.getCliente().getNombre()));
+			writer.println("Nombre: " + mod.mRegiLog.desencripta(res.getCliente().getNombre())+" "+mod.mRegiLog.desencripta(res.getCliente().getApellidos()));
 			writer.println("\nDatos de la reserva:");
 			writer.println("Nombre Alojamiento: " + res.getAlojReservado().getNombre());
 			writer.println("Fecha de la reserva: " + formFecha.format(res.getFechaReserva()));
@@ -229,6 +229,7 @@ public class MetodosPanelPago {
 	public boolean guardarReserva(Reserva reserva) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int idRsv = ultimoNumReserva() + 1;
+		reserva.setNumReserva(idRsv);
 		String dni = reserva.getCliente().getDni();
 		String fechaRsv = sdf.format(reserva.getFechaReserva());
 		String fechaIn = sdf.format(reserva.getFechaEntrada());
