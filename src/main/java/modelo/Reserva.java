@@ -7,6 +7,7 @@ import java.util.Date;
  *
  */
 public class Reserva {
+	private int numReserva;
 	private Cliente cliente;
 	private DesglosePrecio desglose;
 	private Date fechaReserva;
@@ -21,6 +22,14 @@ public class Reserva {
 	 */
 	public Reserva() {
 		// Constructor por defecto
+	}
+
+	public int getNumReserva() {
+		return numReserva;
+	}
+
+	public void setNumReserva(int numReserva) {
+		this.numReserva = numReserva;
 	}
 
 	public Cliente getCliente() {
