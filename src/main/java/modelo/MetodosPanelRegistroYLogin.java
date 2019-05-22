@@ -47,7 +47,7 @@ public class MetodosPanelRegistroYLogin {
 
 	/**
 	 * Comprueba que todos los datos introducidos sean correctos
-	 * 
+	 * @param array array de booleanos con el estado de los datos introducidos
 	 * @return true si esta todo bien
 	 */
 	public boolean comprobarDatos(boolean[] array) {
@@ -310,7 +310,7 @@ public class MetodosPanelRegistroYLogin {
 	 * 
 	 * @param b array de bytes a codificar
 	 * @return array de bytes en base64
-	 * @throws Exception
+	 * @throws Exception excepcion en caso de error en la conversion
 	 */
 	public byte[] encode(byte[] b) throws Exception {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -326,7 +326,7 @@ public class MetodosPanelRegistroYLogin {
 	 * 
 	 * @param b array de bytes a decodificar
 	 * @return array de bytes decodificado
-	 * @throws Exception
+	 * @throws Exception excepcion en caso de error en la conversion
 	 */
 	public byte[] decode(byte[] b) throws Exception {
 		ByteArrayInputStream bais = new ByteArrayInputStream(b);
@@ -355,7 +355,7 @@ public class MetodosPanelRegistroYLogin {
 	 * 
 	 * @param s Cadena a desencriptar
 	 * @return Cadena desencriptada
-	 * @throws Exception
+	 * @throws Exception excepcion en caso de error
 	 */
 	public String desencripta(String s) throws Exception {
 		String s1 = null;
@@ -377,7 +377,7 @@ public class MetodosPanelRegistroYLogin {
 	 * 
 	 * @param s Cadena a encriptar
 	 * @return Cadena encriptada
-	 * @throws Exception
+	 * @throws Exception excepcion en caso de error
 	 */
 	public String encripta(String s) throws Exception {
 		byte abyte0[];
@@ -393,7 +393,7 @@ public class MetodosPanelRegistroYLogin {
 	/**
 	 * Pone limite a la fecha de nacimiento
 	 * 
-	 * @param calen
+	 * @param calen Objeto calnedario al que sele limitan las fechas
 	 */
 	public void limitarFechaNacimiento(JDateChooser calen) {
 		Date fechaLimite = new Date();
@@ -404,9 +404,10 @@ public class MetodosPanelRegistroYLogin {
 	/**
 	 * Comprueba que las contrasenias coinciden
 	 * 
-	 * @param pass1
-	 * @param pass2
-	 * @return
+	 * @param pass1 contrasenia primera a comparar
+	 * @param pass2 contrasenia segunda a comparar
+	 * @param aviso JLabel de la vista que se muestra en caso de error en la comparacion
+	 * @return true si coinciden false si no
 	 */
 	public boolean constraseniaCoincide(JPasswordField pass1, JPasswordField pass2, JLabel aviso) {
 		char[] contra1 = pass1.getPassword();
@@ -461,8 +462,9 @@ public class MetodosPanelRegistroYLogin {
 	 * Comprueba que el DNI cumple con los parametros de un DNI (8 numeros y una
 	 * letra)
 	 * 
-	 * @param DNI
-	 * @return
+	 * @param DNI dni a verificar
+	 * @param aviso JLabel a mostrar en caso de error en la verificacion
+	 * @return true si el dni es correcto false si no
 	 */
 	public boolean validarDNI(JTextField DNI, JLabel aviso) {
 		if (!(DNI.getText().matches("^[0-9]{7,8}['T|R|W|A|G|M|Y|F|P|D|X|B|N|J|Z|S|Q|V|H|L|C|K|E]$"))) {
@@ -502,7 +504,8 @@ public class MetodosPanelRegistroYLogin {
 	 * @param codigo codigo promocional
 	 * @param dni    dni del usuario (sin encriptar)
 	 * @param aloj   (objeto hijo de aloj)
-	 * @return
+	 * @param tablaAux tabla auxiliar para buscar en la base de datos
+	 * @return true si el codigo esta en la base de datos para ese cliente y alojamiento false si no
 	 */
 	public boolean comprobarCodigoPromocional(String codigo, String dni, Alojamiento aloj, String tablaAux) {
 		if (codigo.length() == 5) {
@@ -552,9 +555,9 @@ public class MetodosPanelRegistroYLogin {
 	/**
 	 * Genera e inserta en la bbdd un codigo promocional no repetido
 	 * 
-	 * @param aloj
-	 * @param dni
-	 * @return
+	 * @param aloj Alojamioento al que se le inserta el codigo promocional
+	 * @param dni dni al que se le aplica el codigo promocional
+	 * @return el codigo promocional
 	 */
 	public String generarCodigoPromocional(Alojamiento aloj, String dni) {
 		while (true) {

@@ -88,7 +88,7 @@ public class Cliente {
 
 	/**
 	 * Metodo que cambia el nombre del cliente
-	 * @param nombre
+	 * @param nombre nuevo nombre para el cliente
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -104,7 +104,7 @@ public class Cliente {
 
 	/**
 	 * Metodo que cambia el DNI del cliente
-	 * @param dni
+	 * @param dni nuevo dni para el cliente
 	 */
 	public void setDni(String dni) {
 		this.dni = dni;
@@ -120,7 +120,7 @@ public class Cliente {
 
 	/**
 	 * Metodo que cambia los apellidos del cliente
-	 * @param apellidos
+	 * @param apellidos nuevos apellidos para el cliente
 	 */
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
@@ -136,7 +136,7 @@ public class Cliente {
 
 	/**
 	 * Metodo que cambia la fecha de nacimiento del cliente
-	 * @param fechaNac
+	 * @param fechaNac nueva fecha de nacimiento para el cliente
 	 */
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
@@ -152,7 +152,7 @@ public class Cliente {
 
 	/**
 	 * Metodo que cambia el sexo del cliente
-	 * @param sexo
+	 * @param sexo nuevo sexo para el cliente
 	 */
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
@@ -168,7 +168,7 @@ public class Cliente {
 
 	/**
 	 * Metodo que cambia la contrasenia del cliente
-	 * @param password
+	 * @param password nueva contrasenia para el cliente
 	 */
 	public void setPassword(String password) {
 		this.password = password;

@@ -20,7 +20,7 @@ public class Global {
 
 	/**
 	 * Metodo que cambia el primer objeto auxiliar
-	 * @param auxiliar
+	 * @param auxiliar nuevo valor para el objeto auxiliar
 	 */
 	public void setAuxiliar(Object auxiliar) {
 		this.auxiliar = auxiliar;
@@ -36,7 +36,7 @@ public class Global {
 
 	/**
 	 * Metodo que cambia el segundo objeto auxiliar
-	 * @param auxiliar2
+	 * @param auxiliar nuevo valor para el objeto auxiliar2
 	 */
 	public void setAuxiliar2(Object auxiliar) {
 		this.auxiliar2 = auxiliar;
@@ -52,7 +52,7 @@ public class Global {
 
 	/**
 	 * Metodo que cambia el tercer objeto auxiliar
-	 * @param auxiliar3
+	 * @param auxiliar nuevo valor para el objeto auxiliar3
 	 */
 	public void setAuxiliar3(Object auxiliar) {
 		this.auxiliar3 = auxiliar;

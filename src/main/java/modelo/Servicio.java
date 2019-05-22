@@ -11,8 +11,8 @@ public class Servicio {
 	
 	/**
 	 * Constructor - Crea un nuevo servicio
-	 * @param nombre
-	 * @param precio
+	 * @param nombre nombre del servicio
+	 * @param precio precio del servicio
 	 */
 	public Servicio(String nombre, double precio) {
 		this.nombre = nombre;
@@ -47,8 +47,8 @@ public class Servicio {
 	
 	/**
 	 * Calcula el tipo segun el precio que tenga
-	 * @param precio
-	 * @return
+	 * @param precio preio del servicio
+	 * @return si precio es 0 incluido, si mayor que cero noIncluido y si no noDisponible
 	 */
 	private TipoServicio calcularTipo(double precio) {
 		if (precio == 0)

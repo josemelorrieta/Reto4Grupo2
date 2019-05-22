@@ -34,7 +34,7 @@ public class FechasReserva {
 
 	/**
 	 * Metodo que cambia el ID de la reserva
-	 * @param idRsv
+	 * @param idRsv nuevo id para la reserva
 	 */
 	public void setIdRsv(int idRsv) {
 		this.idRsv = idRsv;
@@ -50,7 +50,7 @@ public class FechasReserva {
 
 	/**
 	 * Metodo que cambia el ID de la habitacion reservada
-	 * @param idHab
+	 * @param idHab nuevo id para la habitacion reservada
 	 */
 	public void setId(int idHab) {
 		this.id = idHab;
@@ -66,7 +66,7 @@ public class FechasReserva {
 
 	/**
 	 * Metodo que cambia la fecha de entrada
-	 * @param fechaIn
+	 * @param fechaIn nueva fecha de entrada de la reserva
 	 */
 	public void setFechaIn(String fechaIn) {
 		this.fechaIn = fechaIn;
@@ -82,7 +82,7 @@ public class FechasReserva {
 
 	/**
 	 * Metodo que cambia la fecha de salida
-	 * @param fechaOut
+	 * @param fechaOut nueva fecha de salida para la reserva
 	 */
 	public void setFechaOut(String fechaOut) {
 		this.fechaOut = fechaOut;

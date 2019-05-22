@@ -38,7 +38,7 @@ public class Direccion {
 	
 	/**
 	 * Metodo que cambia la calle de la direccion
-	 * @param calle
+	 * @param calle nueva calle para la direccion
 	 */
 	public void setCalle(String calle) {
 		this.calle = calle;
@@ -54,7 +54,7 @@ public class Direccion {
 	
 	/**
 	 * Metodo que cambia el codigo postal de la direccion
-	 * @param codPostal
+	 * @param codPostal nuevo codigo postal
 	 */
 	public void setCodPostal(int codPostal) {
 		this.codPostal = codPostal;
@@ -70,7 +70,7 @@ public class Direccion {
 	
 	/**
 	 * Metodo que cambia la localidad de la direccion
-	 * @param localidad
+	 * @param localidad nueva localidad
 	 */
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;

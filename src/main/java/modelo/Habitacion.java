@@ -38,7 +38,7 @@ public class Habitacion {
 
 	/**
 	 * Metodo que cambia el ID de la habitacion
-	 * @param idHab
+	 * @param idHab nuevo id para la habitacion
 	 */
 	public void setIdHab(int idHab) {
 		this.idHab = idHab;
@@ -54,7 +54,7 @@ public class Habitacion {
 
 	/**
 	 * Metodo que cambia los metros cuadrados de la habitacion
-	 * @param m2
+	 * @param m2 nuevos m2 para la habitacion
 	 */
 	public void setM2(int m2) {
 		this.m2 = m2;
@@ -70,7 +70,7 @@ public class Habitacion {
 
 	/**
 	 * Metodo que cambia el tipo de la habitacion
-	 * @param tipoHabitacion
+	 * @param tipoHabitacion nuevo tipo para la habitacion
 	 */
 	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
 		this.tipoHabitacion = tipoHabitacion;
@@ -78,7 +78,7 @@ public class Habitacion {
 
 	/**
 	 * Metodo que cambia el precio de la habitacion
-	 * @param precio
+	 * @param precio nuevo precio para la habitacion
 	 */
 	public void setPrecio(double precio) {
 		this.precio = precio;

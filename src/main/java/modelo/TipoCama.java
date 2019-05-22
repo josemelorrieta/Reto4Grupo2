@@ -23,7 +23,7 @@ public enum TipoCama {
 	}
 	/**
 	 * Constructor por defecto
-	 * @param def 
+	 * @param def cualquier cadena
 	 */
 	TipoCama(String def) {
 		this.precio = 0;
@@ -35,7 +35,7 @@ public enum TipoCama {
 
 	/**
 	 * Consulta el precio en la base de datos
-	 * @return 
+	 * @return  precio de la cama
 	 */
 	private double consultarPrecio() {
 		String json = bd.consultarToGson("SELECT `precio` 'auxiliar' FROM `cama` WHERE `tipoCama` = '" + this.toString() + "'");

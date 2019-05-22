@@ -23,7 +23,7 @@ public enum TipoMobiliario {
 	
 	/**
 	 * Constructor por defecto
-	 * @param aux
+	 * @param aux cualquier cadena
 	 */
 	TipoMobiliario(String aux){
 		this.precio=0;
@@ -35,6 +35,7 @@ public enum TipoMobiliario {
 
 	/**
 	 * Consulta el precio en la base de datos
+	 * @return precio del mobilairio
 	 */
 	private double consultarPrecio() {
 		ConsultaBD bd = new ConsultaBD();
@@ -46,7 +47,7 @@ public enum TipoMobiliario {
 	
 	/**
 	 * Devuelve el nombre del enum en formato de impresion
-	 * @return
+	 * @return nombre del enum en formato de impresion
 	 */
 	public String nombreToString() {
 		String aux= super.toString();

@@ -58,7 +58,7 @@ public class Dormitorio extends Habitacion {
 
 	/**
 	 * Metodo que cambia el mobiliario del dormitorio
-	 * @param mobiliario
+	 * @param mobiliario nuevo array de mobiliario para el dormitorio
 	 */
 	public void setMobiliario(Mobiliario[] mobiliario) {
 		this.mobiliario = mobiliario;
@@ -74,7 +74,7 @@ public class Dormitorio extends Habitacion {
 
 	/**
 	 * Metodo que cambia la disponibilidad del dormitorio
-	 * @param disponible
+	 * @param disponible true para poner el dormitorio como disponible
 	 */
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;

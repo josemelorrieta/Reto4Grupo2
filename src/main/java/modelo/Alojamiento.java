@@ -27,7 +27,7 @@ public class Alojamiento {
 	
 	/**
 	 * Calcula el precio de las habitaciones que no sean dormitorios
-	 * @return precio
+	 * @return precio precio de las habitaciones que no son dormitorio del alojamiento
 	 */
 	public double precioNoDormitorios() {
 		double precio=0;
@@ -41,7 +41,7 @@ public class Alojamiento {
 	
 	/**
 	 * Calcula el precio de las habitaciones que sean dormitorios
-	 * @return precio
+	 * @return precio precio de las habitaciones que son dormitorios del alojamiento
 	 */
 	public double precioDormitorios() {
 		double precio=0;
@@ -55,7 +55,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que devuelve el ID del alojamiento
-	 * @return id
+	 * @return id id del alojamiento
 	 */
 	public int getId() {
 		return id;
@@ -63,7 +63,7 @@ public class Alojamiento {
 	
 	/**
 	 * Metodo que cambia el ID del alojamiento
-	 * @param id
+	 * @param id id nueva para el alojamiento
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -71,7 +71,7 @@ public class Alojamiento {
 	
 	/**
 	 * Metodo que devuelve el nombre del alojamiento
-	 * @return nombre
+	 * @return nombre nombre del alojamiento
 	 */
 	public String getNombre() {
 		return nombre;
@@ -79,7 +79,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia el nombre del alojamiento
-	 * @param nombre
+	 * @param nombre nuevo nombre para el alojamiento
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -87,7 +87,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que devuelve la direccion del alojamiento
-	 * @return direccion
+	 * @return direccion direccion del alojamiento
 	 */
 	public Direccion getDireccion() {
 		return direccion;
@@ -95,7 +95,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia la direccion del alojamiento
-	 * @param direccion
+	 * @param direccion nueva direccion para el alojamiento
 	 */
 	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;
@@ -103,7 +103,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que devuelve el precio de la temporada alta del alojamiento
-	 * @return precioTAlta
+	 * @return precioTAlta precio de la temporada alta
 	 */
 	public Double getPrecioTAlta() {
 		return precioTAlta;
@@ -111,7 +111,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia el precio de la temporada alta del alojamiento
-	 * @param precioTAlta
+	 * @param precioTAlta nuevo precio para la temporada alta
 	 */
 	public void setPrecioTAlta(double precioTAlta) {
 		this.precioTAlta = precioTAlta;
@@ -119,7 +119,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que devuelve el precio de la temporada baja del alojamiento
-	 * @return precioTBaja
+	 * @return precioTBaja precio de la temporada Baja
 	 */
 	public Double getPrecioTBaja() {
 		return precioTBaja;
@@ -127,7 +127,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia el precio de la temporada baja del alojamiento
-	 * @param precioTBaja
+	 * @param precioTBaja nuevo precio para la temporada baja
 	 */
 	public void setPrecioTBaja(double precioTBaja) {
 		this.precioTBaja = precioTBaja;
@@ -135,7 +135,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que devuelve el precio de dias festivos del alojamiento
-	 * @return precioTFest
+	 * @return precioTFest precio para los dias festivos
 	 */
 	public Double getPrecioTFest() {
 		return precioTFest;
@@ -143,7 +143,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia el precio de dias festivos del alojamiento
-	 * @param precioTFest
+	 * @param precioTFest nuevo precio para los dias festivos
 	 */
 	public void setPrecioTFest(double precioTFest) {
 		this.precioTFest = precioTFest;
@@ -151,7 +151,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que devuelve el nombre de la imagen del alojamiento
-	 * @return imagen
+	 * @return imagen nombre de la imagen
 	 */
 	public String getImagen() {
 		return imagen;
@@ -159,7 +159,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia el nombre de la imagen del alojamiento
-	 * @param imagen
+	 * @param imagen nuevo nombre de la imagen del alojamiento 
 	 */
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
@@ -167,7 +167,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que devuelve el precio por m2 del alojamiento
-	 * @return pvpM2
+	 * @return pvpM2 precio por m2 del alojamiento
 	 */
 	public double getPvpM2() {
 		return pvpM2;
@@ -175,7 +175,7 @@ public class Alojamiento {
 	
 	/**
 	 * Metodo que cambia el precio por m2 del alojamiento
-	 * @param pvpM2
+	 * @param pvpM2 nuevo precio por m2
 	 */
 	public void setPvpM2(double pvpM2) {
 		this.pvpM2 = pvpM2;
@@ -191,7 +191,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia la disponibilidad del alojamiento
-	 * @param disponible
+	 * @param disponible nuevo estado de disponibilidad
 	 */
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
@@ -199,7 +199,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que devuelve las habitaciones del alojamiento
-	 * @return habitaciones
+	 * @return habitaciones arra de habitaciones del alojamiento
 	 */
 	public Habitacion[] getHabitaciones() {
 		return habitaciones;
@@ -207,7 +207,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia las habitaciones del alojamiento
-	 * @param habitaciones
+	 * @param habitaciones nuevo array de habitaciones para el alojamiento 
 	 */
 	public void setHabitaciones(Habitacion[] habitaciones) {
 		this.habitaciones = habitaciones;
@@ -215,7 +215,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que devuelve los servicios del alojamiento
-	 * @return servicios
+	 * @return servicios array de servicios del alojamiento
 	 */
 	public Servicio[] getServicios() {
 		return servicios;
@@ -223,7 +223,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia los servicios del alojamiento
-	 * @param servicios
+	 * @param servicios nuevo array de servicios
 	 */
 	public void setServicios(Servicio[] servicios) {
 		this.servicios = servicios;
@@ -239,7 +239,7 @@ public class Alojamiento {
 
 	/**
 	 * Metodo que cambia si el alojamiento debe mostrarse en la vista
-	 * @param mostrar
+	 * @param mostrar nuevo estado para mostrar o no el alojamiento
 	 */
 	public void setMostrar(boolean mostrar) {
 		this.mostrar = mostrar;

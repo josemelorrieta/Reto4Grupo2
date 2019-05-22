@@ -10,7 +10,7 @@ public class MetodosFiltros {
 
 	/**
 	 * Constructor que recibe el modelo para aplicar los filtros
-	 * @param mod
+	 * @param mod instancia del modelo general de la aplicacion
 	 */
 	public MetodosFiltros(Modelo mod) {
 		this.mod = mod;

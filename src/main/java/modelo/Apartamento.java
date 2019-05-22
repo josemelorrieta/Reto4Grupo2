@@ -17,7 +17,7 @@ public class Apartamento extends Casa{
 
 	/**
 	 * Metodo que cambia el piso del alojamiento
-	 * @param piso
+	 * @param piso nuevo piso para la casa
 	 */
 	public void setPiso(int piso) {
 		this.piso = piso;

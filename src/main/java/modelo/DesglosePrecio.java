@@ -125,7 +125,7 @@ public class DesglosePrecio {
 
 	/**
 	 * Metodo que cambia el precio base del alojamiento
-	 * @param pBaseAloj
+	 * @param pBaseAloj nuevo precio base para el alojamiento
 	 */
 	public void setpBaseAloj(double pBaseAloj) {
 		this.pBaseAloj = pBaseAloj;
@@ -141,7 +141,7 @@ public class DesglosePrecio {
 
 	/**
 	 * Metodo que cambia el precio del equipamiento
-	 * @param pEquipamiento
+	 * @param pEquipamiento nuevo precio del alojamiento
 	 */
 	public void setpEquipamiento(double pEquipamiento) {
 		this.pEquipamiento = pEquipamiento;
@@ -157,7 +157,7 @@ public class DesglosePrecio {
 
 	/**
 	 * Metodo que cambia el numero de noches
-	 * @param noches
+	 * @param noches nuevo numero de noches
 	 */
 	public void setNoches(int noches) {
 		this.noches = noches;
@@ -173,7 +173,7 @@ public class DesglosePrecio {
 
 	/**
 	 * Metodo que cambia el precio base de los dias festivos
-	 * @param pBaseFestivos
+	 * @param pBaseFestivos nuevo precio base para dias festivos
 	 */
 	public void setpBaseFestivos(double pBaseFestivos) {
 		this.pBaseFestivos = pBaseFestivos;
@@ -189,7 +189,7 @@ public class DesglosePrecio {
 
 	/**
 	 * Metodo que cambia el numero de dias festivos
-	 * @param numFestivos
+	 * @param numFestivos nuevo numero de dias festivos
 	 */
 	public void setNumFestivos(int numFestivos) {
 		this.numFestivos = numFestivos;
@@ -205,7 +205,7 @@ public class DesglosePrecio {
 
 	/**
 	 * Metodo que cambia el precio de los dias festivos
-	 * @param totalExtraFestivos
+	 * @param totalExtraFestivos nuevo precio para el total de dias festivos
 	 */
 	public void setTotalExtraFestivos(double totalExtraFestivos) {
 		this.totalExtraFestivos = totalExtraFestivos;
@@ -221,7 +221,7 @@ public class DesglosePrecio {
 
 	/**
 	 * Metodo que cambia la temporada (alta o baja)
-	 * @param temporada
+	 * @param temporada nuevo temporada alta o baja
 	 */
 	public void setTemporada(String temporada) {
 		this.temporada = temporada;
@@ -237,7 +237,7 @@ public class DesglosePrecio {
 
 	/**
 	 * Metodo que cambia el precio de los servicios seleccionados
-	 * @param precioExtras
+	 * @param precioExtras nuevo precio de los extras seleccionados
 	 */
 	public void setPrecioExtras(double precioExtras) {
 		this.precioExtras = precioExtras;
@@ -253,7 +253,7 @@ public class DesglosePrecio {
 
 	/**
 	 * Metodo que cambia el precio total de la reserva
-	 * @param total
+	 * @param total nuevo precio total de la reserva
 	 */
 	public void setTotal(double total) {
 		this.total = total;

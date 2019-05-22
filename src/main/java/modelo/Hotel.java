@@ -20,7 +20,7 @@ public class Hotel extends Alojamiento {
 
 	/**
 	 * Metodo que cambia la matriz de dormitorios del hotel
-	 * @param matrix
+	 * @param matrix nueva matriz de dormitorios del hotel
 	 */
 	public void setMatrix(Vector<Vector<Dormitorio>> matrix) {
 		this.matrix = matrix;
@@ -36,7 +36,7 @@ public class Hotel extends Alojamiento {
 
 	/**
 	 * Metodo que cambia el numero de estrellas del hotel
-	 * @param estrellas
+	 * @param estrellas nuevo numero de estrellas del hotel
 	 */
 	public void setNumEstrellas(int estrellas) {
 		this.numEstrellas = estrellas;

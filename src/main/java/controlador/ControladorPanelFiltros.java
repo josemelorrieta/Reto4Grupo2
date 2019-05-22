@@ -181,7 +181,7 @@ public class ControladorPanelFiltros extends ControladorPanelResBusqueda {
 	}
 	
 	/**
-	 * Metodo para validar los spinners. Cuando min>max o max<min cambia el valor
+	 * Metodo para validar los spinners. Cuando min mayor que max o max menor que min cambia el valor
 	 * del otro spinner para que esas condiciones no se cumplan.
 	 * 
 	 * @param min El valor del spinnerMin
