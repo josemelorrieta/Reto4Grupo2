@@ -165,11 +165,11 @@ public class Controlador {
 						mod.mRegiLog.limpiar(vis.pCenter.pLogin);
 						mod.mRegiLog.limpiar(vis.pCenter.pRegistro);
 						mod.setPagoExitoso(false);
-						mod.mPago.imprimirBillete(mod.reserva);
+						mod.reserva.setCodPromocionalGenerado(mod.mRegiLog.generarCodigoPromocional(mod.reserva.getAlojReservado(), mod.clienteRegis.getDni()));
 						cResumenPago.insertarDatos();
 						if (mod.mPago.guardarReserva(mod.reserva)) {
 							mod.mPago.guardarClientesExtra(mod.mPago.ultimoNumReserva(), mod.acompaniantes);
-							mod.reserva.setCodPromocionalGenerado(mod.mRegiLog.generarCodigoPromocional(mod.reserva.getAlojReservado(), mod.clienteRegis.getDni()));
+							mod.mPago.imprimirBillete(mod.reserva);
 							JOptionPane.showMessageDialog(vis, "Reserva guardada correctamente", "INFO", JOptionPane.INFORMATION_MESSAGE);
 						} else
 							JOptionPane.showMessageDialog(vis, "¡Error al guardar la reserva!", "¡ATENCIÓN!", JOptionPane.ERROR_MESSAGE);

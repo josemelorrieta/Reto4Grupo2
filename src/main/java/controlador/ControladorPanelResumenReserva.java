@@ -73,7 +73,7 @@ public class ControladorPanelResumenReserva {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (!vis.pCenter.pResumenRes.txtCodProm.getText().equals("")) {
-				if (mod.mRegiLog.comprobarCodigoPromocional(vis.pCenter.pResumenRes.txtCodProm.getText(), mod.clienteRegis.getDni(), mod.reserva.getAlojReservado())) {
+				if (mod.mRegiLog.comprobarCodigoPromocional(vis.pCenter.pResumenRes.txtCodProm.getText(), mod.clienteRegis.getDni(), mod.reserva.getAlojReservado(),null)) {
 					JOptionPane.showMessageDialog(vis.pCenter, "Código promocional válido", "INFO", JOptionPane.INFORMATION_MESSAGE);
 					mod.desglosePrecio.setCodPromocional(true);
 					mod.reserva.setCodPromocional(vis.pCenter.pResumenRes.txtCodProm.getText());

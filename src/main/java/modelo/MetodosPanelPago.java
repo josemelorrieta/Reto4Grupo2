@@ -210,6 +210,7 @@ public class MetodosPanelPago {
 			writer.println("Fecha de entrada   : " + formFecha.format(res.getFechaEntrada()));
 			writer.println("Fecha de salida    : " + formFecha.format(res.getFechaSalida()));
 			writer.println("\nPrecio total: " + doubleAString(res.getDesglose().getTotal()));
+			writer.println("\nSe ha generado un codigo promocional para este alojamiento: " + res.getCodPromocionalGenerado());
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();

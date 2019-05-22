@@ -1,0 +1,14 @@
+INFORMACIÓN DE LA RESERVA
+
+Datos del cliente:
+Nombre: Popeye El Marino
+
+Datos de la reserva:
+Nombre Alojamiento: Hotel Meliá
+Fecha de la reserva: 22-05-2019
+Fecha de entrada   : 22-05-2019
+Fecha de salida    : 23-05-2019
+
+Precio total: 51.35
+
+Se ha generado un codigo promocional para este alojamiento: HJST4
